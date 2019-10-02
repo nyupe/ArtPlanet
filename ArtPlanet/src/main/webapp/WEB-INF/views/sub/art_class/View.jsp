@@ -524,7 +524,7 @@
     <script src="<c:url value='/resources/template/build/js/custom.min.js'/>"></script>
     
     <!-- Initialize datetimepicker -->
-<script>
+     <script>
     $('#myDatepicker').datetimepicker();
     
     $('#myDatepicker2').datetimepicker({
