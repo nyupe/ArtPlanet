@@ -33,6 +33,7 @@
 							</ul></li>
 						<li class="nav-item"><a class="nav-link" href="<c:url value='/Project'/>">Project</a></li>
 						<li class="nav-item"><a class="nav-link" href="<c:url value='/ArtClass'/>">Art Class</a></li>
+						<li class="nav-item"><a class="nav-link" href="<c:url value='/Pay'/>">Pay</a></li>
 						<li class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li>
 					</ul>
 					<!-- 검색돋보기-->

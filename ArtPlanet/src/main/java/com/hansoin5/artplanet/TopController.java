@@ -49,10 +49,10 @@ public class TopController
 		return "sub/art_class/ArtClass.tiles";
 	}
 	
-	@RequestMapping("/ArtClass2")
+	@RequestMapping("/Pay")
 	public String art_class2()
 	{
-		return "sub/art_class/ArtClass2.tiles";
+		return "pay/Pay.tiles";
 	}
 	
 	@RequestMapping("/Others")
