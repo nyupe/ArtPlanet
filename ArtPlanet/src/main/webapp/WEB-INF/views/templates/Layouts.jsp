@@ -7,8 +7,15 @@
 <head>
 	<meta charset="UTF-8">
 	<!-- Required meta tags -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="ko">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+	<!-- 홈페이지 탭 아이콘 -->
 	<link rel="icon" href="<c:url value='/resources/img/favicon.png'/>" type="image/png">
+	
 	<title>Art Planet</title>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.css'/>">
@@ -22,6 +29,8 @@
 	<link rel="stylesheet" href="<c:url value='/resources/css/responsive.css'/>">
 	<!-- 추가한 스크립트 -->
 	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<!-- kero css -->
+    <link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet">
 </head>
 <body>
 	<div>
@@ -55,5 +64,7 @@
 	<script src="<c:url value='/resources/js/jquery.validate.min.js'/>"></script>
 	<script src="<c:url value='/resources/js/mail-script.js'/>"></script>
 	<script src="<c:url value='/resources/js/theme.js'/>"></script>
+	<!-- kero js -->
+	<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>"></script>
 </body>
 </html>

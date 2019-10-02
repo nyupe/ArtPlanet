@@ -34,7 +34,7 @@ public class TopController
 	@RequestMapping("/ViewPost")
 	public String blog2()
 	{
-		return "contents/blog/View.tiles";
+		return "contents/blog/DateTest.tiles";
 	}
 	
 	@RequestMapping("/Project")
