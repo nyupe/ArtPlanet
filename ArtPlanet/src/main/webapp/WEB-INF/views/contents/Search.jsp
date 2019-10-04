@@ -9,7 +9,6 @@
 <script type="application/x-javascript">
 addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
 </script>
-</script>
 <!----webfonts---->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
 <!----//webfonts---->
@@ -18,6 +17,20 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); func
 <!-- //Global CSS for the page and tiles -->
 <!---start-click-drop-down-menu----->
 <script src="<c:url value='/resources/search/js/jquery.min.js'/>"></script>
+<!-- 추가 클래스 -->
+<style>
+	.post-type {
+		color: gray;
+	}
+	.post-date {
+		color: darkgray;
+		float: right;
+	}
+	.post-artist {
+		vertical-align:super;
+		font-weight: bold;
+	}
+</style>
 <!---start-content---->
 <div class="content">
 	<div class="wrap">
@@ -28,17 +41,17 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); func
 	        	<img src="<c:url value='/resources/search/images/img1.jpg'/>" width="282" height="118">
 	        	<div class="post-info">
 	        		<div class="post-basic-info">
-		        		<h3><a href="#">Animation films</a></h3>
-		        		<span><a href="#"><label> </label>Movies</a></span>
-		        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
+	        			<span class="post-type">일러스트</span>
+	        			<span class="post-date">13분 전</span>
+		        		<h3><a href="#">작품연습</a></h3>
+		        		<div class="avatar-icon-wrapper avatar-icon-sm">
+		        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+		        		</div>
+	        			<span class="post-artist">그림쟁이</span>
 	        		</div>
 	        		<div class="post-info-rate-share">
-	        			<div class="rateit">
-	        				<span> </span>
-	        			</div>
-	        			<div class="post-share">
-	        				<span> </span>
-	        			</div>
+	        			
+	        			
 	        			<div class="clear"> </div>
 	        		</div>
 	        	</div>
@@ -47,17 +60,17 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); func
 	        	<img src="<c:url value='/resources/search/images/img2.jpg'/>" width="282" height="344">
 				<div class="post-info">
 	        		<div class="post-basic-info">
-		        		<h3><a href="#">Animation films</a></h3>
-		        		<span><a href="#"><label> </label>Movies</a></span>
-		        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
+		        		<span class="post-type">일러스트</span>
+	        			<span class="post-date">30분 전</span>
+		        		<h3><a href="#">그림그림</a></h3>
+		        		<div class="avatar-icon-wrapper avatar-icon-sm">
+		        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/3.jpg'/>"/></div>
+		        		</div>
+	        			<span class="post-artist">그림그릴래</span>
 	        		</div>
 	        		<div class="post-info-rate-share">
-	        			<div class="rateit">
-	        				<span> </span>
-	        			</div>
-	        			<div class="post-share">
-	        				<span> </span>
-	        			</div>
+	        		
+	        		
 	        			<div class="clear"> </div>
 	        		</div>
 	        	</div>
