@@ -30,245 +30,222 @@ addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); func
 		vertical-align:super;
 		font-weight: bold;
 	}
+	.post-comment {
+		vertical-align: super;
+		font-size: 0.8em;
+	}
+	
+	.post-basic-info {
+		padding: 10px 10px 5px;
+	}
+	.font-icon-wrapper {
+		border: none;
+		display: inline-block;
+		margin-bottom: 0px;
+		
+	}
+	.font-icon-sm i{
+		font-size: 1.4em;
+	}
+	.portfolio_area{
+		padding-top: 130px;
+		padding-bottom: 0px;
+	}
+	#main {
+		margin-top: 40px;
+	}
 </style>
 <!---start-content---->
 <div class="content">
 	<div class="wrap">
-	 <div id="main" role="main">
-	      <ul id="tiles">
-	        <!-- These are our grid blocks -->
-	        <li onclick="location.href='<c:url value='/ViewPost'/>';">
-	        	<img src="<c:url value='/resources/search/images/img1.jpg'/>" width="282" height="118">
-	        	<div class="post-info">
-	        		<div class="post-basic-info">
-	        			<span class="post-type">일러스트</span>
-	        			<span class="post-date">13분 전</span>
-		        		<h3><a href="#">작품연습</a></h3>
-		        		<div class="avatar-icon-wrapper avatar-icon-sm">
-		        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+		<section class="portfolio_area" id="portfolio">
+				<div class="filters portfolio-filter">
+					<ul>
+						<li class="active" data-filter="*">전체</li>
+						<li data-filter=".illustration">일러스트레이션</li>
+						<li data-filter=".painting">회화</li>
+						<li data-filter=".animation">애니메이션</li>
+						<li data-filter=".design">디자인</li>
+						<li data-filter=".calligraphy">캘리그라피</li>
+						<li data-filter=".crafts">조소/공예</li>
+					</ul>
+				</div>
+		</section>
+		 <div id="main" role="main">
+		      <div class="filters-content">
+		      <ul id="tiles">
+		        <!-- These are our grid blocks -->
+		        <li onclick="location.href='<c:url value='/ViewPost'/>';">
+		        	<img src="<c:url value='/resources/search/images/img1.jpg'/>" width="282" height="118">
+		        	<div class="post-info">
+		        		<div class="post-basic-info">
+		        			<span class="post-type">일러스트</span>
+		        			<span class="post-date">13분 전</span>
+			        		<h3><a href="#">그림그린그림</a></h3>
+			        		<div class="avatar-icon-wrapper avatar-icon-sm">
+			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+			        		</div>
+		        			<span class="post-artist">작가이름</span>
+		        			<div class="clear"> </div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
+		        			</div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
+		        			</div>
 		        		</div>
-	        			<span class="post-artist">그림쟁이</span>
-	        		</div>
-	        		<div class="post-info-rate-share">
-	        			
-	        			
-	        			<div class="clear"> </div>
-	        		</div>
-	        	</div>
-	        </li>
-	        <li onclick="location.href='<c:url value='/ViewPost'/>';">
-	        	<img src="<c:url value='/resources/search/images/img2.jpg'/>" width="282" height="344">
-				<div class="post-info">
-	        		<div class="post-basic-info">
-		        		<span class="post-type">일러스트</span>
-	        			<span class="post-date">30분 전</span>
-		        		<h3><a href="#">그림그림</a></h3>
-		        		<div class="avatar-icon-wrapper avatar-icon-sm">
-		        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/3.jpg'/>"/></div>
+		        	</div>
+		        </li>
+		        <li onclick="location.href='<c:url value='/ViewPost'/>';">
+		        	<img src="<c:url value='/resources/search/images/img2.jpg'/>" width="282" height="344">
+					<div class="post-info">
+		        		<div class="post-basic-info">
+			        		<span class="post-type">일러스트</span>
+		        			<span class="post-date">30분 전</span>
+			        		<h3><a href="#">그림그린그림</a></h3>
+			        		<div class="avatar-icon-wrapper avatar-icon-sm">
+			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/3.jpg'/>"/></div>
+			        		</div>
+		        			<span class="post-artist">작가이름</span>
+		        			<div class="clear"> </div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
+		        			</div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
+		        			</div>
 		        		</div>
-	        			<span class="post-artist">그림그릴래</span>
-	        		</div>
-	        		<div class="post-info-rate-share">
-	        		
-	        		
-	        			<div class="clear"> </div>
-	        		</div>
-	        	</div>
-			</li>
-	        <li onclick="location.href='<c:url value='/ViewPost'/>';">
-	        	<img src="<c:url value='/resources/search/images/img3.jpg'/>" width="282" height="210">
-	        	<div class="post-info">
-	        		<div class="post-basic-info">
-		        		<h3><a href="#">Animation films</a></h3>
-		        		<span><a href="#"><label> </label>Movies</a></span>
-		        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-	        		</div>
-	        		<div class="post-info-rate-share">
-	        			<div class="rateit">
-	        				<span> </span>
-	        			</div>
-	        			<div class="post-share">
-	        				<span> </span>
-	        			</div>
-	        			<div class="clear"> </div>
-	        		</div>
-	        	</div>
-	        </li>
-	        <li onclick="location.href='<c:url value='/ViewPost'/>';">
-	        	<img src="<c:url value='/resources/search/images/img4.jpg'/>" width="282" height="385">
-	        	<div class="post-info">
-	        		<div class="post-basic-info">
-		        		<h3><a href="#">Animation films</a></h3>
-		        		<span><a href="#"><label> </label>Movies</a></span>
-		        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-	        		</div>
-	        		<div class="post-info-rate-share">
-	        			<div class="rateit">
-	        				<span> </span>
-	        			</div>
-	        			<div class="post-share">
-	        				<span> </span>
-	        			</div>
-	        			<div class="clear"> </div>
-	        		</div>
-	        	</div>
-	        </li>
-	        <!----//--->
-	        <li onclick="location.href='<c:url value='/ViewPost'/>';">
-	        	<img src="<c:url value='/resources/search/images/img4.jpg'/>" width="282" height="385">
-	        	<div class="post-info">
-	        		<div class="post-basic-info">
-		        		<h3><a href="#">Animation films</a></h3>
-		        		<span><a href="#"><label> </label>Movies</a></span>
-		        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-	        		</div>
-	        		<div class="post-info-rate-share">
-	        			<div class="rateit">
-	        				<span> </span>
-	        			</div>
-	        			<div class="post-share">
-	        				<span> </span>
-	        			</div>
-	        			<div class="clear"> </div>
-	        		</div>
-	        	</div>
-	        </li>
-	        <li onclick="location.href='<c:url value='/ViewPost'/>';">
-	        	<img src="<c:url value='/resources/search/images/img3.jpg'/>" width="282" height="210">
-	        	<div class="post-info">
-	        		<div class="post-basic-info">
-		        		<h3><a href="#">Animation films</a></h3>
-		        		<span><a href="#"><label> </label>Movies</a></span>
-		        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-	        		</div>
-	        		<div class="post-info-rate-share">
-	        			<div class="rateit">
-	        				<span> </span>
-	        			</div>
-	        			<div class="post-share">
-	        				<span> </span>
-	        			</div>
-	        			<div class="clear"> </div>
-	        		</div>
-	        	</div>
-	        </li>
-	        <li onclick="location.href='<c:url value='/ViewPost'/>';">
-	        	<img src="<c:url value='/resources/search/images/img2.jpg'/>" width="282" height="344">
-				<div class="post-info">
-	        		<div class="post-basic-info">
-		        		<h3><a href="#">Animation films</a></h3>
-		        		<span><a href="#"><label> </label>Movies</a></span>
-		        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-	        		</div>
-	        		<div class="post-info-rate-share">
-	        			<div class="rateit">
-	        				<span> </span>
-	        			</div>
-	        			<div class="post-share">
-	        				<span> </span>
-	        			</div>
-	        			<div class="clear"> </div>
-	        		</div>
-	        	</div>
-			</li>
-			  <li onclick="location.href='<c:url value='/ViewPost'/>';">
-	        	<img src="<c:url value='/resources/search/images/img1.jpg'/>" width="282" height="118">
-	        	<div class="post-info">
-	        		<div class="post-basic-info">
-		        		<h3><a href="#">Animation films</a></h3>
-		        		<span><a href="#"><label> </label>Movies</a></span>
-		        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-	        		</div>
-	        		<div class="post-info-rate-share">
-	        			<div class="rateit">
-	        				<span> </span>
-	        			</div>
-	        			<div class="post-share">
-	        				<span> </span>
-	        			</div>
-	        			<div class="clear"> </div>
-	        		</div>
-	        	</div>
-	        </li>
-	        <!----//--->
-	         <li onclick="location.href='<c:url value='/ViewPost'/>';">
-	        	<img src="<c:url value='/resources/search/images/img1.jpg'/>" width="282" height="118">
-	        	<div class="post-info">
-	        		<div class="post-basic-info">
-		        		<h3><a href="#">Animation films</a></h3>
-		        		<span><a href="#"><label> </label>Movies</a></span>
-		        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-	        		</div>
-	        		<div class="post-info-rate-share">
-	        			<div class="rateit">
-	        				<span> </span>
-	        			</div>
-	        			<div class="post-share">
-	        				<span> </span>
-	        			</div>
-	        			<div class="clear"> </div>
-	        		</div>
-	        	</div>
-	        </li>
-	        <li onclick="location.href='<c:url value='/ViewPost'/>';">
-	        	<img src="<c:url value='/resources/search/images/img2.jpg'/>" width="282" height="344">
-				<div class="post-info">
-	        		<div class="post-basic-info">
-		        		<h3><a href="#">Animation films</a></h3>
-		        		<span><a href="#"><label> </label>Movies</a></span>
-		        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-	        		</div>
-	        		<div class="post-info-rate-share">
-	        			<div class="rateit">
-	        				<span> </span>
-	        			</div>
-	        			<div class="post-share">
-	        				<span> </span>
-	        			</div>
-	        			<div class="clear"> </div>
-	        		</div>
-	        	</div>
-			</li>
-	        <li onclick="location.href='<c:url value='/ViewPost'/>';">
-	        	<img src="<c:url value='/resources/search/images/img3.jpg'/>" width="282" height="210">
-	        	<div class="post-info">
-	        		<div class="post-basic-info">
-		        		<h3><a href="#">Animation films</a></h3>
-		        		<span><a href="#"><label> </label>Movies</a></span>
-		        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-	        		</div>
-	        		<div class="post-info-rate-share">
-	        			<div class="rateit">
-	        				<span> </span>
-	        			</div>
-	        			<div class="post-share">
-	        				<span> </span>
-	        			</div>
-	        			<div class="clear"> </div>
-	        		</div>
-	        	</div>
-	        </li>
-	        <li onclick="location.href='<c:url value='/ViewPost'/>';">
-	        	<img src="<c:url value='/resources/search/images/img4.jpg'/>" width="282" height="385">
-	        	<div class="post-info">
-	        		<div class="post-basic-info">
-		        		<h3><a href="#">Animation films</a></h3>
-		        		<span><a href="#"><label> </label>Movies</a></span>
-		        		<p>Lorem Ipsum is simply dummy text of the printing & typesetting industry.</p>
-	        		</div>
-	        		<div class="post-info-rate-share">
-	        			<div class="rateit">
-	        				<span> </span>
-	        			</div>
-	        			<div class="post-share">
-	        				<span> </span>
-	        			</div>
-	        			<div class="clear"> </div>
-	        		</div>
-	        	</div>
-	        </li>
-	        <!-- End of grid blocks -->
-	      </ul>
+		        	</div>
+				</li>
+		        <li onclick="location.href='<c:url value='/ViewPost'/>';">
+		        	<img src="<c:url value='/resources/search/images/img3.jpg'/>" width="282" height="210">
+		        	<div class="post-info">
+		        		<div class="post-basic-info">
+			        		<span class="post-type">일러스트</span>
+		        			<span class="post-date">32분 전</span>
+			        		<h3><a href="#">그림그린그림</a></h3>
+			        		<div class="avatar-icon-wrapper avatar-icon-sm">
+			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/4.jpg'/>"/></div>
+			        		</div>
+		        			<span class="post-artist">작가이름</span>
+		        			<div class="clear"> </div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
+		        			</div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </li>
+		        <li onclick="location.href='<c:url value='/ViewPost'/>';">
+		        	<img src="<c:url value='/resources/search/images/img4.jpg'/>" width="282" height="385">
+		        	<div class="post-info">
+		        		<div class="post-basic-info">
+			        		<span class="post-type">일러스트</span>
+		        			<span class="post-date">5시간 전</span>
+			        		<h3><a href="#">그림그린그림</a></h3>
+			        		<div class="avatar-icon-wrapper avatar-icon-sm">
+			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/5.jpg'/>"/></div>
+			        		</div>
+		        			<span class="post-artist">작가이름</span>
+		        			<div class="clear"> </div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-comment"> </i> <span class="post-comment">22</span>
+		        			</div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-look"> </i> <span class="post-comment">337</span>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </li>
+		        <li onclick="location.href='<c:url value='/ViewPost'/>';">
+		        	<img src="<c:url value='/resources/search/images/img1.jpg'/>" width="282" height="118">
+		        	<div class="post-info">
+		        		<div class="post-basic-info">
+		        			<span class="post-type">일러스트</span>
+		        			<span class="post-date">13분 전</span>
+			        		<h3><a href="#">그림그린그림</a></h3>
+			        		<div class="avatar-icon-wrapper avatar-icon-sm">
+			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+			        		</div>
+		        			<span class="post-artist">작가이름</span>
+		        			<div class="clear"> </div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
+		        			</div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </li>
+		        <li onclick="location.href='<c:url value='/ViewPost'/>';">
+		        	<img src="<c:url value='/resources/search/images/img2.jpg'/>" width="282" height="344">
+					<div class="post-info">
+		        		<div class="post-basic-info">
+			        		<span class="post-type">일러스트</span>
+		        			<span class="post-date">30분 전</span>
+			        		<h3><a href="#">그림그린그림</a></h3>
+			        		<div class="avatar-icon-wrapper avatar-icon-sm">
+			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/3.jpg'/>"/></div>
+			        		</div>
+		        			<span class="post-artist">작가이름</span>
+		        			<div class="clear"> </div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
+		        			</div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
+		        			</div>
+		        		</div>
+		        	</div>
+				</li>
+		        <li onclick="location.href='<c:url value='/ViewPost'/>';">
+		        	<img src="<c:url value='/resources/search/images/img3.jpg'/>" width="282" height="210">
+		        	<div class="post-info">
+		        		<div class="post-basic-info">
+			        		<span class="post-type">일러스트</span>
+		        			<span class="post-date">32분 전</span>
+			        		<h3><a href="#">그림그린그림</a></h3>
+			        		<div class="avatar-icon-wrapper avatar-icon-sm">
+			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/4.jpg'/>"/></div>
+			        		</div>
+		        			<span class="post-artist">작가이름</span>
+		        			<div class="clear"> </div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
+		        			</div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </li>
+		        <li onclick="location.href='<c:url value='/ViewPost'/>';">
+		        	<img src="<c:url value='/resources/search/images/img4.jpg'/>" width="282" height="385">
+		        	<div class="post-info">
+		        		<div class="post-basic-info">
+			        		<span class="post-type">일러스트</span>
+		        			<span class="post-date">5시간 전</span>
+			        		<h3><a href="#">그림그린그림</a></h3>
+			        		<div class="avatar-icon-wrapper avatar-icon-sm">
+			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/5.jpg'/>"/></div>
+			        		</div>
+		        			<span class="post-artist">작가이름</span>
+		        			<div class="clear"> </div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-comment"> </i> <span class="post-comment">22</span>
+		        			</div>
+		        			<div class="font-icon-wrapper font-icon-sm">
+		        				<i class="pe-7s-look"> </i> <span class="post-comment">337</span>
+		        			</div>
+		        		</div>
+		        	</div>
+		        </li>
+		        <!-- End of grid blocks -->
+			</ul>
+	        </div>
 	    </div>
 	</div>
 </div>
