@@ -6,7 +6,7 @@
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
-				<a class="navbar-brand logo_h" href="<c:url value='/Home'/>"><img
+				<a class="navbar-brand logo_h" href="<c:url value='/Home'/>"><img style="width: 200px; height: 86px;"
 					src="<c:url value='/resources/img/logo.png'/>" alt="logo"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarSupportedContent"
