@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html;charset=euc-kr" pageEncoding="utf-8"%>
-
 <%!
     /* ============================================================================== */
     /* =   null 값을 처리하는 메소드                                                = */
@@ -12,7 +11,7 @@
     /* ============================================================================== */
 %>
 <%
-    request.setCharacterEncoding("euc-kr") ;
+    request.setCharacterEncoding("utf-8") ;
     /* ============================================================================== */
     /* =   지불 결과                                                                = */
     /* = -------------------------------------------------------------------------- = */
@@ -123,7 +122,7 @@
 
 <head>
     <title>*** NHN KCP [AX-HUB Version] ***</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
 	<meta http-equiv="Pragma" content="no-cache"> 
 	<meta http-equiv="Expires" content="-1">
@@ -458,6 +457,8 @@
     /* =   결제 실패 : res_cd값이 0000이외의 값으로 설정됩니다.                     = */
     /* = -------------------------------------------------------------------------- = */
 %>
+
+
                     <h2>&sdot; 처리 결과</h2>
                     <table class="tbl" cellpadding="0" cellspacing="0">
                         <!-- 결과 코드 -->
@@ -557,6 +558,7 @@
                 if ( use_pay_method.equals("100000000000") )
                 {
 %>
+
                     <h2>&sdot; 신용카드 정보</h2>
                     <table class="tbl" cellpadding="0" cellspacing="0">
                         <!-- 결제수단 : 신용카드 -->
@@ -596,6 +598,7 @@
                      if ( pnt_issue.equals("SCSK") || pnt_issue.equals( "SCWB" ) )
                     {
 %>
+
                     </table>
                     <h2>&sdot; 포인트 정보</h2>
                     <table class="tbl" cellpadding="0" cellspacing="0">
@@ -653,6 +656,7 @@
                 else if (use_pay_method.equals("010000000000"))       // 계좌이체
                 {
 %>
+
                     <h2>&sdot; 계좌이체 정보</h2>
                     <table class="tbl" cellpadding="0" cellspacing="0">
                     <!-- 결제수단 : 계좌이체 -->
@@ -684,6 +688,7 @@
                 else if (use_pay_method.equals("001000000000"))
                 {
 %>
+
                     <h2>&sdot; 가상계좌 정보</h2>
                     <table class="tbl" cellpadding="0" cellspacing="0">
                     <!-- 결제수단 : 가상계좌 -->
@@ -725,6 +730,7 @@
                 else if (use_pay_method.equals("000100000000"))
                 {
 %>
+
                     <h2>&sdot; 포인트 정보</h2>
                     <table class="tbl" cellpadding="0" cellspacing="0">
                     <!-- 결제수단 : 포인트 -->
@@ -776,6 +782,7 @@
                 else if (use_pay_method.equals("000010000000"))
                 {
 %>
+
                     <h2>&sdot; 휴대폰 정보</h2>
                     <table class="tbl" cellpadding="0" cellspacing="0">
                     <!-- 결제수단 : 휴대폰 -->
@@ -807,6 +814,7 @@
                 else if (use_pay_method.equals("000000001000"))
                 {
 %>
+
                     <h2>&sdot; 상품권 정보</h2>
                     <table class="tbl" cellpadding="0" cellspacing="0">
                     <!-- 결제수단 : 상품권 -->
