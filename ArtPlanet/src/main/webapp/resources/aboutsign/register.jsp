@@ -34,19 +34,24 @@
                                     <form class="">
                                         <div class="form-row">                                    
                                             <div class="col-md-6">
-                                                <div class="position-relative form-group"><label for="exampleEmail" class=""><span class="text-danger">*</span> Email</label><input name="email" id="exampleEmail" placeholder="Email을 입력해주세요..." type="email"
+                                                <div class="position-relative form-group"><label for="exampleEmail" class=""><span class="text-danger">*</span> Email</label><input name="email" id="exampleEmail" placeholder="" type="email"
                                                                                                                                                                                     class="form-control"></div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="position-relative form-group"><label for="exampleName" class=""><span class="text-danger">*</span> Name</label><input name="text" id="exampleName" placeholder="Name을 입력해주세요..." type="text" class="form-control"></div>
+                                                <div class="position-relative form-group"><label for="exampleName" class=""><span class="text-danger">*</span> Name</label><input name="text" id="exampleName" placeholder="" type="text" class="form-control"></div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="position-relative form-group"><label for="examplePassword" class=""><span class="text-danger">*</span> Password</label><input name="password" id="examplePassword" placeholder="Password을 입력해주세요..."
+                                                <div class="position-relative form-group"><label for="examplePassword" class=""><span class="text-danger">*</span> Password</label><input name="password" id="examplePassword" placeholder=""
                                                                                                                                                                                           type="password" class="form-control"></div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="position-relative form-group"><label for="examplePasswordRep" class=""><span class="text-danger">*</span> Repeat Password</label><input name="passwordrep" id="examplePasswordRep"
-                                                                                                                                                                                                    placeholder="Password을 다시 입력해주세요..." type="password"
+                                                                                                                                                                                                    placeholder="" type="password"
+                                                                                                                                                                                                    class="form-control"></div>
+                                            </div>
+                                             <div class="col-md-6">
+                                                <div class="position-relative form-group"><label for="examplePasswordRep" class=""><span class="text-danger">*</span> Repeat Password</label><input name="passwordrep" id="examplePasswordRep"
+                                                                                                                                                                                                    placeholder="" type="password"
                                                                                                                                                                                                     class="form-control"></div>
                                             </div>
                                         </div>
@@ -67,8 +72,8 @@
                                     <div>
                                         <div class="h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
                                             <div class="slide-img-bg" style="background-image: url('assets/images/originals/citynights.jpg');"></div>
-                                            <div class="slider-content"><h3>Scalable, Modular, Consistent</h3>
-                                                <p>Easily exclude the components you don't require. Lightweight, consistent Bootstrap based styles across all elements and components</p></div>
+                                            <div class="slider-content"><h3>좋아하는 그림에 쉽게 다가갈 수 있게...</h3>
+                                                <p>ArtPlanet에서는 자신이 좋아하는 그림에 좀더 쉽게 다가갈 수 있게...</p></div>
                                         </div>
                                     </div>
                                 </div>
