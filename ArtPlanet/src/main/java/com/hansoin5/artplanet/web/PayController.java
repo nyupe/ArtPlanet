@@ -9,10 +9,11 @@ public class PayController {
 	public String order()
 	{
 		//return "pay/sample/order.tiles"; 타일즈적용시 아코디언 버벅거림
-		return "pay/sample/Order2.tiles";   //그냥 jsp 수정2차
-		
-		
 		//return "pay/sample/order";   //수정1차
+		
+		
+		return "pay/sample/forms-wizard";   //수정최종
+
 	}
 	
 	
@@ -23,6 +24,9 @@ public class PayController {
 	
 	@RequestMapping("Result.do")
 	public String result() {
-		return "pay/sample/result.tiles";
+		//return "pay/sample/result.tiles"; //수정1차
+		
+		return "pay/sample/result2.tiles"; //수정최종
+		
 	}
 }
