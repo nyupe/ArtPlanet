@@ -28,7 +28,7 @@
 	<link rel="stylesheet" href="<c:url value='/resources/css/style.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/responsive.css'/>">
 	<!-- 추가한 스크립트 -->
-	<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
 	<!-- kero css -->
     <link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet">
 </head>

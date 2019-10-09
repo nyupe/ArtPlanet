@@ -23,7 +23,7 @@
 						<li class="nav-item"><a class="nav-link" href="<c:url value='/About'/>">About</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="<c:url value='/Search'/>">search</a></li>
-						<!-- BLOG만 드랍다운메뉴 -->
+						<!-- 드랍다운메뉴 -->
 						<li class="nav-item submenu dropdown"><a href="#"
 							class="nav-link dropdown-toggle" data-toggle="dropdown"
 							role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
@@ -45,6 +45,14 @@
 					</div>
 				</div>
 			</div>
+			<!-- 임시 로그인버튼 시작 -->
+			<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+				<ul class="nav navbar-nav menu_nav ml-auto">
+					<li class="nav-item"><a class="nav-link" href="<c:url value='/Login'/>">Login</a></li>
+				</ul>
+			</div>
+			<div style="padding-right: 50px;"></div>
+			<!-- 임시 로그인버튼 끝 -->
 		</nav>
 	</div>
 	<!-- 검색바 -->
@@ -58,4 +66,6 @@
 			</form>
 		</div>
 	</div>
+	
+	
 </header>
