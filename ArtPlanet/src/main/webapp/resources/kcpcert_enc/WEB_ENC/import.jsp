@@ -1,16 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=euc-kr"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    /* ============================================================================== */
-    /* =   PAGE : 인증 요청 PAGE                                                    = */
-    /* = -------------------------------------------------------------------------- = */
-    /* =   Copyright (c)  2018.03 NHN KCP Inc. All Rights Reserved.                 = */
-    /* ============================================================================== */
-
-    /* ============================================================================== */
-    /* =   환경 설정 파일 Include                                                   = */
-    /* = -------------------------------------------------------------------------- = */
-%>
 <%@ page import="kr.co.kcp.CT_CLI"%>
 <%@ page import="java.text.*" %>
 <%@ page import="java.util.*" %>
@@ -95,7 +84,7 @@
                     }
                     
                     auth_form.target = "auth_popup"; // !!주의 고정값 ( 리턴받을때 사용되는 타겟명입니다.)
-                    auth_form.action = "./kcpcert_proc_req.jsp"; // 인증창 호출 및 결과값 리턴 페이지 주소
+                    auth_form.action = "<c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/>"; // 인증창 호출 및 결과값 리턴 페이지 주소
                     
                     return true;
                 }
@@ -167,6 +156,8 @@
 
         </script>
     </head>
+    
+    <!-- body 시작 -->
     <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
         <div align="center">
             <form name="form_auth">
@@ -198,7 +189,9 @@
                                 <!-- 요청번호(ordr_idxx) -->
                                 <tr>
                                     <td class="sub_title1">요청번호</td>
-                                    <td class="sub_input1">&nbsp&nbsp<input type="text" name="ordr_idxx" class="frminput" value="<%=ordr_idxx%>" size="40" readonly="readonly" maxlength="40"/></td>
+                                    <td class="sub_input1">&nbsp&nbsp
+                                    <input type="hidden" name="ordr_idxx" class="frminput" value="<%=ordr_idxx%>" size="40" readonly="readonly" maxlength="40"/>
+                                    </td>
                                 </tr>
                                 <!-- 명의자명 -->
                                 <tr>
@@ -252,12 +245,12 @@
                 <input type="hidden" name="web_siteid"   value=""/> 
                 <!-- 노출 통신사 default 처리시 아래의 주석을 해제하고 사용하십시요 
                      SKT통신사 : SKT , KT통신사 : KTF , LGU+통신사 : LGT
-                -->
                 <input type="hidden" name="fix_commid"      value="KTF"/>
+                -->
                 <!-- 사이트코드 -->
                 <input type="hidden" name="site_cd"      value="<%= site_cd %>" />
                 <!-- Ret_URL : 인증결과 리턴 페이지 ( 가맹점 URL 로 설정해 주셔야 합니다. ) -->
-                <input type="hidden" name="Ret_URL"      value="http://192.168.0.47:8080/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp" />
+                <input type="hidden" name="Ret_URL"      value="<c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/>" />
                 <!-- cert_otp_use 필수 ( 메뉴얼 참고)
                      Y : 실명 확인 + OTP 점유 확인 , N : 실명 확인 only
                 -->
@@ -284,4 +277,5 @@
             </form>
         </div>
     </body>
+    <!-- body 끝 -->
 </html>
