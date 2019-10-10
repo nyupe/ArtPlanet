@@ -55,9 +55,5 @@ public class TopController
 		return "pay/Pay.tiles";
 	}
 	
-	@RequestMapping("/Others")
-	public String others()
-	{
-		return "supporter/report/Report.tiles";
-	}
+	
 }

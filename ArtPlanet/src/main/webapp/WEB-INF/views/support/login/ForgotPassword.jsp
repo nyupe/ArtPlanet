@@ -17,7 +17,8 @@
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
 
-	<link href="./main.07a59de7b920cd76b874.css" rel="stylesheet"></head>
+	<!-- 기존 kero CSS -->
+	<link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet">
 
 <body>
     <div class="app-container app-theme-white body-tabs-shadow">
@@ -53,10 +54,12 @@
                         </div>
                         <div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8">
                             <div class="mx-auto app-login-box col-sm-12 col-md-8 col-lg-6">
-                                <div style="padding-bottom: 50px"><img src="<c:url value='/resources/aboutsign/assets/images/artplanetLogo.png'/>"  alt="로고이미지"/></div>
+                                <div style="padding-bottom: 50px">
+                                	<a href="<c:url value='/Home'/>"><img src="<c:url value='/resources/aboutsign/assets/images/artplanetLogo.png'/>"  alt="로고이미지"/></a>
+                                </div>
                                 <h4>
                                     <div>비밀번호를 잊어버리셨나요?</div>
-                                    <span>회원가입시 입력한 이메일 주소를 입력해주세요.</span></h4>
+                                    <span>회원가입시 인증한 이메일 주소를 입력해주세요.</span></h4>
                                 <div style="padding-bottom: 100px">
                                     <form class="">
                                         <div class="form-row">
@@ -80,5 +83,6 @@
                 </div>
             </div>
     </div>
-<script type="text/javascript" src="./assets/scripts/main.07a59de7b920cd76b874.js"></script></body>
+	<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>"></script>
+	</body>
 </html>
