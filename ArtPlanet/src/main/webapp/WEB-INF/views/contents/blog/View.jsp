@@ -6,17 +6,15 @@
 <section class="hero-banner">
     <div class="container">
         <div class="menu-header-content" style="text-align: center;">
-	        <div class="avatar-icon-wrapper mb-3 avatar-icon-xl">
-	            <div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>" alt="Avatar 5"></div>
-	        </div>
-	        <div><h5 class="menu-header-title">작가이름</h5><h6 class="menu-header-subtitle">일러스트레이션 애니메이션</h6>
-	        </div>
+	        <div class="avatar-icon-wrapper mb-3 avatar-icon-xxl">
+	            <div class="avatar-icon"><img src="<c:url value='/resources/img/blog/cat-post/cat-post-3.jpg'/>" alt="Avatar 5"></div>
+            </div>
+	        <h4>작가이름</h4>
+	        <h6>일러스트레이션 애니메이션</h6>
 	    </div>
     </div>
 </section>
 <!--================Hero Banner Area End =================-->
-
-
 <!--================Blog Area =================-->
 <section class="blog_area single-post-area area-padding">
     <div class="container">
