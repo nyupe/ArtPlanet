@@ -33,8 +33,9 @@
 							One Certificate</li>
 					</ul>
 					<div class="priceTable-footer">
-						<a class="main_btn" href="Order.do">주문페이지로
-							이동</a>
+						<a class="main_btn" href="Order.do">일반결제</a>
+						<a class="main_btn" href="RecurringAuthReq.do">정기인증</a>
+						<a class="main_btn" href="RecurringPayOrder.do">정기결제</a>
 					</div>
 				</div>
 			</div>

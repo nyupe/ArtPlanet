@@ -12,7 +12,7 @@ public class PayController {
 		//return "pay/sample/order";   //수정1차
 		
 		
-		return "pay/sample/forms-wizard";   //수정최종
+		return "pay/sample/forms-wizard2.tiles";   //수정최종
 
 	}
 	
@@ -26,7 +26,7 @@ public class PayController {
 	public String result() {
 		//return "pay/sample/result.tiles"; //수정1차
 		
-		return "pay/sample/result2.tiles"; //수정최종
+		return "pay/sample/Result3.tiles"; //수정최종
 		
 	}
 }
