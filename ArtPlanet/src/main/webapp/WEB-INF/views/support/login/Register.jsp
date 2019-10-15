@@ -22,33 +22,18 @@
 	
 		
 <body>	
-		
-    
-				
-		
-		
-		
-		
    		<div style="margin-top: 200px;" class="app-container app-theme-white body-tabs-shadow">
            	<div class="app-container">
                	<div class="h-100">
-               		
-               		
-               		
                    	<div class="h-100 no-gutters row">
-                   		
                        	<div class="h-100 d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 ">
-                       		
-                       		
-                       	
                         	<div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
-                        	
                         	<div class="form-row">
 	                        	<!-- 사진 위치 수정예정  -->
 								<div style="margin-bottom: 50px" class="col-md-5 mx-auto"/>
 									<div class="mx-auto d-block">
 						       			<a href="<c:url value='/Home'/>">
-										<img src="<c:url value='/resources/aboutsign/assets/images/artplanetLogo.png'/>"  alt="로고이미지"/></a>
+										<img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
 									</div>
 								</div>	
                         	</div>
@@ -113,7 +98,7 @@
                             <div class="col-md-7 mx-auto">
                                 <div class="position-relative form-group">
                                 <label for="mainAddress" class=""><span class="text-danger">*</span>Address</label>
-                                <input type="button" class="mb-2 mr-2 btn btn-primary btn-sm" onclick="sample6_execDaumPostcode()" value="주소 검색"><br>
+                                <input style="margin-left: 10px" type="button" class="mb-2 mr-2 btn btn-primary btn-sm" onclick="sample6_execDaumPostcode()" value="주소 검색"><br>
                                 <input name="Address" id="sample6_address" placeholder="" type="text" class="form-control"></div>
                             </div>
 

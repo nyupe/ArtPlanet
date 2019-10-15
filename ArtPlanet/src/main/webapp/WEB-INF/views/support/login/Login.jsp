@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Login_Page</title>
+    <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
     />
     <meta name="description" content="Kero HTML Bootstrap 4 Dashboard Template">
@@ -20,9 +20,8 @@
 	<!-- 기존 kero CSS -->
 	<link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet">
 </head>
-
 <body>
-    <div class="app-container app-theme-white body-tabs-shadow">
+     <div class="app-container app-theme-white body-tabs-shadow">
             <div class="app-container">
                 <div class="h-100">
                     <div class="h-100 no-gutters row">
@@ -31,21 +30,21 @@
                                 <div class="slick-slider">
                                     <div>
                                         <div class="h-100 d-flex justify-content-center align-items-center bg-plum-plate" tabindex="-1">
-                                            <div class="slide-img-bg" style="background-image: url('assets/images/originals/city.jpg');"></div>
+                                            <div class="slide-img-bg" style="background-image: url('resources/kero/assets/images/originals/city.jpg');"></div>
                                             <div class="slider-content"><h3>그림을 통해 소통을...</h3>
                                                 <p>ArtPlanet에서는 그림을 통해 서로 소통하며...</p></div>
                                         </div>
                                     </div>
                                     <div>
                                         <div class="h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
-                                            <div class="slide-img-bg" style="background-image: url('assets/images/originals/citynights.jpg');"></div>
+                                            <div class="slide-img-bg" style="background-image: url('resources/kero/assets/images/originals/citynights.jpg');"></div>
                                             <div class="slider-content"><h3>좀 더 그림에 집중할 수 있게....</h3>
                                                 <p>ArtPlanet에서는 그림에 집중할 수 있게 후원 시스템을...</p></div>
                                         </div>
                                     </div>
                                     <div>
                                         <div class="h-100 d-flex justify-content-center align-items-center bg-sunny-morning" tabindex="-1">
-                                            <div class="slide-img-bg" style="background-image: url('assets/images/originals/citydark.jpg');"></div>
+                                            <div class="slide-img-bg" style="background-image: url('resources/kero/assets/images/originals/citydark.jpg');"></div>
                                             <div class="slider-content"><h3>좋아하는 그림에 쉽게 다가갈 수 있게...</h3>
                                                 <p>ArtPlanet에서는 자신이 좋아하는 그림에 좀더 쉽게 다가갈 수 있게...</p></div>
                                         </div>
@@ -56,7 +55,7 @@
                         <div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8">
                             <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
                                 <div style="margin-bottom: 50px; margin-left: 100px; ">
-                                	<a href="<c:url value='/Home'/>">	<img src="<c:url value='/resources/aboutsign/assets/images/artplanetLogo.png'/>"  alt="로고이미지"/></a>
+                                	<a href="<c:url value='/Home'/>">	<img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
                                 </div>
                                 <h4 class="mb-0">
                                     <span class="d-block"><span style="color:red ;font-size: 2.0rem">ArtPlanet</span>에 오신걸 환영합니다,</span>
