@@ -31,7 +31,7 @@
 <%
     /* ============================================================================== */
 
-    request.setCharacterEncoding ( "euc-kr" ) ;
+    request.setCharacterEncoding ( "utf-8" ); //utf-8로 변경
     /* ============================================================================== */
     /* =   01. 지불 요청 정보 설정                                                  = */
     /* = -------------------------------------------------------------------------- = */
@@ -284,7 +284,7 @@
     </head>
 
     <body onload="goResult();">
-        <form name="pay_info" method="post" action="./result.jsp">
+        <form name="pay_info" method="post" action="RecurringPayRes.do">
             <input type="hidden" name="req_tx"     value="<%= req_tx     %>">  <!-- 요청 구분 -->
             <input type="hidden" name="pay_method" value="<%= pay_method %>">  <!-- 사용한 결제 수단 -->
             <input type="hidden" name="bSucc"      value="<%= bSucc      %>">  <!-- 쇼핑몰 DB 처리 성공 여부 -->
