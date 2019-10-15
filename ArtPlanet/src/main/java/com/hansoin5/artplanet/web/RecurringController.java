@@ -8,7 +8,7 @@ public class RecurringController {
 	//인증
 	@RequestMapping("RecurringAuthReq.do")
 	public String authReq() {
-		return "recurring_pay/sample/auth/Requestkey";
+		return "recurring_pay/sample/auth/Requestkey.tiles";
 	}//////////////RecurringAuthReq.do
 	
 	
