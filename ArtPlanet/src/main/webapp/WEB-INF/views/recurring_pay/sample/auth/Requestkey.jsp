@@ -93,7 +93,7 @@
       <div class="col-lg-8 col-md-12">
          <div class="card-body">
 
-            <div id="smartwizard">
+            <div ><!-- id="smartwizard" 지움 아코디언문제 -->
                <ul class="forms-wizard">
                 
                   <li> <em>1</em><span>카드인증</span></li>
