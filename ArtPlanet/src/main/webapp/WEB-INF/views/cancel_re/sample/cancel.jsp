@@ -1,4 +1,16 @@
 <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+
+<head>
+    <title>Art Planet - 취소</title>
+    <meta http-equiv="X-UA-Compatible" content="text/html;charset=utf-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+  <link
+   href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">  
+</head>
 
 
 <%
@@ -179,43 +191,104 @@
     
    		}
     }    
-    /* = -------------------------------------------------------------------------- = */
-    /* =   07. 취소 결과 출력                                                       = */
-    /* ============================================================================== */   
-     if ( res_cd.equals( "0000" ) && mod_type.equals( "STSC")) 
-      	{  
-        out.println( "취소요청이 완료되었습니다.        <br>");
-        out.println( "결과코드 : "      + res_cd   	 + "<br>");
-		out.println( "카드 코드: "      + card_cd    + "<br>");
-        out.println( "카드 명  : "      + card_name  + "<br>");
-        out.println( "결제 금액: "      + amount     + "<br>");
-        out.println( "쿠폰 금액: "      + coupon_mny + "<br>");
-        out.println( "취소 시간: "  	+ canc_time  + "<br>");
-        out.println( "결과메세지 : "    + res_msg    + "<p>");
-        }
-     else if ( res_cd.equals( "0000" ) && mod_type.equals( "STPC"))
-        {
-        out.println( "취소요청이 완료되었습니다.        <br>");
-        out.println( "결과코드 : "      + res_cd   	 + "<br>");
-		out.println( "카드 코드: "      + card_cd    + "<br>");
-        out.println( "카드 명  : "      + card_name  + "<br>");
-        out.println( "결제 금액: "      + amount     + "<br>");
-        out.println( "쿠폰 금액: "      + coupon_mny + "<br>");
-        out.println( "취소 시간: "  	+ canc_time  + "<br>");
-        out.println( "취소 금액: "  	+ panc_mod_mny + "<br>");
-        out.println( "남은 금액: "  	+ panc_rem_mny + "<br>");
-        out.println( "쿠폰 취소 금액:"  + panc_coupon_mod_mny  + "<br>");
-		out.println( "카드 취소 금액:"  + panc_card_mod_mny  + "<br>");
-        out.println( "결과메세지 : "    + res_msg    + "<p>");
-    	}
-     
-	else
-    {
-        out.println( "취소요청이 처리 되지 못하였습니다.  <br>");
-        out.println( "결과코드 : "      + res_cd       + "<br>");
-        out.println( "결과메세지 : "    + res_msg      + "<p>");
-    }
-	/* = -------------------------------------------------------------------------- = */
-    /* =   07. 취소 결과 출력 END                                                   = */
-    /* ============================================================================== */
+  
 %>
+
+	<!-- 케로 관리자UI -->
+   	<div class="app-container app-theme-gray">
+		  <div class="app-main">
+            <div class="app-sidebar-wrapper">
+                <div class="app-sidebar sidebar-shadow">
+                
+                <div class="app-header__logo">
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="KeroUI Admin Template" class="logo-src"></a>
+                        <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
+                                <span class="hamburger-box">
+                                    <span class="hamburger-inner"></span>
+                                </span>
+                        </button>
+                    </div>
+                    <div class="scrollbar-sidebar scrollbar-container">
+                        <div class="app-sidebar__inner">
+                     	</div>
+                     </div>
+                  </div>
+              </div><!-- side bar -->
+              
+              <!-- 여기 -->
+               <div class="app-main__outer">
+               <div class="app-header">
+                        <div class="page-title-heading">
+                            취소결과페이지
+                            <div class="page-title-subheading">
+                                페이지는 취소요청결과를 출력하는 페이지입니다.
+                            </div>
+                        </div>
+                        
+               </div><!-- app header --> 
+              <div class="app-inner-layout app-inner-layout-page">
+                        <div class="app-inner-layout__wrapper">
+                            <div class="app-inner-layout__content pt-1">
+                                <div class="tab-content">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="main-card mb-3 card">
+                                                    <div class="card-body">
+                                                        <div class="card-title">
+<%
+/* = -------------------------------------------------------------------------- = */
+/* =   07. 취소 결과 출력                                                       = */
+/* ============================================================================== */   
+ if ( res_cd.equals( "0000" ) && mod_type.equals( "STSC")) 
+  	{  
+    out.println( "취소요청이 완료되었습니다.        <br>");
+    out.println( "결과코드 : "      + res_cd   	 + "<br>");
+	out.println( "카드 코드: "      + card_cd    + "<br>");
+    out.println( "카드 명  : "      + card_name  + "<br>");
+    out.println( "결제 금액: "      + amount     + "<br>");
+    out.println( "쿠폰 금액: "      + coupon_mny + "<br>");
+    out.println( "취소 시간: "  	+ canc_time  + "<br>");
+    out.println( "결과메세지 : "    + res_msg    + "<p>");
+    }
+ else if ( res_cd.equals( "0000" ) && mod_type.equals( "STPC"))
+    {
+    out.println( "취소요청이 완료되었습니다.        <br>");
+    out.println( "결과코드 : "      + res_cd   	 + "<br>");
+	out.println( "카드 코드: "      + card_cd    + "<br>");
+    out.println( "카드 명  : "      + card_name  + "<br>");
+    out.println( "결제 금액: "      + amount     + "<br>");
+    out.println( "쿠폰 금액: "      + coupon_mny + "<br>");
+    out.println( "취소 시간: "  	+ canc_time  + "<br>");
+    out.println( "취소 금액: "  	+ panc_mod_mny + "<br>");
+    out.println( "남은 금액: "  	+ panc_rem_mny + "<br>");
+    out.println( "쿠폰 취소 금액:"  + panc_coupon_mod_mny  + "<br>");
+	out.println( "카드 취소 금액:"  + panc_card_mod_mny  + "<br>");
+    out.println( "결과메세지 : "    + res_msg    + "<p>");
+	}
+ 
+else
+{
+    out.println( "취소요청이 처리 되지 못하였습니다.  <br>");
+    out.println( "결과코드 : "      + res_cd       + "<br>");
+    out.println( "결과메세지 : "    + res_msg      + "<p>");
+}
+/* = -------------------------------------------------------------------------- = */
+/* =   07. 취소 결과 출력 END                                                   = */
+/* ============================================================================== */
+%>     											
+     											
+                                                    </div><!-- card-body -->
+                                                 </div><!-- main card mb -->
+                                             </div><!-- col md 12 -->
+                                         </div><!-- row -->
+                                     </div><!-- container-fluid -->
+                                   </div><!-- tab-content -->
+                              </div> <!-- app inner layout -->     
+                        </div><!-- app inner layout___wrapper -->
+                 </div><!-- app-inner-layout app-inner-layout-page -->
+               
+               </div><!-- app-main outer -->       
+           </div><!-- app-main -->
+     </div><!-- app-container gray -->   
+                        

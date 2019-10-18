@@ -23,10 +23,7 @@ public class CancelController {
 		
 	}////cancel
 	
-	@RequestMapping("CancelResult.do")
-	public String cancelResult() {
-		return "cancel_re/sample/Result";
-	}/////cancelResult
+	
 	
 	
 }
