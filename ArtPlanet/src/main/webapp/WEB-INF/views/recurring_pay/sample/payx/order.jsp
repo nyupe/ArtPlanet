@@ -1,10 +1,10 @@
-<%@ page language="java" contentType="text/html;charset=euc-kr"%>
+<%@ page language="java" contentType="text/html;charset=utf-8"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-    <title>*** KCP Online Payment System [JSP Version] ***</title>
+    <title>Art Planet - ì •ê¸°ê²°ì œ</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
    <link
@@ -12,7 +12,7 @@
    rel="stylesheet">
     <script type="text/javascript">
 
-        // ÁÖ¹®¹øÈ£ »ý¼º ¿¹Á¦
+        // ì£¼ë¬¸ë²ˆí˜¸ ìƒì„± ì˜ˆì œ
         function init_orderid()
         {
             var today = new Date();
@@ -47,7 +47,7 @@
         {
             if ( form.batch_key.value.length != 16 )
             {
-                alert("ÀÎÁõÅ° °ªÀ» Á¤È®È÷ ÀÔ·ÂÇØ ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.");
+                alert("ì¸ì¦í‚¤ ê°’ì„ ì •í™•ížˆ ìž…ë ¥í•´ ì£¼ì‹œê¸° ë°”ëžë‹ˆë‹¤.");
                 form.batch_key.focus();
                 return false;
             }
@@ -62,7 +62,7 @@
 
 <body onload="init_orderid();">
 
-<!-- ÄÉ·Î °ü¸®ÀÚUI -->
+<!-- ì¼€ë¡œ ê´€ë¦¬ìžUI -->
    	<div class="app-container app-theme-gray">
 		  <div class="app-main">
             <div class="app-sidebar-wrapper">
@@ -83,13 +83,13 @@
                   </div>
               </div><!-- side bar -->
               
-              <!-- ¿©±â -->
+              <!-- ì—¬ê¸° -->
                <div class="app-main__outer">
                <div class="app-header">
                         <div class="page-title-heading">
-                            Á¤±â°ú±Ý°áÁ¦¿äÃ»ÆäÀÌÁö
+                            ì •ê¸°ê³¼ê¸ˆê²°ì œìš”ì²­íŽ˜ì´ì§€
                             <div class="page-title-subheading">
-                                Á¤±â°ú±Ý°áÁ¦¿äÃ»°á°ú¸¦ Ãâ·ÂÇÏ´Â ÆäÀÌÁöÀÔ´Ï´Ù.
+                                ì •ê¸°ê³¼ê¸ˆê²°ì œìš”ì²­ê²°ê³¼ë¥¼ ì¶œë ¥í•˜ëŠ” íŽ˜ì´ì§€ìž…ë‹ˆë‹¤.
                             </div>
                         </div>
                         
@@ -103,12 +103,12 @@
                                             <div class="col-md-12">
                                                 <div class="main-card mb-3 card">
                                                     <div class="card-body">
-                                                        <div class="card-title">
-                                                        <!-- ³»¿ë -->
-<div id="sample_wrap">
+                                                    
+                                                        <!-- ë‚´ìš© -->
+
 
     <form name="form_order" method="post" action="RecurringPayHub.do">
-				<!-- ÄÉ·ÎUI -->
+				<!-- ì¼€ë¡œUI -->
 				 <div id="step-2">
                      <div id="accordion" class="accordion-wrapper mb-3">
                         <div class="card">
@@ -117,21 +117,21 @@
                                  data-target="#collapseOne" aria-expanded="false"
                                  aria-controls="collapseOne"
                                  class="text-left m-0 p-0 btn btn-link btn-block">
-                                 <!-- STEP2 ÀÔ·ÂÆû -->
-                                 <span class="form-heading">[½Å¿ëÄ«µå Á¤±â°ú±Ý °áÁ¦¿äÃ»]
-                                    <p>ÀÌ ÆäÀÌÁö´Â ¿äÃ»ÀÚÀÇ ÀÎÁõÅ°¸¦ ÀÔ·ÂÇÏ¿© ½Å¿ëÄ«µå °áÁ¦ ¿äÃ»À»ÇÏ´Â ÆäÀÌÁöÀÔ´Ï´Ù.</br><br>
-                               °áÁ¦ ¿äÃ» ÇÒ ÀÎÁõÅ°°¡ ´Ù¼öÀÎ °æ¿ì ÇØ´ç ¸ðµâ¿¡ ¼³Á¤ÇÏ´Â ÀÎÁõ Å° °ªÀ» »ç¿ëÀÚ¿¡ ¸Â°Ô ±Ý¾×°ú ÇÒºÎ¸¦ ¼³Á¤ÇÏ¿©ÁÖ½Ã±â ¹Ù¶ø´Ï´Ù.</p>
+                                 <!-- STEP2 ìž…ë ¥í¼ -->
+                                 <span class="form-heading">[ì‹ ìš©ì¹´ë“œ ì •ê¸°ê³¼ê¸ˆ ê²°ì œìš”ì²­]
+                                    <p>ì´ íŽ˜ì´ì§€ëŠ” ìš”ì²­ìžì˜ ì¸ì¦í‚¤ë¥¼ ìž…ë ¥í•˜ì—¬ ì‹ ìš©ì¹´ë“œ ê²°ì œ ìš”ì²­ì„í•˜ëŠ” íŽ˜ì´ì§€ìž…ë‹ˆë‹¤.</br><br>
+                               ê²°ì œ ìš”ì²­ í•  ì¸ì¦í‚¤ê°€ ë‹¤ìˆ˜ì¸ ê²½ìš° í•´ë‹¹ ëª¨ë“ˆì— ì„¤ì •í•˜ëŠ” ì¸ì¦ í‚¤ ê°’ì„ ì‚¬ìš©ìžì— ë§žê²Œ ê¸ˆì•¡ê³¼ í• ë¶€ë¥¼ ì„¤ì •í•˜ì—¬ì£¼ì‹œê¸° ë°”ëžë‹ˆë‹¤.</p>
                                  </span>
                               </button>
                            </div>
                            <div data-parent="#accordion" id="collapseOne"
                               aria-labelledby="headingOne" class="collapse show">
                               <div class="card-body">
-                                 <!-- PG»ç·Î Æû°ª Æ÷½ºÆ®·Î Àü¼ÛÇÏ±â -->
-                                 <form name="order_info" method="post" action="Hub.do">
+                                 <!-- PGì‚¬ë¡œ í¼ê°’ í¬ìŠ¤íŠ¸ë¡œ ì „ì†¡í•˜ê¸° -->
+                                
                                     <div class="form-row">
                                        <div class="col-md-6">
-                                          <label>ÁöºÒ¹æ¹ý</label> 
+                                          <label>ì§€ë¶ˆë°©ë²•</label> 
 											<input class="form-control"
                                                  type="text" name="pay_method"
                                                 value="CARD" maxlength="40" />
@@ -139,29 +139,29 @@
 
                                        <div class="col-md-6">
                                           <div class="position-relative form-group">
-                                             <label>ÁÖ¹®¹øÈ£</label> <input class="form-control"
-                                                placeholder="ÁÖ¹®¹øÈ£" type="text" name="ordr_idxx"
+                                             <label>ì£¼ë¬¸ë²ˆí˜¸</label> <input class="form-control"
+                                                placeholder="ì£¼ë¬¸ë²ˆí˜¸" type="text" name="ordr_idxx"
                                                 value="TEST1234" maxlength="40" />
                                           </div>
                                        </div>
                                        <div class="col-md-6">
                                           <div class="position-relative form-group">
-                                             <label>»óÇ°¸í</label> <input class="form-control"
-                                                type="text" name="good_name" value="Á¤±âÈÄ¿ø_TEST " />
+                                             <label>ìƒí’ˆëª…</label> <input class="form-control"
+                                                type="text" name="good_name" value="ì •ê¸°í›„ì›_TEST " />
                                           </div>
                                        </div>
 
                                        <div class="col-md-6">
                                           <div class="position-relative form-group">
-                                             <label>ÁÖ¹®ÀÚ¸í</label> <input class="form-control"
-                                                type="text" name="buyr_name" value="È«±æµ¿" />
+                                             <label>ì£¼ë¬¸ìžëª…</label> <input class="form-control"
+                                                type="text" name="buyr_name" value="í™ê¸¸ë™" />
                                           </div>
                                        </div>
 
                                     </div>
                                     <div class="position-relative form-group">
-                                       <label>°áÁ¦±Ý¾×</label> <input class="form-control" type="text"
-                                          name="good_mny" value="1004" maxlength="9" />¿ø(¼ýÀÚ¸¸ ÀÔ·Â)
+                                       <label>ê²°ì œê¸ˆì•¡</label> <input class="form-control" type="text"
+                                          name="good_mny" value="1004" maxlength="9" />ì›(ìˆ«ìžë§Œ ìž…ë ¥)
                                     </div>
 
                                     <div class="form-group">
@@ -173,164 +173,65 @@
                                     </div>
 
                                     <div class="position-relative form-group">
-                                       <label>ÀüÈ­¹øÈ£</label> 
+                                       <label>ì „í™”ë²ˆí˜¸</label> 
                                        <input value="02-0000-0000"
                                           name="buyr_tel1" placeholder="02-0000-1234" type="text"
                                           class="form-control">
                                     </div>
 
                                     <div class="position-relative form-group">
-                                       <label>ÈÞ´ëÆù¹øÈ£</label> 
+                                       <label>íœ´ëŒ€í°ë²ˆí˜¸</label> 
                                        <input value="010-0000-0000"
                                           name="buyr_tel2" placeholder="010-0000-1234" type="text"
                                           class="form-control">
                                     </div>
                                     
                                     <div class="position-relative form-group">
-                                       <label>ÀÎÁõÅ°</label> 
+                                       <label>ì¸ì¦í‚¤</label> 
                                        <input value=""
-                                          name="bt_batch_key" placeholder="010-0000-1234" type="text"
+                                          name="bt_batch_key"  type="text"
                                           class="form-control">
                                     </div>
                                     
                                      <div class="position-relative form-group">
-                                       <label>±×·ìID</label> 
+                                       <label>ê·¸ë£¹ID</label> 
                                        <input value="BA0011000348"
                                           name="bt_group_id" placeholder="010-0000-1234" type="text"
                                           class="form-control">
                                     </div>
                                     
                                     <div class="position-relative form-group">
-                                       <label>ÇÒºÎ°³¿ù</label> 
+                                       <label>í• ë¶€ê°œì›”</label> 
                                        <input value="00"
                                           name="quotaopt" placeholder="010-0000-1234" type="text"
                                           class="form-control">
                                     </div>
 
-                                    <!-- °áÁ¦¿äÃ» ¹öÆ°
-                                    <input name="button" type="button" class="submit" value="°áÁ¦¿äÃ»" onclick="jsf__pay(this.form);"/>-->
-                                    <button type="button"
+                                    <!-- ê²°ì œìš”ì²­ ë²„íŠ¼
+                                    <input name="button" type="button" class="submit" value="ê²°ì œìš”ì²­" onclick="jsf__pay(this.form);"/>-->
+                                    <button type="submit"
                                        class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary"
                                        onclick="jsf__pay(this.form);">Pay</button>
 
-                                   
+                                    <!-- ìš”ì²­ì¢…ë¥˜ ìŠ¹ì¸(pay)/ì·¨ì†Œ,ë§¤ìž…(mod) ìš”ì²­ì‹œ ì‚¬ìš© -->
+        <input type="hidden" name="req_tx"          value="pay"/>
+        <input type="hidden" name="pay_method"      value="CARD"/>
+        <input type="hidden" name="card_pay_method" value="Batch"/>
+        <!-- í•„ìˆ˜ í•­ëª© : ê²°ì œ ê¸ˆì•¡/í™”íë‹¨ìœ„ -->
+        <input type="hidden" name="currency" value="410"/>
+        
                                  </form>
-                                 <!-- Æû³¡ -->
+                                 <!-- í¼ë -->
 
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+              
 				
 				
-				
-				<!-- ÄÉ·ÎUI³¡ -->
-                    <h1> <span>ÆäÀÌÁö</span></h1>
-                    <!-- »ó´Ü ¹®±¸ -->
-                    <div class="sample">
-                         
-                    <!-- »ó´Ü Å×ÀÌºí End -->
-				
-                <!-- ÁÖ¹®Á¤º¸ Å¸ÀÌÆ² -->
-                    <h2>&sdot; ÁÖ¹® Á¤º¸</h2>
-                    <table class="tbl" cellpadding="0" cellspacing="0">
-
-                    <!-- ÁöºÒ ¹æ¹ý -->
-                    <tr>
-                        <th>ÁöºÒ ¹æ¹ý</th>
-                        <td><input type="text" name="pay_method" value="CARD" size="13" class="w100" readonly/></td>
-                    </tr>
-                    <!-- ÁÖ¹® ¹øÈ£ -->
-                    <tr>
-                        <th>ÁÖ¹® ¹øÈ£</th>
-                        <td><input type="text" name="ordr_idxx" class="w200" value="" maxlength="40"/></td>
-                    </tr>
-                    <!-- »óÇ°¸í -->
-                    <tr>
-                        <th>»óÇ°¸í</th>
-                        <td><input type="text" name="good_name" class="w100" value="¿îµ¿È­"/></td>
-                    </tr>
-                    <!-- °áÁ¦ ±Ý¾× -->
-                    <tr>
-                        <th>°áÁ¦ ±Ý¾×</th>
-                        <td><input type="text" name="good_mny" class="w100" value="1004" maxlength="9"/>¿ø(¼ýÀÚ¸¸ ÀÔ·Â)</td>
-                    </tr>
-                    <!-- ÁÖ¹®ÀÚ ÀÌ¸§ -->
-                    <tr>
-                        <th>ÁÖ¹®ÀÚ¸í</th>
-                        <td><input type="text" name="buyr_name" class="w100" value="È«±æµ¿"/></td>
-                    </tr>
-                    <!-- ÁÖ¹®ÀÚ E-Mail -->
-                    <tr>
-                        <th>E-mail</th>
-                        <td><input type="text" name="buyr_mail" class="w200" value="test@test.co.kr" maxlength="30" /></td>
-                    </tr>
-                    <!-- ÁÖ¹®ÀÚ ÀüÈ­¹øÈ£ -->
-                    <tr>
-                        <th>ÀüÈ­¹øÈ£</th>
-                        <td><input type="text" name="buyr_tel1" class="w100" value="02-2108-1000"/></td>
-                    </tr>
-                    <!-- ÁÖ¹®ÀÚ ÈÞ´ëÆù¹øÈ£ -->
-                    <tr>
-                        <th>ÈÞ´ëÆù¹øÈ£</th>
-                        <td><input type="text" name="buyr_tel2" class="w100" value="010-0000-0000"/></td>
-                    </tr>
-                    </table>
-                    <!-- ÁÖ¹® Á¤º¸ Ãâ·Â Å×ÀÌºí End -->
-
-                    <!-- Á¤±â°ú±Ý Á¤º¸ Ãâ·Â Å×ÀÌºí Start -->
-                    <h2>&sdot; Á¤±â°ú±Ý Á¤º¸</h2>
-                    <table class="tbl" cellpadding="0" cellspacing="0">
-                    <!-- ÀÎÁõÅ° -->
-                    <tr>
-                        <th>ÀÎÁõÅ°</th>
-                        <td><input type="text" name="bt_batch_key" value="" class="w100" /></td>
-                    </tr>
-                    <!-- ±×·ìID BA0011000348 -->
-                    <tr>
-                        <th>±×·ìID</th>
-                        <td><input type="text" name="bt_group_id" value="BA0011000348" class="w100" /></td>
-                    </tr>
-                    <!-- ÇÒºÎ°³¿ù -->
-                    <tr>
-                        <th>ÇÒºÎ°³¿ù</th>
-                        <td><input type="text" name="quotaopt" value="00" size="2" maxlength="2"  class="w10" /></td>
-                    </tr>
-                    </table>
-                    <!-- Á¤±â°ú±Ý Á¤º¸ Ãâ·Â Å×ÀÌºí End -->
-
-                <!-- °áÁ¦ ¹öÆ° Å×ÀÌºí Start -->
-                    <div class="btnset">
-                        <table align="center" cellspacing="0" cellpadding="0" class="margin_top_20"> 
-                            <tr id="show_pay_btn">
-                                <td colspan="2" align="center"> 
-                                  <input name="" type="submit" class="submit" value="°áÁ¦¿äÃ»" onclick="return jsf__pay(this.form);" alt="°áÁ¦¸¦ ¿äÃ»ÇÕ´Ï´Ù" /></a>
-                                  <a href="../index.html" class="home">Ã³À½À¸·Î</a>
-                     </div>
-                                </td>
-                            </tr>
-                            <!-- °áÁ¦ ÁøÇà ÁßÀÔ´Ï´Ù. ¸Þ½ÃÁö -->
-                            <tr id="show_progress" style="display:none">
-                                <td colspan="2" class="center red" >°áÁ¦ ÁøÇà ÁßÀÔ´Ï´Ù. Àá½Ã¸¸ ±â´Ù·Á ÁÖ½Ê½Ã¿À...</td>
-                            </tr>
-                        </table>
-                    </div>
-                <!-- °áÁ¦ ¹öÆ° Å×ÀÌºí End -->
-
-                </div>
+				<!-- ì¼€ë¡œUIë -->
+                 
         <div class="footer">
             Copyright (c) KCP INC. All Rights reserved.
         </div>
 
-        <!-- ¿äÃ»Á¾·ù ½ÂÀÎ(pay)/Ãë¼Ò,¸ÅÀÔ(mod) ¿äÃ»½Ã »ç¿ë -->
-        <input type="hidden" name="req_tx"          value="pay"/>
-        <input type="hidden" name="pay_method"      value="CARD"/>
-        <input type="hidden" name="card_pay_method" value="Batch"/>
-        <!-- ÇÊ¼ö Ç×¸ñ : °áÁ¦ ±Ý¾×/È­Æó´ÜÀ§ -->
-        <input type="hidden" name="currency" value="410"/>
-    </form>
-</div>
 											
                                                     </div><!-- card-body -->
                                                  </div><!-- main card mb -->
