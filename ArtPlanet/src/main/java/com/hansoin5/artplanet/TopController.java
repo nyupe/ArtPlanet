@@ -16,7 +16,7 @@ public class TopController
 	@RequestMapping("/About")
 	public String about()
 	{
-		return "about/About.tiles";
+		return "about/About2.tiles";
 	}
 	
 	@RequestMapping("/Search")
