@@ -167,7 +167,7 @@
     
       <link href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">
 </head>
-
+<!-- 케로UI -->
 <div class="container">
    <div style="padding-top: 130px;" class="row"></div>
    <div class="row">
@@ -354,56 +354,56 @@
                 if ( use_pay_method.equals("100000000000") )
                 {
 %>
-               
-                      <!-- 처리결과 -->
-					 					<div class="main-card mb-3 card">
-                                                    <div class="card-body"><h5 class="card-title">신용카드정보</h5>
-                                                        <table class="mb-0 table">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>#</th>
-                                                                <th>Key</th>
-                                                                <th>Value</th>                                                            
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <th scope="row">1</th>
-                                                                <td>결제 수단</td>
-                                                                <td>신용 카드</td>                                                           
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>결제 카드card_cd/card_name</td>
-                                                                <td><%= card_cd %> / <%= card_name %></td>
-                                                            </tr>   
-                                                             <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>승인 시간app_time</td>
-                                                                <td><%= app_time %></td>
-                                                            </tr> 
-                                                            <tr>
-                                                                <th scope="row">4</th>
-                                                                <td>승인 번호app_no</td>
-                                                                <td><%= app_no %></td>
-                                                            </tr> 
-                                                            <tr>
-                                                                <th scope="row">5</th>
-                                                                <td>할부 개월quota</td>
-                                                                <td><%= quota %></td>
-                                                            </tr> 
-                                                            <tr>
-                                                                <th scope="row">6</th>
-                                                                <td>무이자 여부noinf</td>
-                                                                <td><%= noinf %></td>
-                                                            </tr>   
-                                                          
-                                                              </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-             
-              
+      
+             <!-- 처리결과 -->
+		<div class="main-card mb-3 card">
+                                           <div class="card-body"><h5 class="card-title">신용카드정보</h5>
+                                               <table class="mb-0 table">
+                                                   <thead>
+                                                   <tr>
+                                                       <th>#</th>
+                                                       <th>Key</th>
+                                                       <th>Value</th>                                                            
+                                                   </tr>
+                                                   </thead>
+                                                   <tbody>
+                                                   <tr>
+                                                       <th scope="row">1</th>
+                                                       <td>결제 수단</td>
+                                                       <td>신용 카드</td>                                                           
+                                                   </tr>
+                                                   <tr>
+                                                       <th scope="row">2</th>
+                                                       <td>결제 카드card_cd/card_name</td>
+                                                       <td><%= card_cd %> / <%= card_name %></td>
+                                                   </tr>   
+                                                    <tr>
+                                                       <th scope="row">3</th>
+                                                       <td>승인 시간app_time</td>
+                                                       <td><%= app_time %></td>
+                                                   </tr> 
+                                                   <tr>
+                                                       <th scope="row">4</th>
+                                                       <td>승인 번호app_no</td>
+                                                       <td><%= app_no %></td>
+                                                   </tr> 
+                                                   <tr>
+                                                       <th scope="row">5</th>
+                                                       <td>할부 개월quota</td>
+                                                       <td><%= quota %></td>
+                                                   </tr> 
+                                                   <tr>
+                                                       <th scope="row">6</th>
+                                                       <td>무이자 여부noinf</td>
+                                                       <td><%= noinf %></td>
+                                                   </tr>   
+                                                 
+                                                     </tbody>
+                                               </table>
+                                           </div>
+                                       </div>
+    
+     
 <%
                     /* = -------------------------------------------------------------- = */
                     /* =   복합결제(포인트+신용카드) 승인 결과 처리                     = */
@@ -710,7 +710,7 @@
                                class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary" >
                                              홈으로
 		 					  </button>
-            </div>
+            </div><!-- 클리어픽스 -->
                
           <!-- 버튼 -->                          
          
@@ -750,7 +750,7 @@
                <button class="btn btn-success btn-lg">문의하러가기</button>
             </div>
          </div>
-      </div>
+      </div><!-- col-md-12 col-lg-4 -->
    </div>
 </div>
 

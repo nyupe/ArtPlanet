@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html;charset=euc-kr"%>
+<%@ page language="java" contentType="text/html;charset=UTF-8"%>
 <%
     /* ============================================================================== */
-    /* =   PAGE : ÀÎÁõ ¿äÃ» ¹× °á°ú Ã³¸® PAGE                                       = */
+    /* =   PAGE : ì¸ì¦ ìš”ì²­ ë° ê²°ê³¼ ì²˜ë¦¬ PAGE                                       = */
     /* = -------------------------------------------------------------------------- = */
     /* =   Copyright (c)  2013   KCP Inc.   All Rights Reserverd.                   = */
     /* ============================================================================== */
@@ -10,7 +10,7 @@
 <%@ include file="../../cfg/site_conf_inc.jsp"%>
 <%!
     /* ============================================================================== */
-    /* =   null °ªÀ» Ã³¸®ÇÏ´Â ¸Þ¼Òµå                                                = */
+    /* =   null ê°’ì„ ì²˜ë¦¬í•˜ëŠ” ë©”ì†Œë“œ                                                = */
     /* = -------------------------------------------------------------------------- = */
         public String f_get_parm( String val )
         {
@@ -21,33 +21,33 @@
 %>
 <%
     /* ============================================================================== */
-    /* =   01. ÀÎÁõ µ¥ÀÌÅÍ ¼Â¾÷ (¾÷Ã¼¿¡ ¸Â°Ô ¼öÁ¤)                                  = */
+    /* =   01. ì¸ì¦ ë°ì´í„° ì…‹ì—… (ì—…ì²´ì— ë§žê²Œ ìˆ˜ì •)                                  = */
     /* = -------------------------------------------------------------------------- = */
 
     /* ============================================================================== */
 
 
     /* ============================================================================== */
-    /* =   02. ÀÎÁõ ¿äÃ» Á¤º¸ ¼³Á¤                                                  = */
+    /* =   02. ì¸ì¦ ìš”ì²­ ì •ë³´ ì„¤ì •                                                  = */
     /* = -------------------------------------------------------------------------- = */
-    String req_tx      = f_get_parm( request.getParameter( "req_tx"      ) ); // ¿äÃ» Á¾·ù
-    String tran_cd     = f_get_parm( request.getParameter( "tran_cd"     ) ); // Ã³¸® Á¾·ù
-    String cust_ip     = f_get_parm( request.getRemoteAddr()               ); // ¿äÃ» IP
+    String req_tx      = f_get_parm( request.getParameter( "req_tx"      ) ); // ìš”ì²­ ì¢…ë¥˜
+    String tran_cd     = f_get_parm( request.getParameter( "tran_cd"     ) ); // ì²˜ë¦¬ ì¢…ë¥˜
+    String cust_ip     = f_get_parm( request.getRemoteAddr()               ); // ìš”ì²­ IP
     /* = -------------------------------------------------------------------------- = */
-    String pay_method  = f_get_parm( request.getParameter( "pay_method"  ) ); // °áÁ¦ ¹æ¹ý
-    String ordr_idxx   = f_get_parm( request.getParameter( "ordr_idxx"   ) ); // ¼îÇÎ¸ô ÁÖ¹®¹øÈ£
-    String buyr_name   = f_get_parm( request.getParameter( "buyr_name"   ) ); // ¿äÃ»ÀÚ ÀÌ¸§
+    String pay_method  = f_get_parm( request.getParameter( "pay_method"  ) ); // ê²°ì œ ë°©ë²•
+    String ordr_idxx   = f_get_parm( request.getParameter( "ordr_idxx"   ) ); // ì‡¼í•‘ëª° ì£¼ë¬¸ë²ˆí˜¸
+    String buyr_name   = f_get_parm( request.getParameter( "buyr_name"   ) ); // ìš”ì²­ìž ì´ë¦„
     /* = -------------------------------------------------------------------------- = */
-    String res_cd      = "";                                                  // °á°ú ÄÚµå
-    String res_msg     = "";                                                  // °á°ú ¸Þ½ÃÁö
+    String res_cd      = "";                                                  // ê²°ê³¼ ì½”ë“œ
+    String res_msg     = "";                                                  // ê²°ê³¼ ë©”ì‹œì§€
     /* = -------------------------------------------------------------------------- = */
-    String card_cd     = "";                                                  // Ä«µå ÄÚµå
-    String batch_key   = "";                                                  // ¹èÄ¡ ÀÎÁõÅ°
+    String card_cd     = "";                                                  // ì¹´ë“œ ì½”ë“œ
+    String batch_key   = "";                                                  // ë°°ì¹˜ ì¸ì¦í‚¤
     /* ============================================================================== */
 
 
     /* ============================================================================== */
-    /* =   03. ÀÎ½ºÅÏ½º »ý¼º ¹× ÃÊ±âÈ­                                              = */
+    /* =   03. ì¸ìŠ¤í„´ìŠ¤ ìƒì„± ë° ì´ˆê¸°í™”                                              = */
     /* = -------------------------------------------------------------------------- = */
     J_PP_CLI_N c_PayPlus = new J_PP_CLI_N();
 
@@ -57,18 +57,18 @@
 
 
     /* ============================================================================== */
-    /* =   04. Ã³¸® ¿äÃ» Á¤º¸ ¼³Á¤, ½ÇÇà                                            = */
+    /* =   04. ì²˜ë¦¬ ìš”ì²­ ì •ë³´ ì„¤ì •, ì‹¤í–‰                                            = */
     /* = -------------------------------------------------------------------------- = */
 
     /* = -------------------------------------------------------------------------- = */
-    /* =   04-1. ÀÎÁõ ¿äÃ»                                                          = */
+    /* =   04-1. ì¸ì¦ ìš”ì²­                                                          = */
     /* = -------------------------------------------------------------------------- = */
     c_PayPlus.mf_set_enc_data( f_get_parm( request.getParameter( "enc_data" ) ),
                                f_get_parm( request.getParameter( "enc_info" ) ) );
     c_PayPlus.mf_set_trace_no( f_get_parm( request.getParameter( "trace_no" ) ) );
 
     /* = -------------------------------------------------------------------------- = */
-    /* =   04-2. ½ÇÇà                                                               = */
+    /* =   04-2. ì‹¤í–‰                                                               = */
     /* = -------------------------------------------------------------------------- = */
     if ( tran_cd.length() > 0 )
     {
@@ -77,27 +77,27 @@
     else
     {
         c_PayPlus.m_res_cd  = "9562";
-        c_PayPlus.m_res_msg = "¿¬µ¿ ¿À·ù + TRAN_CD[" + tran_cd + "]";
+        c_PayPlus.m_res_msg = "ì—°ë™ ì˜¤ë¥˜ + TRAN_CD[" + tran_cd + "]";
     }
 
-    res_cd  = c_PayPlus.m_res_cd;                      // °á°ú ÄÚµå
-    res_msg = c_PayPlus.m_res_msg;                     // °á°ú ¸Þ½ÃÁö
+    res_cd  = c_PayPlus.m_res_cd;                      // ê²°ê³¼ ì½”ë“œ
+    res_msg = c_PayPlus.m_res_msg;                     // ê²°ê³¼ ë©”ì‹œì§€
     /* ============================================================================== */
 
 
     /* ============================================================================== */
-    /* =   05. ÀÎÁõ °á°ú Ã³¸®                                                       = */
+    /* =   05. ì¸ì¦ ê²°ê³¼ ì²˜ë¦¬                                                       = */
     /* = -------------------------------------------------------------------------- = */
     if ( res_cd.equals( "0000" ) )
     {
-        card_cd   = c_PayPlus.mf_get_res( "card_cd"   );       // Ä«µå ÄÚµå
-        batch_key = c_PayPlus.mf_get_res( "batch_key" );       // ¹èÄ¡ ÀÎÁõÅ°
+        card_cd   = c_PayPlus.mf_get_res( "card_cd"   );       // ì¹´ë“œ ì½”ë“œ
+        batch_key = c_PayPlus.mf_get_res( "batch_key" );       // ë°°ì¹˜ ì¸ì¦í‚¤
     }
     /* ============================================================================== */
 
 
     /* ============================================================================== */
-    /* =   06. Æû ±¸¼º ¹× °á°úÆäÀÌÁö È£Ãâ                                           = */
+    /* =   06. í¼ êµ¬ì„± ë° ê²°ê³¼íŽ˜ì´ì§€ í˜¸ì¶œ                                           = */
     /* ============================================================================== */
 %>
     <html>
@@ -110,13 +110,13 @@
     </script>
     </head>
     <body onload="goResult()">
-    <form name="pay_info" method="post" action="./result.jsp">
-        <input type="hidden" name="res_cd"      value="<%=res_cd%>">            <!-- °á°ú ÄÚµå -->
-        <input type="hidden" name="res_msg"     value="<%=res_msg%>">           <!-- °á°ú ¸Þ¼¼Áö -->
-        <input type="hidden" name="ordr_idxx"   value="<%=ordr_idxx%>">         <!-- ÁÖ¹®¹øÈ£ -->
-        <input type="hidden" name="buyr_name"   value="<%=buyr_name%>">         <!-- ¿äÃ»ÀÚ ÀÌ¸§ -->
-        <input type="hidden" name="card_cd"     value="<%=card_cd%>">           <!-- Ä«µå ÄÚµå -->
-        <input type="hidden" name="batch_key"   value="<%=batch_key%>">         <!-- ¹èÄ¡ ÀÎÁõÅ° -->
+    <form name="pay_info" method="post" action="RecurringAuthRes.do">
+        <input type="hidden" name="res_cd"      value="<%=res_cd%>">            <!-- ê²°ê³¼ ì½”ë“œ -->
+        <input type="hidden" name="res_msg"     value="<%=res_msg%>">           <!-- ê²°ê³¼ ë©”ì„¸ì§€ -->
+        <input type="hidden" name="ordr_idxx"   value="<%=ordr_idxx%>">         <!-- ì£¼ë¬¸ë²ˆí˜¸ -->
+        <input type="hidden" name="buyr_name"   value="<%=buyr_name%>">         <!-- ìš”ì²­ìž ì´ë¦„ -->
+        <input type="hidden" name="card_cd"     value="<%=card_cd%>">           <!-- ì¹´ë“œ ì½”ë“œ -->
+        <input type="hidden" name="batch_key"   value="<%=batch_key%>">         <!-- ë°°ì¹˜ ì¸ì¦í‚¤ -->
     </form>
     </body>
     </html>

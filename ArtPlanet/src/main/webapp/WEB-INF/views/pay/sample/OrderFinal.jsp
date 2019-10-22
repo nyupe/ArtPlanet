@@ -25,7 +25,7 @@
 <link
    href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css"
    rel="stylesheet">
-</head>
+
 
 <!-- PG사 결제창호출함수 -->
 <script type="text/javascript">
@@ -71,7 +71,9 @@
 
       var order_idxx = "TEST" + year + "" + month + "" + date + "" + time;
 
-      document.order_info.ordr_idxx.value = order_idxx;
+     // document.order_info.ordr_idxx.value = order_idxx;
+      
+      $('#paynumber').val(order_idxx);
    }
 </script>
 
@@ -123,8 +125,16 @@
             }
         }).open();
     }
+    
+    $(function(){
+	    init_orderid();
+    });
 </script>
 <!-- daum 끝 -->
+</head>
+
+
+<!-- 케로UI시작 -->
 <div class="container">
    <div style="padding-top: 130px;" class="row"></div>
    <div class="row">
@@ -242,8 +252,8 @@
                                        <div class="col-md-6">
                                           <div class="position-relative form-group">
                                              <label>주문번호</label> <input class="form-control"
-                                                placeholder="주문번호" type="text" name="ordr_idxx"
-                                                value="TEST1234" maxlength="40" />
+                                                placeholder="주문번호" id="paynumber"type="text" name="ordr_idxx"
+                                                value="" maxlength="40" />
                                           </div>
                                        </div>
                                        <div class="col-md-6">

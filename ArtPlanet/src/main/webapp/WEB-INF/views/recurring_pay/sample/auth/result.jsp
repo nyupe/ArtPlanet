@@ -1,14 +1,14 @@
-<%@ page language="java" contentType="text/html;charset=euc-kr"%>
+<%@ page language="java" contentType="text/html;charset=euc-kr" pageEncoding="utf-8"%>
 <%
     /* ============================================================================== */
-    /* =   PAGE : ∞·∞˙ √≥∏Æ PAGE                                                    = */
+    /* =   PAGE : Í≤∞Í≥º Ï≤òÎ¶¨ PAGE                                                    = */
     /* = -------------------------------------------------------------------------- = */
     /* =   Copyright (c)  2013   KCP Inc.   All Rights Reserverd.                   = */
     /* ============================================================================== */
 %>
 <%!
     /* ============================================================================== */
-    /* =   null ∞™¿ª √≥∏Æ«œ¥¬ ∏ﬁº“µÂ                                                = */
+    /* =   null Í∞íÏùÑ Ï≤òÎ¶¨ÌïòÎäî Î©îÏÜåÎìú                                                = */
     /* = -------------------------------------------------------------------------- = */
         public String f_get_parm( String val )
         {
@@ -19,20 +19,20 @@
 %>
 <%
     /* ============================================================================== */
-    /* =   01. ¿Œ¡ı ∞·∞˙                                                            = */
+    /* =   01. Ïù∏Ï¶ù Í≤∞Í≥º                                                            = */
     /* = -------------------------------------------------------------------------- = */
-    String res_cd      = f_get_parm( request.getParameter( "res_cd"      ) ); // ∞·∞˙ ƒ⁄µÂ
-    String res_msg     = f_get_parm( request.getParameter( "res_msg"     ) ); // ∞·∞˙ ∏ﬁΩ√¡ˆ
+    String res_cd      = f_get_parm( request.getParameter( "res_cd"      ) ); // Í≤∞Í≥º ÏΩîÎìú
+    String res_msg     = f_get_parm( request.getParameter( "res_msg"     ) ); // Í≤∞Í≥º Î©îÏãúÏßÄ
     /* = -------------------------------------------------------------------------- = */
-    String ordr_idxx   = f_get_parm( request.getParameter( "ordr_idxx"   ) ); // ¡÷πÆπ¯»£
-    String buyr_name   = f_get_parm( request.getParameter( "buyr_name"   ) ); // ø‰√ª¿⁄ ¿Ã∏ß
-    String card_cd     = f_get_parm( request.getParameter( "card_cd"     ) ); // ƒ´µÂ ƒ⁄µÂ
-    String batch_key   = f_get_parm( request.getParameter( "batch_key"   ) ); // πËƒ° ¿Œ¡ı≈∞
+    String ordr_idxx   = f_get_parm( request.getParameter( "ordr_idxx"   ) ); // Ï£ºÎ¨∏Î≤àÌò∏
+    String buyr_name   = f_get_parm( request.getParameter( "buyr_name"   ) ); // ÏöîÏ≤≠Ïûê Ïù¥Î¶Ñ
+    String card_cd     = f_get_parm( request.getParameter( "card_cd"     ) ); // Ïπ¥Îìú ÏΩîÎìú
+    String batch_key   = f_get_parm( request.getParameter( "batch_key"   ) ); // Î∞∞Ïπò Ïù∏Ï¶ùÌÇ§
     /* ============================================================================== */
 
 
     /* ============================================================================== */
-    /* =   02. ∞·∞˙∆‰¿Ã¡ˆ ∆˚ ±∏º∫                                                   = */
+    /* =   02. Í≤∞Í≥ºÌéòÏù¥ÏßÄ Ìèº Íµ¨ÏÑ±                                                   = */
     /* ============================================================================== */
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -40,91 +40,219 @@
 <html xmlns="http:'www.w3.org/1999/xhtml" >
 
 <head>
-    <title>*** KCP Payment System ***</title>
+    <title>Art Planet-Ïù∏Ï¶ùÍ≤∞Í≥ºÌéòÏù¥ÏßÄ</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
-    <link href="css/style.css" rel="stylesheet" type="text/css" id="cssLink"/>
+
+	<link href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">
 </head>
 
 <body>
-    <div id="sample_wrap">
+    <!-- ÏºÄÎ°úUI -->
+<div class="container">
+   <div style="padding-top: 130px;" class="row"></div>
+   <div class="row">
+      <div class="inner-bar-center">
+         <ul class="nav">
+            <li class="nav-item"><a role="tab" data-toggle="tab"
+               id="tab-nav-0" class="nav-link active" href="#tab-content-0"> <span>Í≤∞Í≥ºÌéòÏù¥ÏßÄ</span>
+            </a></li>
+         </ul>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-lg-8 col-md-12">
+         <div class="card-body">
+
+            <div id="smartwizard">
+               <ul class="forms-wizard">
+               
+                  <li><a href="#step-3"> <em>2</em><span>Ïù∏Ï¶ùÏôÑÎ£å</span>
+                  </a></li>
+               </ul>
+               <!-- ÏúÑÏûêÎìúÌèº ÏãúÏûë -->
+               <div class="form-wizard-content">
+                  <div id="step-1">                 
+                  </div>
+                  <div id="step-2">           
+                  </div>
+                  <div id="step-3">
+                     <div class="no-results">
+                        <div class="swal2-icon swal2-success swal2-animate-success-icon">
+                           <div class="swal2-success-circular-line-left"
+                              style="background-color: rgb(255, 255, 255);"></div>
+                           <span class="swal2-success-line-tip"></span> <span
+                              class="swal2-success-line-long"></span>
+                           <div class="swal2-success-ring"></div>
+                           <div class="swal2-success-fix"
+                              style="background-color: rgb(255, 255, 255);"></div>
+                           <div class="swal2-success-circular-line-right"
+                              style="background-color: rgb(255, 255, 255);"></div>
+                        </div>
+                        <div class="results-subtitle mt-4">Finished!</div>
+                        <div class="results-title">ÌõÑÏõêÏûêÍ∞Ä Î™©ÌëúÏù∏ÏõêÏóê ÎèÑÎã¨Ìï† Í≤ΩÏö∞,</br>Ìï¥ÎãπÏπ¥ÎìúÎ°ú Ï†ïÍ∏∞Í≤∞Ï†úÍ∞Ä ÏãúÏûëÎê©ÎãàÎã§</div>
+                        <div class="mt-3 mb-3"></div>
+                        <div class="text-center"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="divider"></div>
+            <div class="clearfix">
+            
+            <!-- formÍ∞íÏãúÏûë -->
     <form name="mod" method="post">
-        <h1>[∞·∞˙√‚∑¬]<span> ¿Ã ∆‰¿Ã¡ˆ¥¬ ∞·¡¶ ∞·∞˙∏¶ √‚∑¬«œ¥¬ ª˘«√(øπΩ√) ∆‰¿Ã¡ˆ¿‘¥œ¥Ÿ.</span></h1>
-    <div class="sample">
-        <p>
-          ø‰√ª ∞·∞˙∏¶ √‚∑¬«œ¥¬ ∆‰¿Ã¡ˆ ¿‘¥œ¥Ÿ.<br />
-          ø‰√ª¿Ã ¡§ªÛ¿˚¿∏∑Œ √≥∏Æµ» ∞ÊøÏ ∞·∞˙ƒ⁄µÂ(res_cd)∞™¿Ã 0000¿∏∑Œ «•Ω√µÀ¥œ¥Ÿ.
-        </p>
+       
+    
 <%
     /* ============================================================================== */
-    /* =   ∞·¡¶ ∞·∞˙ ƒ⁄µÂ π◊ ∏ﬁΩ√¡ˆ √‚∑¬(∞·∞˙∆‰¿Ã¡ˆø° π›µÂΩ√ √‚∑¬«ÿ¡÷Ω√±‚ πŸ∂¯¥œ¥Ÿ.)= */
+    /* =   Í≤∞Ï†ú Í≤∞Í≥º ÏΩîÎìú Î∞è Î©îÏãúÏßÄ Ï∂úÎ†•(Í≤∞Í≥ºÌéòÏù¥ÏßÄÏóê Î∞òÎìúÏãú Ï∂úÎ†•Ìï¥Ï£ºÏãúÍ∏∞ Î∞îÎûçÎãàÎã§.)= */
     /* = -------------------------------------------------------------------------- = */
-    /* =   ∞·¡¶ ¡§ªÛ : res_cd∞™¿Ã 0000¿∏∑Œ º≥¡§µÀ¥œ¥Ÿ.                              = */
-    /* =   ∞·¡¶ Ω«∆– : res_cd∞™¿Ã 0000¿Ãø‹¿« ∞™¿∏∑Œ º≥¡§µÀ¥œ¥Ÿ.                     = */
+    /* =   Í≤∞Ï†ú Ï†ïÏÉÅ : res_cdÍ∞íÏù¥ 0000ÏúºÎ°ú ÏÑ§Ï†ïÎê©ÎãàÎã§.                              = */
+    /* =   Í≤∞Ï†ú Ïã§Ìå® : res_cdÍ∞íÏù¥ 0000Ïù¥Ïô∏Ïùò Í∞íÏúºÎ°ú ÏÑ§Ï†ïÎê©ÎãàÎã§.                     = */
     /* = -------------------------------------------------------------------------- = */
-%>
-                    <h2>&sdot; √≥∏Æ ∞·∞˙</h2>
-                    <table class="tbl" cellpadding="0" cellspacing="0">
-                        <!-- ∞·∞˙ ƒ⁄µÂ -->
-                        <tr>
-                          <th>∞·∞˙ ƒ⁄µÂ</th>
-                          <td><%=res_cd%></td>
-                        </tr>
-                        <!-- ∞·∞˙ ∏ﬁΩ√¡ˆ -->
-                        <tr>
-                          <th>∞·∞˙ ∏ﬁºº¡ˆ</th>
-                          <td><%=res_msg%></td>
-                        </tr>
-                    </table>
+%>	
+	<!-- Ï≤òÎ¶¨Í≤∞Í≥º -->
+<div class="main-card mb-3 card">
+               <div class="card-body">
+               <h5 class="card-title">Ï≤òÎ¶¨Í≤∞Í≥º</h5>
+                   <table class="mb-0 table">
+                       <thead>
+                       <tr>
+                           <th>#</th>
+                           <th>Key</th>
+                           <th>Value</th>                                                            
+                       </tr>
+                       </thead>
+                       <tbody>
+                         <!-- Í≤∞Í≥º ÏΩîÎìú -->
+                       <tr>
+                           <th scope="row">1</th>
+                           <td>Í≤∞Í≥º ÏΩîÎìúres_cd</td>
+                           <td><%=res_cd%></td>                                                           
+                       </tr>
+                         <!-- Í≤∞Í≥º Î©îÏãúÏßÄ -->
+                       <tr>
+                           <th scope="row">2</th>
+                           <td>Í≤∞Í≥º Î©îÏÑ∏ÏßÄres_msg</td>
+                           <td><%=res_msg%></td>
+                       </tr>                                                          
+  					</tbody>
+                  </table>
+                </div>
 <%
             /* ============================================================================== */
-            /* =   1. ¡§ªÛ ∞·¡¶Ω√ ∞·¡¶ ∞·∞˙ √‚∑¬ ( res_cd∞™¿Ã 0000¿Œ ∞ÊøÏ)                  = */
+            /* =   1. Ï†ïÏÉÅ Í≤∞Ï†úÏãú Í≤∞Ï†ú Í≤∞Í≥º Ï∂úÎ†• ( res_cdÍ∞íÏù¥ 0000Ïù∏ Í≤ΩÏö∞)                  = */
             /* = -------------------------------------------------------------------------- = */
             if ( res_cd.equals("0000") )
             {
 %>
-
-                    <h2>&sdot; ¡÷πÆ ¡§∫∏</h2>
-                    <table class="tbl" cellpadding="0" cellspacing="0">
-                    <!-- ¡÷πÆπ¯»£ -->
-                    <tr>
-                        <th>¡÷πÆπ¯»£</th>
-                        <td><%=ordr_idxx%></td>
-                    </tr>
-                    <!-- ¡÷πÆ¿⁄∏Ì -->
-                    <tr>
-                        <th>¡÷πÆ¿⁄∏Ì</th>
-                        <td><%=buyr_name%></td>
-                    </tr>
+			
+               <div class="card-body">
+               <h5 class="card-title">Ï£ºÎ¨∏Ï†ïÎ≥¥</h5>
+                   <table class="mb-0 table">
+                       <thead>
+                       <tr>
+                           <th>#</th>
+                           <th>Key</th>
+                           <th>Value</th>                                                            
+                       </tr>
+                       </thead>
+                       <tbody>
+                       <!-- Ï£ºÎ¨∏Î≤àÌò∏ -->
+                       <tr>
+                           <th scope="row">1</th>
+                           <td>Ï£ºÎ¨∏ Î≤àÌò∏ordr_idxx</td>
+                           <td><%=ordr_idxx%></td>                                                           
+                       </tr>
+                        <!-- Ï£ºÎ¨∏ÏûêÎ™Ö -->
+                       <tr>
+                           <th scope="row">2</th>
+                           <td>Ï£ºÎ¨∏ÏûêÎ™Öbuyr_name</td>
+                           <td><%=buyr_name%></td>
+                       </tr>   
+                     </tbody>
                     </table>
+                    </div>                   
+                    <!-- Ï£ºÎ¨∏Ï†ïÎ≥¥ÎÅù -->
 
-                    <h2>&sdot; ¡§±‚ ∞˙±› ¡§∫∏</h2>
-                    <table class="tbl" cellpadding="0" cellspacing="0">
-                    <!-- ∞·¡¶ ƒ´µÂ -->
-                    <tr>
-                        <th>¿Œ¡ıƒ´µÂƒ⁄µÂ</th>
-                        <td><%=card_cd%></td>
-                    </tr>
-                    <!-- Ω¬¿ŒΩ√∞£ -->
-                    <tr>
-                        <th>πËƒ°≈∞</th>
-                        <td><%=batch_key%></td>
-                    </tr>
-                    </table>
+                     <!-- Ï≤òÎ¶¨Í≤∞Í≥º -->
+				
+                         <div class="card-body">
+                         <h5 class="card-title">Ï†ïÍ∏∞ Í≥ºÍ∏à Ï†ïÎ≥¥</h5>
+                             <table class="mb-0 table">
+                                 <thead>
+                                 
+                                 <tr>
+                                     <th>#</th>
+                                     <th>Key</th>
+                                     <th>Value</th>                                                            
+                                 </tr>
+                                 </thead>
+                                 <tbody>
+                                 <!-- Í≤∞Ï†ú Ïπ¥Îìú -->
+                                 <tr>
+                                     <th scope="row">1</th>
+                                     <td>Ïù∏Ï¶ùÏπ¥ÎìúÏΩîÎìúcard_cd</td>
+                                     <td><%=card_cd%></td>                                                           
+                                 </tr>
+                                  <!-- ÏäπÏù∏ÏãúÍ∞Ñ -->
+                                 <tr>
+                                     <th scope="row">2</th>
+                                     <td>Î∞∞ÏπòÌÇ§batch_key</td>
+                                     <td><%=batch_key%></td>
+                                 </tr> 
+                               </tbody>        
+             			       </table>
+             			   </div>
+             			  
+                   
 <%
     }
 %>
-                    <!-- √≥¿Ω¿∏∑Œ ¿ÃπÃ¡ˆ πˆ∆∞ -->
-                <tr>
-                <div class="btnset">
-                <a href="../index.html" class="home">√≥¿Ω¿∏∑Œ</a>
-                </div>
-                </tr>
-              </tr>
+                    <!-- Ï≤òÏùåÏúºÎ°ú Ïù¥ÎØ∏ÏßÄ Î≤ÑÌäº -->
+              
+        
+ </div><!-- Î©îÏù∏Ïπ¥Îìú -->
+          <button type="button"  onclick="location.href='Home.tiles';"
+                               class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary" >
+                                             ÌôàÏúºÎ°ú
+		 					  </button>
+    </div><!-- ÌÅ¥Î¶¨Ïñ¥ÌîΩÏä§ -->
+ </div>
+
+ </div><!-- col-lg-8 col-md-12 -->
+      <div class="col-md-12 col-lg-4">
+         <div class="main-card mb-3 card">
+            <div class="card-header">Í≥µÏßÄÏÇ¨Ìï≠</div>
+            <ul class="todo-list-wrapper list-group list-group-flush">
+               <li class="list-group-item">
+                  <div class="todo-indicator bg-warning"></div>
+                  <div class="widget-content p-0">
+                     <div class="widget-content-wrapper">
+                        <div class="widget-content-left mr-2"></div>
+                        <div class="widget-content-left">
+                           <div class="badge badge-danger ml-2">ÌïÑÎèÖ</div>
+                           <div class="widget-heading">
+                              Í≤∞Ï†úÍ±¥Ïóê ÎåÄÌïú Ï∑®ÏÜåÍ¥ÄÎ†® Í∂ÅÍ∏àÌïòÏã†Ï†êÏùÄ</br>ArtPlanetÏúºÎ°ú Î¨∏ÏùòÏ£ºÏÑ∏Ïöî
+
+                           </div>
+                           <div class="widget-subheading">
+                              <i>Ïö¥ÏòÅÏûê</i>
+                           </div>
+                        </div>
+
+                     </div>
+                  </div>
+               </li>
+
+            </ul>
+            <div class="d-block text-right card-footer">
+
+               <button class="btn btn-success btn-lg">Î¨∏ÏùòÌïòÎü¨Í∞ÄÍ∏∞</button>
             </div>
-        <div class="footer">
-                Copyright (c) KCP INC. All Rights reserved.
-        </div>
-    </div>
-  </body>
-</html>
+         </div>
+      </div><!-- col-md-12 col-lg-4 -->
+ </div><!-- row -->
+ </div><!-- Ïª®ÌÖåÏù¥ÎÑà -->
+  
