@@ -12,7 +12,7 @@
 	<category_index>0</category_index>
 	<zoom>0.8</zoom>
 	<x>-39</x>
-	<y>181</y>
+	<y>215</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -41,11 +41,11 @@
 		<suspend_validator>false</suspend_validator>
 		<export_setting>
 			<export_ddl_setting>
-				<output_path></output_path>
-				<encoding></encoding>
-				<line_feed></line_feed>
+				<output_path>src\main\webapp\resources\sql\artplanetDB_v1.sql</output_path>
+				<encoding>UTF-8</encoding>
+				<line_feed>CR+LF</line_feed>
 				<is_open_after_saved>true</is_open_after_saved>
-				<environment_id>null</environment_id>
+				<environment_id>0</environment_id>
 				<category_id>null</category_id>
 				<ddl_target>
 					<create_comment>true</create_comment>
@@ -53,15 +53,15 @@
 					<create_index>true</create_index>
 					<create_sequence>true</create_sequence>
 					<create_table>true</create_table>
-					<create_tablespace>true</create_tablespace>
-					<create_trigger>true</create_trigger>
-					<create_view>true</create_view>
+					<create_tablespace>false</create_tablespace>
+					<create_trigger>false</create_trigger>
+					<create_view>false</create_view>
 					<drop_index>true</drop_index>
 					<drop_sequence>true</drop_sequence>
 					<drop_table>true</drop_table>
-					<drop_tablespace>true</drop_tablespace>
-					<drop_trigger>true</drop_trigger>
-					<drop_view>true</drop_view>
+					<drop_tablespace>false</drop_tablespace>
+					<drop_trigger>false</drop_trigger>
+					<drop_view>false</drop_view>
 					<inline_column_comment>true</inline_column_comment>
 					<inline_table_comment>true</inline_table_comment>
 					<comment_value_description>true</comment_value_description>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2019-10-04 08:42:28</creation_date>
-			<updated_date>2019-10-07 18:51:15</updated_date>
+			<updated_date>2019-10-18 11:46:50</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -181,7 +181,7 @@
 			<char_semantics>false</char_semantics>
 			<description></description>
 			<logical_name>주소</logical_name>
-			<physical_name>adress</physical_name>
+			<physical_name>address</physical_name>
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
@@ -2245,7 +2245,7 @@
 			<connections>
 				<relation>
 					<id>6</id>
-					<source>15</source>
+					<source>0</source>
 					<target>7</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2267,7 +2267,7 @@
 				</relation>
 				<relation>
 					<id>7</id>
-					<source>0</source>
+					<source>15</source>
 					<target>7</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2362,7 +2362,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>15</word_id>
+					<word_id>13</word_id>
 					<id>24</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2395,7 +2395,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>36</word_id>
+					<word_id>38</word_id>
 					<id>25</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2463,7 +2463,7 @@
 				<normal_column>
 					<id>27</id>
 					<referenced_column>67</referenced_column>
-					<relation>6</relation>
+					<relation>7</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2497,7 +2497,7 @@
 				<normal_column>
 					<id>28</id>
 					<referenced_column>0</referenced_column>
-					<relation>7</relation>
+					<relation>6</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2739,7 +2739,7 @@
 			<connections>
 				<relation>
 					<id>9</id>
-					<source>15</source>
+					<source>11</source>
 					<target>9</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2761,7 +2761,7 @@
 				</relation>
 				<relation>
 					<id>10</id>
-					<source>11</source>
+					<source>15</source>
 					<target>9</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2891,7 +2891,7 @@
 				<normal_column>
 					<id>36</id>
 					<referenced_column>67</referenced_column>
-					<relation>9</relation>
+					<relation>10</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -2925,7 +2925,7 @@
 				<normal_column>
 					<id>37</id>
 					<referenced_column>45</referenced_column>
-					<relation>10</relation>
+					<relation>9</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -3109,7 +3109,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>38</word_id>
+					<word_id>36</word_id>
 					<id>41</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3383,7 +3383,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>13</word_id>
+					<word_id>15</word_id>
 					<id>47</id>
 					<description></description>
 					<unique_key_name></unique_key_name>

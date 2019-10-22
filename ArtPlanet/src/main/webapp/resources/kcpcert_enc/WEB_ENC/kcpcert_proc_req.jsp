@@ -200,7 +200,7 @@
                 // 인증 결과 데이터 리턴 페이지 호출 함수
                 else if ( ( frm.req_tx.value == "auth" || frm.req_tx.value == "otp_auth" ) )
                 {
-                    frm.action="<c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_res.jsp'/>";
+                    frm.action="./kcpcert_proc_res.jsp";
                     frm.submit();
                 }
                 else
