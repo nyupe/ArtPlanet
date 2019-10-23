@@ -23,6 +23,7 @@
 	height: 150px !important;
 	max-width: 100%;
 	max-height: 100%;
+	
 }
    /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -99,7 +100,7 @@
 
 			<div class="row">
 
-				<div class="col-lg-8 col-md-8 col-sm-12">
+				<div class="col-lg-8 col-md-8 col-sm-12" >
 
 					<div class="food__menu__container">
 						<!-- 사진  슬라이드 시작-->

@@ -41,7 +41,7 @@
 <script type="text/javascript" src="<%= g_conf_js_url %>"charset="euc-kr"></script>
  
 <script type="text/javascript">
- 
+
         /* Payplus Plug-in 실행 */
         function jsf__pay( form )
         {
@@ -69,13 +69,18 @@
  
             var vOrderID = year + "" + month + "" + date + "" + time;
  
-            document.forms[0].ordr_idxx.value = vOrderID;
+           
+	        $('#paynumber').val(vOrderID);
+            //document.forms[0].ordr_idxx.value = vOrderID;
         }
- 
+        
+    $(function(){
+	    init_orderid();
+    });
+    
+
     </script>
 </head>
- 
-<body onload="init_orderid();" >
  
 <!-- 케로UI시작 -->
 <div class="container">
@@ -134,7 +139,7 @@
           <!-- 주문 번호 -->
          <div class="position-relative form-group">
             <label>주문번호</label> 
-            <input class="form-control" placeholder="주문번호" type="text" name="ordr_idxx"
+            <input id="paynumber" class="form-control" placeholder="주문번호" type="text" name="ordr_idxx"
                value="TEST1234" maxlength="40" />
          </div>
        </div>
@@ -265,3 +270,4 @@
       </div>
    </div>
 </div>
+</html>

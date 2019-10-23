@@ -10,6 +10,7 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
+	
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
@@ -21,6 +22,12 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
+
+	<!-- webapp아래 임의의 디렉토리에 정적 리소스를 사용하기위해 아래 태그 추가 -->
+	<default-servlet-handler />
+	
+	
+	<!-- 각종 어노테이션 붙은 클래스 자동 맵핑을 위한 태그 -->
 	<context:component-scan base-package="com.hansoin5.artplanet" />
 	
 	<!-- Tiles -->
@@ -39,5 +46,8 @@
 		<beans:property name="viewClass"
 			value="org.springframework.web.servlet.view.tiles3.TilesView" />
 	</beans:bean>
+	
+	
+
 	
 </beans:beans>

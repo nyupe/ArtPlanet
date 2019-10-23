@@ -35,7 +35,8 @@
 					<div class="priceTable-footer">
 						<a class="main_btn" href="Order.do">일반결제</a>
 						<a class="main_btn" href="RecurringAuthReq.do">정기인증</a>
-						<a class="main_btn" href="RecurringPayOrder.do">정기결제</a>
+						<a class="main_btn" href="RecurringPayOrder.do">정기결제(관리자페이지 따로뺄것)</a>
+						<a class="main_btn" href="CancelOrder.do">취소(관리자페이지 따로뺄것)</a>
 					</div>
 				</div>
 			</div>

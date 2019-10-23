@@ -8,7 +8,7 @@
     /* ============================================================================== */
 
     /* ============================================================================== */
-    /* =   환경 설정 파일 Include                                                   = */
+    /* =   환경 설정 파일 Include                                                 = */
     /* = -------------------------------------------------------------------------- = */
 %>
 <%@ page import="kr.co.kcp.CT_CLI"%>
@@ -95,6 +95,9 @@
                     }
                     
                     auth_form.target = "auth_popup"; // !!주의 고정값 ( 리턴받을때 사용되는 타겟명입니다.)
+                    /* https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp */
+                    /* <c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/> */
+                    /* ./kcpcert_proc_req.jsp */
                     auth_form.action = "./kcpcert_proc_req.jsp"; // 인증창 호출 및 결과값 리턴 페이지 주소
                     
                     return true;
@@ -257,13 +260,18 @@
                 <!-- 사이트코드 -->
                 <input type="hidden" name="site_cd"      value="<%= site_cd %>" />
                 <!-- Ret_URL : 인증결과 리턴 페이지 ( 가맹점 URL 로 설정해 주셔야 합니다. ) -->
-                <input type="hidden" name="Ret_URL"      value="http://192.168.0.47:8080/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp" />
+                <input type="hidden" name="Ret_URL"      value="<c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/>" />
+                
+                <!-- https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp -->
+                <%-- <c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/> --%>
+                <!-- value="http://192.168.0.47:8080/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp" -->
+                
                 <!-- cert_otp_use 필수 ( 메뉴얼 참고)
                      Y : 실명 확인 + OTP 점유 확인 , N : 실명 확인 only
                 -->
                 <input type="hidden" name="cert_otp_use" value="Y"/>
                 <!-- cert_enc_use 필수 (고정값 : 메뉴얼 참고) -->
-                <input type="hidden" name="cert_enc_use" value="Y"/>
+                <input type="hidden" name="cert_enc_use" value="N"/>
 
                 <input type="hidden" name="res_cd"       value=""/>
                 <input type="hidden" name="res_msg"      value=""/>

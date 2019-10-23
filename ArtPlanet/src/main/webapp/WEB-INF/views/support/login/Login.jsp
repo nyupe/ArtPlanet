@@ -60,7 +60,11 @@
                                 <h4 class="mb-0">
                                     <span class="d-block"><span style="color:red ;font-size: 2.0rem">ArtPlanet</span>에 오신걸 환영합니다,</span>
                                     <span>로그인 해주세요.</span></h4>
-                                <h6 class="mt-3">회원이 아니시라구요? <br/><a href="<c:url value='/Register'/>;" class="text-primary">이곳을 클릭하여 회원가입하세요.</a></h6>
+                                <h6 class="mt-3">회원이 아니시라구요? 
+                                <br/>
+                                	<!-- 회원가입 페이지로 이동  GET방식 -->
+                                	<a href="<c:url value='/Register'/>;" class="text-primary">이곳을 클릭하여 회원가입하세요.</a>
+                                </h6>
                                 <div class="divider row"></div>
                                 <div style="padding-bottom: 100px">
                                 	<!-- 정상적인 로그인시 Home.jsp으로 이동 -->

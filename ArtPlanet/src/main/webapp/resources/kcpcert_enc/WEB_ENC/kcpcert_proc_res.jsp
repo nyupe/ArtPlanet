@@ -137,7 +137,7 @@
             // site_cd 와 cert_no 를 가지고 복화화 하는 함수 입니다.
             // 정상적으로 복호화 된경우에만 인증데이터를 가져올수 있습니다.
             cc.decryptEncCert( ENC_KEY, site_cd, cert_no, enc_cert_data );
-            //cc.setCharSetUtf8(); // 복호와 결과값 인코딩 변경 메서드 ( UTF-8 인코딩 사용시 주석을 해제하시기 바랍니다.)
+            cc.setCharSetUtf8(); // 복호와 결과값 인코딩 변경 메서드 ( UTF-8 인코딩 사용시 주석을 해제하시기 바랍니다.)
             
             System.out.println( "이동통신사 코드"    + cc.getKeyValue("comm_id"     ) ); // 이동통신사 코드   
             System.out.println( "전화번호"           + cc.getKeyValue("phone_no"    ) ); // 전화번호          
