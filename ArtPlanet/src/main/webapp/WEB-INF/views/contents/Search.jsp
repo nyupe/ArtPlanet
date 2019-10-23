@@ -40,6 +40,14 @@
 	.img-fluid {
 		border-radius: 6px;
 	}
+	.search-inner {
+		background-color: #fff;
+	}
+	#search_input {
+		width: 90%;
+		color: #1a1d24;
+		display: inline-block;
+	}
 </style>
 <script>
 	$(function() {
@@ -50,11 +58,19 @@
 <!--================ Start Portfolio Area =================-->
 <section class="portfolio_area area-padding" id="portfolio">
 	<div class="container">
-		<div class="area-heading">
-			<h3>
-				당신이 <span>좋아하게 될</span> 작품을 찾아보세요.
-			</h3>
+		<div class="area-heading" style="margin-bottom: 40px;">
+			<h3>당신이 <span>좋아하게 될</span> 작품을 찾아보세요.</h3>
 			<p>보기 전까지는 무엇을 찾고 있는지 모릅니다.</p>
+			<form class="search-inner" action="<c:url value='/Search'/>">
+				<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+				<button type="submit" class="btn"><i class="fas fa-search"></i></button>
+			</form>
+		</div>
+		<div class="card-header card-header-tab-animation" style="font-size: 1.8em; margin-bottom: 30px; padding: 0;">
+			<ul class="nav nav-justified">
+				<li class="nav-item"><a href="#" class="nav-link active">작품</a></li>
+				<li class="nav-item"><a href="#" class="nav-link">아티스트</a></li>
+			</ul>
 		</div>
 
 		<div class="filters portfolio-filter">
