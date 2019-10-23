@@ -37,6 +37,7 @@
 						<a class="main_btn" href="RecurringAuthReq.do">정기인증</a>
 						<a class="main_btn" href="RecurringPayOrder.do">정기결제(관리자페이지 따로뺄것)</a>
 						<a class="main_btn" href="CancelOrder.do">취소(관리자페이지 따로뺄것)</a>
+						<a class="main_btn" href="AuthStart.do">본인인증(신모듈)</a>
 					</div>
 				</div>
 			</div>
