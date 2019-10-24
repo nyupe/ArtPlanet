@@ -3526,11 +3526,14 @@ h6 {
 	text-shadow: -1px -1px 2px #fff, 1px 1px 2px #fff, -1px 1px 2px #fff, 1px -1px 2px #fff;
 }
 .avatar-icon-xxl .avatar-icon{
-	width: 180px;
-	height: 180px;
-	border-radius: 90px;
+	width: 140px;
+	height: 140px;
+	border-radius: 70px;
 }
 .hero-banner{
 	padding: 155px 0 20px !important;
+}
+.blog_right_sidebar .single_sidebar_widget {
+	background-color: #fff;
 }
 /*# sourceMappingURL=style.css.map */

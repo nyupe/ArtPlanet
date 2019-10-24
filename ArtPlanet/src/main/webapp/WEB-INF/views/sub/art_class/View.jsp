@@ -25,17 +25,44 @@
 	max-height: 100%;
 	
 }
-   /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
+ 
+#map {
         height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
+}
+
+html, body {
         height: 100%;
         margin: 0;
         padding: 0;
-      }
+}
+ 
+body {
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row > .column {
+  padding: 0 8px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+  width: 25%;
+}
+
+
+
+
 </style>
 
 
@@ -90,8 +117,7 @@
 	<![endif]-->
 
 	<!-- Start Blog List View Area -->
-	<section
-		class="blog__list__view section-padding--lg menudetails-right-sidebar bg--white">
+	<section class="blog__list__view section-padding--lg menudetails-right-sidebar bg--white">
 
 
 
@@ -100,7 +126,7 @@
 
 			<div class="row">
 
-				<div class="col-lg-8 col-md-8 col-sm-12" >
+				<div class="col-lg-6 col-md-6 col-sm-12" >
 
 					<div class="food__menu__container">
 						<!-- 사진  슬라이드 시작-->
@@ -136,7 +162,8 @@
 								</a> <a class="carousel-control-next" href="#demo" data-slide="next" style= "height:650px">
 									<span class="carousel-control-next-icon" aria-hidden="true" ></span>
 								</a>
-
+								
+						
 
 								<div class="food__menu__details">
 									<div class="food__menu__content">
@@ -165,9 +192,7 @@
 								</div>
 
 								<!-- 사진  슬라이드 끝-->
-
-
-
+	                   
 
 								<div
 									class="food__menu__inner d-flex flex-wrap flex-md-nowrap flex-lg-nowrap">
@@ -265,7 +290,7 @@
 										<a href="menu-details.html">서예</a>
 									</h4>
 									<ul class="beef__prize">
-										<li class="old__prize">￦30,000</li>
+										
 										<li>￦30,000</li>
 									</ul>
 									<p>동양화와 함께해요 동양화와 함께해요</p>
@@ -293,7 +318,7 @@
 										<a href="menu-details.html">기타</a>
 									</h4>
 									<ul class="beef__prize">
-										<li class="old__prize">￦30,000</li>
+										
 										<li>￦30,000</li>
 									</ul>
 									<p>동양화와 함께해요 동양화와 함께해요</p>
@@ -322,7 +347,7 @@
 										<a href="menu-details.html">동양화</a>
 									</h4>
 									<ul class="beef__prize">
-										<li class="old__prize">￦30,000</li>
+										
 										<li>￦30,000</li>
 									</ul>
 									<p>동양화와 함께해요 동양화와 함께해요</p>
@@ -336,7 +361,7 @@
 					</div>
 				</div>
 
-				<div class="col-lg-4 col-md-12 col-sm-14 md--mt--40 sm--mt--40">
+				<div class="col-lg-4 col-md-12 col-sm-14 md--mt--40 sm--mt--40" style="left:150px;">
 				
 				
 					<!--================Banner Area =================-->
@@ -644,7 +669,7 @@
 		
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwlNqAEil52XRPHmSVb4Luk18qQG9GqcM&sensor=false&language=en"></script> 
 
-		
+	
 		
 </body>
 </html>

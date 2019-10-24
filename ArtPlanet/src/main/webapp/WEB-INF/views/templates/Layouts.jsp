@@ -5,12 +5,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<meta charset="UTF-8">
 	<!-- Required meta tags -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="ko">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
 	<!-- 홈페이지 탭 아이콘 -->
@@ -31,9 +28,11 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
 	<!-- kero css -->
     <link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet">
+    <!-- summernote -->
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 </head>
 <body>
-	<div>
+	<div style="position: relative;">
 		<!-- 탑 부분 시작 -->
 		<tiles:insertAttribute name="Top" />
 		<!-- 탑 부분 끝  -->
@@ -66,5 +65,7 @@
 	<script src="<c:url value='/resources/js/theme.js'/>"></script>
 	<!-- kero js -->
 	<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>"></script>
+	<!-- summernote -->
+  	<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 </body>
 </html>

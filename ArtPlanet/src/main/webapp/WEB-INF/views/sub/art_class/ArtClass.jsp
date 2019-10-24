@@ -62,18 +62,18 @@ margin: 0px;
 
 		<section class="portfolio_area area-padding" id="portfolio" >
 			<div class="container" style="max-width:1700px" >
-				
+				  
 						<div class="area-heading">
+						 	<h3>당신이 <span>좋아하게 될</span> 작품을 찾아보세요.</h3>
+                                  <p>보기 전까지는 무엇을 찾고 있는지 모릅니다.</p>
 							<div class="row no-gutters justify-content-center mb-2 pb-2 ftco-animate">
-								
-										
+																
 								<div class="col-md-7 text-center heading-section">
-						<h2> Discover unique art products you’ll love!</h2>
-<video type="video/webm" autoplay loop="" muted="" playsinline="">
-   <source src="https://player.vimeo.com/external/160999247.sd.mp4?s=193dc7c78332bb051ef5b59b31d076c68ee5d827&profile_id=164" 
-          />
+						        
+		<video type="video/webm" autoplay loop="" muted="" playsinline="">
+  			 <source src="https://player.vimeo.com/external/160999247.sd.mp4?s=193dc7c78332bb051ef5b59b31d076c68ee5d827&profile_id=164"/>
    
-</video>
+		</video>
 
 <!--  
 동영상 주소
@@ -97,7 +97,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 								</div>
 				
 							</div>
-				  
+				 
 						</div> 
                   <!-- 
                    <div class="dropdown d-inline-block">

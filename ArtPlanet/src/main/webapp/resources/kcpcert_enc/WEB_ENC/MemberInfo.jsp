@@ -10,7 +10,7 @@
 			.format(new Date())); // 요청번호 생성 예제
 %>    
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 
 <head>
     <meta charset="utf-8">
@@ -160,6 +160,6 @@
                 </div>
             </div>
     </div>
-<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>" ></script></body>
+</body>
 </html>
     
