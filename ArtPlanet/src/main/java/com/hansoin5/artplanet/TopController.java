@@ -32,9 +32,14 @@ public class TopController
 	}
 	
 	@RequestMapping("/ViewPost")
-	public String blog2()
+	public String viewpost()
 	{
-		return "contents/blog/View.tiles";
+		return "contents/blog/ViewPost.tiles";
+	}
+	@RequestMapping("/WritePost")
+	public String writePost()
+	{
+		return "contents/blog/WritePost.tiles";
 	}
 	
 	@RequestMapping("/Project")
