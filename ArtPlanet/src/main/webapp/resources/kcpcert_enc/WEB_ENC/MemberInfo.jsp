@@ -8,7 +8,7 @@
 	String site_cd   = "S6186"; //사이트 코드
 	String ordr_idxx = "TEST" + (new SimpleDateFormat("yyyyMMddHHmmssSSSSSSS")
 			.format(new Date())); // 요청번호 생성 예제
-%>    
+%>
 <!doctype html>
 <html lang="en">
 
@@ -44,7 +44,7 @@
 											<div style="text-align: center;">인증 방식</div>
 									</h5>
 									<div class="divider row"></div>
-									
+									<!-- 휴대폰 인증 시작 -->
 									<div >
 										<form name="form_auth">
 											<!-- 인증요청 정보 출력 테이블 Start -->
@@ -92,11 +92,12 @@
 											<!-- 인증요청 정보 출력 테이블 End -->
 
 											<!-- 인증요청 버튼 테이블 Start -->
-											<table  align="center" cellspacing="0"
+											<table align="center" cellspacing="0"
 												cellpadding="0" class="margin_top_20">
 												<!-- 인증요청 이미지 버튼 -->
 												<tr id="show_pay_btn">
-													<td colspan="2" align="center"><input type="submit"
+													<td colspan="2" align="center">
+													<input type="submit"
 														formaction="<c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/>"
 														class="mb-2 mr-2 btn btn-primary btn-sm"
 														onclick="return auth_type_check();" 
@@ -149,9 +150,15 @@
 												type="hidden" name="param_opt_3" value="opt3" />
 										</form>
 									</div>
-
+									<!-- 휴대폰 인증 끝 -->
 									<div class="divider row"></div>
-
+									<div align="center">
+									<!-- 이메일 인증 시작  -->
+									<input type="submit"
+														class="mb-2 mr-2 btn btn-primary btn-sm"
+														value="이메일로 인증하겠습니다." />
+									</div>
+									<!-- 이메일 인증 끝  -->
 								</div>
 							</div>
                             <div class="text-center text-dark opacity-8 mt-3">Copyright © ArtPlanet</div>
@@ -160,6 +167,7 @@
                 </div>
             </div>
     </div>
-<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>" ></script></body>
+<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>" ></script>
+</body>
 </html>
     

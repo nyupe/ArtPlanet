@@ -131,13 +131,13 @@ CREATE TABLE KATEGORIE
 CREATE TABLE MEMBER
 (
 	memberNo number NOT NULL,
-	id nvarchar2(15) NOT NULL,
+	id nvarchar2(50) NOT NULL,
 	password nvarchar2(15) NOT NULL,
 	nickName nvarchar2(10),
 	name nvarchar2(10) NOT NULL,
 	phoneNumber nvarchar2(13),
 	address nvarchar2(30) NOT NULL,
-	membershipDate date DEFAULT SYSDATE,
+	membershipDate date DEFAULT SYSDATE NOT NULL,
 	birth nvarchar2(11),
 	profilePicture varchar2(50),
 	mainPicture varchar2(50),
@@ -314,5 +314,8 @@ ALTER TABLE PROJECTSUPPORT
 	REFERENCES PROJECT (projectNo)
 ;
 
-
+--시퀀스
+CREATE SEQUENCE SEQ_MEMBER
+NOCACHE
+NOCYCLE;
 

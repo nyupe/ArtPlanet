@@ -1,18 +1,18 @@
-<%@ page language="java" contentType="text/html;charset=euc-kr"%>
+<%@ page language="java" contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="kr.co.kcp.CT_CLI"%>
 <%
     /* ============================================================================== */
-    /* =   ÀÎÁõÃ¢ È£Ãâ ¹× ¼ö½Å ÆäÀÌÁö                                               = */
+    /* =   ì¸ì¦ì°½ í˜¸ì¶œ ë° ìˆ˜ì‹  í˜ì´ì§€                                               = */
     /* = -------------------------------------------------------------------------- = */
-    /* =   ÇØ´ç ÆäÀÌÁö´Â ¹İµå½Ã °¡¸ÍÁ¡ ¼­¹ö¿¡ ¾÷·Îµå µÇ¾î¾ß ÇÏ¸ç                    = */ 
-    /* =   °¡±ŞÀû ¼öÁ¤¾øÀÌ »ç¿ëÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.                                     = */
+    /* =   í•´ë‹¹ í˜ì´ì§€ëŠ” ë°˜ë“œì‹œ ê°€ë§¹ì  ì„œë²„ì— ì—…ë¡œë“œ ë˜ì–´ì•¼ í•˜ë©°                    = */ 
+    /* =   ê°€ê¸‰ì  ìˆ˜ì •ì—†ì´ ì‚¬ìš©í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.                                     = */
     /* ============================================================================== */
 %>
 <%!
     /* ============================================================================== */
-    /* =   null °ªÀ» Ã³¸®ÇÏ´Â ¸Ş¼Òµå                                                = */
+    /* =   null ê°’ì„ ì²˜ë¦¬í•˜ëŠ” ë©”ì†Œë“œ                                                = */
     /* = -------------------------------------------------------------------------- = */
     public String f_get_parm_str( String val )
     {
@@ -20,7 +20,7 @@
         return  val;
     }
 
-    //!!Áß¿ä ÇØ´ç ÇÔ¼ö´Â year, month, day º¯¼ö°¡ null ÀÏ °æ¿ì 00 À¸·Î Ä¡È¯ÇÕ´Ï´Ù
+    //!!ì¤‘ìš” í•´ë‹¹ í•¨ìˆ˜ëŠ” year, month, day ë³€ìˆ˜ê°€ null ì¼ ê²½ìš° 00 ìœ¼ë¡œ ì¹˜í™˜í•©ë‹ˆë‹¤
     public String f_get_parm_int( String val )
     {
         String ret_val = "";
@@ -55,15 +55,15 @@
 
     String up_hash       = "";
 
-	String ENC_KEY       = "E66DCEB95BFBD45DF9DFAEEBCB092B5DC2EB3BF0"; // ¹İµå½Ã ¿ÜºÎ¿¡ ³ëÃâµÇÁö ¾Êµµ·Ï °ü¸®ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.
+	String ENC_KEY       = "E66DCEB95BFBD45DF9DFAEEBCB092B5DC2EB3BF0"; // ë°˜ë“œì‹œ ì™¸ë¶€ì— ë…¸ì¶œë˜ì§€ ì•Šë„ë¡ ê´€ë¦¬í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.
 	/*------------------------------------------------------------------------*/
-    /*  :: ÀüÃ¼ ÆÄ¶ó¹ÌÅÍ ³²±â±â                                               */
+    /*  :: ì „ì²´ íŒŒë¼ë¯¸í„° ë‚¨ê¸°ê¸°                                               */
     /*------------------------------------------------------------------------*/
     StringBuffer sbParam = new StringBuffer();
     CT_CLI       cc      = new CT_CLI();
-	//cc.setCharSetUtf8(); // UTF-8 Ã³¸®
+	//cc.setCharSetUtf8(); // UTF-8 ì²˜ë¦¬
     
-    // request ·Î ³Ñ¾î¿Â °ª Ã³¸®
+    // request ë¡œ ë„˜ì–´ì˜¨ ê°’ ì²˜ë¦¬
     Enumeration params = request.getParameterNames();
     while(params.hasMoreElements())
     {
@@ -132,17 +132,17 @@
                 cert_able_yn = f_get_parm_str( valParam[i] );
             }
 
-           // ÀÎÁõÃ¢À¸·Î ³Ñ±â´Â form µ¥ÀÌÅÍ »ı¼º ÇÊµå
+           // ì¸ì¦ì°½ìœ¼ë¡œ ë„˜ê¸°ëŠ” form ë°ì´í„° ìƒì„± í•„ë“œ
             sbParam.append( "<input type=\"hidden\" name=\"" + nmParam + "\" value=\"" + f_get_parm_str( valParam[i] ) + "\"/>" );
         }
     }
 
     if ( req_tx.equals( "cert" ) )
     {
-        // !!up_hash µ¥ÀÌÅÍ »ı¼º½Ã ÁÖÀÇ »çÇ×
-        // year , month , day °¡ ºñ¾î ÀÖ´Â °æ¿ì "00" , "00" , "00" À¸·Î ¼³Á¤ÀÌ µË´Ï´Ù
-        // ±×¿ÜÀÇ °ªÀº ¾øÀ» °æ¿ì ""(null) ·Î ¼¼ÆÃÇÏ½Ã¸é µË´Ï´Ù.
-        // up_hash µ¥ÀÌÅÍ »ı¼º½Ã site_cd ¿Í ordr_idxx ´Â ÇÊ¼ö °ªÀÔ´Ï´Ù.
+        // !!up_hash ë°ì´í„° ìƒì„±ì‹œ ì£¼ì˜ ì‚¬í•­
+        // year , month , day ê°€ ë¹„ì–´ ìˆëŠ” ê²½ìš° "00" , "00" , "00" ìœ¼ë¡œ ì„¤ì •ì´ ë©ë‹ˆë‹¤
+        // ê·¸ì™¸ì˜ ê°’ì€ ì—†ì„ ê²½ìš° ""(null) ë¡œ ì„¸íŒ…í•˜ì‹œë©´ ë©ë‹ˆë‹¤.
+        // up_hash ë°ì´í„° ìƒì„±ì‹œ site_cd ì™€ ordr_idxx ëŠ” í•„ìˆ˜ ê°’ì…ë‹ˆë‹¤.
         if( cert_able_yn.equals( "Y" ) )
         {
             up_hash = cc.makeHashData( ENC_KEY, site_cd   +
@@ -169,9 +169,9 @@
                                        local_code 
                                       );
         }
-        cc = null; // °´Ã¼ ÇØÁ¦
+        cc = null; // ê°ì²´ í•´ì œ
 
-        // ÀÎÁõÃ¢À¸·Î ³Ñ±â´Â form µ¥ÀÌÅÍ »ı¼º ÇÊµå ( up_hash )
+        // ì¸ì¦ì°½ìœ¼ë¡œ ë„˜ê¸°ëŠ” form ë°ì´í„° ìƒì„± í•„ë“œ ( up_hash )
         sbParam.append( "<input type=\"hidden\" name=\"up_hash\" value=\"" + up_hash + "\"/>" );
     }
 %>
@@ -181,23 +181,23 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <title>*** NHN KCP Online Payment System [Jsp Version] ***</title>
         <script type="text/javascript">
             window.onload=function()
             {
                 var frm = document.form_auth;
 
-                // ÀÎÁõ ¿äÃ» ½Ã È£Ãâ ÇÔ¼ö
+                // ì¸ì¦ ìš”ì²­ ì‹œ í˜¸ì¶œ í•¨ìˆ˜
                 if ( frm.req_tx.value == "cert" )
                 {
-                    opener.document.form_auth.veri_up_hash.value = frm.up_hash.value; // up_hash µ¥ÀÌÅÍ °ËÁõÀ» À§ÇÑ ÇÊµå
+                    opener.document.form_auth.veri_up_hash.value = frm.up_hash.value; // up_hash ë°ì´í„° ê²€ì¦ì„ ìœ„í•œ í•„ë“œ
 
                     frm.action="https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp";
                     frm.submit();
                 }
 
-                // ÀÎÁõ °á°ú µ¥ÀÌÅÍ ¸®ÅÏ ÆäÀÌÁö È£Ãâ ÇÔ¼ö
+                // ì¸ì¦ ê²°ê³¼ ë°ì´í„° ë¦¬í„´ í˜ì´ì§€ í˜¸ì¶œ í•¨ìˆ˜
                 else if ( ( frm.req_tx.value == "auth" || frm.req_tx.value == "otp_auth" ) )
                 {
                     frm.action="./kcpcert_proc_res.jsp";
@@ -205,7 +205,7 @@
                 }
                 else
                 {
-                    //alert ("req_tx °ªÀ» È®ÀÎÇØ ÁÖ¼¼¿ä");
+                    //alert ("req_tx ê°’ì„ í™•ì¸í•´ ì£¼ì„¸ìš”");
                 }
             }
         </script>

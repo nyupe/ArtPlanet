@@ -11,11 +11,11 @@
         var response_data = "";
 
         // up_hash 검증 
-        if( frm.up_hash.value != auth_form.veri_up_hash.value )
+       /* if( frm.up_hash.value != auth_form.veri_up_hash.value )
         {
             alert("up_hash 변조 위험있음");
             
-        }              
+        }     */         
         
        /* 리턴 값 모두 찍어보기 (테스트 시에만 사용) */
         var form_value = "";
@@ -56,7 +56,7 @@
             
             auth_form.target = "auth_popup"; // !!주의 고정값 ( 리턴받을때 사용되는 타겟명입니다.)
             /* https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp */
-            //auth_form.form = "./kcpcert_proc_req.jsp"; // 인증창 호출 및 결과값 리턴 페이지 주소
+            auth_form.form = "./kcpcert_proc_req.jsp"; // 인증창 호출 및 결과값 리턴 페이지 주소
             
             return true;
         }
