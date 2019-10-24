@@ -10,7 +10,7 @@ public class TopController
 	@RequestMapping("/About")
 	public String about()
 	{
-		return "about/About2.tiles";
+		return "about/About.tiles";
 	}
 	
 	@RequestMapping("/Search/Artwork")

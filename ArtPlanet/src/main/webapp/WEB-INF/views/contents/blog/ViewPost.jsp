@@ -15,7 +15,7 @@
 				<div class="single-post">
 					<div class="feature-img">
 						<img class="img-fluid"
-							src="<c:url value='/resources/img/blog/main-blog/m-blog-1.jpg'/>"
+							src="<c:url value='/resources/img/project/illustration/1.jpg'/>"
 							alt="">
 					</div>
 					<div class="blog_details">

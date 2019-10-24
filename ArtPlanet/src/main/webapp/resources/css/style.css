@@ -3517,14 +3517,6 @@ h6 {
 /*---------------------------------------------------- */
 /*-- 준식 추가 -- */
 /*블로그 배너*/
-.menu-header-content h4{
-	color: #1a1d24;
-	text-shadow: -1px -1px 2px #fff, 1px 1px 2px #fff, -1px 1px 2px #fff, 1px -1px 2px #fff;
-}
-.menu-header-content h6{
-	color: #1a1d24;
-	text-shadow: -1px -1px 2px #fff, 1px 1px 2px #fff, -1px 1px 2px #fff, 1px -1px 2px #fff;
-}
 .avatar-icon-xxl .avatar-icon{
 	width: 140px;
 	height: 140px;
@@ -3539,13 +3531,16 @@ h6 {
 /* 검색페이지 */
 .post-type {
 	color: #1a1d24;
+	font-weight: 400;
 }
 .post-date {
 	color: #1a1d24;
 	float: right;
+	font-weight: 400;
 }
 .post-title {
 	color: #1a1d24;
+	font-weight: bold;
 }
 .post-artist {
 	color: #1a1d24;

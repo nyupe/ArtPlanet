@@ -41,7 +41,6 @@ color: #ff5555;
 			<ul>
 				<li class="active" data-filter="*">all</li>
 				<li data-filter=".illustration">일러스트레이션</li>
-				<li data-filter=".painting">회화</li>
 				<li data-filter=".animation">애니메이션</li>
 				<li data-filter=".design">디자인</li>
 				<li data-filter=".calligraphy">캘리그라피</li>
