@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html;charset=euc-kr" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%
     /* ============================================================================== */
     /* =   PAGE : 결과 처리 PAGE                                                    = */
@@ -214,7 +214,7 @@
               
         
  </div><!-- 메인카드 -->
-          <button type="button"  onclick="location.href='Home.tiles';"
+          <button type="button"  onclick="location.href='http://localhost:8080/artplanet/Search/Artwork';"
                                class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary" >
                                              홈으로
 		 					  </button>
