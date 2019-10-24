@@ -1,112 +1,116 @@
-<%@ page language="java" contentType="text/html;charset=euc-kr"%>
+<%@ page language="java" contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.text.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="kr.co.kcp.CT_CLI"%>
 <%
-	String site_cd   = "S6186"; //ªÁ¿Ã∆Æ ƒ⁄µÂ
+	String site_cd   = "S6186"; //ÏÇ¨Ïù¥Ìä∏ ÏΩîÎìú
 	String ordr_idxx = "TEST" + (new SimpleDateFormat("yyyyMMddHHmmssSSSSSSS")
-			.format(new Date())); // ø‰√ªπ¯»£ ª˝º∫ øπ¡¶
+			.format(new Date())); // ÏöîÏ≤≠Î≤àÌò∏ ÏÉùÏÑ± ÏòàÏ†ú
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
-<title>Certification(«⁄µÂ∆˘, ¿Ã∏ﬁ¿œ ¿Œ¡ı∆‰¿Ã¡ˆ)</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Certification(Ìï∏ÎìúÌè∞, Ïù¥Î©îÏùº Ïù∏Ï¶ùÌéòÏù¥ÏßÄ)</title>
 <script type="text/javascript" src="<c:url value='/resources/js/CertificationByPhone.js'/>"></script>
 <link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet"/>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
    <div align="center">
            <form name="form_auth">
-               <!-- ¿Œ¡ıø‰√ª ¡§∫∏ √‚∑¬ ≈◊¿Ã∫Ì Start -->
+               <!-- Ïù∏Ï¶ùÏöîÏ≤≠ Ï†ïÎ≥¥ Ï∂úÎ†• ÌÖåÏù¥Î∏î Start -->
                <table style="visibility:collapse;" width="527" align="center" cellspacing="0" cellpadding="0" class="margin_top_20">
-                   <tr><td colspan="2"  class="title">¿Œ ¡ı ¡§ ∫∏</td></tr>
-                   <!-- ø‰√ªπ¯»£(ordr_idxx) -->
+                   <tr><td colspan="2"  class="title">Ïù∏ Ï¶ù Ï†ï Î≥¥</td></tr>
+                   <!-- ÏöîÏ≤≠Î≤àÌò∏(ordr_idxx) -->
                    <tr>
-                       <td class="sub_title1">ø‰√ªπ¯»£</td>
+                       <td class="sub_title1">ÏöîÏ≤≠Î≤àÌò∏</td>
                        <td class="sub_input1">&nbsp&nbsp<input type="text" name="ordr_idxx" class="frminput" value="<%=ordr_idxx%>" size="40" readonly="readonly" maxlength="40"/></td>
                    </tr>
-                   <!-- ∏Ì¿«¿⁄∏Ì -->
+                   <!-- Î™ÖÏùòÏûêÎ™Ö -->
                    <tr>
-                       <td class="sub_title1">º∫∏Ì</td>
+                       <td class="sub_title1">ÏÑ±Î™Ö</td>
                        <td class="sub_content1"><input type="text" name="user_name" value="" size="20" maxlength="20" class="frminput" /></td>
                    </tr>
-                   <!-- ª˝≥‚ø˘¿œ -->
+                   <!-- ÏÉùÎÖÑÏõîÏùº -->
                    <tr>
-                       <td class="sub_title1">ª˝≥‚ø˘¿œ</td>
+                       <td class="sub_title1">ÏÉùÎÖÑÏõîÏùº</td>
                        <td class="sub_content1" id="year_month_day">
                        </td>
                    </tr>
-                   <!-- º∫∫∞±∏∫– -->
+                   <!-- ÏÑ±Î≥ÑÍµ¨Î∂Ñ -->
                    <tr>
-                       <td class="sub_title1">º∫∫∞±∏∫–</td>
+                       <td class="sub_title1">ÏÑ±Î≥ÑÍµ¨Î∂Ñ</td>
                        <td class="sub_content1 bold">
-                           <input type="radio" name="sex_code" value="01" />≥≤º∫
-                           <input type="radio" name="sex_code" value="02" />ø©º∫
-                           <!-- ≥ª/ø‹±π¿Œ±∏∫– -->
+                           <input type="radio" name="sex_code" value="01" />ÎÇ®ÏÑ±
+                           <input type="radio" name="sex_code" value="02" />Ïó¨ÏÑ±
+                           <!-- ÎÇ¥/Ïô∏Íµ≠Ïù∏Íµ¨Î∂Ñ -->
                            <select name='local_code' class="frmselect">
-                               <option value='01'>≥ª±π¿Œ</option>
-                               <option value='02'>ø‹±π¿Œ</option>
+                               <option value='01'>ÎÇ¥Íµ≠Ïù∏</option>
+                               <option value='02'>Ïô∏Íµ≠Ïù∏</option>
                            </select>
                        </td>
                    </tr>
 
                    <tr class="height_1px"><td colspan="2" bgcolor="#0f75ac"></td></tr>
                </table>
-               <!-- ¿Œ¡ıø‰√ª ¡§∫∏ √‚∑¬ ≈◊¿Ã∫Ì End -->
+               <!-- Ïù∏Ï¶ùÏöîÏ≤≠ Ï†ïÎ≥¥ Ï∂úÎ†• ÌÖåÏù¥Î∏î End -->
 
-               <!-- ¿Œ¡ıø‰√ª πˆ∆∞ ≈◊¿Ã∫Ì Start -->
+               <!-- Ïù∏Ï¶ùÏöîÏ≤≠ Î≤ÑÌäº ÌÖåÏù¥Î∏î Start -->
                <table width="527" align="center" cellspacing="0" cellpadding="0" class="margin_top_20">
-                   <!-- ¿Œ¡ıø‰√ª ¿ÃπÃ¡ˆ πˆ∆∞ -->
+                   <!-- Ïù∏Ï¶ùÏöîÏ≤≠ Ïù¥ÎØ∏ÏßÄ Î≤ÑÌäº -->
                    <tr id="show_pay_btn">
                        <td colspan="2" align="center">
-                           <input type="submit" formaction="<c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/>" class="mb-2 mr-2 btn btn-primary btn-sm" onclick="return auth_type_check();" width="108" height="37" value="«⁄µÂ∆˘ ¿Œ¡ı" />
+                           <input type="submit" 
+                           formaction="<c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/>" 
+                           class="mb-2 mr-2 btn btn-primary btn-sm"
+                            onclick="return auth_type_check();" 
+                            width="108" height="37" value="Ìï∏ÎìúÌè∞ Ïù∏Ï¶ù" />
                        </td>
                    </tr>
                </table>
-               <!-- ¿Œ¡ıø‰√ª πˆ∆∞ ≈◊¿Ã∫Ì End -->
+               <!-- Ïù∏Ï¶ùÏöîÏ≤≠ Î≤ÑÌäº ÌÖåÏù¥Î∏î End -->
                
-               <!-- ø‰√ª¡æ∑˘ -->
+               <!-- ÏöîÏ≤≠Ï¢ÖÎ•ò -->
                <input type="hidden" name="req_tx"       value="cert"/>
-               <!-- ø‰√ª±∏∫– -->
+               <!-- ÏöîÏ≤≠Íµ¨Î∂Ñ -->
                <input type="hidden" name="cert_method"  value="01"/>
-               <!-- ¿•ªÁ¿Ã∆Ææ∆¿Ãµ -->
+               <!-- ÏõπÏÇ¨Ïù¥Ìä∏ÏïÑÏù¥Îîî -->
                <input type="hidden" name="web_siteid"   value=""/> 
-               <!-- ≥Î√‚ ≈ÎΩ≈ªÁ default √≥∏ÆΩ√ æ∆∑°¿« ¡÷ºÆ¿ª «ÿ¡¶«œ∞Ì ªÁøÎ«œΩ Ω√ø‰ 
-                    SKT≈ÎΩ≈ªÁ : SKT , KT≈ÎΩ≈ªÁ : KTF , LGU+≈ÎΩ≈ªÁ : LGT
+               <!-- ÎÖ∏Ï∂ú ÌÜµÏã†ÏÇ¨ default Ï≤òÎ¶¨Ïãú ÏïÑÎûòÏùò Ï£ºÏÑùÏùÑ Ìï¥Ï†úÌïòÍ≥† ÏÇ¨Ïö©ÌïòÏã≠ÏãúÏöî 
+                    SKTÌÜµÏã†ÏÇ¨ : SKT , KTÌÜµÏã†ÏÇ¨ : KTF , LGU+ÌÜµÏã†ÏÇ¨ : LGT
                -->
                <input type="hidden" name="fix_commid"      value="KTF"/>
-               <!-- ªÁ¿Ã∆Æƒ⁄µÂ -->
+               <!-- ÏÇ¨Ïù¥Ìä∏ÏΩîÎìú -->
                <input type="hidden" name="site_cd"      value="<%= site_cd %>" />
-               <!-- Ret_URL : ¿Œ¡ı∞·∞˙ ∏Æ≈œ ∆‰¿Ã¡ˆ ( ∞°∏Õ¡° URL ∑Œ º≥¡§«ÿ ¡÷º≈æﬂ «’¥œ¥Ÿ. ) -->
+               <!-- Ret_URL : Ïù∏Ï¶ùÍ≤∞Í≥º Î¶¨ÌÑ¥ ÌéòÏù¥ÏßÄ ( Í∞ÄÎßπÏ†ê URL Î°ú ÏÑ§Ï†ïÌï¥ Ï£ºÏÖîÏïº Ìï©ÎãàÎã§. ) -->
                <input type="hidden" name="Ret_URL"      value="<c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/>" />
                
                <!-- https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp -->
                <%-- <c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/> --%>
                <!-- value="http://192.168.0.47:8080/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp" -->
                
-               <!-- cert_otp_use « ºˆ ( ∏ﬁ¥∫æÛ ¬¸∞Ì)
-                    Y : Ω«∏Ì »Æ¿Œ + OTP ¡°¿Ø »Æ¿Œ , N : Ω«∏Ì »Æ¿Œ only
+               <!-- cert_otp_use ÌïÑÏàò ( Î©îÎâ¥Ïñº Ï∞∏Í≥†)
+                    Y : Ïã§Î™Ö ÌôïÏù∏ + OTP Ï†êÏú† ÌôïÏù∏ , N : Ïã§Î™Ö ÌôïÏù∏ only
                -->
                <input type="hidden" name="cert_otp_use" value="Y"/>
-               <!-- cert_enc_use « ºˆ (∞Ì¡§∞™ : ∏ﬁ¥∫æÛ ¬¸∞Ì) -->
+               <!-- cert_enc_use ÌïÑÏàò (Í≥†Ï†ïÍ∞í : Î©îÎâ¥Ïñº Ï∞∏Í≥†) -->
                <input type="hidden" name="cert_enc_use" value="N"/>
 
                <input type="hidden" name="res_cd"       value=""/>
                <input type="hidden" name="res_msg"      value=""/>
 
-               <!-- up_hash ∞À¡ı ¿ª ¿ß«— « µÂ -->
+               <!-- up_hash Í≤ÄÏ¶ù ÏùÑ ÏúÑÌïú ÌïÑÎìú -->
                <input type="hidden" name="veri_up_hash" value=""/>
 
-               <!-- ∫ª¿Œ»Æ¿Œ input ∫Ò»∞º∫»≠ -->
+               <!-- Î≥∏Ïù∏ÌôïÏù∏ input ÎπÑÌôúÏÑ±Ìôî -->
                <input type="hidden" name="cert_able_yn" value=""/>
 
-               <!-- web_siteid ∞À¡ı ¿ª ¿ß«— « µÂ -->
+               <!-- web_siteid Í≤ÄÏ¶ù ÏùÑ ÏúÑÌïú ÌïÑÎìú -->
                <input type="hidden" name="web_siteid_hashYN" value=""/>
 
-               <!-- ∞°∏Õ¡° ªÁøÎ « µÂ (¿Œ¡ıøœ∑·Ω√ ∏Æ≈œ)-->
+               <!-- Í∞ÄÎßπÏ†ê ÏÇ¨Ïö© ÌïÑÎìú (Ïù∏Ï¶ùÏôÑÎ£åÏãú Î¶¨ÌÑ¥)-->
                <input type="hidden" name="param_opt_1"  value="opt1"/> 
                <input type="hidden" name="param_opt_2"  value="opt2"/> 
                <input type="hidden" name="param_opt_3"  value="opt3"/> 

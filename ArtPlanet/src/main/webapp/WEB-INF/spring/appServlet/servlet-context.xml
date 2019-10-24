@@ -27,6 +27,7 @@
 	<default-servlet-handler />
 	
 	
+	
 	<!-- 각종 어노테이션 붙은 클래스 자동 맵핑을 위한 태그 -->
 	<context:component-scan base-package="com.hansoin5.artplanet" />
 	

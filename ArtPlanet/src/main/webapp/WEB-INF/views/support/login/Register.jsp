@@ -40,7 +40,7 @@
                        	<div class="h-100 d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 ">
                         	<div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
                         	<div class="form-row">
-	                        	<!-- 사진 위치 수정예정  -->
+                        	<!-- 사이트 logo 시작-->
 								<div style="margin-bottom: 50px" class="col-md-5 mx-auto"/>
 									<div class="mx-auto d-block">
 						       			<a href="<c:url value='/Home'/>">
@@ -48,34 +48,37 @@
 									</div>
 								</div>	
                         	</div>
-                        	                        		
+                        	<!-- 사이트 logo 끝-->                        		
                             <h4>
                             
                             </h4>
                             <div>
                             <!-- 회원가입 form 시작 -->
-							<form method="post"  <%-- action="<c:url value='/Register'/>" --%>>
+							<form method="post"  action="<c:url value='/Register'/>" >
 								<div class="form-row">
-									<!-- 이메일 입력 필드 시작 -->
+									<!-- 이메일(id) 입력 필드 시작 -->
 									<div class="col-md-7 mx-auto">
 										<div class="position-relative form-group">
 											<label for="exampleEmail" class=""><span
 												class="text-danger">*</span> Email</label>
-												<input name="id"
-												id="exampleEmail" placeholder="" type="email"
+											<input name="id" value="${param.id}"
+												id="exampleEmail" placeholder="" type="text"
 												class="form-control">
+											<span class="text-danger">${idError }</span>												
 										</div>
+										
 									</div>
-									<!-- 이메일 입력 필드 끝 -->
+									<!-- 이메일(id) 입력 필드 끝 -->
 
 									<!-- 이름 입력 필드 시작 -->
 									<div class="col-md-7 mx-auto">
 										<div class="position-relative form-group">
 											<label for="exampleName" class=""><span
 												class="text-danger">*</span> Name</label>
-												<input name="name"
+											<input name="name" value="${param.name}"
 												id="exampleName" placeholder="" type="text"
 												class="form-control">
+											<span class="text-danger">${nameError }</span>
 										</div>
 									</div>
 									<!-- 이름 입력 필드 끝 -->
@@ -85,9 +88,10 @@
 										<div class="position-relative form-group">
 											<label for="examplePassword" class=""><span
 												class="text-danger">*</span> Password</label>
-												<input name="password"
+											<input name="password" value="${param.password}"
 												id="examplePassword" placeholder="" type="password"
 												class="form-control">
+												<span class="text-danger">${passwordError }</span>
 										</div>
 									</div>
 
@@ -95,9 +99,10 @@
 										<div class="position-relative form-group">
 											<label for="examplePasswordRep" class=""><span
 												class="text-danger">*</span> Repeat Password</label>
-												<input name="passwordrep"
+											<input name="passwordConfirm" value="${param.passwordConfirm}"
 												id="examplePasswordRep" placeholder=""
 												type="password" class="form-control">
+												<span class="text-danger">${passwordConfirmError }</span>
 										</div>
 									</div>
 									<!-- 비밀번호 입력 필드 끝  -->
@@ -106,19 +111,24 @@
 									<div class="col-md-7 mx-auto">
 										<div class="position-relative form-group">
 											<label for="mainAddress" class=""><span
-												class="text-danger">*</span>Address</label> <input
-												style="margin-left: 10px" type="button"
-												class="mb-2 mr-2 btn btn-primary btn-sm"
+												class="text-danger">*</span>Address</label> 
+												<input
+												style="margin-left: 10px;" type="button"
+												class="mb-2 mr-2 btn-icon btn-shadow btn-outline-2x btn btn-outline-primary btn-sm"
 												onclick="sample6_execDaumPostcode()" value="주소 검색"><br>
-											<input name="address" id="sample6_address" placeholder=""
+											<input name="address" value="${param.address}"
+											id="sample6_address" placeholder=""
 												type="text" class="form-control">
+												<span class="text-danger">${addressError }</span>
 										</div>
 									</div>
 
 									<div class="col-md-7 mx-auto">
 										<div class="position-relative form-group">
-											<label for="detailAddress" class=""> Detail Address</label><input
-												name="detailAddress" id="sample6_detailAddress"
+											<label for="detailAddress" class=""> Detail Address</label>
+											<input
+												name="detailAddress" value="${param.detailAddress}"
+												id="sample6_detailAddress"
 												placeholder="" type="text" class="form-control">
 										</div>
 									</div>
@@ -126,11 +136,11 @@
 								</div>
 								<div style="margin-bottom: 200px" class="col-md-7 mx-auto">
 									<div class="mt-3 position-relative form-check">
-										<input name="check" id="exampleCheck" type="checkbox"
-											class="form-check-input"><label for="exampleCheck"
-											class="form-check-label"><a
-											href="javascript:void(0);"><span style="color: red">ArtPlanet
-													회원 약관</span> </a>을 읽어보셨나요?</label>
+										<input name="checkMembershipTerms" value="동의" id="exampleCheck" 
+										type="checkbox" class="form-check-input" <c:if test="${param.checkMembershipTerms=='동의' }">checked</c:if>>
+											<label for="exampleCheck" class="form-check-label">
+											<a href="javascript:void(0);"><span class="text-primary">ArtPlanet회원 약관</span> </a>을 읽어보셨나요?</label>
+											<span class="text-danger">${checkMembershipTermsError }</span>		
 									</div>
 									<div class="mt-4 d-flex align-items-center">
 										<h5 class="mb-0">
@@ -138,8 +148,9 @@
 												class="text-primary">로그인 해주세요.</a>
 										</h5>
 										<div class="ml-auto">
-											<input type="submit"
-												class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg" value="회원가입" formaction="<c:url value='/Register'/>">
+											<input type="submit" 
+												class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg" value="회원가입" >
+												
 										</div>
 									</div>
 								</div>

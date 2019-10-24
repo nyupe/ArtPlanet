@@ -260,7 +260,7 @@
                 <!-- 사이트코드 -->
                 <input type="hidden" name="site_cd"      value="<%= site_cd %>" />
                 <!-- Ret_URL : 인증결과 리턴 페이지 ( 가맹점 URL 로 설정해 주셔야 합니다. ) -->
-                <input type="hidden" name="Ret_URL"      value="<c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/>" />
+                <input type="hidden" name="Ret_URL"      value="http://localhost:8080/artplanet/views/support/login/kcpcert_proc_req"/>
                 
                 <!-- https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp -->
                 <%-- <c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/> --%>

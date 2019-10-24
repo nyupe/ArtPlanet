@@ -16,17 +16,38 @@
                /* 리턴 값 모두 찍어보기 (테스트 시에만 사용) */
                 var form_value = "";
 
+<<<<<<< HEAD
+        // up_hash 검증 
+       /* if( frm.up_hash.value != auth_form.veri_up_hash.value )
+        {
+            alert("up_hash 변조 위험있음");
+=======
                 for ( i = 0 ; i < frm.length ; i++ )
                 {
                     form_value += "["+frm.elements[i].name + "] = [" + frm.elements[i].value + "]\n";
                 }
                 alert(form_value);
             }
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
             
+<<<<<<< HEAD
+        }     */         
+        
+       /* 리턴 값 모두 찍어보기 (테스트 시에만 사용) */
+        var form_value = "";
+
+        for ( i = 0 ; i < frm.length ; i++ )
+        {
+            form_value += "["+frm.elements[i].name + "] = [" + frm.elements[i].value + "]\n";
+        }
+        alert(form_value);
+    }
+=======
             // 인증창 호출 함수
             function auth_type_check()
             {
                 var auth_form = document.form_auth;
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
     
                 if( auth_form.ordr_idxx.value == "" )
                 {
@@ -59,9 +80,56 @@
                     return true;
                 }
             }
+<<<<<<< HEAD
+            
+            auth_form.target = "auth_popup"; // !!주의 고정값 ( 리턴받을때 사용되는 타겟명입니다.)
+            /* https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp */
+            auth_form.form = "./kcpcert_proc_req.jsp"; // 인증창 호출 및 결과값 리턴 페이지 주소
+            
+            return true;
+        }
+    }
+
+    /* 예제 */
+    window.onload=function()
+    {
+        var today            = new Date();
+        var year             = today.getFullYear();
+        var month            = today.getMonth() + 1;
+        var date             = today.getDate();
+        var time             = today.getTime();
+        var year_select_box  = "<option value=''>선택 (년)</option>";
+        var month_select_box = "<option value=''>선택 (월)</option>";
+        var day_select_box   = "<option value=''>선택 (일)</option>";
+        
+        if(parseInt(month) < 10) {
+            month = "0" + month;
+        }
+
+        if(parseInt(date) < 10) {
+            date = "0" + date;
+        }
+
+        year_select_box = "<select name='year' class='frmselect' id='year_select'>";
+        year_select_box += "<option value=''>선택 (년)</option>";
+
+        for(i=year;i>(year-100);i--)
+        {
+            year_select_box += "<option value='" + i + "'>" + i + " 년</option>";
+        }
+        
+        year_select_box  += "</select>";
+        month_select_box  = "<select name=\"month\" class=\"frmselect\" id=\"month_select\">";
+        month_select_box += "<option value=''>선택 (월)</option>";
+        
+        for(i=1;i<13;i++)
+        {
+            if(i < 10)
+=======
     
             /* 예제 */
             window.onload=function()
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
             {
                 var today            = new Date();
                 var year             = today.getFullYear();
