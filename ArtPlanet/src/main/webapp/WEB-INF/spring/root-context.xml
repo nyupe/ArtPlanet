@@ -12,8 +12,6 @@
 			<value>true</value>
 		</property>
 	</bean>
-	
-	
 	<!-- 마이바티스 지원을 위한 빈 등록 -->
 	<!-- 1]SqlSessionFactory -->
 	<bean id="sqlSessionFactory"
