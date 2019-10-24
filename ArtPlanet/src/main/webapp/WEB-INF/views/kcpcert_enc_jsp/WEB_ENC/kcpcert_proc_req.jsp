@@ -1,182 +1,174 @@
-<%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html;charset=euc-kr"%>
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="kr.co.kcp.CT_CLI"%>
+<%@ page import="java.net.URLDecoder"%>
 <%@ include file="../cfg/cert_conf.jsp"%>
 <%
     /* ============================================================================== */
-    /* =   ì¸ì¦ì°½ í˜¸ì¶œ ë° ìˆ˜ì‹  í˜ì´ì§€                                               = */
+    /* =   ÀÎÁõµ¥ÀÌÅÍ ¼ö½Å ¹× º¹È£È­ ÆäÀÌÁö                                         = */
     /* = -------------------------------------------------------------------------- = */
-    /* =   í•´ë‹¹ í˜ì´ì§€ëŠ” ë°˜ë“œì‹œ ê°€ë§¹ì  ì„œë²„ì— ì—…ë¡œë“œ ë˜ì–´ì•¼ í•˜ë©°                    = */ 
-    /* =   ê°€ê¸‰ì  ìˆ˜ì •ì—†ì´ ì‚¬ìš©í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.                                     = */
+    /* =   ÇØ´ç ÆäÀÌÁö´Â ¹İµå½Ã °¡¸ÍÁ¡ ¼­¹ö¿¡ ¾÷·Îµå µÇ¾î¾ß ÇÏ¸ç                    = */ 
+    /* =   °¡±ŞÀû ¼öÁ¤¾øÀÌ »ç¿ëÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.                                     = */
     /* ============================================================================== */
 %>
 <%!
     /* ============================================================================== */
-    /* =   null ê°’ì„ ì²˜ë¦¬í•˜ëŠ” ë©”ì†Œë“œ                                                = */
+    /* =   null °ªÀ» Ã³¸®ÇÏ´Â ¸Ş¼Òµå                                                = */
     /* = -------------------------------------------------------------------------- = */
     public String f_get_parm_str( String val )
     {
         if ( val == null ) val = "";
         return  val;
     }
-
-    //!!ì¤‘ìš” í•´ë‹¹ í•¨ìˆ˜ëŠ” year, month, day ë³€ìˆ˜ê°€ null ì¼ ê²½ìš° 00 ìœ¼ë¡œ ì¹˜í™˜í•©ë‹ˆë‹¤
-    public String f_get_parm_int( String val )
-    {
-        String ret_val = "";
-        
-        if ( val == null      ) val = "00";
-        if ( val.equals( "" ) ) val = "00";
-      
-        ret_val = val.length() == 1? ("0" + val) : val;
-      
-        return  ret_val;
-    }
     /* ============================================================================== */
 %>
 <%
-    request.setCharacterEncoding ( "UTF-8" ) ; //ìˆ˜ì •
-
-    String req_tx        = "";
+    request.setCharacterEncoding ( "euc-kr" ) ;//¼öÁ¤
 
     String site_cd       = "";
     String ordr_idxx     = "";
+    
+    String cert_no       = "";
+    String cert_enc_use  = "";
+    String enc_cert_data2 = "";
+    String enc_info      = "";
+    String enc_data      = "";
+    String req_tx        = "";
+    
+    String tran_cd       = "";
+    String res_cd        = "";
+    String res_msg       = "";
 
-    String year          = "";
-    String month         = "";
-    String day           = "";
-    String user_name     = "";
-    String sex_code      = "";
-    String local_code    = "";
-
-    String web_siteid    = "";
-    String web_siteid_hashYN = "";
-    String cert_able_yn  = "";
-
-    String up_hash       = "";
+    String dn_hash       = "";
+    
 	/*------------------------------------------------------------------------*/
-    /*  :: ì „ì²´ íŒŒë¼ë¯¸í„° ë‚¨ê¸°ê¸°                                               */
+    /*  :: ÀüÃ¼ ÆÄ¶ó¹ÌÅÍ ³²±â±â                                               */
     /*------------------------------------------------------------------------*/
     StringBuffer sbParam = new StringBuffer();
     CT_CLI       cc      = new CT_CLI();
-	//cc.setCharSetUtf8(); // UTF-8 ì²˜ë¦¬
-    
-    // request ë¡œ ë„˜ì–´ì˜¨ ê°’ ì²˜ë¦¬
+	//cc.setCharSetUtf8(); // UTF-8 Ã³¸®
+
+	
+    // request ·Î ³Ñ¾î¿Â °ª Ã³¸®
     Enumeration params = request.getParameterNames();
     while(params.hasMoreElements())
     {
-         String nmParam = (String) params.nextElement();
-         String valParam[] = request.getParameterValues(nmParam);
+        String nmParam = (String) params.nextElement();
+        String valParam[] = request.getParameterValues(nmParam);
 
         for(int i = 0; i < valParam.length;i++)
         {
-            if( nmParam.equals( "site_cd"   ) )
+            if( nmParam.equals( "site_cd"      ) )
             {
                 site_cd = f_get_parm_str( valParam[i] );
             }
-
-            if( nmParam.equals( "req_tx"    ) )
-            {
-                req_tx = f_get_parm_str( valParam[i] );
-            }
-
-            if( nmParam.equals( "ordr_idxx" ) )
+            
+            if( nmParam.equals( "ordr_idxx"    ) )
             {
                 ordr_idxx = f_get_parm_str( valParam[i] );
             }
-
-            if( nmParam.equals( "user_name" ) )
+            
+            if( nmParam.equals( "res_cd"       ) )
             {
-                user_name = f_get_parm_str( valParam[i] );
-            }
-
-            if( nmParam.equals( "year"      ) )
-            {
-                year = f_get_parm_int( valParam[i] );
-            }
-
-            if( nmParam.equals( "month"     ) )
-            {
-                month = f_get_parm_int( valParam[i] );
-            }
-
-            if( nmParam.equals( "day"       ) )
-            {
-                day = f_get_parm_int( valParam[i] );
-            }
-
-            if( nmParam.equals( "sex_code"  ) )
-            {
-                sex_code = f_get_parm_str( valParam[i] );
-            }
-
-            if( nmParam.equals( "local_code" ) )
-            {
-                local_code = f_get_parm_str( valParam[i] );
-            }
-
-            if( nmParam.equals( "web_siteid_hashYN" ) )
-            {
-                web_siteid_hashYN = f_get_parm_str( valParam[i] );
+                res_cd = f_get_parm_str( valParam[i] );
             }
             
-            if( nmParam.equals( "web_siteid" ) )
+            if( nmParam.equals( "cert_enc_use" ) )
             {
-                web_siteid = f_get_parm_str( valParam[i] );
+                cert_enc_use = f_get_parm_str( valParam[i] );
             }
             
-            if( nmParam.equals( "cert_able_yn" ) )
+            if( nmParam.equals( "req_tx"       ) )
             {
-                cert_able_yn = f_get_parm_str( valParam[i] );
+                req_tx = f_get_parm_str( valParam[i] );
             }
-
-           // ì¸ì¦ì°½ìœ¼ë¡œ ë„˜ê¸°ëŠ” form ë°ì´í„° ìƒì„± í•„ë“œ
-            sbParam.append( "<input type=\"hidden\" name=\"" + nmParam + "\" value=\"" + f_get_parm_str( valParam[i] ) + "\"/>" );
+            
+            if( nmParam.equals( "cert_no"      ) )
+            {
+                cert_no = f_get_parm_str( valParam[i] );
+            }
+            
+            if( nmParam.equals( "enc_cert_data2" ) )
+            {
+                enc_cert_data2 = f_get_parm_str( valParam[i] );
+            }
+            
+            if( nmParam.equals( "dn_hash"       ) )
+            {
+                dn_hash = f_get_parm_str( valParam[i] );
+            }
+            // °á°ú ¸Ş½ÃÁö°¡ ÇÑ±Û µ¥ÀÌÅÍ URL decoding ÇØÁà¾ßÇÕ´Ï´Ù.
+            // ºÎ¸ğÃ¢À¸·Î ³Ñ±â´Â form µ¥ÀÌÅÍ »ı¼º ÇÊµå
+            if( nmParam.equals( "res_msg"       ) )
+            {
+                sbParam.append( "<input type=\"hidden\" name=\"" + nmParam + "\" value=\"" + URLDecoder.decode( valParam[i], "UTF-8" ) + "\"/>" );
+            }
+            else
+            {
+                sbParam.append( "<input type=\"hidden\" name=\"" + nmParam + "\" value=\"" + f_get_parm_str( valParam[i] ) + "\"/>" );
+            }
 
         }
     }
-
-    if ( req_tx.equals( "cert" ) )
+    
+    // °á°ú Ã³¸®
+    if( cert_enc_use.equals( "Y" ) )
     {
-        // !!up_hash ë°ì´í„° ìƒì„±ì‹œ ì£¼ì˜ ì‚¬í•­
-        // year , month , day ê°€ ë¹„ì–´ ìˆëŠ” ê²½ìš° "00" , "00" , "00" ìœ¼ë¡œ ì„¤ì •ì´ ë©ë‹ˆë‹¤
-        // ê·¸ì™¸ì˜ ê°’ì€ ì—†ì„ ê²½ìš° ""(null) ë¡œ ì„¸íŒ…í•˜ì‹œë©´ ë©ë‹ˆë‹¤.
-        // up_hash ë°ì´í„° ìƒì„±ì‹œ site_cd ì™€ ordr_idxx ëŠ” í•„ìˆ˜ ê°’ì…ë‹ˆë‹¤.
-        if( cert_able_yn.equals( "Y" ) )
+        if( res_cd.equals( "0000" ) )
         {
-            up_hash = cc.makeHashData( g_conf_ENC_KEY, site_cd   +
-                                       ordr_idxx +
-                                       ( web_siteid_hashYN.equals( "Y" )? web_siteid:"" ) +
-                                       ""   +
-                                       "00" +
-                                       "00" +
-                                       "00" +
-                                       ""   +
-                                       ""
-                                      );
-        }
-        else
-        {
-            up_hash = cc.makeHashData( g_conf_ENC_KEY, site_cd   +
-                                       ordr_idxx +
-                                       ( web_siteid_hashYN.equals( "Y" )? web_siteid:"" ) +
-                                       user_name +
-                                       year      +
-                                       month     +
-                                       day       +
-                                       sex_code  +
-                                       local_code 
-                                      );
-        }
+            // dn_hash °ËÁõ
+            // KCP °¡ ¸®ÅÏÇØ µå¸®´Â dn_hash ¿Í »çÀÌÆ® ÄÚµå, ¿äÃ»¹øÈ£ , ÀÎÁõ¹øÈ£¸¦ °ËÁõÇÏ¿©
+            // ÇØ´ç µ¥ÀÌÅÍÀÇ À§º¯Á¶¸¦ ¹æÁöÇÕ´Ï´Ù
+            if ( !cc.checkValidHash( g_conf_ENC_KEY, dn_hash, ( site_cd + ordr_idxx + cert_no ) ) )
+            {
+                // °ËÁõ ½ÇÆĞ½Ã Ã³¸® ¿µ¿ª
 
-        // ì¸ì¦ì°½ìœ¼ë¡œ ë„˜ê¸°ëŠ” form ë°ì´í„° ìƒì„± í•„ë“œ ( up_hash )
-        sbParam.append( "<input type=\"hidden\" name=\"up_hash\" value=\"" + up_hash + "\"/>" );
-        
-        // KCP ë³¸ì¸í™•ì¸ ë¼ì´ë¸ŒëŸ¬ë¦¬ ë²„ì „ ì •ë³´
-        sbParam.append( "<input type=\"hidden\" name=\"kcp_cert_lib_ver\" value=\"" + cc.getKCPLibVer() + "\"/>" );
-        
-        cc = null; // ê°ì²´ í•´ì œ
+                System.out.println("dn_hash º¯Á¶ À§ÇèÀÖÀ½");
+                //cc = null; // °´Ã¼ ¹İ³³ ( ·çÆ¾ Å»Ãâ½Ã¿¡¸¸ È£Ãâ )
+            }
+
+            // °¡¸ÍÁ¡ DB Ã³¸® ÆäÀÌÁö ¿µ¿ª
+
+            System.out.println(site_cd);
+            System.out.println(cert_no);
+            //System.out.println(enc_cert_data2); // ¾ÏÈ£È­ v2
+            
+            // ÀÎÁõµ¥ÀÌÅÍ º¹È£È­ ÇÔ¼ö
+            // ÇØ´ç ÇÔ¼ö´Â ¾ÏÈ£È­µÈ enc_cert_data2 ¸¦
+            // site_cd ¿Í cert_no ¸¦ °¡Áö°í º¹È­È­ ÇÏ´Â ÇÔ¼ö ÀÔ´Ï´Ù.
+            // Á¤»óÀûÀ¸·Î º¹È£È­ µÈ°æ¿ì¿¡¸¸ ÀÎÁõµ¥ÀÌÅÍ¸¦ °¡Á®¿Ã¼ö ÀÖ½À´Ï´Ù.
+            cc.decryptEncCert( g_conf_ENC_KEY, site_cd, cert_no, enc_cert_data2 );
+           
+            System.out.println( "ÀÌ¸§ ³Ê¿Ö ÀÚ²Ù ±úÁ®±×¸¸Á»±úÁ®"               + cc.getKeyValue("user_name"   ) ); // ÀÌ¸§              
+            
+            //cc.setCharSetUtf8(); // º¹È£¿Í °á°ú°ª ÀÎÄÚµù º¯°æ ¸Ş¼­µå ( UTF-8 ÀÎÄÚµù »ç¿ë½Ã ÁÖ¼®À» ÇØÁ¦ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.)  //¼öÁ¤ ÁÖ¼®ÇØÁ¦ÇÔ
+            
+            System.out.println( "ÀÌµ¿Åë½Å»ç ÄÚµå"    + cc.getKeyValue("comm_id"     ) ); // ÀÌµ¿Åë½Å»ç ÄÚµå   
+            System.out.println( "ÀüÈ­¹øÈ£"           + cc.getKeyValue("phone_no"    ) ); // ÀüÈ­¹øÈ£          
+            System.out.println( "ÀÌ¸§"               + cc.getKeyValue("user_name"   ) ); // ÀÌ¸§              
+            System.out.println( "»ı³â¿ùÀÏ"           + cc.getKeyValue("birth_day"   ) ); // »ı³â¿ùÀÏ          
+            System.out.println( "¼ºº°ÄÚµå"           + cc.getKeyValue("sex_code"    ) ); // ¼ºº°ÄÚµå          
+            System.out.println( "³»/¿Ü±¹ÀÎ Á¤º¸ "    + cc.getKeyValue("local_code"  ) ); // ³»/¿Ü±¹ÀÎ Á¤º¸    
+            System.out.println( "CI"                 + cc.getKeyValue("ci"          ) ); // CI                
+            System.out.println( "DI Áßº¹°¡ÀÔ È®ÀÎ°ª" + cc.getKeyValue("di"          ) ); // DI Áßº¹°¡ÀÔ È®ÀÎ°ª
+            System.out.println( "CI_URL"             + URLDecoder.decode( cc.getKeyValue("ci_url"      ) ) ); // CI URL ÀÎÄÚµù °ª
+            System.out.println( "DI_URL"             + URLDecoder.decode( cc.getKeyValue("di_url"      ) ) ); // DI URL ÀÎÄÚµù °ª
+            System.out.println( "À¥»çÀÌÆ® ¾ÆÀÌµğ  "  + cc.getKeyValue("web_siteid"  ) ); // ¾ÏÈ£È­µÈ À¥»çÀÌÆ® ¾ÆÀÌµğ
+            System.out.println( "¾ÏÈ£È­µÈ °á°úÄÚµå"  + cc.getKeyValue("res_cd"      ) ); // ¾ÏÈ£È­µÈ °á°úÄÚµå
+            System.out.println( "¾ÏÈ£È­µÈ °á°ú¸Ş½ÃÁö"+ cc.getKeyValue("res_msg"     ) ); // ¾ÏÈ£È­µÈ °á°ú¸Ş½ÃÁö
+			
+        }
+        else/*if( res_cd.equals( "0000" ) != true )*/
+        {
+            // ÀÎÁõ½ÇÆĞ
+        }
     }
+    else/*if( cert_enc_use.equals( "Y" ) != true )*/
+    {
+        // ¾ÏÈ£È­ ÀÎÁõ ¾ÈÇÔ
+    }
+
+    cc = null; // °´Ã¼ ¹İ³³
 %>
 
 
@@ -184,32 +176,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> <!-- utf-8 ¼öÁ¤ -->
         <title>*** NHN KCP Online Payment System [Jsp Version] ***</title>
         <script type="text/javascript">
             window.onload=function()
             {
-                var frm = document.form_auth;
-
-                // ì¸ì¦ ìš”ì²­ ì‹œ í˜¸ì¶œ í•¨ìˆ˜
-                if ( frm.req_tx.value == "cert" )
+                try
                 {
-                    opener.document.form_auth.veri_up_hash.value = frm.up_hash.value; // up_hash ë°ì´í„° ê²€ì¦ì„ ìœ„í•œ í•„ë“œ
+                    opener.auth_data( document.form_auth ); // ºÎ¸ğÃ¢À¸·Î °ª Àü´Ş
 
-                    frm.action="<%= g_conf_gw_url %>";
-                    frm.submit();
+                    window.close();// ÆË¾÷ ´İ±â
                 }
-
-                // ì¸ì¦ ê²°ê³¼ ë°ì´í„° ë¦¬í„´ í˜ì´ì§€ í˜¸ì¶œ í•¨ìˆ˜
-                else if ( ( frm.req_tx.value == "auth" || frm.req_tx.value == "otp_auth" ) )
+                catch(e)
                 {
-                    //frm.action="./kcpcert_proc_res.jsp";
-                    frm.action="AuthRes.do";   // ìˆ˜ì •
-                    frm.submit();
-                }
-                else
-                {
-                    //alert ("req_tx ê°’ì„ í™•ì¸í•´ ì£¼ì„¸ìš”");
+                    alert(e); // Á¤»óÀûÀÎ ºÎ¸ğÃ¢ÀÇ iframe ¸¦ ¸øÃ£Àº °æ¿ìÀÓ
                 }
             }
         </script>

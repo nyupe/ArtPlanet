@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html;charset=euc-kr"%>
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="kr.co.kcp.CT_CLI"%>
 <%@ page import="java.net.URLDecoder"%>
 <%@ include file="../cfg/cert_conf.jsp"%>
 <%
     /* ============================================================================== */
-    /* =   ì¸ì¦ë°ì´í„° ìˆ˜ì‹  ë° ë³µí˜¸í™” í˜ì´ì§€                                         = */
+    /* =   ÀÎÁõµ¥ÀÌÅÍ ¼ö½Å ¹× º¹È£È­ ÆäÀÌÁö                                         = */
     /* = -------------------------------------------------------------------------- = */
-    /* =   í•´ë‹¹ í˜ì´ì§€ëŠ” ë°˜ë“œì‹œ ê°€ë§¹ì  ì„œë²„ì— ì—…ë¡œë“œ ë˜ì–´ì•¼ í•˜ë©°                    = */ 
-    /* =   ê°€ê¸‰ì  ìˆ˜ì •ì—†ì´ ì‚¬ìš©í•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.                                     = */
+    /* =   ÇØ´ç ÆäÀÌÁö´Â ¹İµå½Ã °¡¸ÍÁ¡ ¼­¹ö¿¡ ¾÷·Îµå µÇ¾î¾ß ÇÏ¸ç                    = */ 
+    /* =   °¡±ŞÀû ¼öÁ¤¾øÀÌ »ç¿ëÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.                                     = */
     /* ============================================================================== */
 %>
 <%!
     /* ============================================================================== */
-    /* =   null ê°’ì„ ì²˜ë¦¬í•˜ëŠ” ë©”ì†Œë“œ                                                = */
+    /* =   null °ªÀ» Ã³¸®ÇÏ´Â ¸Ş¼Òµå                                                = */
     /* = -------------------------------------------------------------------------- = */
     public String f_get_parm_str( String val )
     {
@@ -23,7 +23,7 @@
     /* ============================================================================== */
 %>
 <%
-    request.setCharacterEncoding ( "UTF-8" ) ;//ìˆ˜ì •
+    request.setCharacterEncoding ( "utf-8" ) ;//¼öÁ¤
 
     String site_cd       = "";
     String ordr_idxx     = "";
@@ -40,14 +40,16 @@
     String res_msg       = "";
 
     String dn_hash       = "";
+    
 	/*------------------------------------------------------------------------*/
-    /*  :: ì „ì²´ íŒŒë¼ë¯¸í„° ë‚¨ê¸°ê¸°                                               */
+    /*  :: ÀüÃ¼ ÆÄ¶ó¹ÌÅÍ ³²±â±â                                               */
     /*------------------------------------------------------------------------*/
     StringBuffer sbParam = new StringBuffer();
     CT_CLI       cc      = new CT_CLI();
-	cc.setCharSetUtf8(); // UTF-8 ì²˜ë¦¬
-    
-    // request ë¡œ ë„˜ì–´ì˜¨ ê°’ ì²˜ë¦¬
+	cc.setCharSetUtf8(); // UTF-8 Ã³¸®
+
+	
+    // request ·Î ³Ñ¾î¿Â °ª Ã³¸®
     Enumeration params = request.getParameterNames();
     while(params.hasMoreElements())
     {
@@ -95,8 +97,8 @@
             {
                 dn_hash = f_get_parm_str( valParam[i] );
             }
-            // ê²°ê³¼ ë©”ì‹œì§€ê°€ í•œê¸€ ë°ì´í„° URL decoding í•´ì¤˜ì•¼í•©ë‹ˆë‹¤.
-            // ë¶€ëª¨ì°½ìœ¼ë¡œ ë„˜ê¸°ëŠ” form ë°ì´í„° ìƒì„± í•„ë“œ
+            // °á°ú ¸Ş½ÃÁö°¡ ÇÑ±Û µ¥ÀÌÅÍ URL decoding ÇØÁà¾ßÇÕ´Ï´Ù.
+            // ºÎ¸ğÃ¢À¸·Î ³Ñ±â´Â form µ¥ÀÌÅÍ »ı¼º ÇÊµå
             if( nmParam.equals( "res_msg"       ) )
             {
                 sbParam.append( "<input type=\"hidden\" name=\"" + nmParam + "\" value=\"" + URLDecoder.decode( valParam[i], "UTF-8" ) + "\"/>" );
@@ -109,61 +111,64 @@
         }
     }
     
-    // ê²°ê³¼ ì²˜ë¦¬
+    // °á°ú Ã³¸®
     if( cert_enc_use.equals( "Y" ) )
     {
         if( res_cd.equals( "0000" ) )
         {
-            // dn_hash ê²€ì¦
-            // KCP ê°€ ë¦¬í„´í•´ ë“œë¦¬ëŠ” dn_hash ì™€ ì‚¬ì´íŠ¸ ì½”ë“œ, ìš”ì²­ë²ˆí˜¸ , ì¸ì¦ë²ˆí˜¸ë¥¼ ê²€ì¦í•˜ì—¬
-            // í•´ë‹¹ ë°ì´í„°ì˜ ìœ„ë³€ì¡°ë¥¼ ë°©ì§€í•©ë‹ˆë‹¤
+            // dn_hash °ËÁõ
+            // KCP °¡ ¸®ÅÏÇØ µå¸®´Â dn_hash ¿Í »çÀÌÆ® ÄÚµå, ¿äÃ»¹øÈ£ , ÀÎÁõ¹øÈ£¸¦ °ËÁõÇÏ¿©
+            // ÇØ´ç µ¥ÀÌÅÍÀÇ À§º¯Á¶¸¦ ¹æÁöÇÕ´Ï´Ù
             if ( !cc.checkValidHash( g_conf_ENC_KEY, dn_hash, ( site_cd + ordr_idxx + cert_no ) ) )
             {
-                // ê²€ì¦ ì‹¤íŒ¨ì‹œ ì²˜ë¦¬ ì˜ì—­
+                // °ËÁõ ½ÇÆĞ½Ã Ã³¸® ¿µ¿ª
 
-                System.out.println("dn_hash ë³€ì¡° ìœ„í—˜ìˆìŒ");
-                //cc = null; // ê°ì²´ ë°˜ë‚© ( ë£¨í‹´ íƒˆì¶œì‹œì—ë§Œ í˜¸ì¶œ )
+                System.out.println("dn_hash º¯Á¶ À§ÇèÀÖÀ½");
+                //cc = null; // °´Ã¼ ¹İ³³ ( ·çÆ¾ Å»Ãâ½Ã¿¡¸¸ È£Ãâ )
             }
 
-            // ê°€ë§¹ì  DB ì²˜ë¦¬ í˜ì´ì§€ ì˜ì—­
+            // °¡¸ÍÁ¡ DB Ã³¸® ÆäÀÌÁö ¿µ¿ª
 
             System.out.println(site_cd);
             System.out.println(cert_no);
-            //System.out.println(enc_cert_data2); // ì•”í˜¸í™” v2
+            //System.out.println(enc_cert_data2); // ¾ÏÈ£È­ v2
             
-            // ì¸ì¦ë°ì´í„° ë³µí˜¸í™” í•¨ìˆ˜
-            // í•´ë‹¹ í•¨ìˆ˜ëŠ” ì•”í˜¸í™”ëœ enc_cert_data2 ë¥¼
-            // site_cd ì™€ cert_no ë¥¼ ê°€ì§€ê³  ë³µí™”í™” í•˜ëŠ” í•¨ìˆ˜ ì…ë‹ˆë‹¤.
-            // ì •ìƒì ìœ¼ë¡œ ë³µí˜¸í™” ëœê²½ìš°ì—ë§Œ ì¸ì¦ë°ì´í„°ë¥¼ ê°€ì ¸ì˜¬ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+            // ÀÎÁõµ¥ÀÌÅÍ º¹È£È­ ÇÔ¼ö
+            // ÇØ´ç ÇÔ¼ö´Â ¾ÏÈ£È­µÈ enc_cert_data2 ¸¦
+            // site_cd ¿Í cert_no ¸¦ °¡Áö°í º¹È­È­ ÇÏ´Â ÇÔ¼ö ÀÔ´Ï´Ù.
+            // Á¤»óÀûÀ¸·Î º¹È£È­ µÈ°æ¿ì¿¡¸¸ ÀÎÁõµ¥ÀÌÅÍ¸¦ °¡Á®¿Ã¼ö ÀÖ½À´Ï´Ù.
             cc.decryptEncCert( g_conf_ENC_KEY, site_cd, cert_no, enc_cert_data2 );
-            cc.setCharSetUtf8(); // ë³µí˜¸ì™€ ê²°ê³¼ê°’ ì¸ì½”ë”© ë³€ê²½ ë©”ì„œë“œ ( UTF-8 ì¸ì½”ë”© ì‚¬ìš©ì‹œ ì£¼ì„ì„ í•´ì œí•˜ì‹œê¸° ë°”ëë‹ˆë‹¤.)  //ìˆ˜ì • ì£¼ì„í•´ì œí•¨
+           
+            System.out.println( "ÀÌ¸§ ³Ê¿Ö ÀÚ²Ù ±úÁ®±×¸¸Á»±úÁ®"               + cc.getKeyValue("user_name"   ) ); // ÀÌ¸§              
             
-            System.out.println( "ì´ë™í†µì‹ ì‚¬ ì½”ë“œ"    + cc.getKeyValue("comm_id"     ) ); // ì´ë™í†µì‹ ì‚¬ ì½”ë“œ   
-            System.out.println( "ì „í™”ë²ˆí˜¸"           + cc.getKeyValue("phone_no"    ) ); // ì „í™”ë²ˆí˜¸          
-            System.out.println( "ì´ë¦„"               + cc.getKeyValue("user_name"   ) ); // ì´ë¦„              
-            System.out.println( "ìƒë…„ì›”ì¼"           + cc.getKeyValue("birth_day"   ) ); // ìƒë…„ì›”ì¼          
-            System.out.println( "ì„±ë³„ì½”ë“œ"           + cc.getKeyValue("sex_code"    ) ); // ì„±ë³„ì½”ë“œ          
-            System.out.println( "ë‚´/ì™¸êµ­ì¸ ì •ë³´ "    + cc.getKeyValue("local_code"  ) ); // ë‚´/ì™¸êµ­ì¸ ì •ë³´    
+            cc.setCharSetUtf8(); // º¹È£¿Í °á°ú°ª ÀÎÄÚµù º¯°æ ¸Ş¼­µå ( UTF-8 ÀÎÄÚµù »ç¿ë½Ã ÁÖ¼®À» ÇØÁ¦ÇÏ½Ã±â ¹Ù¶ø´Ï´Ù.)  //¼öÁ¤ ÁÖ¼®ÇØÁ¦ÇÔ
+            
+            System.out.println( "ÀÌµ¿Åë½Å»ç ÄÚµå"    + cc.getKeyValue("comm_id"     ) ); // ÀÌµ¿Åë½Å»ç ÄÚµå   
+            System.out.println( "ÀüÈ­¹øÈ£"           + cc.getKeyValue("phone_no"    ) ); // ÀüÈ­¹øÈ£          
+            System.out.println( "ÀÌ¸§"               + cc.getKeyValue("user_name"   ) ); // ÀÌ¸§              
+            System.out.println( "»ı³â¿ùÀÏ"           + cc.getKeyValue("birth_day"   ) ); // »ı³â¿ùÀÏ          
+            System.out.println( "¼ºº°ÄÚµå"           + cc.getKeyValue("sex_code"    ) ); // ¼ºº°ÄÚµå          
+            System.out.println( "³»/¿Ü±¹ÀÎ Á¤º¸ "    + cc.getKeyValue("local_code"  ) ); // ³»/¿Ü±¹ÀÎ Á¤º¸    
             System.out.println( "CI"                 + cc.getKeyValue("ci"          ) ); // CI                
-            System.out.println( "DI ì¤‘ë³µê°€ì… í™•ì¸ê°’" + cc.getKeyValue("di"          ) ); // DI ì¤‘ë³µê°€ì… í™•ì¸ê°’
-            System.out.println( "CI_URL"             + URLDecoder.decode( cc.getKeyValue("ci_url"      ) ) ); // CI URL ì¸ì½”ë”© ê°’
-            System.out.println( "DI_URL"             + URLDecoder.decode( cc.getKeyValue("di_url"      ) ) ); // DI URL ì¸ì½”ë”© ê°’
-            System.out.println( "ì›¹ì‚¬ì´íŠ¸ ì•„ì´ë””  "  + cc.getKeyValue("web_siteid"  ) ); // ì•”í˜¸í™”ëœ ì›¹ì‚¬ì´íŠ¸ ì•„ì´ë””
-            System.out.println( "ì•”í˜¸í™”ëœ ê²°ê³¼ì½”ë“œ"  + cc.getKeyValue("res_cd"      ) ); // ì•”í˜¸í™”ëœ ê²°ê³¼ì½”ë“œ
-            System.out.println( "ì•”í˜¸í™”ëœ ê²°ê³¼ë©”ì‹œì§€"+ cc.getKeyValue("res_msg"     ) ); // ì•”í˜¸í™”ëœ ê²°ê³¼ë©”ì‹œì§€
+            System.out.println( "DI Áßº¹°¡ÀÔ È®ÀÎ°ª" + cc.getKeyValue("di"          ) ); // DI Áßº¹°¡ÀÔ È®ÀÎ°ª
+            System.out.println( "CI_URL"             + URLDecoder.decode( cc.getKeyValue("ci_url"      ) ) ); // CI URL ÀÎÄÚµù °ª
+            System.out.println( "DI_URL"             + URLDecoder.decode( cc.getKeyValue("di_url"      ) ) ); // DI URL ÀÎÄÚµù °ª
+            System.out.println( "À¥»çÀÌÆ® ¾ÆÀÌµğ  "  + cc.getKeyValue("web_siteid"  ) ); // ¾ÏÈ£È­µÈ À¥»çÀÌÆ® ¾ÆÀÌµğ
+            System.out.println( "¾ÏÈ£È­µÈ °á°úÄÚµå"  + cc.getKeyValue("res_cd"      ) ); // ¾ÏÈ£È­µÈ °á°úÄÚµå
+            System.out.println( "¾ÏÈ£È­µÈ °á°ú¸Ş½ÃÁö"+ cc.getKeyValue("res_msg"     ) ); // ¾ÏÈ£È­µÈ °á°ú¸Ş½ÃÁö
 			
         }
         else/*if( res_cd.equals( "0000" ) != true )*/
         {
-            // ì¸ì¦ì‹¤íŒ¨
+            // ÀÎÁõ½ÇÆĞ
         }
     }
     else/*if( cert_enc_use.equals( "Y" ) != true )*/
     {
-        // ì•”í˜¸í™” ì¸ì¦ ì•ˆí•¨
+        // ¾ÏÈ£È­ ÀÎÁõ ¾ÈÇÔ
     }
 
-    cc = null; // ê°ì²´ ë°˜ë‚©
+    cc = null; // °´Ã¼ ¹İ³³
 %>
 
 
@@ -171,20 +176,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> <!-- utf-8 ìˆ˜ì • -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> <!-- utf-8 ¼öÁ¤ -->
         <title>*** NHN KCP Online Payment System [Jsp Version] ***</title>
         <script type="text/javascript">
             window.onload=function()
             {
                 try
                 {
-                    opener.auth_data( document.form_auth ); // ë¶€ëª¨ì°½ìœ¼ë¡œ ê°’ ì „ë‹¬
+                    opener.auth_data( document.form_auth ); // ºÎ¸ğÃ¢À¸·Î °ª Àü´Ş
 
-                    window.close();// íŒì—… ë‹«ê¸°
+                    window.close();// ÆË¾÷ ´İ±â
                 }
                 catch(e)
                 {
-                    alert(e); // ì •ìƒì ì¸ ë¶€ëª¨ì°½ì˜ iframe ë¥¼ ëª»ì°¾ì€ ê²½ìš°ì„
+                    alert(e); // Á¤»óÀûÀÎ ºÎ¸ğÃ¢ÀÇ iframe ¸¦ ¸øÃ£Àº °æ¿ìÀÓ
                 }
             }
         </script>
