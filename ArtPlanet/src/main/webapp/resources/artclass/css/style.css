@@ -407,6 +407,7 @@ hr {
   text-shadow: none; }
 
 /*======= Typography =======*/
+/*
 html {
   overflow-x: hidden; }
 
@@ -513,7 +514,7 @@ a:active {
   text-decoration: none;
   outline: none;
   color: #d50c0d; }
-
+*/
 /*======= Helper Class =======*/
 .hidden {
   display: none; }

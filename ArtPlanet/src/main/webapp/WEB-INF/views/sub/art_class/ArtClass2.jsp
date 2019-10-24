@@ -1,141 +1,187 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<section class="contact-section area-padding">
-	<div class="container">
-		<div class="d-none d-sm-block mb-5 pb-4">
-			<div id="map" style="height: 480px;"></div>
-			<script>
-				function initMap() {
-					var uluru = {
-						lat : -25.363,
-						lng : 131.044
-					};
-					var grayStyles = [ {
-						featureType : "all",
-						stylers : [ {
-							saturation : -90
-						}, {
-							lightness : 50
-						} ]
-					}, {
-						elementType : 'labels.text.fill',
-						stylers : [ {
-							color : '#ccdee9'
-						} ]
-					} ];
-					var map = new google.maps.Map(document
-							.getElementById('map'), {
-						center : {
-							lat : -31.197,
-							lng : 150.744
-						},
-						zoom : 9,
-						styles : grayStyles,
-						scrollwheel : false
-					});
-				}
-			</script>
-			<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpfS1oRGreGSBU5HHjMmQ3o5NLw7VdJ6I&callback=initMap"></script>
 
-		</div>
-		<div class="row">
-			<div class="col-12">
-				<h2 class="contact-title">Get in Touch</h2>
-			</div>
-			<div class="col-lg-8">
-				<form class="form-contact contact_form"
-					action="contact_process.php" method="post" id="contactForm">
-					<div class="row">
-						<div class="col-12">
-							<div class="form-group">
-								<textarea class="form-control w-100" name="message"
-									id="message" cols="30" rows="9" placeholder="Enter Message"></textarea>
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<input class="form-control" name="name" id="name" type="text"
-									placeholder="Enter your name">
-							</div>
-						</div>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<input class="form-control" name="email" id="email"
-									type="email" placeholder="Enter email address">
-							</div>
-						</div>
-						<div class="col-12">
-							<div class="form-group">
-								<input class="form-control" name="subject" id="subject"
-									type="text" placeholder="Enter Subject">
-							</div>
-						</div>
-					</div>
-					<div class="form-group mt-3">
-						<button type="submit" class="button button-contactForm">Send Message</button>
-					</div>
-				</form>
-			</div>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+    <link href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700" rel="stylesheet">
 
-			<div class="col-lg-4">
-				<div class="media contact-info">
-					<span class="contact-info__icon"><i class="ti-home"></i></span>
-					<div class="media-body">
-						<h3>Buttonwood, California.</h3>
-						<p>Rosemead, CA 91770</p>
-					</div>
-				</div>
-				<div class="media contact-info">
-					<span class="contact-info__icon"><i class="ti-tablet"></i></span>
-					<div class="media-body">
-						<h3>
-							<a href="tel:454545654">00 (440) 9865 562</a>
-						</h3>
-						<p>Mon to Fri 9am to 6pm</p>
-					</div>
-				</div>
-				<div class="media contact-info">
-					<span class="contact-info__icon"><i class="ti-email"></i></span>
-					<div class="media-body">
-						<h3>
-							<a href="mailto:support@colorlib.com">support@colorlib.com</a>
-						</h3>
-						<p>Send us your query anytime!</p>
-					</div>
-				</div>
-			</div>
+    <link rel="stylesheet" href="<c:url value='/resources/artclass2/css/open-iconic-bootstrap.min.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/artclass2/css/animate.css'/>">
+    
+    <link rel="stylesheet" href="<c:url value='/resources/artclass2/css/owl.carousel.min.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/artclass2/css/owl.theme.default.min.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/artclass2/css/magnific-popup.css'/>">
+
+    <link rel="stylesheet" href="<c:url value='/resources/artclass2/css/aos.css'/>">
+
+    <link rel="stylesheet" href="<c:url value='/resources/artclass2/css/ionicons.min.css'/>">
+
+    <link rel="stylesheet" href="<c:url value='/resources/artclass2/css/bootstrap-datepicker.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/artclass2/css/jquery.timepicker.css'/>">
+
+    
+    <link rel="stylesheet" href="<c:url value='/resources/artclass2/css/flaticon.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/artclass2/css/icomoon.css'/>">
+    <link rel="stylesheet" href="<c:url value='/resources/artclass2/css/style.css'/>">
+    
+<section class="portfolio_area area-padding" id="portfolio">
+	
+       
+       <div class="filters portfolio-filter" >
+			<ul>
+				<li class="active" data-filter="*">all</li>
+				<li data-filter=".illustration">일러스트레이션</li>
+				<li data-filter=".painting">회화</li>
+				<li data-filter=".animation">애니메이션</li>
+				<li data-filter=".design">디자인</li>
+				<li data-filter=".calligraphy">캘리그라피</li>
+				<li data-filter=".crafts">조소/공예</li>
+			</ul>
 		</div>
-	</div>
+		
+	<div class="filters-content">
+        <div class="row portfolio-grid">
+        	<div class="grid-sizer col-md-4 col-lg-3"></div>
+          <div class="col-md-6 col-lg-3 all illustration">
+            <a href="<c:url value='/View'/>" class="block-5" style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
+              <div class="text">
+                <span class="price">￦30,000</span>
+                <h3 class="heading">Group Tour in Maldives</h3>
+                <div class="post-meta">
+                  <span>Ameeru Ahmed Magu Male’, Maldives</span>
+                </div>
+                <p class="star-rate"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star-half-full"></span> <span>500 reviews</span></p>
+              </div>
+            </a>
+          </div>
+      
+        
+          <div class="col-md-6 col-lg-3 ftco-animate all painting">
+            <a href="#" class="block-5" style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');" >
+             
+              <div class="text">
+                <span class="price">￦30,000</span>
+                <h3 class="heading">Group Tour in Maldives</h3>
+                <div class="post-meta">
+                  <span>Ameeru Ahmed Magu Male’, Maldives</span>
+                </div>
+                <p class="star-rate"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star-half-full"></span> <span>500 reviews</span></p>
+              </div>
+            </a>
+          </div>
+          
+         
+          <div class="col-md-6 col-lg-3 ftco-animate all design" >
+            <a href="#" class="block-5" style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');" >
+              
+              <div class="text">
+                <span class="price">￦30,000</span>
+                <h3 class="heading">Group Tour in Maldives</h3>
+                <div class="post-meta">
+                  <span>Ameeru Ahmed Magu Male’, Maldives</span>
+                </div>
+                <p class="star-rate"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star-half-full"></span> <span>500 reviews</span></p>
+              </div>
+            </a>
+          </div>
+           
+         
+          <div class="col-md-6 col-lg-3 ftco-animate all calligraphy">
+            <a href="#" class="block-5" style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
+               
+              <div class="text">
+                <span class="price">￦30,000</span>
+                <h3 class="heading">Group Tour in Maldives</h3>
+                <div class="post-meta">
+                  <span>Ameeru Ahmed Magu Male’, Maldives</span>
+                </div>
+                <p class="star-rate"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star-half-full"></span> <span>500 reviews</span></p>
+              </div>
+            </a>
+          </div>
+           
+        
+          <div class="col-md-6 col-lg-3 ftco-animate all weeding motion fashion">
+            <a href="#" class="block-5" style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
+              
+              <div class="text">
+                <span class="price">￦30,000</span>
+                <h3 class="heading">Group Tour in Maldives</h3>
+                <div class="post-meta">
+                  <span>Ameeru Ahmed Magu Male’, Maldives</span>
+                </div>
+                <p class="star-rate"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star-half-full"></span> <span>500 reviews</span></p>
+              </div>
+            </a>
+          </div>
+           
+        
+          <div class="col-md-6 col-lg-3 ftco-animate  all fashion motion">
+            <a href="#" class="block-5" style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');" >
+              
+              <div class="text">
+                <span class="price">￦30,000</span>
+                <h3 class="heading">Group Tour in Maldives</h3>
+                <div class="post-meta">
+                  <span>Ameeru Ahmed Magu Male’, Maldives</span>
+                </div>
+                <p class="star-rate"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star-half-full"></span> <span>500 reviews</span></p>
+              </div>
+            </a>
+          </div>
+           
+         
+          <div class="col-md-6 col-lg-3 ftco-animate all weeding motion portrait">
+            <a href="#" class="block-5" style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');" >
+              
+              <div class="text">
+                <span class="price">￦30,000</span>
+                <h3 class="heading">Group Tour in Maldives</h3>
+                <div class="post-meta">
+                  <span>Ameeru Ahmed Magu Male’, Maldives</span>
+                </div>
+                <p class="star-rate"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star-half-full"></span> <span>500 reviews</span></p>
+              </div>
+            </a>
+          </div>
+          
+     
+          <div class="col-md-6 col-lg-3 ftco-animate all fashion motion">
+            <a href="#" class="block-5" style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
+               
+              <div class="text">
+                <span class="price">￦30,000</span>
+                <h3 class="heading">Group Tour in Maldives</h3>
+                <div class="post-meta">
+                  <span>Ameeru Ahmed Magu Male’, Maldives</span>
+                </div>
+                <p class="star-rate"><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star"></span><span class="icon-star-half-full"></span> <span>500 reviews</span></p>
+              </div>
+            </a>
+          </div>
+           </div>
+       </div> 
+    </section>
 </section>
-<!--================Contact Success and Error message Area =================-->
-<div id="success" class="modal modal-message fade" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<i class="fas fa-times"></i>
-				</button>
-				<h2>Thank you</h2>
-				<p>Your message is successfully sent...</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Modals error -->
-<div id="error" class="modal modal-message fade" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-label="Close">
-					<i class="fas fa-times"></i>
-				</button>
-				<h2>Sorry !</h2>
-				<p>Something went wrong</p>
-			</div>
-		</div>
-	</div>
-</div>
-<!--================End Contact Success and Error message Area =================-->
+
+  <!-- loader -->
+  <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+
+  <script src="<c:url value='/resources/artclass2/js/jquery.min.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/jquery-migrate-3.0.1.min.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/popper.min.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/bootstrap.min.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/jquery.easing.1.3.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/jquery.waypoints.min.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/jquery.stellar.min.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/owl.carousel.min.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/jquery.magnific-popup.min.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/aos.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/jquery.animateNumber.min.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/bootstrap-datepicker.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/jquery.timepicker.min.js'/>"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="<c:url value='/resources/artclass2/js/google-map.js'/>"></script>
+  <script src="<c:url value='/resources/artclass2/js/main.js'/>"></script> 
