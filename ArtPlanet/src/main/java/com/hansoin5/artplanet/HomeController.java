@@ -33,7 +33,7 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "Home.tiles";
+		return "contents/SearchArtwork.tiles";
 	}
 	
 }

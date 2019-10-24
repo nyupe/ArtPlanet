@@ -51,10 +51,7 @@
                     }
                     
                     auth_form.target = "auth_popup"; // !!주의 고정값 ( 리턴받을때 사용되는 타겟명입니다.)
-                    
-                    
-                    auth_form.action = "AuthReq.do";
-                    //auth_form.action = "./kcpcert_proc_req.jsp"; // 인증창 호출 및 결과값 리턴 페이지 주소
+                    auth_form.action = "./kcpcert_proc_req.jsp"; // 인증창 호출 및 결과값 리턴 페이지 주소
                     
                     return true;
                 }

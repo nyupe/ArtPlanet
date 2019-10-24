@@ -58,12 +58,12 @@
                                 	<a href="<c:url value='/Home'/>">	<img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
                                 </div>
                                 <h4 class="mb-0">
-                                    <span class="d-block"><span style="color:red ;font-size: 2.0rem">ArtPlanet</span>에 오신걸 환영합니다,</span>
+                                    <span class="d-block"><span class="text-primary">ArtPlanet</span>에 오신걸 환영합니다,</span>
                                     <span>로그인 해주세요.</span></h4>
                                 <h6 class="mt-3">회원이 아니시라구요? 
                                 <br/>
                                 	<!-- 회원가입 페이지로 이동  GET방식 -->
-                                	<a href="<c:url value='/Register'/>;" class="text-primary">이곳을 클릭하여 회원가입하세요.</a>
+                                	<a href="<c:url value='/Register'/>;" class="text-danger">이곳을 클릭하여 회원가입하세요.</a>
                                 </h6>
                                 <div class="divider row"></div>
                                 <div style="padding-bottom: 100px">
@@ -81,7 +81,7 @@
                                         <div class="position-relative form-check"><input name="check" id="exampleCheck" type="checkbox" class="form-check-input"><label for="exampleCheck" class="form-check-label">아이디 저장</label></div>
                                         <div class="divider row"></div>
                                         <div class="d-flex align-items-center">
-                                            <div class="ml-auto"><a href="<c:url value='/ForgotPassword'/>" class="btn-lg btn btn-link"><span style="color: red;font-weight: bolder;">비밀번호 찾기</span></a>
+                                            <div class="ml-auto"><a href="<c:url value='/ForgotPassword'/>" class="btn-lg btn btn-link"><span class="text-danger">비밀번호 찾기</span></a>
                                                 <button class="btn btn-primary btn-lg">로그인</button>
                                             </div>
                                         </div>
