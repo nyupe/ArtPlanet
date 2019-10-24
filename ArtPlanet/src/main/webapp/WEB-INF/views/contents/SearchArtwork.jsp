@@ -53,7 +53,7 @@ color: #ff5555;
 			<div class="row portfolio-grid">
 				<div class="grid-sizer col-md-4 col-lg-3"></div>
 				<div class="col-lg-3 col-md-4 all illustration painting">
-					<div class="single_portfolio">
+					<a href="<c:url value='/Blog'/>"><div class="single_portfolio">
 						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/1.jpg'/>" alt="">
 						<div class="short_info">
 							<span class="post-type">일러스트</span>
@@ -71,7 +71,7 @@ color: #ff5555;
 		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
 		        			</div>
 						</div>
-					</div>
+					</div></a>
 				</div>
 					
 
