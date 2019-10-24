@@ -1,53 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <style>
-
-	.post-type {
-		color: #1a1d24;
-	}
-	.post-date {
-		color: #1a1d24;
-		float: right;
-	}
-	.post-title {
-		color: #1a1d24;
-	}
-	.post-artist {
-		color: #1a1d24;
-		vertical-align:super;
-		font-weight: bold;
-	}
-	.post-comment {
-		color: #1a1d24;
-		vertical-align: super;
-		font-size: 0.8em;
-	}
-	.font-icon-wrapper {
-		color: #1a1d24;
-		border: none;
-		display: inline-block;
-		margin-bottom: 0px;
-		
-	}
-	.font-icon-sm i{
-		font-size: 1.4em;
-	}
-	.avatar-icon {
-		border-color: transparent;
-	}
-	.img-fluid {
-		border-radius: 6px;
-	}
-	.search-inner {
-		background-color: #fff;
-	}
-	#search_input {
-		width: 90%;
-		color: #1a1d24;
-		display: inline-block;
-	}
+.card-header>.nav .nav-link:hover {
+color: #ff5555;
+}
+.card-header>.nav .nav-link.active {
+color: #ff5555;
+}
+.card-header>.nav .nav-link::before {
+	background: #ff5555;
+}
 </style>
 <script>
 	$(function() {
@@ -59,8 +22,8 @@
 <section class="portfolio_area area-padding" id="portfolio">
 	<div class="container">
 		<div class="area-heading" style="margin-bottom: 40px;">
-			<h3>당신이 <span>좋아하게 될</span> 작품을 찾아보세요.</h3>
-			<p>보기 전까지는 무엇을 찾고 있는지 모릅니다.</p>
+			<h3>당신이 <span>좋아하는</span> 아티스트를 후원하세요.</h3>
+			<p>이는 그들이 더 좋은 작품을 만들고 창작활동을 지속하는 원동력이 됩니다.</p>
 			<form class="search-inner" action="<c:url value='/Search'/>">
 				<input type="text" class="form-control" id="search_input" placeholder="Search Here">
 				<button type="submit" class="btn"><i class="fas fa-search"></i></button>
@@ -68,8 +31,9 @@
 		</div>
 		<div class="card-header card-header-tab-animation" style="font-size: 1.8em; margin-bottom: 30px; padding: 0;">
 			<ul class="nav nav-justified">
-				<li class="nav-item"><a href="#" class="nav-link active">작품</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">아티스트</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Artwork'/>" class="nav-link">작품</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Artist'/>" class="nav-link active">아티스트</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project'/>" class="nav-link">프로젝트</a></li>
 			</ul>
 		</div>
 
