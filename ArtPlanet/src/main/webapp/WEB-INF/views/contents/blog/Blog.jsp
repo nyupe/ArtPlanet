@@ -16,7 +16,7 @@
 					<article class="blog_item">
 						<div class="blog_item_img">
 							<img class="card-img rounded-0"
-								src="<c:url value='/resources/img/blog/main-blog/m-blog-1.jpg'/>" alt=""> <a href="#"
+								src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""> <a href="#"
 								class="blog_item_date">
 								<h3>15</h3>
 								<p>Jan</p>
