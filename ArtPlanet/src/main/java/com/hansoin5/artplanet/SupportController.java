@@ -27,6 +27,14 @@ public class SupportController {
 	private boolean isDuplicated=true;
 	
 	
+	@RequestMapping("/LoginComplete")
+	public String loginComplete()
+	{
+		return "contents/SearchArtist.tiles";
+	}
+	
+	
+	
 	@RequestMapping("/Others")
 	public String others()
 	{

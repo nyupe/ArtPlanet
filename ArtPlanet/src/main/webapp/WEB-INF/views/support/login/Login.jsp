@@ -63,15 +63,15 @@
                                 <h6 class="mt-3">회원이 아니시라구요? 
                                 <br/>
                                 	<!-- 회원가입 페이지로 이동  GET방식 -->
-                                	<a href="<c:url value='/Register'/>;" class="text-danger">이곳을 클릭하여 회원가입하세요.</a>
+                                	<a href="<c:url value='AuthStart.do'/>;" class="text-danger">이곳을 클릭하여 회원가입하세요.</a>
                                 </h6>
                                 <div class="divider row"></div>
                                 <div style="padding-bottom: 100px">
                                 	<!-- 정상적인 로그인시 Home.jsp으로 이동 -->
-                                    <form action="<c:url value='/Home'/>">
+                                    <form >
                                         <div class="form-row">
                                             <div class="col-md-6">
-                                                <div class="position-relative form-group"><label for="exampleEmail" class="">ID</label><input name="email" id="exampleEmail" placeholder="ID를 입력하세요..." type="email" class="form-control"></div>
+                                                <div class="position-relative form-group"><label for="exampleEmail" class="">ID</label><input name="id" id="id" placeholder="ID를 입력하세요..." type="text" class="form-control"></div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="position-relative form-group"><label for="examplePassword" class="">Password</label><input name="password" id="examplePassword" placeholder="Password을 입력하세요..." type="password"
@@ -82,7 +82,8 @@
                                         <div class="divider row"></div>
                                         <div class="d-flex align-items-center">
                                             <div class="ml-auto"><a href="<c:url value='/ForgotPassword'/>" class="btn-lg btn btn-link"><span class="text-danger">비밀번호 찾기</span></a>
-                                                <button class="btn btn-primary btn-lg">로그인</button>
+                                                <input type="submit" value="로그인" formaction="<c:url value='LoginComplete'/>"
+                                                class="btn btn-primary btn-lg"/>
                                             </div>
                                         </div>
                                     </form>
@@ -93,7 +94,7 @@
                 </div>
             </div>
     </div>
-	<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>"/>
+	<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/> "/>
 </body>
 </html>
     

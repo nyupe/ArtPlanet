@@ -53,7 +53,7 @@
                                         </div>
                                         
                                     <div class="modal-footer d-block text-center" style="margin-top: 100px">
-                                        <a href="<c:url value='/Home'/>"><button class="btn-wide mb-2 mr-2 btn-pill btn btn-primary btn-lg btn-block">ArtPlanet 시작하기</button></a>
+                                        <a href="<c:url value='/Search/Artwork'/>"><button class="btn-wide mb-2 mr-2 btn-pill btn btn-primary btn-lg btn-block">ArtPlanet 시작하기</button></a>
                                     </div>
                                 </div>
                             </div>

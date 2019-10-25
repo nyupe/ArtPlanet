@@ -39,10 +39,13 @@
                     form_value += "["+frm.elements[i].name + "] = [" + frm.elements[i].value + "]\n";
 
                 }
-
+                
                 alert(form_value);
+               
 
             }
+            
+            
 
             
 
