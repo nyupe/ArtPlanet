@@ -73,7 +73,7 @@
                         	<!-- 사이트 logo 시작-->
 								<div style="margin-bottom: 50px" class="col-md-5 mx-auto"/>
 									<div class="mx-auto d-block">
-						       			<a href="<c:url value='/Home'/>">
+						       			<a href="<c:url value='/Search/Artwork'/>">
 										<img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
 									</div>
 								</div>	

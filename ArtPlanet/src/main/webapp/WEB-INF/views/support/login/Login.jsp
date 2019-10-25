@@ -55,7 +55,7 @@
                         <div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8">
                             <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
                                 <div style="margin-bottom: 50px; margin-left: 100px; ">
-                                	<a href="<c:url value='/Home'/>">	<img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
+                                	<a href="<c:url value='/Search/Artwork'/>">	<img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
                                 </div>
                                 <h4 class="mb-0">
                                     <span class="d-block"><span class="text-primary">ArtPlanet</span>에 오신걸 환영합니다,</span>
