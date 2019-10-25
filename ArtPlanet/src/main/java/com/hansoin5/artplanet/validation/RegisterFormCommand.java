@@ -9,13 +9,20 @@ public class RegisterFormCommand {
 	private String passwordConfirm; //비밀번호 확인
 	private String address; // 주소
 	private String checkMembershipTerms; // 회원약관 읽음 여부
+	private String idDuplicationFlag; // 중복 체크 변수
 	//private String detailAddress; //상세주소
 	
 	//게터/세터]	
-	
+	public String getIdDuplicationFlag() {
+		return idDuplicationFlag;
+	}
+	public void setIdDuplicationFlag(String idDuplicationFlag) {
+		this.idDuplicationFlag = idDuplicationFlag;
+	}
 	public String getId() {
 		return id;
 	}
+	
 	public void setId(String id) {
 		this.id = id;
 	}

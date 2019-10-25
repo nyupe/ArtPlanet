@@ -16,21 +16,19 @@
                /* 리턴 값 모두 찍어보기 (테스트 시에만 사용) */
                 var form_value = "";
 
-<<<<<<< HEAD
+
         // up_hash 검증 
        /* if( frm.up_hash.value != auth_form.veri_up_hash.value )
         {
             alert("up_hash 변조 위험있음");
-=======
+
                 for ( i = 0 ; i < frm.length ; i++ )
                 {
                     form_value += "["+frm.elements[i].name + "] = [" + frm.elements[i].value + "]\n";
                 }
                 alert(form_value);
             }
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
-            
-<<<<<<< HEAD
+
         }     */         
         
        /* 리턴 값 모두 찍어보기 (테스트 시에만 사용) */
@@ -42,12 +40,12 @@
         }
         alert(form_value);
     }
-=======
+
             // 인증창 호출 함수
             function auth_type_check()
             {
                 var auth_form = document.form_auth;
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+
     
                 if( auth_form.ordr_idxx.value == "" )
                 {
@@ -80,10 +78,10 @@
                     return true;
                 }
             }
-<<<<<<< HEAD
+
             
             auth_form.target = "auth_popup"; // !!주의 고정값 ( 리턴받을때 사용되는 타겟명입니다.)
-            /* https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp */
+           
             auth_form.form = "./kcpcert_proc_req.jsp"; // 인증창 호출 및 결과값 리턴 페이지 주소
             
             return true;
@@ -125,11 +123,10 @@
         for(i=1;i<13;i++)
         {
             if(i < 10)
-=======
-    
+
             /* 예제 */
             window.onload=function()
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+
             {
                 var today            = new Date();
                 var year             = today.getFullYear();
