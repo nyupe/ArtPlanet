@@ -37,7 +37,7 @@
                     <div class="d-flex h-100 justify-content-center align-items-center">
                         <div class="mx-auto app-login-box col-md-8">
                              <div class="col-md-6 mx-auto" >
-                            	<a href="<c:url value='/Home'/>">	<img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
+                            	<a href="<c:url value='/Search/Artwork'/>">	<img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
                             </div>
                             <div class="modal-dialog w-100">
                                 <div class="modal-content">
@@ -53,7 +53,7 @@
                                         </div>
                                         
                                     <div class="modal-footer d-block text-center" style="margin-top: 100px">
-                                        <a href="<c:url value='/Home'/>"><button class="btn-wide mb-2 mr-2 btn-pill btn btn-primary btn-lg btn-block">ArtPlanet 시작하기</button></a>
+                                        <a href="<c:url value='/Search/Artwork'/>"><button class="btn-wide mb-2 mr-2 btn-pill btn btn-primary btn-lg btn-block">ArtPlanet 시작하기</button></a>
                                     </div>
                                 </div>
                             </div>

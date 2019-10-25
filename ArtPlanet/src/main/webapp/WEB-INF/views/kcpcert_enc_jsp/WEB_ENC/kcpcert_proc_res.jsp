@@ -129,7 +129,7 @@
 
             // 가맹점 DB 처리 페이지 영역
 
-            System.out.println(site_cd);
+          /*   System.out.println(site_cd);
             System.out.println(cert_no);
             //System.out.println(enc_cert_data2); // 암호화 v2
             
@@ -155,9 +155,12 @@
             System.out.println( "DI_URL"             + URLDecoder.decode( cc.getKeyValue("di_url"      ) ) ); // DI URL 인코딩 값
             System.out.println( "웹사이트 아이디  "  + cc.getKeyValue("web_siteid"  ) ); // 암호화된 웹사이트 아이디
             System.out.println( "암호화된 결과코드"  + cc.getKeyValue("res_cd"      ) ); // 암호화된 결과코드
-            System.out.println( "암호화된 결과메시지"+ cc.getKeyValue("res_msg"     ) ); // 암호화된 결과메시지
-			
+            System.out.println( "암호화된 결과메시지"+ cc.getKeyValue("res_msg"     ) ); // 암호화된 결과메시지 */
+            	System.out.println("여긴 res 페이지 " );
         }
+        
+        
+        
         else/*if( res_cd.equals( "0000" ) != true )*/
         {
             // 인증실패
@@ -179,17 +182,25 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> <!-- utf-8 수정 -->
         <title>*** NHN KCP Online Payment System [Jsp Version] ***</title>
         <script type="text/javascript">
+
             window.onload=function()
-            {
+            {	
+            	
                 try
                 {
+<<<<<<< HEAD
                     opener.auth_data( document.form_auth ); // 부모창으로 값 전달
 
                     window.close();// 팝업 닫기
+=======
+                    opener.auth_data( document.form_auth  ); // 부모창으로 값 전달     
+                    
+                    window.close();// 팝업 닫기 
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
                     
                 }
                 catch(e)
-                {
+                {	
                     alert(e); // 정상적인 부모창의 iframe 를 못찾은 경우임
                 }
             }
@@ -199,5 +210,6 @@
         <form name="form_auth" method="post">
             <%= sbParam.toString() %>
         </form>
+        
     </body>
 </html>

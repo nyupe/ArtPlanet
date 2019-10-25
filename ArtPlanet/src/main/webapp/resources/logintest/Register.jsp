@@ -8,8 +8,6 @@
 	String site_cd   = "S6186"; //사이트 코드
 	String ordr_idxx = "TEST" + (new SimpleDateFormat("yyyyMMddHHmmssSSSSSSS")
 			.format(new Date())); // 요청번호 생성 예제
-			
-	boolean flag = false;			
 				
 %>
 
@@ -24,35 +22,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
     />
     <meta name="description" content="Kero HTML Bootstrap 4 Dashboard Template">
-    <!-- 제이쿼리 코어 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<!-- 핸드폰 인증 로직 JS -->	
 	<script type="text/javascript" src="<c:url value='/resources/js/CertificationByPhone.js'/>"></script>
 	<!-- 유효성 검증 관련 로직 -->
 	<script>
-		$(function(){
-			$('#btnIdDuplication').click(function(){
-				$.ajax({
-					url:"<c:url value='/IdDuplication'/>",
-					type:"post",
-					dataType:"text",
-					data:{'id':$('#id').val()},
-					success:function(data){					
-						if(data == "Y"){							
-							$('#idDuplicationFlag').val('SUC');
-							$('#resultIdDuplication').html("아이디를 사용 할 수 있습니다");
-						}					
-						else{
-							$('#idDuplicationFlag').val('FAIL');
-							$('#resultIdDuplication').html("아이디를 사용 할 수 없습니다");
-						}					
-					},/////success
-					error:function(data){
-						console.log('에러발생');
-					}/////error
-				})/////ajax
-			})/////click()
-		});
+		$('#btnIdDuplication').click(function(){
+			$.ajax({
+				url:"<c:url value='/IdDuplication'/>",
+				type:"post",
+				dataType:"text",
+				data:{'id':$('#id').val()},
+				success:function(data){					
+					if(data == 'Y'){
+						$('#resultIdDuplication').html("아이디를 사용 할 수 있습니다");
+						$('#idDuplicationFlag').val('SUC');
+					}					
+					else{
+						$('#resultIdDuplication').html("아이디를 사용 할 수 없습니다");
+						$('#idDuplicationFlag').val('FAIL');
+					}
+				}/////success
+			})/////ajax
+		})/////click()
 	</script>		
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
@@ -73,7 +64,7 @@
                         	<!-- 사이트 logo 시작-->
 								<div style="margin-bottom: 50px" class="col-md-5 mx-auto"/>
 									<div class="mx-auto d-block">
-						       			<a href="<c:url value='/Search/Artwork'/>">
+						       			<a href="<c:url value='/Home'/>">
 										<img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
 									</div>
 								</div>	
@@ -92,32 +83,18 @@
 											<label for="exampleEmail" class=""><span
 												class="text-danger">*</span> ID</label>
 												<!-- ID 중복체크 시작 -->
-												<!--  <input type="hidden" id="idDuplicationFlag" name="idDuplicationFlag" 
-												value="noChecked" /> -->
-												<c:choose>																									
-													<c:when test="${not empty SUC}">
-														<input type="hidden" id="idDuplicationFlag" name="idDuplicationFlag" 
-														value="${SUC}"/>
-													</c:when>
-													<c:otherwise>
-														<input type="hidden" id="idDuplicationFlag" name="idDuplicationFlag" 
-														value="noChecked"/>
-													</c:otherwise>
-												</c:choose> 
-												 
-												
+												<input type="hidden" name="idDuplicationFlag" value="noChecked" />
 												<input id="btnIdDuplication"
 												style="margin-left: 10px;" type="button"
 												class="mb-2 mr-2 btn-icon btn-shadow btn-outline-2x btn btn-outline-primary btn-sm"
-												 value="중복체크">
-												 <span class="text-danger" id="resultIdDuplication"></span>
+												 value="중복체크"><br>
+												 <span id="resultIdDuplication"></span>
 												 <!-- ID 중복체크 끝 -->
-												<input name="id" value="${param.id}"
+											<input name="id" value="${param.id}"
 												id="id" placeholder="" type="text"
 												class="form-control">
-											<span id ="idError" class="text-danger">${idError }</span><br>
-											
-										 	<span class="text-danger">${idDuplicationError}</span>	 											
+											<span class="text-danger">${idError }</span>
+											<span class="text-danger">${idDuplicationError}</span>												
 										</div>
 										
 									</div>
