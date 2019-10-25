@@ -400,7 +400,7 @@ body {
 															
 													</div>
 												<h5 class="card-title">  </h5>	
-												<button type="button" class="btn btn-danger">예약하기</button>
+												<a href="Order.do"><button type="button" class="btn btn-danger">예약하기</button></a>
 												<button type="button" class="btn btn-light">메세지보내기</button>
 												
 										
