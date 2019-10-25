@@ -64,8 +64,8 @@ margin: 0px;
 			<div class="container" style="max-width:1700px" >
 				  
 						<div class="area-heading">
-						 	<h3>당신이 <span>좋아하게 될</span> 작품을 찾아보세요.</h3>
-                                  <p>보기 전까지는 무엇을 찾고 있는지 모릅니다.</p>
+						 	<h3>당신의 <span>기술과 멋진 경험을</span> 공유하세요.</h3>
+                            <p>새로운 분야에 도전하거나, 당신의 기술을 향상시키거나. 어느 것이든 좋습니다.</p>
 							<div class="row no-gutters justify-content-center mb-2 pb-2 ftco-animate">
 																
 								<div class="col-md-7 text-center heading-section">

@@ -3,13 +3,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 .card-header>.nav .nav-link:hover {
-color: #ff5555;
+	color: #ff5555;
 }
 .card-header>.nav .nav-link.active {
-color: #ff5555;
+	color: #ff5555;
 }
 .card-header>.nav .nav-link::before {
 	background: #ff5555;
+}
+.avatar-icon-sm .avatar-icon {
+	border: none;
+	width: 28px;
+	height: 28px;
+}
+.font-icon-wrapper {
+	border: none;
+	margin: 0;
+}
+.font-icon-wrapper:hover {
+	background: none;
+	color: #1a1d24;
+}
+.font-icon-wrapper i {
+	font-size: 1.5em;
+}
+.single_portfolio .short_info {
+	bottom: 0;
+	padding: 0 15px 0;
 }
 </style>
 <script>
@@ -52,7 +72,8 @@ color: #ff5555;
 		<div class="filters-content">
 			<div class="row portfolio-grid">
 				<div class="grid-sizer col-md-4 col-lg-3"></div>
-<!-- 일러스트레이션 그림 시작 -->				
+<!-- 일러스트레이션 그림 시작 -->	
+			
 					<div class="col-lg-3 col-md-4 all illustration painting">
 				<a href="<c:url value='/Blog'/>"><div class="single_portfolio">
 						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt="">
