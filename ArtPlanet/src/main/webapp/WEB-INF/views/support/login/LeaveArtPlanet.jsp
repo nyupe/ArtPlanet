@@ -55,7 +55,7 @@
                         <div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8">
                             <div class="mx-auto app-login-box col-sm-12 col-md-8 col-lg-6">
                                 <div style="padding-bottom: 50px">
-                                	<a href="<c:url value='/Home'/>"><img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
+                                	<a href="<c:url value='/Search/Artwork'/>"><img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
                                 </div>
                                 
                                     <h3><div class="text-danger">회원탈퇴</div></h3>

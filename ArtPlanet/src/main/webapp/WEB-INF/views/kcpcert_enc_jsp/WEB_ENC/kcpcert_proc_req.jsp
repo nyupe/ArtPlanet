@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=euc-kr"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="kr.co.kcp.CT_CLI"%>
 <%@ page import="java.net.URLDecoder"%>
@@ -40,6 +41,8 @@
     String res_msg       = "";
 
     String dn_hash       = "";
+    
+    boolean pageMove=false;
     
 	/*------------------------------------------------------------------------*/
     /*  :: 전체 파라미터 남기기                                               */
@@ -129,8 +132,8 @@
 
             // 가맹점 DB 처리 페이지 영역
 
-            System.out.println(site_cd);
-            System.out.println(cert_no);
+     		 System.out.println(site_cd);
+            System.out.println(cert_no); 
             //System.out.println(enc_cert_data2); // 암호화 v2
             
             // 인증데이터 복호화 함수
@@ -153,10 +156,17 @@
             System.out.println( "DI 중복가입 확인값" + cc.getKeyValue("di"          ) ); // DI 중복가입 확인값
             System.out.println( "CI_URL"             + URLDecoder.decode( cc.getKeyValue("ci_url"      ) ) ); // CI URL 인코딩 값
             System.out.println( "DI_URL"             + URLDecoder.decode( cc.getKeyValue("di_url"      ) ) ); // DI URL 인코딩 값
-            System.out.println( "웹사이트 아이디  "  + cc.getKeyValue("web_siteid"  ) ); // 암호화된 웹사이트 아이디
+            System.out.println( "웹사이트 아이디  "  + cc.getKeyValue("web_siteid"  ) ); // 암호화된 웹사이트 아이디 */
             System.out.println( "암호화된 결과코드"  + cc.getKeyValue("res_cd"      ) ); // 암호화된 결과코드
-            System.out.println( "암호화된 결과메시지"+ cc.getKeyValue("res_msg"     ) ); // 암호화된 결과메시지
-			
+            System.out.println( "암호화된 결과메시지"+ cc.getKeyValue("res_msg"     ) ); // 암호화된 결과메시지  
+            if(res_cd != null)
+            	System.out.println("여긴 REQ 페이지 " );
+        %>
+         <%--  <% if(res_cd != null ){%>
+            	System.out.println("여긴 REQ 페이지 " );
+            	<script>location.href = "<c:url value='/Login'/>";</script>
+            <% }%> --%>
+		<%
         }
         else/*if( res_cd.equals( "0000" ) != true )*/
         {
@@ -184,7 +194,8 @@
                 try
                 {
                     opener.auth_data( document.form_auth ); // 부모창으로 값 전달
-
+                    //회원가입 입력폼 페이지로 이동 
+                    opener.location.href = "<c:url value='/Register'/>";
                     window.close();// 팝업 닫기
                 }
                 catch(e)
@@ -197,6 +208,7 @@
     <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
         <form name="form_auth" method="post">
             <%= sbParam.toString() %>
+            
         </form>
     </body>
 </html>

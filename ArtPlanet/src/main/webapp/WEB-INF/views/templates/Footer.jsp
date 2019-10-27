@@ -7,7 +7,7 @@
 			<div class="col-lg-4  col-md-6 col-sm-6">
 				<div class="single-footer-widget">
 					<h6>About Us</h6>
-					<p>준식이네팀흐흐</p>
+					<p>Art Planet</p>
 					<p class="footer-text m-0">
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 						Copyright &copy;

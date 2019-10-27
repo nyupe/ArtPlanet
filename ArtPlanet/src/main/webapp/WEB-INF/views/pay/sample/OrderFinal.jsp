@@ -265,8 +265,8 @@
 
                                        <div class="col-md-6">
                                           <div class="position-relative form-group">
-                                             <label>아트플</label> <input class="form-control"
-                                                type="text" name="buyr_name" value="주문자명" />
+                                             <label>주문자명</label> <input class="form-control"
+                                                type="text" name="buyr_name" value="아트플래닛" />
                                           </div>
                                        </div>
 
