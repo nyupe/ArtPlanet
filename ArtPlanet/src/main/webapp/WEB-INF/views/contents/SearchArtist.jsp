@@ -4,13 +4,49 @@
 <!-- 정기결제 1910251145759969 -->
 <style>
 .card-header>.nav .nav-link:hover {
-color: #ff5555;
+	color: #ff5555;
 }
 .card-header>.nav .nav-link.active {
-color: #ff5555;
+	color: #ff5555;
 }
 .card-header>.nav .nav-link::before {
 	background: #ff5555;
+}
+.single_portfolio {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+}
+.single_portfolio:before {
+	position: relative;
+	background: none;
+}
+.artist-info {
+	text-align: center;
+}
+.img-fluid {
+	height: 120px;
+}
+.avatar-icon-lg {
+	height: 0;
+	margin-top: -55px;
+	width: 100%;
+	text-align: center;
+}
+.avatar-icon-lg .avatar-icon {
+	display: inline-block;
+	width: 80px;
+	height: 80px;
+}
+.artist-title {
+	color: #1a1d24;
+	font-weight: bold;
+}
+.artist-post {
+	width: 30%;
+}
+.artist-skill {
+	color: #1a1d24;
+	font-weight: 400;
 }
 </style>
 <script>
@@ -54,22 +90,18 @@ color: #ff5555;
 				<div class="grid-sizer col-md-4 col-lg-3"></div>
 				<div class="col-lg-3 col-md-4 all illustration painting">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/1.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/banner/hero-banner.jpg'/>" alt=""></a>
+						<div class="avatar-icon-wrapper avatar-icon-lg">
+		        			<div class="avatar-icon"><a href="#"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></a></div>
+		        		</div>
+						<div class="artist-info">
+			        		<h3 style="text-align: center;"><a href="#"><span class="artist-title">작가이름</span></a></h3>
+			        		<span class="artist-skill">일러스트레이션, 디자인</span>
+			        		<div style="text-align: center; padding-top: 5px; padding-bottom: 10px;">
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt=""/></a>
 			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
 						</div>
 					</div>
 				</div>
@@ -77,66 +109,54 @@ color: #ff5555;
 
 				<div class="col-lg-3 col-md-4 all painting animation">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/2.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/banner/hero-banner.jpg'/>" alt=""></a>
+						<div class="avatar-icon-wrapper avatar-icon-lg">
+		        			<div class="avatar-icon"><a href="#"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></a></div>
+		        		</div>
+						<div class="artist-info">
+			        		<h3 style="text-align: center;"><a href="#"><span class="artist-title">작가이름</span></a></h3>
+			        		<span class="artist-skill">일러스트레이션, 디자인</span>
+			        		<div style="text-align: center; padding-top: 5px; padding-bottom: 10px;">
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt=""/></a>
 			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
 						</div>
 					</div>
 				</div>
 				
 				<div class="col-lg-3 col-md-4 all design">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/4.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/banner/hero-banner.jpg'/>" alt=""></a>
+						<div class="avatar-icon-wrapper avatar-icon-lg">
+		        			<div class="avatar-icon"><a href="#"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></a></div>
+		        		</div>
+						<div class="artist-info">
+			        		<h3 style="text-align: center;"><a href="#"><span class="artist-title">작가이름</span></a></h3>
+			        		<span class="artist-skill">일러스트레이션, 디자인</span>
+			        		<div style="text-align: center; padding-top: 5px; padding-bottom: 10px;">
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt=""/></a>
 			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
 						</div>
 					</div>
 				</div>
 				
 				<div class="col-lg-3 col-md-4 all calligraphy">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/3.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/banner/hero-banner.jpg'/>" alt=""></a>
+						<div class="avatar-icon-wrapper avatar-icon-lg">
+		        			<div class="avatar-icon"><a href="#"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></a></div>
+		        		</div>
+						<div class="artist-info">
+			        		<h3 style="text-align: center;"><a href="#"><span class="artist-title">작가이름</span></a></h3>
+			        		<span class="artist-skill">일러스트레이션, 디자인</span>
+			        		<div style="text-align: center; padding-top: 5px; padding-bottom: 10px;">
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt=""/></a>
 			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
 						</div>
 					</div>
 				</div>
@@ -144,36 +164,54 @@ color: #ff5555;
 
 				<div class="col-lg-3 col-md-4 all weeding motion fashion">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/d2.jpg'/>" alt="">
-						<div class="short_info">
-							<p>construction</p>
-							<h4>
-								<a href="portfolio-details.html">Desert Work, Dubai</a>
-							</h4>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/banner/hero-banner.jpg'/>" alt=""></a>
+						<div class="avatar-icon-wrapper avatar-icon-lg">
+		        			<div class="avatar-icon"><a href="#"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></a></div>
+		        		</div>
+						<div class="artist-info">
+			        		<h3 style="text-align: center;"><a href="#"><span class="artist-title">작가이름</span></a></h3>
+			        		<span class="artist-skill">일러스트레이션, 디자인</span>
+			        		<div style="text-align: center; padding-top: 5px; padding-bottom: 10px;">
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt=""/></a>
+			        		</div>
 						</div>
 					</div>
 				</div>
 				
 				<div class="col-lg-3 col-md-4 all fashion motion">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/1.jpg'/>" alt="">
-						<div class="short_info">
-							<p>Fashion</p>
-							<h4>
-								<a href="portfolio-details.html">Fahion photography</a>
-							</h4>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/banner/hero-banner.jpg'/>" alt=""></a>
+						<div class="avatar-icon-wrapper avatar-icon-lg">
+		        			<div class="avatar-icon"><a href="#"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></a></div>
+		        		</div>
+						<div class="artist-info">
+			        		<h3 style="text-align: center;"><a href="#"><span class="artist-title">작가이름</span></a></h3>
+			        		<span class="artist-skill">일러스트레이션, 디자인</span>
+			        		<div style="text-align: center; padding-top: 5px; padding-bottom: 10px;">
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt=""/></a>
+			        		</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-lg-3 col-md-4 all weeding motion portrait">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/2.jpg'/>" alt="">
-						<div class="short_info">
-							<p>construction</p>
-							<h4>
-								<a href="portfolio-details.html">Desert Work, Dubai</a>
-							</h4>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/banner/hero-banner.jpg'/>" alt=""></a>
+						<div class="avatar-icon-wrapper avatar-icon-lg">
+		        			<div class="avatar-icon"><a href="#"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></a></div>
+		        		</div>
+						<div class="artist-info">
+			        		<h3 style="text-align: center;"><a href="#"><span class="artist-title">작가이름</span></a></h3>
+			        		<span class="artist-skill">일러스트레이션, 디자인</span>
+			        		<div style="text-align: center; padding-top: 5px; padding-bottom: 10px;">
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt=""/></a>
+			        		</div>
 						</div>
 					</div>
 				</div>
@@ -181,48 +219,72 @@ color: #ff5555;
 
 				<div class="col-lg-3 col-md-4 all weeding motion fashion">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/d2.jpg'/>" alt="">
-						<div class="short_info">
-							<p>construction</p>
-							<h4>
-								<a href="portfolio-details.html">Desert Work, Dubai</a>
-							</h4>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/banner/hero-banner.jpg'/>" alt=""></a>
+						<div class="avatar-icon-wrapper avatar-icon-lg">
+		        			<div class="avatar-icon"><a href="#"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></a></div>
+		        		</div>
+						<div class="artist-info">
+			        		<h3 style="text-align: center;"><a href="#"><span class="artist-title">작가이름</span></a></h3>
+			        		<span class="artist-skill">일러스트레이션, 디자인</span>
+			        		<div style="text-align: center; padding-top: 5px; padding-bottom: 10px;">
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt=""/></a>
+			        		</div>
 						</div>
 					</div>
 				</div>
 				
 				<div class="col-lg-3 col-md-4 all fashion motion">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/1.jpg'/>" alt="">
-						<div class="short_info">
-							<p>Fashion</p>
-							<h4>
-								<a href="portfolio-details.html">Fahion photography</a>
-							</h4>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/banner/hero-banner.jpg'/>" alt=""></a>
+						<div class="avatar-icon-wrapper avatar-icon-lg">
+		        			<div class="avatar-icon"><a href="#"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></a></div>
+		        		</div>
+						<div class="artist-info">
+			        		<h3 style="text-align: center;"><a href="#"><span class="artist-title">작가이름</span></a></h3>
+			        		<span class="artist-skill">일러스트레이션, 디자인</span>
+			        		<div style="text-align: center; padding-top: 5px; padding-bottom: 10px;">
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt=""/></a>
+			        		</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-lg-3 col-md-4 all weeding motion portrait">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/2.jpg'/>" alt="">
-						<div class="short_info">
-							<p>construction</p>
-							<h4>
-								<a href="portfolio-details.html">Desert Work, Dubai</a>
-							</h4>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/banner/hero-banner.jpg'/>" alt=""></a>
+						<div class="avatar-icon-wrapper avatar-icon-lg">
+		        			<div class="avatar-icon"><a href="#"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></a></div>
+		        		</div>
+						<div class="artist-info">
+			        		<h3 style="text-align: center;"><a href="#"><span class="artist-title">작가이름</span></a></h3>
+			        		<span class="artist-skill">일러스트레이션, 디자인</span>
+			        		<div style="text-align: center; padding-top: 5px; padding-bottom: 10px;">
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt=""/></a>
+			        		</div>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-lg-3 col-md-4 all weeding motion fashion">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/d2.jpg'/>" alt="">
-						<div class="short_info">
-							<p>construction</p>
-							<h4>
-								<a href="portfolio-details.html">Desert Work, Dubai</a>
-							</h4>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/banner/hero-banner.jpg'/>" alt=""></a>
+						<div class="avatar-icon-wrapper avatar-icon-lg">
+		        			<div class="avatar-icon"><a href="#"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></a></div>
+		        		</div>
+						<div class="artist-info">
+			        		<h3 style="text-align: center;"><a href="#"><span class="artist-title">작가이름</span></a></h3>
+			        		<span class="artist-skill">일러스트레이션, 디자인</span>
+			        		<div style="text-align: center; padding-top: 5px; padding-bottom: 10px;">
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt=""/></a>
+			        			<a href="#"><img class="artist-post" src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt=""/></a>
+			        		</div>
 						</div>
 					</div>
 				</div>
