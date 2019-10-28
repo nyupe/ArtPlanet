@@ -4,14 +4,12 @@
     "guess-types": {
       
     },
-    "outline": {
-      
-    },
-    "jquery-extension": {
+    "ckeditor4.4.x": {
       
     }
   },
   "libs": [
+    "browser",
     "jquery"
   ]
 }

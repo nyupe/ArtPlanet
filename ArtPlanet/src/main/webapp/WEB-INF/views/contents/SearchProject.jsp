@@ -11,6 +11,53 @@ color: #ff5555;
 .card-header>.nav .nav-link::before {
 	background: #ff5555;
 }
+.avatar-icon-sm .avatar-icon {
+	border: none;
+	width: 28px;
+	height: 28px;
+}
+.single_portfolio {
+	border: 1px solid #ddd;
+	border-radius: 8px;
+}
+.single_portfolio:before {
+	position: relative;
+	background: none;
+}
+.img-fluid {
+	height: 180px;
+}
+.project-info {
+	padding: 10px;
+}
+.project-title {
+	color: #1a1d24;
+	font-weight: bold;
+}
+
+.project-artist {
+	color: #1a1d24;
+	font-weight: 400;
+}
+.project-stats {
+	color: #f55;
+	text-align: center;
+	font-size: 1.1em;
+	font-weight: bold;
+}
+.stat-progress {
+	float: left;
+}
+.stat-target {
+	
+}
+.stat-limit {
+	float: right;
+}
+.progress {
+	margin-top: 5px;
+	margin-bottom: 5px !important;
+}
 </style>
 <script>
 	$(function() {
@@ -50,178 +97,189 @@ color: #ff5555;
 
 		<div class="filters-content">
 			<div class="row portfolio-grid">
-				<div class="grid-sizer col-md-4 col-lg-3"></div>
-				<div class="col-lg-3 col-md-4 all illustration painting">
+				<div class="grid-sizer col-md-6 col-lg-4 col-xl-3"></div>
+				<div class="col-xl-3 col-lg-4 col-md-6 all illustration painting">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/1.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/project/magic.jpg'/>" alt=""></a>
+						<div class="project-info">
+			        		<h4><a href="#"><span class="project-title">프로젝트제목저쩌구어쩌구저쩌구어쩌구저ㅓ쩌구</span></a></h4>
 			        		<div class="avatar-icon-wrapper avatar-icon-sm">
 			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
 			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
+		        			<span class="post-artist">작가이름</span><br/>
+		        			<span class="project-explain">이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구</span>
+       						<div class="mb-3 progress-bar-animated-alt progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+								style="width: 70%;"></div>
+							</div>
+							<div class="project-stats">
+								<span class="stat-progress">70%</span>
+								<span class="stat-target">￦ 1,500,000</span>
+								<span class="stat-limit">34일 남음</span>
+							</div>
 						</div>
 					</div>
 				</div>
 					
 
-				<div class="col-lg-3 col-md-4 all painting animation">
+				<div class="col-xl-3 col-lg-4 col-md-6 all illustration painting">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/2.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/project/magic.jpg'/>" alt=""></a>
+						<div class="project-info">
+			        		<h4><a href="#"><span class="project-title">프로젝트제목저쩌구어쩌구저쩌구어쩌구저ㅓ쩌구</span></a></h4>
 			        		<div class="avatar-icon-wrapper avatar-icon-sm">
 			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
 			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
+		        			<span class="post-artist">작가이름</span><br/>
+		        			<span class="project-explain">이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구</span>
+       						<div class="mb-3 progress-bar-animated-alt progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+								style="width: 70%;"></div>
+							</div>
+							<div class="project-stats">
+								<span class="stat-progress">70%</span>
+								<span class="stat-target">￦ 1,500,000</span>
+								<span class="stat-limit">34일 남음</span>
+							</div>
 						</div>
 					</div>
 				</div>
 				
-				<div class="col-lg-3 col-md-4 all design">
+				<div class="col-xl-3 col-lg-4 col-md-6 all animation">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/4.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/project/magic.jpg'/>" alt=""></a>
+						<div class="project-info">
+			        		<h4><a href="#"><span class="project-title">프로젝트제목저쩌구어쩌구저쩌구어쩌구저ㅓ쩌구</span></a></h4>
 			        		<div class="avatar-icon-wrapper avatar-icon-sm">
 			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
 			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
+		        			<span class="post-artist">작가이름</span><br/>
+		        			<span class="project-explain">이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구</span>
+       						<div class="mb-3 progress-bar-animated-alt progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+								style="width: 70%;"></div>
+							</div>
+							<div class="project-stats">
+								<span class="stat-progress">70%</span>
+								<span class="stat-target">￦ 1,500,000</span>
+								<span class="stat-limit">34일 남음</span>
+							</div>
 						</div>
 					</div>
 				</div>
 				
-				<div class="col-lg-3 col-md-4 all calligraphy">
+				<div class="col-xl-3 col-lg-4 col-md-6 all design">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/3.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/project/magic.jpg'/>" alt=""></a>
+						<div class="project-info">
+			        		<h4><a href="#"><span class="project-title">프로젝트제목저쩌구어쩌구저쩌구어쩌구저ㅓ쩌구</span></a></h4>
 			        		<div class="avatar-icon-wrapper avatar-icon-sm">
 			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
 			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
+		        			<span class="post-artist">작가이름</span><br/>
+		        			<span class="project-explain">이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구</span>
+       						<div class="mb-3 progress-bar-animated-alt progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+								style="width: 70%;"></div>
+							</div>
+							<div class="project-stats">
+								<span class="stat-progress">70%</span>
+								<span class="stat-target">￦ 1,500,000</span>
+								<span class="stat-limit">34일 남음</span>
+							</div>
 						</div>
 					</div>
 				</div>
 
 
-				<div class="col-lg-3 col-md-4 all weeding motion fashion">
+				<div class="col-xl-3 col-lg-4 col-md-6 all illustration">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/d2.jpg'/>" alt="">
-						<div class="short_info">
-							<p>construction</p>
-							<h4>
-								<a href="portfolio-details.html">Desert Work, Dubai</a>
-							</h4>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all fashion motion">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/1.jpg'/>" alt="">
-						<div class="short_info">
-							<p>Fashion</p>
-							<h4>
-								<a href="portfolio-details.html">Fahion photography</a>
-							</h4>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-3 col-md-4 all weeding motion portrait">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/2.jpg'/>" alt="">
-						<div class="short_info">
-							<p>construction</p>
-							<h4>
-								<a href="portfolio-details.html">Desert Work, Dubai</a>
-							</h4>
-						</div>
-					</div>
-				</div>
-
-
-				<div class="col-lg-3 col-md-4 all weeding motion fashion">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/d2.jpg'/>" alt="">
-						<div class="short_info">
-							<p>construction</p>
-							<h4>
-								<a href="portfolio-details.html">Desert Work, Dubai</a>
-							</h4>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/project/magic.jpg'/>" alt=""></a>
+						<div class="project-info">
+			        		<h4><a href="#"><span class="project-title">프로젝트제목저쩌구어쩌구저쩌구어쩌구저ㅓ쩌구</span></a></h4>
+			        		<div class="avatar-icon-wrapper avatar-icon-sm">
+			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+			        		</div>
+		        			<span class="post-artist">작가이름</span><br/>
+		        			<span class="project-explain">이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구</span>
+       						<div class="mb-3 progress-bar-animated-alt progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+								style="width: 70%;"></div>
+							</div>
+							<div class="project-stats">
+								<span class="stat-progress">70%</span>
+								<span class="stat-target">￦ 1,500,000</span>
+								<span class="stat-limit">34일 남음</span>
+							</div>
 						</div>
 					</div>
 				</div>
 				
-				<div class="col-lg-3 col-md-4 all fashion motion">
+				<div class="col-xl-3 col-lg-4 col-md-6 all crafts">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/1.jpg'/>" alt="">
-						<div class="short_info">
-							<p>Fashion</p>
-							<h4>
-								<a href="portfolio-details.html">Fahion photography</a>
-							</h4>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/project/magic.jpg'/>" alt=""></a>
+						<div class="project-info">
+			        		<h4><a href="#"><span class="project-title">프로젝트제목저쩌구어쩌구저쩌구어쩌구저ㅓ쩌구</span></a></h4>
+			        		<div class="avatar-icon-wrapper avatar-icon-sm">
+			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+			        		</div>
+		        			<span class="post-artist">작가이름</span><br/>
+		        			<span class="project-explain">이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구</span>
+       						<div class="mb-3 progress-bar-animated-alt progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+								style="width: 70%;"></div>
+							</div>
+							<div class="project-stats">
+								<span class="stat-progress">70%</span>
+								<span class="stat-target">￦ 1,500,000</span>
+								<span class="stat-limit">34일 남음</span>
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="col-lg-3 col-md-4 all weeding motion portrait">
+				<div class="col-xl-3 col-lg-4 col-md-6 all design">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/2.jpg'/>" alt="">
-						<div class="short_info">
-							<p>construction</p>
-							<h4>
-								<a href="portfolio-details.html">Desert Work, Dubai</a>
-							</h4>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/project/magic.jpg'/>" alt=""></a>
+						<div class="project-info">
+			        		<h4><a href="#"><span class="project-title">프로젝트제목저쩌구어쩌구저쩌구어쩌구저ㅓ쩌구</span></a></h4>
+			        		<div class="avatar-icon-wrapper avatar-icon-sm">
+			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+			        		</div>
+		        			<span class="post-artist">작가이름</span><br/>
+		        			<span class="project-explain">이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구</span>
+       						<div class="mb-3 progress-bar-animated-alt progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+								style="width: 70%;"></div>
+							</div>
+							<div class="project-stats">
+								<span class="stat-progress">70%</span>
+								<span class="stat-target">￦ 1,500,000</span>
+								<span class="stat-limit">34일 남음</span>
+							</div>
 						</div>
 					</div>
 				</div>
 
-				<div class="col-lg-3 col-md-4 all weeding motion fashion">
+				<div class="col-xl-3 col-lg-4 col-md-6 all crafts">
 					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/d2.jpg'/>" alt="">
-						<div class="short_info">
-							<p>construction</p>
-							<h4>
-								<a href="portfolio-details.html">Desert Work, Dubai</a>
-							</h4>
+						<a href="#"><img class="img-fluid w-100" src="<c:url value='/resources/img/project/magic.jpg'/>" alt=""></a>
+						<div class="project-info">
+			        		<h4><a href="#"><span class="project-title">프로젝트제목저쩌구어쩌구저쩌구어쩌구저ㅓ쩌구</span></a></h4>
+			        		<div class="avatar-icon-wrapper avatar-icon-sm">
+			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+			        		</div>
+		        			<span class="post-artist">작가이름</span><br/>
+		        			<span class="project-explain">이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구 이 프로젝트는 어쩌구저쩌구</span>
+       						<div class="mb-3 progress-bar-animated-alt progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+								style="width: 70%;"></div>
+							</div>
+							<div class="project-stats">
+								<span class="stat-progress">70%</span>
+								<span class="stat-target">￦ 1,500,000</span>
+								<span class="stat-limit">34일 남음</span>
+							</div>
 						</div>
 					</div>
 				</div>

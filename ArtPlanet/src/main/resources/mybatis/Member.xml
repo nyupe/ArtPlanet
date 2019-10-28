@@ -21,6 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			VALUES(SEQ_MEMBER.NEXTVAL, #{id}, #{password}, #{name}, #{address})
 	</insert>
 	
+	<!-- 아이디 중복 처리 -->
+	<select id="artPlanetMemberIsIdDuplicated" parameterType="java.util.Map" resultType="int">
+			SELECT COUNT(*) FROM MEMBER WHERE ID = #{id} 
+	</select>
+	
 	
 	
 	<!-- 수업예제 쿼리문  -->
