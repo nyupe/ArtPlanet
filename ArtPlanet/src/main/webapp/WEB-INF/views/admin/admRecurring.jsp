@@ -7,42 +7,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 
 <head>
-    <title>Art Planet - 취소</title>
+    <title>Art Planet - 관리자</title>
     <meta http-equiv="X-UA-Compatible" content="text/html;charset=utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
   <link
    href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">
-  
-  
-   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawVisualization);
 
-      function drawVisualization() {
-        // Some raw data (not necessarily accurate)
-        var data = google.visualization.arrayToDataTable([
-          ['Month', 'Bolivia', 'Ecuador', 'Madagascar', 'Papua New Guinea', 'Rwanda', 'Average'],
-          ['2004/05',  165,      938,         522,             998,           450,      614.6],
-          ['2005/06',  135,      1120,        599,             1268,          288,      682],
-          ['2006/07',  157,      1167,        587,             807,           397,      623],
-          ['2007/08',  139,      1110,        615,             968,           215,      609.4],
-          ['2008/09',  136,      691,         629,             1026,          366,      569.6]
-        ]);
-
-        var options = {
-          title : 'Monthly Coffee Production by Country',
-          vAxis: {title: 'Cups'},
-          hAxis: {title: 'Month'},
-          seriesType: 'bars',
-          series: {5: {type: 'line'}}        };
-
-        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
-      }
-    </script>
-	
+	</script>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
 	<!-- 케로 관리자UI -->
@@ -89,21 +62,19 @@
                  	 </div><!-- 앱 사이드바 사이드바 섀도우 -->
               </div><!-- side bar 앱 사이드바 래퍼 -->
               
-              <!-- 여기 -->
+ <!-- 여기 -->
                <div class="app-main__outer">
                 	<div class="app-header">
                         <div class="page-title-heading">
-                            회원 관리
+                            정기과금 관리
                             <div class="page-title-subheading">
-                                회원관리 페이지입니다.
+                                정기과금관리 페이지입니다.
                             </div>
                         </div>
              
                         <div class="app-header-overlay d-none animated fadeIn"></div>
                     </div><!-- 앱 헤더 -->
-          	
-          	<!-- 구글API -->
-          	 <div id="chart_div" style="width: 900px; height: 500px;"></div>
+          
                                          
                     <!-- dashboard 시작 -->
                     
@@ -122,28 +93,27 @@
                                                             <tr>
                                                             	<th>번호</th>
                                                                 <th>아이디</th>
-                                                                <th>닉네임</th>
-                                                                <th>이름</th>
-                                                                <th>주소</th>
-                                                                <th>연락처</th>
-                                                                <th>생년월일</th>
-                                                                <th>가입일</th>
-                                                                <th>회원</th>
+                                                                <th>주문번호</th>
+                                                                <th>주문자명</th>
+                                                                <th>카드코드</th>
+                                                                <th>배치키</th>
+                                                                <th>결제시도일</th>
+                                                                <th>카드사응답</th>
+                            
                                                             </tr>
                                                             </thead>
                                                             <tbody>
                                                             <tr>
                                                             	<td>1</td>
                                                             	<td>KIM</td>
-                                                                <td>Tiger Nixon</td>
+                                                                <td>20191010</td>
                                                                 <td>김길동</td>
-                                                                <td>서울특별시 금천구 가산동</td>
-                                                                <td>01011112222</td>
-                                                                <td>2011/04/25</td>
+                                                                <td>CCLG</td>
+                                                                <td>19102911457819EA</td>                                            
                                                                 <td>2019/04/25</td>
                                                                 <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                                          			 탈퇴
+                                                   					<button type="button" class="badge badge-pill badge-success" data-toggle="modal" data-target="#exampleModal">
+                                                          			 성공
                                                     			    </button>
                                                     			</td>
                                                             </tr>
@@ -151,15 +121,14 @@
                                                            <tr>
                                                             	<td>2</td>
                                                             	<td>LEE</td>
-                                                                <td>Nixon</td>
+                                                                <td>20191010</td>
                                                                 <td>이길동</td>
-                                                                <td>대전광역시 서구</td>
-                                                                <td>01011112222</td>
-                                                                <td>1970/12/25</td>
+                                                                <td>CCSS</td>  
+                                                                <td>19102911457819EA</td>  
                                                                 <td>2019/10/25</td>
                                                                 <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                                          			 탈퇴
+                                                   					<button type="button" class="badge badge-pill badge-danger" data-toggle="modal" data-target="#exampleModal">
+                                                          			 실패
                                                     			    </button>
                                                     			</td>
                                                             </tr>
@@ -167,15 +136,14 @@
                                                              <tr>
                                                             	<td>3</td>
                                                             	<td>Park</td>
-                                                                <td>qqqq</td>
+                                                                <td>20191120</td>
                                                                 <td>박길동</td>
-                                                                <td>부산광역시</td>
-                                                                <td>01011112222</td>
-                                                                <td>1990/05/25</td>
+                                                                <td>CCNH</td>
+                                                                <td>19102911457819EA</td>                              
                                                                 <td>2019/12/01</td>
                                                                 <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                                          			 탈퇴
+                                                   					<button type="button" class="badge badge-pill badge-danger" data-toggle="modal" data-target="#exampleModal">
+                                                          			 실패
                                                     			    </button>
                                                     			</td>
                                                             </tr>
@@ -185,13 +153,13 @@
                                                             <tr>
                                                             	<th>No</th>
                                                             	<th>ID</th>
-                                                            	<th>Nick</th>
-                                                                <th>Name</th>
-                                                                <th>Addr</th>
-                                                                <th>tell</th>
-                                                                <th>Birth</th>
-                                                                <th>Regidate</th>
-                                                                <th>Ban</th>
+                                                            	<th>ordr_idxx</th>
+                                                                <th>buyr_name</th>
+                                                                <th>card_cd</th>
+                                                                <th>batch_key</th>
+                                                                <th>date</th>
+                                                                <th>sucFail</th>
+                                                              
                                                             </tr>
                                                             </tfoot>
                                                         </table>
@@ -210,6 +178,8 @@
            </div><!-- app-main -->
      </div><!-- app-container gray -->   
                         
+   
+    
    
     
     <!-- javascript -->
