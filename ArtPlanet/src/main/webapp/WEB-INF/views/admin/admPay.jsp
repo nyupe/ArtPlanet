@@ -21,7 +21,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <link href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">
-       
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
     <script type="text/javascript">
 			function  jsf__go_mod( form )
 		    {
@@ -48,6 +48,25 @@
 		            show_sub_cancel.style.display = "none";
 		        }
 		    }
+			
+			$(function(){
+				
+		
+				 console.log('김승찬');
+							 var kim;
+							
+						var clickBtn = $('.cancel').click(function(){
+							var  btnIndex  = clickBtn.index(this);
+								console.log('index : ',clickBtn.index(this));
+							
+							console.log($(this).parent().prev().text());
+							kim = $(this).parent().prev().text();
+							$('#tno').val(kim);
+						
+						
+							}); ///  clickBtn
+
+			});  // onload
 	 </script>
 	 
 </head>
@@ -238,9 +257,9 @@
                                                                 <td>01011112222</td>
                                                                 <td>2011/04/25</td>
                                                                 <td>2019/04/25</td>
-                                                                <th>19552928618000</th>
+                                                                <td>19552928618000</td>
                                                                 <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary cancel" data-toggle="modal" data-target="#exampleModal">
                                                           			 취소
                                                     			    </button>
                                                     			</td>
@@ -255,9 +274,9 @@
                                                                 <td>01011112222</td>
                                                                 <td>1970/12/25</td>
                                                                 <td>2019/10/25</td>
-                                                                <th>19552928618000</th>
+                                                                <td>19552928618000</td>
                                                                 <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary cancel" data-toggle="modal" data-target="#exampleModal">
                                                           			 취소
                                                     			    </button>
                                                     			</td>
@@ -272,9 +291,9 @@
                                                                 <td>01011112222</td>
                                                                 <td>1990/05/25</td>
                                                                 <td>2019/12/01</td>
-                                                                <th>19552928618000</th>
+                                                                <td>19552928618000</td>
                                                                 <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary cancel" data-toggle="modal" data-target="#exampleModal">
                                                           			 취소
                                                     			    </button>
                                                     			</td>
@@ -333,7 +352,7 @@
         <table class="tbl" cellpadding="0" cellspacing="0">
 		<tr>
                 <th>거래번호</th>
-                <td><input type="text" name="tno" value=""  class="frminput" size="20" maxlength="14"/></td>
+                <td><input type="text" name="tno" value="" id="tno" class="frminput" size="20" maxlength="14"/></td>
             </tr>
             <!-- 변경유형 -->
             <tr>
