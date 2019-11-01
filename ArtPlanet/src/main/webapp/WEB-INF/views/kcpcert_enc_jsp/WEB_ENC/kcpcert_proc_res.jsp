@@ -188,9 +188,15 @@
             	
                 try
                 {
+<<<<<<< HEAD
+                    opener.auth_data( document.form_auth ); // 부모창으로 값 전달
+
+                    window.close();// 팝업 닫기
+=======
                     opener.auth_data( document.form_auth  ); // 부모창으로 값 전달     
                     
                     window.close();// 팝업 닫기 
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
                     
                 }
                 catch(e)

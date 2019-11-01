@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!--================Hero Banner Area Start =================-->
-<section class="hero-banner">
-    <div class="container">
-		
-    </div>
-</section>
-<!--================Hero Banner Area End =================-->
+
 <section class="blog_area area-padding">
 	<div class="container">
 		<div class="row">

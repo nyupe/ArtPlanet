@@ -109,7 +109,7 @@
 											<!-- 인증요청 버튼 테이블 End -->
                         </td>
                     </tr>
-                    <tr><td>Copyright(c) NHN KCP Inc. All rights reserved.</td></tr>
+                    <!-- <tr><td>Copyright(c) NHN KCP Inc. All rights reserved.</td></tr> -->
                 </table>
         
                 <!-- 요청종류 -->

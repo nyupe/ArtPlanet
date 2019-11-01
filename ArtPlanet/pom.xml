@@ -188,6 +188,7 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
+<<<<<<< HEAD
 		
 		<!-- @ResponseBody 어노테이션 사용시 반드시 추가 -->
 		<!-- https://keichee.tistory.com/274 참고 -->
@@ -197,7 +198,21 @@
 				<version>2.5.4</version>
 		</dependency>
 		
+=======
+		<!-- 파일업로드 -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		<dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
+        </dependency>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	</dependencies>
+	
     <build>
         <plugins>
             <plugin>
