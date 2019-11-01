@@ -54,8 +54,8 @@
                         </div>
                         <div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8">
                             <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
-                                <div style="margin-bottom: 50px; margin-left: 100px; ">
-                                	<a href="<c:url value='/Search/Artwork'/>">	<img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
+                               <div class="col" align="center" style="margin-bottom: 25px; margin-top: 150px">
+                                	<a href="<c:url value='/Search/Artwork'/>">	<img  class="img-fluid" src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
                                 </div>
                                 <h4 class="mb-0">
                                     <span class="d-block"><span class="text-primary">ArtPlanet</span>에 오신걸 환영합니다,</span>
@@ -63,7 +63,9 @@
                                 <h6 class="mt-3">회원이 아니시라구요? 
                                 <br/>
                                 	<!-- 회원가입 페이지로 이동  GET방식 -->
-                                	<a href="<c:url value='AuthStart.do'/>;" class="text-danger">이곳을 클릭하여 회원가입하세요.</a>
+                                	<%-- <a href="<c:url value='AuthStart.do'/>;" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> --%>
+                                	<!-- 로그인 유효성 실시간 처리를 위한 테스트  -->
+                                	<a href="<c:url value='/Register'/>" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> 
                                 </h6>
                                 <div class="divider row"></div>
                                 <div style="padding-bottom: 100px">
