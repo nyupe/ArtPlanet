@@ -5,8 +5,10 @@ import java.util.Map;
 
 public interface ArtPlanetMemberService {
 	
-	//로그인 용]
+	//로그인 용
 	boolean isLogin(Map map); 
+	//중복처리 용
+	boolean isDuplicated(Map map);
 	//목록용
 	List<ArtPlanetMemberDTO> selectlist(Map map);
 	//전체 레코드 수

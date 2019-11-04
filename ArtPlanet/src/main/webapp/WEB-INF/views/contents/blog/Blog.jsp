@@ -16,7 +16,7 @@
 					<article class="blog_item">
 						<div class="blog_item_img">
 							<img class="card-img rounded-0"
-								src="<c:url value='/resources/img/blog/main-blog/m-blog-1.jpg'/>" alt=""> <a href="#"
+								src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt=""> <a href="#"
 								class="blog_item_date">
 								<h3>15</h3>
 								<p>Jan</p>
@@ -41,7 +41,7 @@
 
 					<article class="blog_item">
 						<div class="blog_item_img">
-							<img class="card-img rounded-0" src="<c:url value='/resources/img/blog/main-blog/m-blog-2.jpg'/>" alt=""> <a href="#"
+							<img class="card-img rounded-0" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt=""> <a href="#"
 								class="blog_item_date">
 								<h3>15</h3>
 								<p>Jan</p>
@@ -67,7 +67,7 @@
 					<article class="blog_item">
 						<div class="blog_item_img">
 							<img class="card-img rounded-0"
-								src="<c:url value='/resources/img/blog/main-blog/m-blog-3.jpg'/>" alt=""> <a href="#"
+								src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt=""> <a href="#"
 								class="blog_item_date">
 								<h3>15</h3>
 								<p>Jan</p>
@@ -93,7 +93,7 @@
 					<article class="blog_item">
 						<div class="blog_item_img">
 							<img class="card-img rounded-0"
-								src="<c:url value='/resources/img/blog/main-blog/m-blog-4.jpg'/>" alt=""> <a href="#"
+								src="<c:url value='/resources/img/project/illustration/4.jpg'/>" alt=""> <a href="#"
 								class="blog_item_date">
 								<h3>15</h3>
 								<p>Jan</p>
@@ -119,7 +119,7 @@
 					<article class="blog_item">
 						<div class="blog_item_img">
 							<img class="card-img rounded-0"
-								src="<c:url value='/resources/img/blog/main-blog/m-blog-5.jpg'/>" alt=""> <a href="#"
+								src="<c:url value='/resources/img/project/illustration/5.jpg'/>" alt=""> <a href="#"
 								class="blog_item_date">
 								<h3>15</h3>
 								<p>Jan</p>
@@ -187,8 +187,8 @@
 					<aside class="single_sidebar_widget popular_post_widget">
 						<h3 class="widget_title">Recent Post</h3>
 						<div class="media post_item">
-							<img
-								src="<c:url value='/resources/img/blog/popular-post/post1.jpg'/>"
+							<img style="width: 80px; height: 80px;"
+								src="<c:url value='/resources/img/project/illustration/1.jpg'/>"
 								alt="post">
 							<div class="media-body">
 								<a href="<c:url value='/resources/single-blog.html'/>">
@@ -198,8 +198,8 @@
 							</div>
 						</div>
 						<div class="media post_item">
-							<img
-								src="<c:url value='/resources/img/blog/popular-post/post2.jpg'/>"
+							<img style="width: 80px; height: 80px;"
+								src="<c:url value='/resources/img/project/illustration/2.jpg'/>"
 								alt="post">
 							<div class="media-body">
 								<a href="single-blog.html">
@@ -209,8 +209,8 @@
 							</div>
 						</div>
 						<div class="media post_item">
-							<img
-								src="<c:url value='/resources/img/blog/popular-post/post3.jpg'/>"
+							<img style="width: 80px; height: 80px;"
+								src="<c:url value='/resources/img/project/illustration/3.jpg'/>"
 								alt="post">
 							<div class="media-body">
 								<a href="single-blog.html">
@@ -220,8 +220,8 @@
 							</div>
 						</div>
 						<div class="media post_item">
-							<img
-								src="<c:url value='/resources/img/blog/popular-post/post4.jpg'/>"
+							<img style="width: 80px; height: 80px;"
+								src="<c:url value='/resources/img/project/illustration/4.jpg'/>"
 								alt="post">
 							<div class="media-body">
 								<a href="single-blog.html">

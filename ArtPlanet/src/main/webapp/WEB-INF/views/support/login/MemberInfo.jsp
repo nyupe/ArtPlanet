@@ -26,9 +26,9 @@
                 <div class="h-100 bg-premium-white">
                     <div class="d-flex h-100 justify-content-center align-items-center">
                         <div class="mx-auto app-login-box col-md-8">
-                            <div class="col-md-6 mx-auto" >
-                            	<a href="<c:url value='/Home'/>">	<img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
-                            </div>
+                           <div class="col" align="center" style="margin-bottom: 25px; margin-top: 150px">
+                                	<a href="<c:url value='/Search/Artwork'/>">	<img  class="img-fluid" src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
+                                </div>
                             <div class="modal-dialog w-100">
                                 <div class="modal-content">
                                     <div class="modal-body">

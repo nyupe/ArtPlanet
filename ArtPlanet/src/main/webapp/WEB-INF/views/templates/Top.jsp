@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header class="header_area">
 	<div class="main_menu">
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
-				<a class="navbar-brand logo_h" href="<c:url value='/Home'/>"><img style="width: 200px; height: 86px;"
+				<a class="navbar-brand logo_h" href="<c:url value='/Search/Artwork'/>"><img style="width: 200px; height: 86px;"
 					src="<c:url value='/resources/img/logo.png'/>" alt="logo"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarSupportedContent"
@@ -19,11 +19,11 @@
 				<div class="collapse navbar-collapse offset"
 					id="navbarSupportedContent">
 					<ul class="nav navbar-nav menu_nav ml-auto">
-						<li class="nav-item active"><a class="nav-link" href="<c:url value='/Home'/>">Home</a></li>
+						<%-- <li class="nav-item active"><a class="nav-link" href="<c:url value='/Home'/>">Home</a></li> --%>
 						<li class="nav-item"><a class="nav-link" href="<c:url value='/About'/>">About</a></li>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/Search'/>">Search</a></li>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/Blog'/>">Blog</a></li>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/Project'/>">Project</a></li>
+						<li class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artwork'/>">Artworks</a></li>
+						<li class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artist'/>">Artists</a></li>
+						<li class="nav-item"><a class="nav-link" href="<c:url value='/Search/Project'/>">Projects</a></li>
 						<li class="nav-item"><a class="nav-link" href="<c:url value='/ArtClass'/>">Art Class</a></li>
 						<li class="nav-item"><a class="nav-link" href="<c:url value='/Pay'/>">Pay</a></li>
 						<li class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li>

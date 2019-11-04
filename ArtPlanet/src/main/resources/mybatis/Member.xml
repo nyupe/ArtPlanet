@@ -13,13 +13,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 로그인 처리  -->
 	<select id="artPlanetMemberIsLogin" parameterType="java.util.Map" resultType="int">
 			SELECT COUNT(*) FROM MEMBER WHERE ID = #{id} and PWD = #{pwd}
-	</select>
+	</select>	
 	
 	<!-- 회원가입 처리 -->
 	<insert id="artPlanetMemberInsert" parameterType="java.util.Map" >
 			INSERT INTO MEMBER(MEMBERNO, ID, PASSWORD, NAME ,ADDRESS)
 			VALUES(SEQ_MEMBER.NEXTVAL, #{id}, #{password}, #{name}, #{address})
 	</insert>
+	
+	<!-- 아이디 중복 처리 -->
+	<select id="artPlanetMemberIsDuplicated" parameterType="java.util.Map" resultType="int">
+			SELECT COUNT(*) FROM MEMBER WHERE ID = #{id} 
+	</select>
+	
 	
 	
 	

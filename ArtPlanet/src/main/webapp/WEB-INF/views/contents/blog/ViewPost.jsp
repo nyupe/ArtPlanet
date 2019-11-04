@@ -15,7 +15,7 @@
 				<div class="single-post">
 					<div class="feature-img">
 						<img class="img-fluid"
-							src="<c:url value='/resources/img/blog/main-blog/m-blog-1.jpg'/>"
+							src="<c:url value='/resources/img/project/illustration/1.jpg'/>"
 							alt="">
 					</div>
 					<div class="blog_details">
@@ -296,8 +296,8 @@
 					<aside class="single_sidebar_widget popular_post_widget">
 						<h3 class="widget_title">Recent Post</h3>
 						<div class="media post_item">
-							<img
-								src="<c:url value='/resources/img/blog/popular-post/post1.jpg'/>"
+							<img style="width: 80px; height: 80px;"
+								src="<c:url value='/resources/img/project/illustration/1.jpg'/>"
 								alt="post">
 							<div class="media-body">
 								<a href="<c:url value='/resources/single-blog.html'/>">
@@ -307,8 +307,8 @@
 							</div>
 						</div>
 						<div class="media post_item">
-							<img
-								src="<c:url value='/resources/img/blog/popular-post/post2.jpg'/>"
+							<img style="width: 80px; height: 80px;"
+								src="<c:url value='/resources/img/project/illustration/2.jpg'/>"
 								alt="post">
 							<div class="media-body">
 								<a href="single-blog.html">
@@ -318,8 +318,8 @@
 							</div>
 						</div>
 						<div class="media post_item">
-							<img
-								src="<c:url value='/resources/img/blog/popular-post/post3.jpg'/>"
+							<img style="width: 80px; height: 80px;"
+								src="<c:url value='/resources/img/project/illustration/3.jpg'/>"
 								alt="post">
 							<div class="media-body">
 								<a href="single-blog.html">
@@ -329,8 +329,8 @@
 							</div>
 						</div>
 						<div class="media post_item">
-							<img
-								src="<c:url value='/resources/img/blog/popular-post/post4.jpg'/>"
+							<img style="width: 80px; height: 80px;"
+								src="<c:url value='/resources/img/project/illustration/4.jpg'/>"
 								alt="post">
 							<div class="media-body">
 								<a href="single-blog.html">

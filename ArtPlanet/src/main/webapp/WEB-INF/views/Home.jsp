@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page session="false"%>
 <style>
 	.ui-theme-settings {
@@ -27,10 +27,7 @@
 			data-stellar-vertical-offset="0" data-background=""></div>
 		<div class="container">
 			<div class="banner_content">
-				<h1>Art_Planet <br> <span class="basecolor">Art_Planet</span> <br>
-					Art_Planet
-				</h1>
-
+				<h1><span class="basecolor">ART PLANET</span></h1>
 				<a class="main_btn" href="#">크하하하하하하</a>
 			</div>
 			<!-- 배너컨텐트 -->

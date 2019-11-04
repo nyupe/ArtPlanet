@@ -38,7 +38,11 @@
 						<a class="main_btn" href="RecurringPayOrder.do">정기결제(관리자페이지 따로뺄것)</a>
 						<a class="main_btn" href="CancelOrder.do">취소(관리자페이지 따로뺄것)</a>
 						<a class="main_btn" href="AuthStart.do">본인인증(신모듈)</a>
+						<a class="main_btn" href="AdmUserInfo.ad">관리자페이지1</a>
 					</div>
+					  <button type="button"  onclick="location.href='http://localhost:8080/artplanet/Search/Artwork';"
+                               class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary" >
+                                             홈으로</button>
 				</div>
 			</div>
 		</div>

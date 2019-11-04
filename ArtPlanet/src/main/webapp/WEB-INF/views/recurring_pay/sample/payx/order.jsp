@@ -154,14 +154,14 @@
                                        <div class="col-md-6">
                                           <div class="position-relative form-group">
                                              <label>주문자명</label> <input class="form-control"
-                                                type="text" name="buyr_name" value="홍길동" />
+                                                type="text" name="buyr_name" value="아트플" />
                                           </div>
                                        </div>
 
                                     </div>
                                     <div class="position-relative form-group">
                                        <label>결제금액</label> <input class="form-control" type="text"
-                                          name="good_mny" value="1004" maxlength="9" />원(숫자만 입력)
+                                          name="good_mny" value="10000" maxlength="9" />원(숫자만 입력)
                                     </div>
 
                                     <div class="form-group">

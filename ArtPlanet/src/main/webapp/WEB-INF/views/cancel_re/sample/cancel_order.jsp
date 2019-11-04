@@ -264,7 +264,7 @@
             </tr>
 			
 			<tr>
-                <th>부과세 금액</th>
+                <th>부가세 금액</th>
                 <td><input type="text" name="mod_vat_mny" value="" class="frminput" size="20" maxlength="10"/></td>
             </tr>
 			

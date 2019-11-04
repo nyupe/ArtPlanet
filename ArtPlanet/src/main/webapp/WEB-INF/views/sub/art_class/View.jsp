@@ -548,6 +548,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 																]
 															});
 															
+<<<<<<< HEAD
 															var timepicker = $("#timepicker").data("kendoTimePicker");
 															
 															var value = timepicker.value();
@@ -573,6 +574,22 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 
 
 					<!-- <div class="boking_table">
+=======
+													</div>
+												<h5 class="card-title">  </h5>	
+												<a href="Order.do"><button type="button" class="btn btn-danger">예약하기</button></a>
+												<button type="button" class="btn btn-light">메세지보내기</button>
+												
+										
+													 
+												</div>
+											  </div>	
+										
+							
+					
+									
+							<!-- <div class="boking_table">
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 								<div class="row">
 									<div class="col-md-10">
 										<div class="book_tabel_item">

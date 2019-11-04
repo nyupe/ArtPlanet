@@ -1,17 +1,15 @@
 {
   "ecmaVersion": 5,
+  "libs": [
+    "browser",
+    "jquery"
+  ],
   "plugins": {
-    "guess-types": {
+    "bootstrap": {
       
     },
-    "outline": {
-      
-    },
-    "jquery-extension": {
+    "jquery-ui1-12": {
       
     }
-  },
-  "libs": [
-    "jquery"
-  ]
+  }
 }

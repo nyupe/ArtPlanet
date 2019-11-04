@@ -423,7 +423,7 @@ ul {
     width: 100%;
     min-height: 930px; }
     .home_banner_area .banner_inner .overlay {
-      background: url(../img/banner/home-banner.jpg) no-repeat scroll center center;
+      background: url(../img/banner/home-banner1.jpg) no-repeat scroll center center;
       position: absolute;
       left: 0;
       right: 0;
@@ -3517,14 +3517,6 @@ h6 {
 /*---------------------------------------------------- */
 /*-- 준식 추가 -- */
 /*블로그 배너*/
-.menu-header-content h4{
-	color: #1a1d24;
-	text-shadow: -1px -1px 2px #fff, 1px 1px 2px #fff, -1px 1px 2px #fff, 1px -1px 2px #fff;
-}
-.menu-header-content h6{
-	color: #1a1d24;
-	text-shadow: -1px -1px 2px #fff, 1px 1px 2px #fff, -1px 1px 2px #fff, 1px -1px 2px #fff;
-}
 .avatar-icon-xxl .avatar-icon{
 	width: 140px;
 	height: 140px;
@@ -3535,5 +3527,53 @@ h6 {
 }
 .blog_right_sidebar .single_sidebar_widget {
 	background-color: #fff;
+}
+/* 검색페이지 */
+.post-type {
+	color: #1a1d24;
+	font-weight: 400;
+}
+.post-date {
+	color: #1a1d24;
+	float: right;
+	font-weight: 400;
+}
+.post-title {
+	color: #1a1d24;
+	font-weight: bold;
+}
+.post-artist {
+	color: #1a1d24;
+	vertical-align:super;
+	font-weight: bold;
+}
+.post-comment {
+	color: #1a1d24;
+	vertical-align: super;
+	font-size: 0.8em;
+}
+.font-icon-wrapper {
+	color: #1a1d24;
+	border: none;
+	display: inline-block;
+	margin-bottom: 0px;
+	
+}
+.font-icon-sm i{
+	font-size: 1.4em;
+}
+.avatar-icon {
+	border-color: transparent;
+}
+.img-fluid {
+	border-radius: 6px;
+}
+.search-inner {
+	background-color: #fff;
+}
+#search_input {
+	width: 90%;
+	color: #1a1d24;
+	display: inline-block;
 }
 /*# sourceMappingURL=style.css.map */

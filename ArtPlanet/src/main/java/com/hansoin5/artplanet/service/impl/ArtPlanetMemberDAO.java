@@ -18,6 +18,13 @@ public class ArtPlanetMemberDAO implements com.hansoin5.artplanet.service.ArtPla
 	@Resource(name="template")
 	private SqlSessionTemplate template;
 	
+	//아이디 중복처리 
+	@Override
+	public boolean isDuplicated(Map map) {
+		return (Integer)template.selectOne("artPlanetMemberIsDuplicated", map)==0?false:true;
+	}
+	
+	
 	//회원 여부 판단 
 	@Override
 	public boolean isLogin(Map map) {
@@ -57,5 +64,14 @@ public class ArtPlanetMemberDAO implements com.hansoin5.artplanet.service.ArtPla
 	@Override
 	public int getTotalRecord(Map map) {return 0;}
 	// ========================== 미사용 메소드 끝 ===================================
+
+
+	
+
+
+
+
+
+	
 	
 }/////class

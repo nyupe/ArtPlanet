@@ -18,11 +18,17 @@ public class ArtPlanetMemberServiceImpl implements com.hansoin5.artplanet.servic
 	@Resource(name="artPlanetMemberDAO")
 	private ArtPlanetMemberDAO dao;
 	
+	
 	//회원 여부 판단
 	@Override
 	public boolean isLogin(Map map) {
 		return dao.isLogin(map);
 	}/////isLogin()
+	
+	@Override
+	public boolean isDuplicated(Map map) {
+		return dao.isDuplicated(map);
+	}/////isDuplicated()
 	
 	//아이디 & 비밀번호 찾기
 	@Override
@@ -58,5 +64,5 @@ public class ArtPlanetMemberServiceImpl implements com.hansoin5.artplanet.servic
 		return 0;
 	}/////getTotalRecord()
 	// =========================== 미사용 메소드 끝 ===================================
-	
+
 }/////class

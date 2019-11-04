@@ -54,8 +54,8 @@
                         </div>
                         <div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8">
                             <div class="mx-auto app-login-box col-sm-12 col-md-8 col-lg-6">
-                                <div style="padding-bottom: 50px">
-                                	<a href="<c:url value='/Home'/>"><img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
+                               <div class="col" align="center" style="margin-bottom: 25px; margin-top: 150px">
+                                	<a href="<c:url value='/Search/Artwork'/>">	<img  class="img-fluid" src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
                                 </div>
                                 <h4>
                                     <div>비밀번호를 잊어버리셨나요?</div>
