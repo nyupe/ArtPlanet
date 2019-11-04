@@ -11,8 +11,8 @@
 	</page_setting>
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
-	<x>-48</x>
-	<y>206</y>
+	<x>304</x>
+	<y>677</y>
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -24,7 +24,7 @@
 		<b>255</b>
 	</color>
 	<font_name>맑은 고딕</font_name>
-	<font_size>9</font_size>
+	<font_size>10</font_size>
 	<settings>
 		<database>Oracle</database>
 		<capital>false</capital>
@@ -135,7 +135,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2019-10-04 08:42:28</creation_date>
-			<updated_date>2019-11-01 14:31:49</updated_date>
+			<updated_date>2019-11-04 21:10:19</updated_date>
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -2639,7 +2639,7 @@
 				<normal_column>
 					<id>30</id>
 					<referenced_column>46</referenced_column>
-					<relation>8</relation>
+					<relation>9</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>피구독회원번호</logical_name>
@@ -2673,7 +2673,7 @@
 				<normal_column>
 					<id>31</id>
 					<referenced_column>46</referenced_column>
-					<relation>9</relation>
+					<relation>8</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>구독회원번호</logical_name>
@@ -3185,7 +3185,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>15</word_id>
+					<word_id>13</word_id>
 					<id>41</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3920,7 +3920,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>57</word_id>
+					<word_id>58</word_id>
 					<id>60</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3953,7 +3953,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>13</word_id>
+					<word_id>15</word_id>
 					<id>61</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4514,7 +4514,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>58</word_id>
+					<word_id>57</word_id>
 					<id>74</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
