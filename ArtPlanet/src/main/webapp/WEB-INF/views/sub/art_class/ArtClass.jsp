@@ -161,6 +161,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
                    </div>
                   -->
 			<!-- 메뉴 바 시작 -->		
+			
 			  <div class="filters portfolio-filter"    >			
 				 <div class="dropdown d-inline-block"  >
 				     <ul >
@@ -193,39 +194,39 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
                              
                               <button type="button" tabindex="4"
                                       class="dropdown-item">
-                                   <li data-filter="."> 대구</li>
+                                   <li data-filter=".daegu"> 대구</li>
                               </button>
                                <button type="button" tabindex="0"
                                       class="dropdown-item">
-                                   <li data-filter="."> 경남</li>
+                                   <li data-filter=".gyeongnam"> 경남</li>
                               </button>
                                <button type="button" tabindex="0"
                                       class="dropdown-item">
-                                   <li data-filter=".">인천</li>
+                                   <li data-filter=".incheon">인천</li>
                               </button>
                                <button type="button" tabindex="0"
                                       class="dropdown-item">
-                                   <li data-filter="."> 충북</li>
+                                   <li data-filter=".chungbuk"> 충북</li>
                               </button>
                                <button type="button" tabindex="0"
                                       class="dropdown-item">
-                                   <li data-filter="."> 강원</li>
+                                   <li data-filter=".gangwon"> 강원</li>
                               </button>
                                <button type="button" tabindex="0"
                                       class="dropdown-item">
-                                   <li data-filter=".">광주</li>
+                                   <li data-filter=".gwangju">광주</li>
                               </button>
                                <button type="button" tabindex="0"
                                       class="dropdown-item">
-                                   <li data-filter="."> 충남</li>
+                                   <li data-filter=".chungnam"> 충남</li>
                               </button>
                                <button type="button" tabindex="0"
                                       class="dropdown-item">
-                                   <li data-filter="."> 울산</li>
+                                   <li data-filter=".ulsan"> 울산</li>
                               </button>
                                <button type="button" tabindex="0"
                                       class="dropdown-item">
-                                   <li data-filter="."> 제주</li>
+                                   <li data-filter=".jeju"> 제주</li>
                               </button>
                           
                           </div>
@@ -248,7 +249,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
                                class="dropdown-menu">
                               <button type="button" tabindex="0"
                                       class="dropdown-item">
-                                 <li class="active" data-filter="*">all</li>
+                                 <li  data-filter="*">all</li>
                               </button>
                               <button type="button" tabindex="0"
                                       class="dropdown-item">
@@ -305,7 +306,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 
 
 					<div class="col-md-6 col-lg-3 all painting  seoul class_content">
-						<a href="#" class="block-5"
+						<a href="<c:url value='/View'/>" class="block-5"
 							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
 
 							<div class="text">
@@ -324,7 +325,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 
 
 					<div class="col-md-6 col-lg-3 all design daejeon class_content">
-						<a href="#" class="block-5"
+						<a href="<c:url value='/View'/>" class="block-5"
 							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
 
 							<div class="text">
@@ -343,7 +344,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 
 
 					<div class="col-md-6 col-lg-3 all calligraphy gg class_content">
-						<a href="#" class="block-5"
+						<a href="<c:url value='/View'/>" class="block-5"
 							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
 
 							<div class="text">
@@ -362,8 +363,8 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 
 
 					<div class="col-md-6 col-lg-3 all design gg class_content">
-						<a href="#" class="block-5"
-							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
+						<a href="<c:url value='/View'/>" class="block-5"
+							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/2.jpg'/>');">
 
 							<div class="text">
 
@@ -381,7 +382,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 
 
 					<div class="col-md-6 col-lg-3 all calligraphy gg class_content">
-						<a href="#" class="block-5"
+						<a href="<c:url value='/View'/>" class="block-5"
 							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
 
 							<div class="text">
@@ -400,7 +401,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 
 
 					<div class="col-md-6 col-lg-3 all crafts busan class_content">
-						<a href="#" class="block-5"
+						<a href="<c:url value='/View'/>" class="block-5"
 							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
 
 							<div class="text">
@@ -418,7 +419,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 					</div>
 
 					<div class="col-md-6 col-lg-3 all crafts busan class_content">
-						<a href="#" class="block-5"
+						<a href="<c:url value='/View'/>" class="block-5"
 							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
 
 							<div class="text">
