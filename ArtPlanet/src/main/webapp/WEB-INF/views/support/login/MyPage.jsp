@@ -15,7 +15,29 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.1/dist/Chart.min.js"></script>
   
   <script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>"></script>
-  
+
+  <script>
+	$(//진입점 window.onload()와 같음
+		$.ajax({
+		    url: 'JsData.js',
+		    dataType: "script",
+		    type: "get",
+		    success: function (data) { MyAlert('Hello ','World'); },
+		    error: err
+			
+
+		}),
+
+		function(){//무명 메서드
+			$('#user_name').html("");
+		}
+		
+	);
+	
+</script>	
+	
+	
+	  
   <style>
  	.jumbotron{
 		   
@@ -24,6 +46,8 @@
 		   
 	}
   </style>
+  
+  
 
 <div class="app-header"></div>
 <div class="jumbotron" style="" >
@@ -75,9 +99,9 @@
 				<div class="card" style="width: 500px">
 					<div class="card-body">
 						<img src="" alt="프로필사진" />
-						<h4 class="card-title">무슨무슨님 프로필</h4>
-						<p class="card-text">성함 : <br>아이디: <br>닉네임: <br>핸드폰 번호: <br>주소:</p>
-						<a href="#" class="btn btn-primary">내정보 수정</a> 
+						<span id="user_name"></span>
+						<h4 class="card-title">무슨무슨(이름)님 프로필</h4>
+						<p class="card-text">성함 : <br>아이디: <br>닉네임: <br>핸드폰 번호: <br>주소:</p>						<a href="#" class="btn btn-primary">내정보 수정</a> 
 						<a href="#" class="btn btn-primary">회원탈퇴</a>
 					</div>
 				</div>
@@ -122,6 +146,9 @@
 <div class="jumbotron text-center" style="margin-bottom:0; padding: 0;">
   <p>Copyright © ArtPlanet 2019</p>
 </div>
+
+
+
 
 <script>
 var ctx = document.getElementById('myChart').getContext('2d');

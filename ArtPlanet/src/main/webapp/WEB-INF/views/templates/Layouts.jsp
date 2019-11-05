@@ -14,6 +14,7 @@
 	<link rel="icon" href="<c:url value='/resources/img/favicon.png'/>" type="image/png">
 	
 	<title>Art Planet</title>
+	 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="<c:url value='/resources/css/bootstrap.css'/>">
 	<link rel="stylesheet" href="<c:url value='/resources/css/themify-icons.css'/>">
@@ -26,10 +27,14 @@
 	<link rel="stylesheet" href="<c:url value='/resources/css/responsive.css'/>">
 	<!-- 추가한 스크립트 -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+	
 	<!-- kero css -->
     <link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet">
     <!-- summernote -->
     <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
+     
+   
+    
 </head>
 <body>
 	<div style="position: relative;">
@@ -43,6 +48,11 @@
 		<tiles:insertAttribute name="Footer" />
 		<!-- 푸터 부분 끝 -->
 	</div>
+	
+	
+	
+
+	
 	
 	
 	<!-- Optional JavaScript -->

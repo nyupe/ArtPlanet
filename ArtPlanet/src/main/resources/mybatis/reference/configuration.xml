@@ -5,13 +5,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
 <configuration>
 	<!-- 자바빈 별칭 : 매퍼파일에서 환경설정 파일로 위치됨 -->
-	<!-- ERD에 만들어놓은 테이블에 해당하는 DTO클래스 위치 지정 및 해당 클래스 별칭 지정  -->
 	<typeAliases>
-		 <typeAlias alias="MemberDTO" type="com.hansoin5.artplanet.service.MemberDTO"/>
+		 <typeAlias alias="OneMemoDTO" type="com.kosmo.onememo.service.OneMemoDTO"/>
 	</typeAliases>
 	
 	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 -->	
 	<mappers>
-		<mapper resource="mybatis/Member.xml" />
+		<mapper resource="mybatis/OneMemo.xml" />
+		<mapper resource="mybatis/MemoComment.xml" />
 	</mappers>
 </configuration>
