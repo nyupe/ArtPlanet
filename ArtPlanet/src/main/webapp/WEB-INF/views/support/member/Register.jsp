@@ -28,12 +28,12 @@
 	<!-- 유효성 검증 관련 로직 -->
 	<script>
 	var v_id = false;
+	var v_nickName = false;
 	var v_name = false;
 	var v_password = false;
 	var v_address = false;
 	var v_birth = false;
 	var v_phoneNumber = false;
-	var v_nickName = false;
 		
 	
 		//아이디 유효성 처리
@@ -73,7 +73,7 @@
 				}/////success:function(data)
 			})/////ajax
 		}/////idCheck()
-		
+		/* 
 		//닉네임 유효성 처리
 		function nickNameCheck(){
 			var nickName = $('#nickName').val();			 			
@@ -89,13 +89,13 @@
 						$('#nickNameError').text("이미 사용중인 닉네임입니다");
 						v_nickName = false;
 					}
-					else if(id==''){
+					else if(nickName==''){
 						$('#nickName').css("background-color","#FFCECE");
 						$('#nickNameError').css("color","red");
 						$('#nickNameError').text("닉네임을 입력하세요");
 						v_nickName = false;
 					}
-					else if(id.length < 5 || id.length > 13){
+					else if(nickName.length < 3 || nickName.length > 10){
 						$('#nickName').css("background-color","#FFCECE");
 						$('#nickNameError').css("color","red");
 						$('#nickNameError').text("닉네음은 최소 3글자 최대 10글자 이내로 적어주세요");
@@ -222,6 +222,7 @@
 			}	
 		}	
 		
+		
 		function signupCheck(){
 			var v_Terms = $('#membershipTerms').is(":checked");
 			if(v_Terms && v_id && v_name && v_password 
@@ -229,13 +230,11 @@
 				$("#btnRegister").prop("disabled", false);
 			
 			else $("#btnRegister").prop("disabled", false);
-		}
-		
-		
-
+		} */
 		
 		
 	</script>		
+	
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
 		

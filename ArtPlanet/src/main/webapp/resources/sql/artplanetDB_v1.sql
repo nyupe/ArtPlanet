@@ -12,6 +12,7 @@ DROP TABLE BLOGPOST CASCADE CONSTRAINTS;
 DROP TABLE COMMENT CASCADE CONSTRAINTS;
 DROP TABLE HASHTAG CASCADE CONSTRAINTS;
 DROP TABLE KATEGORIE CASCADE CONSTRAINTS;
+DROP TABLE Pay CASCADE CONSTRAINTS;
 DROP TABLE PROJECTREWARD CASCADE CONSTRAINTS;
 DROP TABLE PROJECTSUPPORT CASCADE CONSTRAINTS;
 DROP TABLE PROJECT CASCADE CONSTRAINTS;
@@ -19,6 +20,7 @@ DROP TABLE SUBSCRIBE CASCADE CONSTRAINTS;
 DROP TABLE MEMBER CASCADE CONSTRAINTS;
 
 
+CREATE SEQUENCE SEQ_MEMBER NOCACHE NOCYCLE;
 
 
 /* Create Tables */
@@ -131,11 +133,11 @@ CREATE TABLE KATEGORIE
 CREATE TABLE MEMBER
 (
 	memberNo number NOT NULL,
-	id nvarchar2(50) NOT NULL,
+	id nvarchar2(50) NOT NULL UNIQUE,
 	password nvarchar2(15) NOT NULL,
-	nickName nvarchar2(10),
+	nickName nvarchar2(10) NOT NULL,
 	name nvarchar2(10) NOT NULL,
-	phoneNumber nvarchar2(13),
+	phoneNumber nvarchar2(13) NOT NULL,
 	address nvarchar2(30) NOT NULL,
 	membershipDate date DEFAULT SYSDATE NOT NULL,
 	birth nvarchar2(11),
@@ -144,6 +146,24 @@ CREATE TABLE MEMBER
 	introContent nvarchar2(100),
 	SubscriptionFee number,
 	PRIMARY KEY (memberNo)
+);
+
+
+CREATE TABLE Pay
+(
+	tno nvarchar2(20) NOT NULL,
+	ordr_idxx nvarchar2(40) NOT NULL,
+	amount number,
+	good_name nvarchar2(20),
+	buyr_name nvarchar2(10),
+	buyr_tel1 nvarchar2(15),
+	buyr_tel2 nvarchar2(20),
+	buyr_mail nvarchar2(30),
+	card_name nvarchar2(10),
+	app_time nvarchar2(20),
+	app_no nvarchar2(10),
+	memberNo number NOT NULL,
+	PRIMARY KEY (tno)
 );
 
 
@@ -279,6 +299,12 @@ ALTER TABLE COMMENT
 ;
 
 
+ALTER TABLE Pay
+	ADD FOREIGN KEY (memberNo)
+	REFERENCES MEMBER (memberNo)
+;
+
+
 ALTER TABLE PROJECT
 	ADD FOREIGN KEY (memberNo)
 	REFERENCES MEMBER (memberNo)
@@ -313,10 +339,6 @@ ALTER TABLE PROJECTSUPPORT
 	ADD FOREIGN KEY (projectNo)
 	REFERENCES PROJECT (projectNo)
 ;
-
-CREATE SEQUENCE SEQ_MEMBER
-NOCACHE
-NOCYCLE;
 
 
 

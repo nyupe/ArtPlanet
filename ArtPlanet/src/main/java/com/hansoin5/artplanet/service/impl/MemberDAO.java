@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.hansoin5.artplanet.service.MemberDTO;
 
 //데이터베이스에 직접적으로 관련된 로직이 있는 클래스에는 레포지토리 어노테이션
-@Repository
+@Repository("memberDAO")
 public class MemberDAO {
 	
 	//sqlSessionTemplate주입 받는다
@@ -26,7 +26,7 @@ public class MemberDAO {
 	
 	//닉네임 중복처리 
 	public boolean nickNameisDuplicated(Map map) {
-			return (Integer)template.selectOne("NickNameIsDuplicated", map)==0?false:true;
+		return (Integer)template.selectOne("NickNameIsDuplicated", map)==0?false:true;
 	}
 	
 

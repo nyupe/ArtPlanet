@@ -338,7 +338,7 @@
                                                                 <td><%= buyr_tel2 %></td>
                                                             </tr>
                                                             <tr>
-                                                                <th scope="row">7</th>
+                                                                <th scope="row">8</th>
                                                                 <td>주문자 E-mailbuyr_mail</td>
                                                                 <td><%= buyr_mail %></td>
                                                             </tr>        

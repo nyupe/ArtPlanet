@@ -17,7 +17,7 @@ import com.hansoin5.artplanet.service.impl.MemberDAO;
 @Controller
 public class SupportController {
 	
-	//서비스(ArtPlanetMemberService)클래스를 주입받습니다. 
+	//DAO 주입	
 	@Resource(name="memberDAO")
 	private MemberDAO dao;
 	
@@ -37,30 +37,30 @@ public class SupportController {
 	@RequestMapping("/Login")
 	public String login()
 	{
-		return "support/login/MyPage.tiles";
+		return "support/member/Login";
 	}
 	
-	//회원가입 폼 유효성 처리 - 아이디 중복 
+	
+	// 아이디 중복 처리 
 	@RequestMapping(value="/Validation")
 	@ResponseBody
 	public boolean validation(@RequestParam Map map) {
 		return dao.isDuplicated(map);
 	}/////validation
 	
-	//회원가입 폼 유효성 처리 - 닉네임 중복,  
-	@RequestMapping(value="/Validation")
+	// 닉네임 중복 처리
+	@RequestMapping(value = "/ValidationNickName")
 	@ResponseBody
 	public boolean validationNickName(@RequestParam Map map) {
 		return dao.nickNameisDuplicated(map);
-	}/////validation
-	
+	}/////ValidationNickName
 	
 	
 	//회원가입 페이지으로 이동
 	@RequestMapping(value = "/Register" , method=RequestMethod.GET)
 	public String register(@RequestParam Map map)
 	{	
-		return "support/login/Register";
+		return "support/member/Register";
 	}
 	
 	//회원가입 페이지에서 입력값 받아 실질적 회원가입 처리
@@ -73,7 +73,7 @@ public class SupportController {
 		/* req.setAttribute("SUC", "SUC"); */
 		dao.insert(map);// 회원정보 입력 서비스 호출
 		//뷰정보반환]-회원가입 완료페이지로 이동
-		return "forward:/WEB-INF/views/support/login/Welcome.jsp";
+		return "forward:/WEB-INF/views/support/member/Welcome.jsp";
 		/* support/login/MemberInfo */
 	}
 	
@@ -84,14 +84,14 @@ public class SupportController {
 	@RequestMapping("/ForgotPassword")
 	public String forgotPassword()
 	{
-		return "support/login/ForgotPassword";
+		return "support/member/ForgotPassword";
 	}
 	
 	//회원탈퇴 요청
 	@RequestMapping("/LeaveArtPlanet")
 	public String leaveArtplanet()
 	{
-		return "support/login/LeaveArtPlanet";
+		return "support/member/LeaveArtPlanet";
 	}
 	
 	/*

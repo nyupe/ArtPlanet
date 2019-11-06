@@ -1,7 +1,7 @@
 package com.hansoin5.artplanet.service;
 
 
-//Member 테이블 = ArtPlanetMemberDTO
+//Member 테이블 = MemberDTO
 public class MemberDTO {
 	
 	private String memberNo; // 회원 일련번호

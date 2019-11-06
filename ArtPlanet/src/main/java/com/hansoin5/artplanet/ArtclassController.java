@@ -16,6 +16,11 @@ public class ArtclassController {
 	{
 		return "sub/art_class/TextArea.tiles";
 	}
+	@RequestMapping("/Test1")
+	public String test1()
+	{
+		return "sub/art_class/Test1.tiles";
+	}
 	
 	
 }

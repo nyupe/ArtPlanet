@@ -21,7 +21,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <link href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
     <script type="text/javascript">
 			function  jsf__go_mod( form )
 		    {
@@ -51,11 +51,22 @@
 			
 			$(function(){
 				
-		
+				$.ajax({
+					url:"<c:url value='AdmUserPayList.ad'/>",
+					dataType:'json',
+					success:function(data){successAjax(data,'list');},
+					error:function(request,error){
+						console.log('상태코드:',request.status);
+						console.log('서버로부터 받은 HTML데이타:',request.responseText);
+						console.log('에러:',error);
+					}
+				});			
+				
 				 console.log('김승찬');
-							 var kim;
-							
-						var clickBtn = $('.cancel').click(function(){
+						
+
+				 		var kim;
+						var clickBtn2 = $('.cancel').click(function(){
 							var  btnIndex  = clickBtn.index(this);
 								console.log('index : ',clickBtn.index(this));
 							
@@ -65,8 +76,55 @@
 						
 						
 							}); ///  clickBtn
-
+				
 			});  // onload
+			 var clickBtn = function(e){
+				document.getElementById('tno').value = e.parentNode.previousSibling.innerHTML;
+			};
+			
+			var successAjax = function(data,id){
+				console.log('서버로 부터 받은 데이타:',data);
+				/*JSON배열을 출력할때는 $.each(data,function(index,index에 따른 요소값){}); 
+				사용]
+				data:서버로부터 전송받은 데이타(JSON배열타입)
+				index:JSON배열의 인덱스(0부터 시작)	
+				index에 따른 요소값:JSON배열에서 하나씩 꺼내온거를 담은 인자		
+			    
+			    var tableString="<table style='border-spacing:1px;background-color:red'>";
+			    tableString+="<tr style='background-color:white'><th>번호</th><th>제목</th><th>이름</th><th>작성일</th></tr>";
+				$.each(data,function(index,element){
+					tableString+="<tr style='background-color:white'>";
+					
+					tableString+="<td>"+(index+1)+"</td><td>"+element['tno']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['buyr_mail']+"</td>";
+					//서버에서 보내준 데이타 순서대로 뿌려줄때
+					/*
+					$.each(element,function(key,value){
+						tableString+="<td>"+value+"</td>";				
+					});
+					tableString+="</tr>";
+				});		
+			    tableString+="</table>";		    
+			    $('#'+id).html(tableString);
+		
+				*/
+				
+				var tableString="<table style='width: 100%;' id='example' class='table table-hover table-striped table-bordered'>";
+               tableString += "<thead><tr><th>번호</th><th>회원번호</th><th>주문번호</th><th>주문자명</th><th>이메일주소</th><th>연락처</th><th>결제일</th><th>카드사</th><th>거래번호</th><th>취소</th></tr></thead>";
+               tableString += "<tbody>";
+               $.each(data,function(index,element){
+					tableString+="<tr>";					
+					tableString+="<td>"+(index+1)+"</td><td>"+element['memberno']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['buyr_name']+
+					"</td><td>"+element['buyr_email']+"</td><td>"+element['buyr_tel2']+"</td><td>"+element['app_time']+
+					"</td><td>"+element['card_name']+"</td><td>"+element['tno']+"</td><td>"
+					+"<button type='button' onclick='clickBtn(this);' class='btn mr-2 mb-2 btn-primary cancel' data-toggle='modal' data-target='#exampleModal'>취소</button></td>"
+					;
+				
+					tableString+="</tr>";
+				});
+               tableString+="</tbody><tfoot><tr><th>No</th><th>memberno</th><th>ordr_idxx</th><th>buyr_name</th><th>buyr_email</th><th>buyr_tel2</th><th>app_time</th><th>card_name</th><th>tno</th><th>cancel</th></tr></tfoot></table>";		    
+			    $('#'+id).html(tableString);
+			};
+
 	 </script>
 	 
 </head>
@@ -90,7 +148,7 @@
                         <div class="app-sidebar__inner">
                             <ul class="vertical-nav-menu">
                                 <li class="app-sidebar__heading">Menu</li>
-                                  <li>
+                                  <li class="mm-active">
       
                                     <a href="#">
                                         <i class="metismenu-icon pe-7s-rocket"></i>
@@ -230,7 +288,12 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="main-card mb-3 card">
+                                                  		
                                                     <div class="card-body">
+                                                      
+                                                         
+                                                         <div id=list></div>
+                                                      <!-- 
                                                         <table style="width: 100%;" id="example"
                                                                class="table table-hover table-striped table-bordered">
                                                             <thead>
@@ -247,7 +310,9 @@
                                                                 <th>취소</th>
                                                             </tr>
                                                             </thead>
+                                                            
                                                             <tbody>
+                                                         
                                                             <tr>
                                                             	<td>1</td>
                                                             	<td>KIM</td>
@@ -258,7 +323,7 @@
                                                                 <td>2011/04/25</td>
                                                                 <td>2019/04/25</td>
                                                                 <td>19552928618000</td>
-                                                                <td><!-- Button trigger modal -->
+                                                                <td>
                                                    					<button type="button" class="btn mr-2 mb-2 btn-primary cancel" data-toggle="modal" data-target="#exampleModal">
                                                           			 취소
                                                     			    </button>
@@ -275,29 +340,14 @@
                                                                 <td>1970/12/25</td>
                                                                 <td>2019/10/25</td>
                                                                 <td>19552928618000</td>
-                                                                <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary cancel" data-toggle="modal" data-target="#exampleModal">
+                                                                <td>
+                                                   			<button type="button" class="btn mr-2 mb-2 btn-primary cancel" data-toggle="modal" data-target="#exampleModal">
                                                           			 취소
                                                     			    </button>
                                                     			</td>
                                                             </tr>
                                                             
-                                                             <tr>
-                                                            	<td>3</td>
-                                                            	<td>Park</td>
-                                                                <td>qqqq</td>
-                                                                <td>박길동</td>
-                                                                <td>부산광역시</td>
-                                                                <td>01011112222</td>
-                                                                <td>1990/05/25</td>
-                                                                <td>2019/12/01</td>
-                                                                <td>19552928618000</td>
-                                                                <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary cancel" data-toggle="modal" data-target="#exampleModal">
-                                                          			 취소
-                                                    			    </button>
-                                                    			</td>
-                                                            </tr>
+                                                             
                                                             
                                                             </tbody>
                                                             <tfoot>
@@ -315,6 +365,9 @@
                                                             </tr>
                                                             </tfoot>
                                                         </table>
+                                                     -->
+                                                      
+                                                      
                                                     </div><!-- 카드바디 -->
                                                 </div>
                                             </div><!-- 다이브12 -->
