@@ -1,8 +1,8 @@
 package com.hansoin5.artplanet.service;
 
 
-//Member 테이블 = ArtPlanetMemberDTO
-public class ArtPlanetMemberDTO {
+//Member 테이블 = MemberDTO
+public class MemberDTO {
 	
 	private String memberNo; // 회원 일련번호
 	private String id; // 아이디(이메일 주소)

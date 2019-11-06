@@ -20,14 +20,15 @@
 					id="navbarSupportedContent">
 					<ul class="nav navbar-nav menu_nav ml-auto">
 						<%-- <li class="nav-item active"><a class="nav-link" href="<c:url value='/Home'/>">Home</a></li> --%>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/About'/>">About</a></li>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artwork'/>">Artworks</a></li>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artist'/>">Artists</a></li>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/Search/Project'/>">Projects</a></li>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/ArtClass'/>">Art Class</a></li>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/Pay'/>">Pay</a></li>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li>
-						<li class="nav-item"><a class="nav-link" href="<c:url value='/Login'/>">Login</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/About'/>">About</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artwork'/>">Artworks</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artist'/>">Artists</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Project'/>">Projects</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/ArtClass'/>">Art Class</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Pay'/>">Pay</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Login'/>">Login</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Register'/>">Register</a></li>
 						<!-- 드랍다운메뉴
 						<li class="nav-item submenu dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
 							<ul class="dropdown-menu">

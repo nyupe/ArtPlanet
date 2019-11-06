@@ -8,8 +8,6 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.hansoin5.artplanet.service.ArtPlanetMemberDTO;
-import com.hansoin5.artplanet.service.ArtPlanetMemberService;
 import com.hansoin5.artplanet.service.ArtPlanetPayDTO;
 
 @Repository("payInfo")
