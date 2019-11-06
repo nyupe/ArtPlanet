@@ -114,7 +114,7 @@
                $.each(data,function(index,element){
 					tableString+="<tr>";					
 					tableString+="<td>"+(index+1)+"</td><td>"+element['memberno']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['buyr_name']+
-					"</td><td>"+element['buyr_email']+"</td><td>"+element['buyr_tel2']+"</td><td>"+element['app_time']+
+					"</td><td>"+element['buyr_mail']+"</td><td>"+element['buyr_tel2']+"</td><td>"+element['app_time']+
 					"</td><td>"+element['card_name']+"</td><td>"+element['tno']+"</td><td>"
 					+"<button type='button' onclick='clickBtn(this);' class='btn mr-2 mb-2 btn-primary cancel' data-toggle='modal' data-target='#exampleModal'>취소</button></td>"
 					;

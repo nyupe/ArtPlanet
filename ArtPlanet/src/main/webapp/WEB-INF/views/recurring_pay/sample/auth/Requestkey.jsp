@@ -148,7 +148,7 @@
        <div class="col-md-6">
           <div class="position-relative form-group">
              <label>주문자명</label> 
-             <input class="form-control" type="text" name="buyr_name" value="강좌결제테스트상품 " />
+             <input class="form-control" type="text" name="buyr_name" value="김승" />
           </div>
        </div>
 	  
