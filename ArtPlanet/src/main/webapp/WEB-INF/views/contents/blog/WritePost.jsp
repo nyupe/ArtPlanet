@@ -3,14 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 .dragAndDropDiv {
-    border: 2px dashed #92AAB0;
+    border: 1px dashed #888;
     width: 100%;
     height: 300px;
-    color: #92AAB0;
+    color: #888;
     text-align: center;
     vertical-align: middle;
-    padding: 10px 0px 10px 10px;
+    padding: 10px 10px 10px 10px;
     font-size:200%;
+    display: table;
 }
 .progressBar {
     width: 200px;
@@ -65,6 +66,36 @@
     cursor:pointer;
     vertical-align:top
 }
+.write-form {
+	border: 1px solid #ced4da;
+	padding: 10px;
+}
+#post-title {
+	color : #1a1d24;
+	font-size: 26px;
+	padding-top: 1.2em;
+	padding-bottom: 1.2em;
+}
+#post-tag {
+	color : #1a1d24;
+	font-size: 18px;
+	padding-top: 1.1em;
+	padding-bottom: 1.1em;
+	display: inline;
+	width: 30%;
+}
+.upload-span {
+	display: table-cell;
+	vertical-align: middle;
+}
+.tag-div {
+	display: inline-block;
+	border: 1px solid #888;
+	border-radius: 15px;
+	margin:5px;
+	font-size: 16px;
+}
+
 </style>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -73,7 +104,7 @@ $(document).ready(function(){
     $(document).on("dragenter",".dragAndDropDiv",function(e){
         e.stopPropagation();
         e.preventDefault();
-        $(this).css('border', '2px solid #0B85A1');
+        $(this).css('border', '1px solid #888');
     });
     $(document).on("dragover",".dragAndDropDiv",function(e){
         e.stopPropagation();
@@ -81,7 +112,7 @@ $(document).ready(function(){
     });
     $(document).on("drop",".dragAndDropDiv",function(e){
          
-        $(this).css('border', '2px dotted #0B85A1');
+        $(this).css('border', '1px dotted #888');
         e.preventDefault();
         var files = e.originalEvent.dataTransfer.files;
      
@@ -95,7 +126,7 @@ $(document).ready(function(){
     $(document).on('dragover', function (e){
       e.stopPropagation();
       e.preventDefault();
-      objDragAndDrop.css('border', '2px dotted #0B85A1');
+      objDragAndDrop.css('border', '1px dotted #888');
     });
     $(document).on('drop', function (e){
         e.stopPropagation();
@@ -205,6 +236,23 @@ $(document).ready(function(){
 function postForm() {
     $('textarea[name="content"]').val($('#summernote').summernote('code'));
 }
+var makeTagdiv = function() {
+	if($('#post-tag').val().trim() == '') return false;
+	var isExistTag = false;
+	$('.tag-button').each(function(i) {
+		if($(this).html() == $('#post-tag').val().trim())
+			isExistTag = true;
+	});
+	if(!isExistTag) {
+		$('#post-tag').before('<button type="button" onclick="removeTagdiv(this);" class="tag-button mb-2 mr-2 btn btn-dashed btn-outline-primary btn-sm">'+$('#post-tag').val().trim()+'</button>');
+		$('#post-tag').val('');
+	}
+};
+var removeTagdiv = function(e) {
+	console.log(e);
+	e.remove();
+	
+}
 </script>
 <!--================Hero Banner Area Start =================-->
 <section class="hero-banner">
@@ -218,19 +266,30 @@ function postForm() {
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 posts-list">
-				<div>
-					<div id="fileUpload" class="dragAndDropDiv">Drag & Drop Files Here</div>
-					<div>
-						<input type="text" id="post-title" placeholder="제목 (필수)"/>
+				<div class="write-form">
+					<div style="font-size:22px; border-bottom: 1px solid #ced4da; margin:0 -10px 10px -10px; padding-left: 10px; padding-bottom: 5px;">
+						<i class="fa fa-fw" aria-hidden="true" title="Copy to use camera"></i> 이미지
 					</div>
-					<div id="summernote"><p>Hello Summernote</p></div>
-					<script>
-						$(document).ready(function() {
-						    $('#summernote').summernote({
-						    	height: 400
-						    });
-						});
-					</script>					
+					<div id="fileUpload" class="dragAndDropDiv"><span class="upload-span">여기에 파일을 드래그하세요</span></div>
+					<form>
+						<div class="form-group" style="margin-top:10px;">
+							<input type="text" class="form-control" id="post-title" placeholder="글제목(필수)">
+						</div>
+						
+						<div id="summernote"></div>
+						<script>
+							$(document).ready(function() {
+							    $('#summernote').summernote({
+							    	height: 400
+							    });
+							});
+						</script>
+						<div style="font-size:22px; border-bottom: 1px solid #ced4da; margin:10px -10px 10px -10px; padding-left: 10px; padding-bottom: 5px;">
+						<i class="fa fa-fw" aria-hidden="true" title="Copy to use tags"></i> 태그
+						<div class="clear"></div>
+							<input type="text" class="form-control" id="post-tag" onkeypress="if( event.keyCode==13 ){makeTagdiv();}" placeholder="태그 추가.." >
+						</div>
+					</form>				
 				</div>
 			</div>
 			<div class="col-lg-4">
