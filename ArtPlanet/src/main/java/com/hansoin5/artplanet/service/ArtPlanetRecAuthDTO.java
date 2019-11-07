@@ -6,7 +6,7 @@ public class ArtPlanetRecAuthDTO {
 	private String batch_key;// 배치키
 	private String card_cd;//카드코드
 	private String buyr_name; //주문자명
-	private String memberNo;// 멤버고유번호
+	private String memberno;// 멤버고유번호
 	
 	//게터세터
 	public String getOrdr_idxx() {
@@ -39,11 +39,11 @@ public class ArtPlanetRecAuthDTO {
 	public void setBuyr_name(String buyr_name) {
 		this.buyr_name = buyr_name;
 	}
-	public String getMemberNo() {
-		return memberNo;
+	public String getMemberno() {
+		return memberno;
 	}
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
+	public void setMemberNo(String memberno) {
+		this.memberno = memberno;
 	}
 	
 	
