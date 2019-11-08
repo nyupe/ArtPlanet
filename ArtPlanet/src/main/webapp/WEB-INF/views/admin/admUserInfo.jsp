@@ -22,39 +22,78 @@
 	<!-- 케로 관리자UI -->
    	<div class="app-container app-theme-gray">
 		  <div class="app-main">
+            <!-- 왼쪽바 시작 -->
             <div class="app-sidebar-wrapper">
                 <div class="app-sidebar sidebar-shadow">
                 
-                	<div class="app-header__logo">
+                	<div>
+                	<a class="navbar-brand logo_h" href="<c:url value='/Search/Artwork'/>"><img style="width: 200px; height: 86px;"
+					src="<c:url value='/resources/img/logo.png'/>" alt="logo"></a>
+					
                         <a href="#" data-toggle="tooltip" data-placement="bottom" title="KeroUI Admin Template" class="logo-src"></a>
+                        <!-- 햄버거 네줄 
                         <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
                                 <span class="hamburger-box">
                                     <span class="hamburger-inner"></span>
                                 </span>
                         </button>
+                         -->
                     </div>
                     
                       <div class="scrollbar-sidebar scrollbar-container">
                         <div class="app-sidebar__inner">
                             <ul class="vertical-nav-menu">
-                                <li class="app-sidebar__heading">Menu</li>
+                                <li class="app-sidebar__heading">Admin Menu</li>
                                   <li class="mm-active">
       
                                     <a href="#">
                                         <i class="metismenu-icon pe-7s-rocket"></i>
-                                        	관리자전용 게시판
+                                        	회원관리
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
                                     
                                     <ul>          
-                                        <li><a href="AdmUserInfo.ad">회원관리</a></li>
-                                        <li><a href="AdmUserPay.ad">일반결제관리</a></li>
-                                        <li><a href="AdmUserRecPay.ad">정기결제관리</a></li>
-                                        <li><a href="helpdesk-dashboard.html">프로젝트/클래스관리</a></li>
+                                        <li><a href="AdmUserInfo.ad">가입회원</a></li>
+
                                     </ul>
                                  
                                   </li>
                                  
+                                 <!-- 작품관리 -->
+                                  <li class="mm-active">
+      
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        	결제관리
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    
+                                    <ul>          
+                                     	<li><a href="AdmUserPay.ad">일반결제-취소가능</a></li>
+                                     	<li><a href="AdmUserBatch.ad">정기결제-배치키</a></li>
+                                        <li><a href="AdmUserRecPay.ad">정기결제</a></li>
+                                    </ul>
+                                 
+                                  </li>
+                                 
+                                  <!-- 결제관리 -->
+                                  <li class="mm-active">
+      
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        	작품관리
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    
+                                    <ul>          
+                                       <li><a href="">프로젝트</a></li>
+                                       <li><a href="">클래스</a></li>
+                                    </ul>
+                                 
+                                  </li>
+                                 
+                                                                        
+                                      
                             </ul>
                      		</div><!-- 앱 사이드바 이너 -->
                      	</div><!-- 스크롤바 사이드바 스크롤바 컨테이너 -->

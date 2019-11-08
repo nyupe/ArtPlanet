@@ -1,4 +1,4 @@
-package com.hansoin5.artplanet.web;
+package com.hansoin5.artplanet;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -6,25 +6,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 
-<mapper namespace="mybatis.PayInfo">
+<mapper namespace="mybatis.RecAuth">
 	
-	<!-- 결제정보 CRUD 쿼리문  -->
+	<!-- 배치키정보 CRUD 쿼리문  -->
 	
-	
-	
-	<!-- 일반결제 디비입력 처리 -->
-	<insert id="payInsert" parameterType="java.util.Map" >
-			INSERT INTO PAY(TNO, ORDR_IDXX, AMOUNT, GOOD_NAME, BUYR_NAME, BUYR_TEL1, BUYR_TEL2, BUYR_MAIL, CARD_NAME, APP_TIME, APP_NO, MEMBERNO)
-			VALUES(#{tno},#{ordr_idxx}, #{amount}, #{good_name}, #{buyr_name}, 
-			#{buyr_tel1}, #{buyr_tel2}, #{buyr_mail}, #{card_name}, #{app_time}, #{app_no}, SEQ_MEMBER.NEXTVAL)
+	<!-- 인증 배치키 디비입력 처리 -->
+	<insert id="recAuthInsert" parameterType="java.util.Map" >
+			INSERT INTO RECAUTH(ORDR_IDXX, RES_CD, BATCH_KEY, CARD_CD, BUYR_NAME, MEMBERNO)
+			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, SEQ_MEMBER.NEXTVAL)
 	</insert>
 	
-
-	<select id="paySelectlist" parameterType="java.util.Map" resultType="ArtPlanetPayDTO">
-		SELECT * FROM PAY
-	
+	<select id="recAuthSelectlist" parameterType="java.util.Map" resultType="ArtPlanetRecAuthDTO">
+		SELECT * FROM RECAUTH
 	</select>
-	
 	
 	<!-- 수업예제 쿼리문  -->
 	<!-- <select id="memoIsLogin" parameterType="java.util.Map" resultType="int">

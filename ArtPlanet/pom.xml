@@ -93,6 +93,19 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/m
 				
 		<!-- Servlet -->
 		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>4.0.1</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>javax.servlet.jsp</groupId>
+		    <artifactId>javax.servlet.jsp-api</artifactId>
+		    <version>2.3.3</version>
+		    <scope>provided</scope>
+		</dependency>
+		<!-- 버전업!!
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
@@ -104,12 +117,12 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/m
 			<version>2.1</version>
 			<scope>provided</scope>
 		</dependency>
+		-->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-	
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -214,6 +227,18 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/m
 			<groupId>com.google.cloud</groupId>
 			<artifactId>google-cloud-vision</artifactId>
 			<version>1.75.0</version>
+		</dependency>
+		<!-- google-cloud-storage -->
+		<dependency>
+		    <groupId>com.google.cloud</groupId>
+		    <artifactId>google-cloud-storage</artifactId>
+		    <version>1.99.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+		<dependency>
+		    <groupId>joda-time</groupId>
+		    <artifactId>joda-time</artifactId>
+		    <version>2.10.5</version>
 		</dependency>
         
 	</dependencies>

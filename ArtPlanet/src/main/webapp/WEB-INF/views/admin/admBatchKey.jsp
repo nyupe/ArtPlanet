@@ -13,8 +13,37 @@
     <meta http-equiv="Content-Language" content="en">
   <link
    href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">
-    <script type="text/javascript">
-
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+    <script>
+    $(function(){
+		
+		$.ajax({
+			url:"<c:url value='AdmBatchKeyList.ad'/>",
+			dataType:'json',
+			success:function(data){successAjax(data,'list');},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+		});	
+    });	///////////////
+		
+		var successAjax = function(data,id){
+			console.log('서버로 부터 받은 배치키 데이타:',data);
+			var tableString="<table style='width: 100%;' id='example' class='table table-hover table-striped table-bordered'>";
+            tableString += "<thead><tr><th>번호</th><th>아이디(고유번호)</th><th>배치키</th><th>주문번호</th><th>응답코드</th><th>카드코드</th><th>주문자명</th></tr></thead>";
+            tableString += "<tbody>";
+            $.each(data,function(index,element){
+					tableString+="<tr>";					
+					tableString+="<td>"+(index+1)+"</td><td>"+element['memberno']+"</td><td>"+element['batch_key']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['res_cd']+
+					"</td><td>"+element['card_cd']+"</td><td>"+element['buyr_name']+"</td>";			
+					tableString+="</tr>";
+				});
+            tableString+="</tbody><tfoot><tr><th>No</th><th>memberno</th><th>batch_key</th><th>ordr_idxx</th><th>res_cd</th><th>card_cd</th><th>buyr_name</th></tr></tfoot></table>";		    
+			    $('#'+id).html(tableString);
+			};
+	
 	</script>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
@@ -69,7 +98,7 @@
                                     
                                     <ul>          
                                      	<li><a href="AdmUserPay.ad">일반결제-취소가능</a></li>
-                                     	<li><a href="AdmUserBatch.ad">정기결제-배치키</a></li>
+                                     	<li><a href="AdmUserPay.ad">정기결제-배치키</a></li>
                                         <li><a href="AdmUserRecPay.ad">정기결제</a></li>
                                     </ul>
                                  
@@ -126,6 +155,9 @@
                                             <div class="col-md-12">
                                                 <div class="main-card mb-3 card">
                                                     <div class="card-body">
+                                                    
+                                                    	 <div id=list></div>
+                                                    	 <!-- 
                                                         <table style="width: 100%;" id="example"
                                                                class="table table-hover table-striped table-bordered">
                                                             <thead>
@@ -150,43 +182,13 @@
                                                                 <td>CCLG</td>
                                                                 <td>19102911457819EA</td>                                            
                                                                 <td>2019/04/25</td>
-                                                                <td><!-- Button trigger modal -->
+                                                                <td>
                                                    					<button type="button" class="badge badge-pill badge-success" data-toggle="modal" data-target="#exampleModal">
                                                           			 성공
                                                     			    </button>
                                                     			</td>
                                                             </tr>
-                                                           
-                                                           <tr>
-                                                            	<td>2</td>
-                                                            	<td>LEE</td>
-                                                                <td>20191010</td>
-                                                                <td>이길동</td>
-                                                                <td>CCSS</td>  
-                                                                <td>19102911457819EA</td>  
-                                                                <td>2019/10/25</td>
-                                                                <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="badge badge-pill badge-danger" data-toggle="modal" data-target="#exampleModal">
-                                                          			 실패
-                                                    			    </button>
-                                                    			</td>
-                                                            </tr>
-                                                            
-                                                             <tr>
-                                                            	<td>3</td>
-                                                            	<td>Park</td>
-                                                                <td>20191120</td>
-                                                                <td>박길동</td>
-                                                                <td>CCNH</td>
-                                                                <td>19102911457819EA</td>                              
-                                                                <td>2019/12/01</td>
-                                                                <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="badge badge-pill badge-danger" data-toggle="modal" data-target="#exampleModal">
-                                                          			 실패
-                                                    			    </button>
-                                                    			</td>
-                                                            </tr>
-                                                            
+                                                   
                                                             </tbody>
                                                             <tfoot>
                                                             <tr>
@@ -202,6 +204,7 @@
                                                             </tr>
                                                             </tfoot>
                                                         </table>
+                                                         -->
                                                     </div><!-- 카드바디 -->
                                                 </div>
                                             </div><!-- 다이브12 -->
