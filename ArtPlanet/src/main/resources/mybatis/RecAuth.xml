@@ -6,34 +6,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 
-<mapper namespace="mybatis.Member">
+<mapper namespace="mybatis.RecAuth">
 	
-	<!-- 회원정보 CRUD 쿼리문  -->
+	<!-- 배치키정보 CRUD 쿼리문  -->
 	
-	<!-- 로그인 처리  -->
-	<select id="MemberIsLogin" parameterType="java.util.Map" resultType="int">
-			SELECT COUNT(*) FROM MEMBER WHERE ID = #{id} and PWD = #{pwd}
-	</select>	
-	
-	<!-- 회원가입 처리 -->
-	<insert id="MemberInsert" parameterType="java.util.Map" >
-			INSERT INTO MEMBER(MEMBERNO, ID, PASSWORD, NAME, ADDRESS, PHONENUMBER, NICKNAME)
-			<!-- 회원번호(시퀀스), 아이디, 비밀번호, 이름, 핸드폰번호, 주소, 생년월일, 프로필사진-디폴트값 필요, 가입일(현재날짜로 자동초기화) -->
-			VALUES(SEQ_MEMBER.NEXTVAL, #{id}, #{password}, #{name}, #{phoneNumber}, #{address}, #{nickName} #{birth})
+	<!-- 인증 배치키 디비입력 처리 -->
+	<insert id="recAuthInsert" parameterType="java.util.Map" >
+			INSERT INTO RECAUTH(ORDR_IDXX, RES_CD, BATCH_KEY, CARD_CD, BUYR_NAME, MEMBERNO)
+			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, SEQ_MEMBER.NEXTVAL)
 	</insert>
 	
-	<!-- 아이디 중복 처리 -->
-	<select id="MemberIsDuplicated" parameterType="java.util.Map" resultType="int">
-			SELECT COUNT(*) FROM MEMBER WHERE ID = #{id} 
+	<select id="recAuthSelectlist" parameterType="java.util.Map" resultType="ArtPlanetRecAuthDTO">
+		SELECT * FROM RECAUTH
 	</select>
-	
-	<!-- 닉네임 중복 처리 -->
-	<select id="NickNameIsDuplicated" parameterType="java.util.Map" resultType="int">
-			SELECT COUNT(*) FROM MEMBER WHERE NICKNAME = #{nickName} 
-	</select>
-	
-	
-	
 	
 	<!-- 수업예제 쿼리문  -->
 	<!-- <select id="memoIsLogin" parameterType="java.util.Map" resultType="int">
