@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- 스프링 써큐리티 적용에 필요한 태그라이브러리 -->
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <header class="header_area">
 	<div class="main_menu">
 		<nav class="navbar navbar-expand-lg navbar-light">
@@ -27,8 +30,14 @@
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/ArtClass'/>">Art Class</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Pay'/>">Pay</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li>
-						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Login'/>">Login</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Register'/>">Register</a></li>
+						<sec:authorize access="isAnonymous()"> <!-- 로그인 안한 상태 -->
+							<li  class="nav-item"><a class="nav-link" href="<c:url value='/Login'/>">Login</a></li>
+				 		</sec:authorize>
+				 		<sec:authorize access="isAuthenticated()"> <!-- 로그인 한상태 -->
+				 			<li  class="nav-item"><a class="nav-link" href="javascript:logout()">LogOut</a></li>
+				 			<li  class="nav-item"><a class="nav-link" href="<c:url value='/MyPage'/>">MyPage</a></li>
+			 			</sec:authorize>
 						<!-- 드랍다운메뉴
 						<li class="nav-item submenu dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
 							<ul class="dropdown-menu">
@@ -47,6 +56,10 @@
 			</div>
 		</nav>
 	</div>
+	<!-- 스프링 씨큐러티 사용시  -->
+	<form id="logoutForm" method="post" action="<c:url value='/logout'/>">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	</form>
 	<!-- 검색바 -->
 	<!-- 
 	<div class="search_input" id="search_input_box">
@@ -60,6 +73,11 @@
 		</div>
 	</div>
 	 -->
-	
-	
+	<script>
+		//스프링 시큐리티 로그아웃 처리
+		//csrf 사용시에만 아래함수 필요
+		function logout(){
+			$('#logoutForm').submit();
+		}
+	</script>
 </header>

@@ -34,6 +34,8 @@
 	var v_address = false;
 	var v_birth = false;
 	var v_phoneNumber = false;
+	var v_Terms = false;
+	
 		
 	
 		//아이디 유효성 처리
@@ -50,31 +52,36 @@
 						$('#idError').css("color","red");
 						$('#idError').text("이미 사용중인 아이디입니다");
 						v_id = false;
+						signupCheck()
 					}
 					else if(id==''){
 						$('#id').css("background-color","#FFCECE");
 						$('#idError').css("color","red");
 						$('#idError').text("아이디를 입력하세요");
 						v_id = false;
+						signupCheck()
 					}
 					else if(id.length < 5 || id.length > 13){
 						$('#id').css("background-color","#FFCECE");
 						$('#idError').css("color","red");
 						$('#idError').text("아이디는 최소 5글자 최대 13글자 이내로 적어주세요");
-						v_id = false;						
+						v_id = false;
+						signupCheck()
 					}
 					
 					else{ 
 						$('#id').css("background-color", "#B0F6AC");
 						$('#idError').css("color","green");
 						$('#idError').text("사용가능한 아이디입니다.");
-						v_id = true;						
+						v_id = true;
+						signupCheck()
 					}
 				}/////success:function(data)
 			})/////ajax
 		}/////idCheck()
-		/* 
+		
 		//닉네임 유효성 처리
+		
 		function nickNameCheck(){
 			var nickName = $('#nickName').val();			 			
 			$.ajax({
@@ -88,29 +95,35 @@
 						$('#nickNameError').css("color","red");
 						$('#nickNameError').text("이미 사용중인 닉네임입니다");
 						v_nickName = false;
+						signupCheck()
 					}
 					else if(nickName==''){
 						$('#nickName').css("background-color","#FFCECE");
 						$('#nickNameError').css("color","red");
 						$('#nickNameError').text("닉네임을 입력하세요");
 						v_nickName = false;
+						signupCheck()
 					}
 					else if(nickName.length < 3 || nickName.length > 10){
 						$('#nickName').css("background-color","#FFCECE");
 						$('#nickNameError').css("color","red");
-						$('#nickNameError').text("닉네음은 최소 3글자 최대 10글자 이내로 적어주세요");
-						v_nickName = false;						
+						$('#nickNameError').text("닉네임은 최소 3글자 최대 10글자 이내로 적어주세요");
+						v_nickName = false;	
+						signupCheck()
 					}
 					
 					else{ 
 						$('#nickName').css("background-color", "#B0F6AC");
 						$('#nickNameError').css("color","green");
 						$('#nickNameError').text("사용가능한 닉네임입니다.");
-						v_nickName = true;						
+						v_nickName = true;	
+						signupCheck()
 					}
 				}/////success:function(data)
 			})/////ajax
 		}/////nickNameCheck()
+		
+		
 		
 		// 이름 유효성 처리
 		function nameCheck(){
@@ -120,12 +133,14 @@
 				$('#nameError').css("color","red");
 				$('#nameError').text("이름을 입력하세요");
 				v_name = false;
+				signupCheck()
 			}
 			else{
 				$('#name').css("background-color", "#B0F6AC");
 				$('#nameError').css("color","green");
 				$('#nameError').text("");
 				v_name = true;
+				signupCheck()
 			}
 		}/////nameCheck()
 		
@@ -138,18 +153,21 @@
 				$('#passwordError').css("color","red");
 				$('#passwordError').text("비밀번호를 입력하세요");
 				v_password = false;
+				signupCheck()
 			}
 			else if(password.length < 5 || password.length > 13){
 				$('#password').css("background-color","#FFCECE");
 				$('#passwordError').css("color","red");
 				$('#passwordError').text("비밀번호는 최소 5자리 및 최대 13자리 이내로 입력해주세요");
 				v_password = false;
+				signupCheck()
 			}
 			else{
 				$('#password').css("background-color", "#B0F6AC");
 				$('#passwordError').css("color","green");
 				$('#passwordError').text("");
 				v_password = true;
+				signupCheck()
 				
 			}
 		}/////passwordCheck()
@@ -162,14 +180,17 @@
 				$('#passwordConfirmError').css("color","red");
 				$('#passwordConfirmError').text("비밀번호를 다시 입력하세요");
 				v_password = false;
+				signupCheck()
 			}
 			else{
 				$('#passwordConfirm').css("background-color", "#B0F6AC");
 				$('#passwordConfirmError').css("color","green");
 				$('#passwordConfirmError').text("");
 				v_password = true;
+				signupCheck()
 			}
 		}/////passwordCheck()
+		
 		
 		//주소 유효성 처리
 		function addressCheck(){
@@ -179,14 +200,16 @@
 				$('#addressError').css("color","red");
 				$('#addressError').text("주소를 입력하세요");
 				v_address = false;
+				signupCheck()
 			}
 			else{
 				$('#address').css("background-color", "#B0F6AC");
 				$('#addressError').css("color","green");
 				$('#addressError').text("");
 				v_address = true;
+				signupCheck()
 			}
-		}
+		}/////addressCheck()
 		
 		
 		//생년월일 유효성 처리
@@ -197,13 +220,16 @@
 				$('#birthError').css("color","red");
 				$('#birthError').text("생년월일을 입력하세요");
 				v_birth = false;
+				signupCheck()
 			}
 			else{
 				$('#birth').css("background-color", "#B0F6AC");
 				$('#birthError').css("color","green");
 				$('#birthError').text("");
 				v_birth = true;
+				signupCheck()
 			}
+		}/////birthCheck()
 	
 		//핸드폰 번호 유효성 처리
 		function phoneNumberCheck(){
@@ -213,25 +239,60 @@
 				$('#phoneNumberError').css("color","red");
 				$('#phoneNumberError').text("핸드폰번호를 입력하세요");
 				v_phoneNumber = false;
+				signupCheck()
 			}
 			else{
 				$('#phoneNumber').css("background-color", "#B0F6AC");
 				$('#phoneNumberError').css("color","green");
 				$('#phoneNumberError').text("");
 				v_phoneNumber = true;
+				signupCheck()
 			}	
-		}	
+		}/////phoneNumberCheck()	
 		
-		
-		function signupCheck(){
-			var v_Terms = $('#membershipTerms').is(":checked");
-			if(v_Terms && v_id && v_name && v_password 
-					&& v_address && v_birth && v_phoneNumber && v_nickName)	
-				$("#btnRegister").prop("disabled", false);
+	
+	 	function signupCheck(){
 			
-			else $("#btnRegister").prop("disabled", false);
-		} */
+			if(v_Terms && v_id && v_name && v_password && v_address && v_birth && v_phoneNumber && v_nickName){
+				// console.log("나는 캐시가 아니다됐냐")
+				//모든 유효성 통과시 회원가입 버튼 활성화
+				$("#btnRegister").prop("disabled", false);
+			}
+			else{ // 통과 못할시 회원가입 버튼 비활성화
+				$("#btnRegister").prop("disabled", true);
+			} 
+		} 
 		
+		
+	 	$(document).ready(function(){
+	 		console.log("나는 캐시가 아니다5")
+	 		
+	 	    $("#membershipTerms").change(function(){
+	 	        if($("#membershipTerms").is(":checked")){
+	 	        	v_Terms = true;
+	 	        	signupCheck()
+	 	        }
+	 	        else{
+	 	        	v_Terms = false;
+	 	        	signupCheck()
+	 	        }
+	 	    });
+	 	});
+		
+		
+		/* $(
+				function signupCheck(){
+					var v_Terms = $('#membershipTerms').is(":checked");
+					console.log(v_Terms);
+					 if(v_Terms && v_id && v_name && v_password 
+							&& v_address && v_birth && v_phoneNumber && v_nickName)	
+						$("#btnRegister").prop("disabled", false);
+					
+					else $("#btnRegister").prop("disabled", false); 
+				}	
+		) */
+		
+		 
 		
 	</script>		
 	
@@ -260,7 +321,9 @@
                            
                             <div>
                             <!-- 회원가입 form 시작 --> 
-							<form method="post"  action="<c:url value=''/>"  >
+							<form method="post"  action="<c:url value='/Register'/>"  >
+								<!-- 스프링 시큐리티 사용시 모든 요청에 반드시 넣어줘야함  -->
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 								<div class="form-row">
 									
 									<!-- ID 입력 필드 시작 -->								
@@ -270,10 +333,10 @@
 												class="text-danger">*</span> ID</label>
 												<!-- ID 입력태그  -->
 												<input name="id" value=""
-												id="id" placeholder="" type="text" oninput="idCheck()"
-												class="form-control">
+													id="id" placeholder="" type="text" oninput="idCheck()"
+													class="form-control">
 												<!-- 아이디 유효성 체크 안내문 -->
-												<span id ="idError"></span><br>
+												<span id ="idError"></span>
 										</div>
 									</div>
 									<!-- ID 입력 필드 끝 -->
@@ -292,6 +355,21 @@
 									</div>
 									<!-- 이름 입력 필드 끝 -->
 									
+									<!-- 닉네임 입력 필드 시작 -->
+									<div class="col-md-7 mx-auto">
+										<div class="position-relative form-group">
+											<label for="exampleNickName" class=""><span
+												class="text-danger">*</span> NickName</label>
+											<!-- 닉네임 입력태그  -->
+											<input name="nickName" value="" oninput="nickNameCheck()"
+												id="nickName" placeholder="" type="text"
+												class="form-control">
+											<span id="nickNameError"></span>
+										</div>
+									</div>
+									<!-- 닉네임 입력 필드 끝 -->
+									
+									
 									<!-- 생년월일 입력 필드 시작 -->
 									<div class="col-md-7 mx-auto">
 										<div class="position-relative form-group">
@@ -299,7 +377,7 @@
 												class="text-danger">*</span> Birth</label>
 											<!-- 이름 입력태그  -->
 											<input name="birth" value="" oninput="birthCheck()"
-												id="birth" placeholder="" type="text"
+												id="birth" placeholder="ex)19911115" type="text"
 												class="form-control">
 											<span id="birthError"></span>
 										</div>
@@ -333,28 +411,15 @@
 									<!-- 비밀번호 입력 필드 끝  -->
 									
 									
-									<!-- 닉네임 입력 필드 시작 -->
-									<div class="col-md-7 mx-auto">
-										<div class="position-relative form-group">
-											<label for="exampleName" class=""><span
-												class="text-danger">*</span> NickName</label>
-											<!-- 닉네임 입력태그  -->
-											<input name="nickName" value="" oninput="nickNameCheck()"
-												id="nickName" placeholder="" type="text"
-												class="form-control">
-											<span id="nickNameError"></span>
-										</div>
-									</div>
-									<!-- 닉네임 입력 필드 끝 -->
 									
 									<!-- 핸드폰 번호 입력 필드 시작 -->
 									<div class="col-md-7 mx-auto">
 										<div class="position-relative form-group">
 											<label for="exampleName" class=""><span
-												class="text-danger">*</span> PhoneNumber</label>
+												class="text-danger">*</span> Phone</label>
 											<!-- 닉네임 입력태그  -->
 											<input name="phoneNumber" value="" oninput="phoneNumberCheck()"
-												id="phoneNumber" placeholder="" type="text"
+												id="phoneNumber" placeholder="ex)01011111111" type="text"
 												class="form-control">
 											<span id="phoneNumberError"></span>
 										</div>

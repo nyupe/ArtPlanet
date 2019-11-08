@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hansoin5.artplanet.service.impl.AuthorityDAO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
 
 
@@ -19,90 +20,82 @@ public class SupportController {
 	
 	//DAO 주입	
 	@Resource(name="memberDAO")
-	private MemberDAO dao;
+	private MemberDAO memberDao;
+	
+	@Resource(name="authorityDAO")
+	private AuthorityDAO authorityDao;
 	
 	
+	// 아이디를 받아 회원번호를 반환하는 
+	@RequestMapping("/GetMemberNo")
+	public String getMemberNo(@RequestParam String id) {
+		return memberDao.getMemberNo(id);
+	}/////getMemberNo()
+	
+	
+	// 로그인 완료 했다면 예술가 검색 페이지로 이동
 	@RequestMapping("/LoginComplete")
 	public String loginComplete()
 	{
 		return "contents/SearchArtist.tiles";
-	}
+	}/////loginComplete()
 	
+	// Top메뉴의 contact 누를시 문의하기 페이지로 이동
 	@RequestMapping("/Others")
 	public String others()
 	{
 		return "support/report/Report.tiles";
-	}
+	}/////others()
 	
-	@RequestMapping("/Login")
-	public String login()
-	{
-		return "support/member/Login";
-	}
+	
 	
 	
 	// 아이디 중복 처리 
 	@RequestMapping(value="/Validation")
 	@ResponseBody
 	public boolean validation(@RequestParam Map map) {
-		return dao.isDuplicated(map);
+		return memberDao.isDuplicated(map);
 	}/////validation
 	
 	// 닉네임 중복 처리
 	@RequestMapping(value = "/ValidationNickName")
 	@ResponseBody
 	public boolean validationNickName(@RequestParam Map map) {
-		return dao.nickNameisDuplicated(map);
+		return memberDao.nickNameisDuplicated(map);
 	}/////ValidationNickName
 	
 	
 	//회원가입 페이지으로 이동
 	@RequestMapping(value = "/Register" , method=RequestMethod.GET)
-	public String register(@RequestParam Map map)
-	{	
+	public String register(@RequestParam Map map){	
 		return "support/member/Register";
-	}
+	}/////register()
 	
-	//회원가입 페이지에서 입력값 받아 실질적 회원가입 처리
+	//회원가입 처리
 	@RequestMapping(value = "/Register" , method=RequestMethod.POST)
-	public String registerOk(@RequestParam Map map)
-	{	
-		//회원가입하는데에 인증절차가 필요없다고 가정
-		//서비스 호출(회원가입 처리 : 테이블에 레코드 삽입) 
-		//입력한 데이터는 모두 map에 저장되어있으며 키값은  input태그의 name속성값
-		/* req.setAttribute("SUC", "SUC"); */
-		dao.insert(map);// 회원정보 입력 서비스 호출
+	public String registerOk(@RequestParam Map map){	
+		memberDao.insert(map);// 회원정보 입력 
+		map.put("memberNo", memberDao.getMemberDTO(map).getMemberNo()); // 권한설정용 회원번호 저장 
+		authorityDao.insertAuthority(map); // 회원 권한 설정
+	
 		//뷰정보반환]-회원가입 완료페이지로 이동
 		return "forward:/WEB-INF/views/support/member/Welcome.jsp";
-		/* support/login/MemberInfo */
-	}
-	
-	
+	}/////registerOk()
 	
 	
 	//비밀번호 찾기 요청 
 	@RequestMapping("/ForgotPassword")
-	public String forgotPassword()
-	{
+	public String forgotPassword(){
 		return "support/member/ForgotPassword";
 	}
 	
 	//회원탈퇴 요청
 	@RequestMapping("/LeaveArtPlanet")
-	public String leaveArtplanet()
-	{
+	public String leaveArtplanet(){
 		return "support/member/LeaveArtPlanet";
 	}
 	
-	/*
-	 * //내정보 요청
-	 * 
-	 * @RequestMapping("/GetMemberInfo")
-	 * 
-	 * @ResponseBody public String getMemberInfo() {
-	 * 
-	 * 
-	 * }
-	 */
 	
-}///// SupportController class
+	
+	
+}/////class
