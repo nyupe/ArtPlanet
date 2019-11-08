@@ -20,6 +20,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM RECAUTH
 	</select>
 	
+	
+	
 	<!-- 수업예제 쿼리문  -->
 	<!-- <select id="memoIsLogin" parameterType="java.util.Map" resultType="int">
 			SELECT COUNT(*) FROM MEMBER WHERE ID = #{id} and PWD = #{pwd}

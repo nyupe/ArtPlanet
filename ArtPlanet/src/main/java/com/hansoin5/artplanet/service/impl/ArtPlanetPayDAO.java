@@ -33,5 +33,10 @@ public class ArtPlanetPayDAO {
 		public List<ArtPlanetPayDTO> paySelectlist(Map map){
 			return template.selectList("paySelectlist", map);
 		}
+		
+		//총 레코드수
+		public int payCount() {
+			return template.selectOne("payCount");
+		}
 	
 }/////
