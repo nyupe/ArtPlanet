@@ -196,7 +196,7 @@ $(document).ready(function(){
      
     function sendFileToServer(formData,status)
     {
-        var uploadURL = "<c:url value='/FileUpload'/>"; //Upload URL
+        var uploadURL = "<c:url value='/FileUploadToCloud'/>"; //Upload URL
         var extraData ={}; //Extra Data.
         var jqXHR=$.ajax({
                 xhr: function() {
@@ -211,6 +211,7 @@ $(document).ready(function(){
                             }
                             //Set progress
                             status.setProgress(percent);
+                            console.log('status.setProgress(percent)');
                         }, false);
                     }
                 return xhrobj;
@@ -223,7 +224,9 @@ $(document).ready(function(){
             data: formData,
             success: function(data){
                 status.setProgress(100);
-      
+                console.log(data);
+                previewImage(data);
+                
                 //$("#status1").append("File upload Done<br>");           
             }
         }); 
@@ -232,6 +235,9 @@ $(document).ready(function(){
     }
      
 });
+function previewImage(filename) {
+	$('.dragAndDropDiv').before('<img src="D:/fileupload-test/'+filename+'" />');
+}
 
 function postForm() {
     $('textarea[name="content"]').val($('#summernote').summernote('code'));

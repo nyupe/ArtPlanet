@@ -65,7 +65,7 @@ public class VisionController
 	{
 		try
 		{
-			detectLabels("D:/AJS/CSSL_workspace/CSS3/images/lion.jpg");
+			detectLabels("gs://ajs-bucket/kitten.png");
 		} catch (Exception e)
 		{
 			// TODO Auto-generated catch block
