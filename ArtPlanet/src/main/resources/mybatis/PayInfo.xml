@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="payCounter" parameterType="java.util.Map" resultType="int">
-		SELECT COUNT(*) FROM 
+		SELECT COUNT(*) FROM PAY
 	</select>
 	
 	<!-- 수업예제 쿼리문  -->

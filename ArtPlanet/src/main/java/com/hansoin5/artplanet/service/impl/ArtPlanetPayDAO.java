@@ -36,7 +36,7 @@ public class ArtPlanetPayDAO {
 		
 		//총 레코드수
 		public int payCount() {
-			return template.selectOne("payCount");
+			return template.selectOne("payCounter");
 		}
 	
 }/////
