@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+	<!--
+	
+	auto-config='true' :  기본 로그인페이지/ HTTP 기본인증 / 로그아웃기능사용을 위한 설정
+	use-expressions="true" : <intercept-url>의 access 속성에 표현식을 사용한다는 의미
+	                         "false"면 access="USER" 로 값을 바로 사용
+			                 "true" 면 access="hasRole('ROLE_USER')" 사용 ROLE_는 생략 가능
+	-->
+	<!--
+	<intercept-url> : URL pattern에 대해 접근 권한을 설정.따라서 URL pattern에 따라 여러개 설정 가능
+	                  단, 여러개 설정시 위에서 차례로 순서대로 적용됨으로 
+	                  가장 특수한 경우를 위쪽에 놓고 일반적인 경우를 아래에 설정한다
+	-->
+	
+	<!-- hasRole('ROLE_USER') -->	
+	<security:http auto-config="false" use-expressions="true">
+		
+		<security:intercept-url pattern="/MyPage" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/**" access="permitAll"/> 
+	
+	
+	
+	
+	
+	 <!--
+	  <security:form-login/>요소로  로그인 설정:	  
+				      
+	      login-page: 로그인처리 URL의 기본값은 login-page="/login" 
+                                사용자 정의 폼 사용시 login-page="사용자 정의 로그인페이지 URL지정"
+		  default-target-url:로그인 한 후에 보여질 페이지 URL지정. 
+		  authentication-failure-url: 로그인 실패시 보여질 페이지 URL지정. . 
+		                              기본값은 /login?error
+		  login-processing-url:로그인 처리 URL지정.로그인 폼의 action속성값.기본값은 /loginProcess
+		  username-parameter : 로그인 폼에 아이디 입력 필드에 지정한 name 속성값. 기본값은 "username"
+	      password-parameter : 로그인 폼에 비밀번호 입력 필드에 지정한 name 속성값. 기본값은 "password" 
+	 -->
+		
+	 	<security:form-login 
+  		    login-page="/About"
+            default-target-url="/About"
+            authentication-failure-url="/Login?error"
+            login-processing-url="/LoginProcess"
+            username-parameter="id"
+            password-parameter="password" 
+            />
+            
+         
+        <!-- <security:logout/>요소로  로그아웃 설정 -->
+     	<security:logout
+     	  	logout-url="/logout"
+     	 	logout-success-url="/Search/Artwork"
+     	 	invalidate-session="true"
+     	  	
+     	/>
+	
+		<!-- 공격을 방어하기 위한 설정 CSRF방어 설정시에는 사용자 정의 로그인 폼 사용시에 아래 hidden태그 필수 -->
+		<security:csrf disabled="false"/>
+		
+		<security:session-management invalid-session-url="/Login"> <!-- 중복 로그인이 일어났을 경우 이동 할 URL -->
+		
+		<!-- concurrency-control max-sessions="1" 
+		최대 허용 가능 중복 세션 수.(중복 로그인 방지하기 위해 1로 설정)  -->
+		<security:concurrency-control max-sessions="1"  expired-url="/Login"  />	
+		<!-- expired-url : 중복 로그인이 일어났을 경우 이동 할 URL 지정. -->
+		</security:session-management>
+	</security:http>
+	
+	<!-- 
+	  <security:jdbc-user-service :데이타 베이스를 사용할때
+	  
+	  data-source-ref : 데이터베이스 연결을 나타내는 dataSource.
+	  root-context.xml의 속성 ref="datasource" 와 일치해야함(주의)
+	 
+	  role-prefix : "ROLE_" 와 같은 롤 앞에 붙는 prefix 를 지정. 권한 체크시 여기에 지정된 값을 붙여서 확인. 
+	   데이터베이스에 ROLE_USER 형식으로 데이터를 넣은 경우 여기서는 값을 지정하지 않은다 
+	
+	  users-by-username-query : 아이디로 사용자 정보를 가져오는 쿼리 설정 
+	  authorities-by-username-query : 아이디로 권한정보를 가져오는 쿼리 설정. 
+	-->
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service 
+			data-source-ref="datasource" 
+			role-prefix="" 
+			users-by-username-query="SELECT M.ID  username, M.PASSWORD password , enabled FROM MEMBER M JOIN AUTH_SECURITY A ON M.ID = A.ID WHERE M.ID = ?"
+			authorities-by-username-query="SELECT M.ID as username, authority FROM MEMBER M JOIN AUTH_SECURITY A ON M.ID = A.ID WHERE M.ID = ?" />
+		</security:authentication-provider>
+	</security:authentication-manager>	
+
+</beans>

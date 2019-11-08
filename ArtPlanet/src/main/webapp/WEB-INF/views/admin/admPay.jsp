@@ -113,7 +113,12 @@
 				var tableString="<table style='width: 100%;' id='example' class='table table-hover table-striped table-bordered'>";
                tableString += "<thead><tr><th>번호</th><th>아이디(고유번호)</th><th>주문번호</th><th>주문자명</th><th>이메일주소</th><th>연락처</th><th>결제일</th><th>카드사</th><th>거래번호</th><th>취소</th></tr></thead>";
                tableString += "<tbody>";
+               var totalOrderCount = 0;
+               var totalOrderMoney = 0;
                $.each(data,function(index,element){
+            	   totalOrderCount++;
+            	   totalOrderMoney += parseInt(element['amount']);
+            	   console.log(totalOrderMoney);
 					tableString+="<tr>";					
 					tableString+="<td>"+(index+1)+"</td><td>"+element['memberno']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['buyr_name']+
 					"</td><td>"+element['buyr_mail']+"</td><td>"+element['buyr_tel2']+"</td><td>"+element['app_time']+
@@ -125,6 +130,8 @@
 				});
                tableString+="</tbody><tfoot><tr><th>No</th><th>memberno</th><th>ordr_idxx</th><th>buyr_name</th><th>buyr_email</th><th>buyr_tel2</th><th>app_time</th><th>card_name</th><th>tno</th><th>cancel</th></tr></tfoot></table>";		    
 			    $('#'+id).html(tableString);
+			    $('#totalOrderCount').html("총 "+totalOrderCount+"건");
+			    $('#totalOrderMoney').html("￦ "+totalOrderMoney);
 			};
 
 	 </script>
@@ -242,7 +249,7 @@
                                                                 <div class="widget-subheading">이번달</div>
                                                             </div>
                                                             <div class="widget-content-right">
-                                                                <div class="widget-numbers text-success">1896</div>
+                                                                <div id="totalOrderCount" class="widget-numbers text-success"></div>
                                                             </div>
                                                         </div>
                                                         <div class="widget-progress-wrapper">
@@ -270,7 +277,7 @@
                                                                 <div class="widget-subheading">이번달</div>
                                                             </div>
                                                             <div class="widget-content-right">
-                                                                <div class="widget-numbers text-warning">$3M</div>
+                                                                <div id="totalOrderMoney" class="widget-numbers text-warning"></div>
                                                             </div>
                                                         </div>
                                                         <div class="widget-progress-wrapper">
