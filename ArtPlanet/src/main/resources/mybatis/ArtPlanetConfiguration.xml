@@ -17,5 +17,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/Member.xml" />
 		<!-- 결제정보 -->
 		<mapper resource="mybatis/PayInfo.xml" />
+		<!-- 권한정보  -->
+		<mapper resource="mybatis/Authority.xml" />
 	</mappers>
 </configuration>

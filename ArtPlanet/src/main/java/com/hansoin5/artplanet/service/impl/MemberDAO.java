@@ -10,46 +10,63 @@ import org.springframework.stereotype.Repository;
 
 import com.hansoin5.artplanet.service.MemberDTO;
 
+
 //데이터베이스에 직접적으로 관련된 로직이 있는 클래스에는 레포지토리 어노테이션
-@Repository("memberDAO")
+@Repository
 public class MemberDAO {
+
+	
 	
 	//sqlSessionTemplate주입 받는다
 	@Resource(name="template")
 	private SqlSessionTemplate template;
 	
 	
+	//아이디로 회원번호 가져오기 
+	public String getMemberNo(String id) {
+		return template.selectOne("getMemberNo", id);
+	}/////getMemberNo()
+	
+	
+	//회원정보 조회
+	public MemberDTO getMemberDTO(Map map) {
+		return template.selectOne("getMemberDTO", map);
+	}/////getMemberNo()
+	
+	
 	//아이디 중복처리 
 	public boolean isDuplicated(Map map) {
-		return (Integer)template.selectOne("MemberIsDuplicated", map)==0?false:true;
-	}
+		return (Integer)template.selectOne("memberIsDuplicated", map)==0?false:true;
+	}/////isDuplicated()
 	
 	//닉네임 중복처리 
 	public boolean nickNameisDuplicated(Map map) {
-		return (Integer)template.selectOne("NickNameIsDuplicated", map)==0?false:true;
-	}
+		return (Integer)template.selectOne("nickNameIsDuplicated", map)==0?false:true;
+	}/////nickNameisDuplicated()
 	
 
 	// 회원가입처리  
 	public int insert(Map map) {
-		return template.insert("MemberInsert",map);
-	}
+		return template.insert("memberInsert",map);
+	}/////insert()
+
+	
+	//회원 여부 판단 
+	public boolean loginProcess(Map map) { // 사용자가 입력한 아이디와 비밀번호가 일치한 회원은 1개여야함 
+		return (Integer)template.selectOne("loginProcess", map)== 1 ? true : false;
+	}/////loginProcess()
+	
+	
 	
 	
 	
 	//미구현 ======================================================================================
 	
-	//회원 여부 판단 
-	public boolean isLogin(Map map) {
-		//mybatis 패키지 -> Member.xml ->  artPlanetMemberIsLogin id를 가진 select 태그안의 쿼리문의
-		//결과가 0이면 false반환, 아니면 true반환
-		return (Integer)template.selectOne("MemberIsLogin", map)==0?false:true;
-	}
-
 	
-	//내 정보 확인(내정보 페이지에 필요한 값을 가져옴)
+
+	// 회원정보 가져오기
 	public MemberDTO selectOne(Map map) {
-		return template.selectOne("MemberSelectOne", map);
+		return template.selectOne("getMemberInfo", map);
 	}
 	
 	// 계정 탈퇴시 사용
@@ -67,14 +84,6 @@ public class MemberDAO {
 	public List<MemberDTO> selectlist(Map map) {return null;}
 	public int getTotalRecord(Map map) {return 0;}
 	// ========================== 미사용 메소드 끝 ===================================
-
-
-	
-
-
-
-
-
 	
 	
 }/////class
