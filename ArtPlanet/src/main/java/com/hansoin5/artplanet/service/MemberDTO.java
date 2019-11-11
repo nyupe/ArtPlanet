@@ -1,10 +1,10 @@
 package com.hansoin5.artplanet.service;
 
 
-//Member 테이블 = ArtPlanetMemberDTO
-public class ArtPlanetMemberDTO {
+//Member 테이블 = MemberDTO
+public class MemberDTO {
 	
-	private String memberNo; // 회원 일련번호
+	private int memberNo; // 회원 일련번호
 	private String id; // 아이디(이메일 주소)
 	private String password; // 비밀번호
 	private String nickName; // 닉네임
@@ -19,10 +19,10 @@ public class ArtPlanetMemberDTO {
 	private int subscriptionFee; // 구독료 
 	
 	//게터 & 세터
-	public String getMemberNo() {
+	public int getMemberNo() {
 		return memberNo;
 	}
-	public void setMemberNo(String memberNo) {
+	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
 	public String getId() {

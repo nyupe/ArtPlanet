@@ -43,5 +43,19 @@ public class TopController
 		return "pay/Pay.tiles";
 	}
 	
+	//MyPage로 이동
+	@RequestMapping("/MyPage")
+	public String moveMyPage() {
+		return "support/member/MyPage.tiles";
+	}/////moveMyPage()
+	
+	//로그인 페이지로 이동
+	@RequestMapping(value = "/Login")
+	public String login()
+	{
+		return "support/member/Login";
+	}/////login()
+	
+
 	
 }

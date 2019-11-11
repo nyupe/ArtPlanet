@@ -7,14 +7,19 @@ DROP TABLE ARTCLASS CASCADE CONSTRAINTS;
 DROP TABLE ATTACHFILE CASCADE CONSTRAINTS;
 DROP TABLE ATTACHIMAGE CASCADE CONSTRAINTS;
 DROP TABLE AUTHORITY CASCADE CONSTRAINTS;
+DROP TABLE KATEGORIE_RELATION CASCADE CONSTRAINTS;
 DROP TABLE TAGRELATION CASCADE CONSTRAINTS;
 DROP TABLE BLOGPOST CASCADE CONSTRAINTS;
+DROP TABLE CANCEL CASCADE CONSTRAINTS;
 DROP TABLE COMMENT CASCADE CONSTRAINTS;
 DROP TABLE HASHTAG CASCADE CONSTRAINTS;
 DROP TABLE KATEGORIE CASCADE CONSTRAINTS;
+DROP TABLE Pay CASCADE CONSTRAINTS;
 DROP TABLE PROJECTREWARD CASCADE CONSTRAINTS;
 DROP TABLE PROJECTSUPPORT CASCADE CONSTRAINTS;
 DROP TABLE PROJECT CASCADE CONSTRAINTS;
+DROP TABLE RECAUTH CASCADE CONSTRAINTS;
+DROP TABLE RECPAY CASCADE CONSTRAINTS;
 DROP TABLE SUBSCRIBE CASCADE CONSTRAINTS;
 DROP TABLE MEMBER CASCADE CONSTRAINTS;
 
@@ -76,8 +81,17 @@ CREATE TABLE BLOGPOST
 	postDate date DEFAULT SYSDATE,
 	viewCount number DEFAULT 0,
 	memberNo number NOT NULL,
-	kategorieNo number NOT NULL,
 	PRIMARY KEY (blogNo)
+);
+
+
+CREATE TABLE CANCEL
+(
+	tno nvarchar2(20) NOT NULL,
+	res_cd nvarchar2(10),
+	res_msg nvarchar2(50),
+	memberNo number NOT NULL,
+	PRIMARY KEY (tno)
 );
 
 
@@ -85,8 +99,9 @@ CREATE TABLE CLASSOPENINGDATE
 (
 	classOpeningDateNo number NOT NULL,
 	openingDate date NOT NULL,
-	openingTime date NOT NULL,
 	classNo number NOT NULL,
+	openingTime date,
+	closingTime date,
 	PRIMARY KEY (classOpeningDateNo)
 );
 
@@ -128,14 +143,22 @@ CREATE TABLE KATEGORIE
 );
 
 
+CREATE TABLE KATEGORIE_RELATION
+(
+	memberNo number NOT NULL,
+	kategorieNo number NOT NULL,
+	blogNo number NOT NULL
+);
+
+
 CREATE TABLE MEMBER
 (
 	memberNo number NOT NULL,
-	id nvarchar2(50) NOT NULL,
+	id nvarchar2(50) NOT NULL UNIQUE,
 	password nvarchar2(15) NOT NULL,
-	nickName nvarchar2(10),
+	nickName nvarchar2(10) NOT NULL,
 	name nvarchar2(10) NOT NULL,
-	phoneNumber nvarchar2(13),
+	phoneNumber nvarchar2(13) NOT NULL,
 	address nvarchar2(30) NOT NULL,
 	membershipDate date DEFAULT SYSDATE NOT NULL,
 	birth nvarchar2(11),
@@ -144,6 +167,24 @@ CREATE TABLE MEMBER
 	introContent nvarchar2(100),
 	SubscriptionFee number,
 	PRIMARY KEY (memberNo)
+);
+
+
+CREATE TABLE Pay
+(
+	tno nvarchar2(20),
+	ordr_idxx nvarchar2(40) NOT NULL,
+	amount number,
+	good_name nvarchar2(20),
+	buyr_name nvarchar2(10),
+	buyr_tel1 nvarchar2(15),
+	buyr_tel2 nvarchar2(20),
+	buyr_mail nvarchar2(30),
+	card_name nvarchar2(10),
+	app_time nvarchar2(20),
+	app_no nvarchar2(10),
+	memberNo number NOT NULL,
+	PRIMARY KEY (ordr_idxx)
 );
 
 
@@ -178,6 +219,38 @@ CREATE TABLE PROJECTSUPPORT
 	memberNo number NOT NULL,
 	projectNo number NOT NULL,
 	PRIMARY KEY (projectSupportNo)
+);
+
+
+CREATE TABLE RECAUTH
+(
+	ordr_idxx nvarchar2(50) NOT NULL,
+	res_cd nvarchar2(10),
+	batch_key nvarchar2(20),
+	card_cd nvarchar2(10),
+	buyr_name nvarchar2(30),
+	memberNo number NOT NULL,
+	PRIMARY KEY (ordr_idxx)
+);
+
+
+CREATE TABLE RECPAY
+(
+	tno nvarchar2(20),
+	ordr_idxx nvarchar2(40) NOT NULL,
+	amount number,
+	good_name nvarchar2(20),
+	buyr_name nvarchar2(10),
+	buyr_tel1 nvarchar2(15),
+	buyr_tel2 nvarchar2(20),
+	buyr_mail nvarchar2(30),
+	card_name nvarchar2(10),
+	app_time nvarchar2(20),
+	app_no nvarchar2(10),
+	res_cd nvarchar2(10),
+	memberNo number NOT NULL,
+	batch_key nvarchar2(20),
+	PRIMARY KEY (ordr_idxx)
 );
 
 
@@ -225,6 +298,12 @@ ALTER TABLE ATTACHIMAGE
 ;
 
 
+ALTER TABLE KATEGORIE_RELATION
+	ADD FOREIGN KEY (blogNo)
+	REFERENCES BLOGPOST (blogNo)
+;
+
+
 ALTER TABLE TAGRELATION
 	ADD FOREIGN KEY (blogNo)
 	REFERENCES BLOGPOST (blogNo)
@@ -243,7 +322,7 @@ ALTER TABLE ARTCLASS
 ;
 
 
-ALTER TABLE BLOGPOST
+ALTER TABLE KATEGORIE_RELATION
 	ADD FOREIGN KEY (kategorieNo)
 	REFERENCES KATEGORIE (kategorieNo)
 ;
@@ -267,6 +346,12 @@ ALTER TABLE BLOGPOST
 ;
 
 
+ALTER TABLE CANCEL
+	ADD FOREIGN KEY (memberNo)
+	REFERENCES MEMBER (memberNo)
+;
+
+
 ALTER TABLE CLASSRESERVATION
 	ADD FOREIGN KEY (memberNo)
 	REFERENCES MEMBER (memberNo)
@@ -274,6 +359,18 @@ ALTER TABLE CLASSRESERVATION
 
 
 ALTER TABLE COMMENT
+	ADD FOREIGN KEY (memberNo)
+	REFERENCES MEMBER (memberNo)
+;
+
+
+ALTER TABLE KATEGORIE_RELATION
+	ADD FOREIGN KEY (memberNo)
+	REFERENCES MEMBER (memberNo)
+;
+
+
+ALTER TABLE Pay
 	ADD FOREIGN KEY (memberNo)
 	REFERENCES MEMBER (memberNo)
 ;
@@ -291,7 +388,13 @@ ALTER TABLE PROJECTSUPPORT
 ;
 
 
-ALTER TABLE SUBSCRIBE
+ALTER TABLE RECAUTH
+	ADD FOREIGN KEY (memberNo)
+	REFERENCES MEMBER (memberNo)
+;
+
+
+ALTER TABLE RECPAY
 	ADD FOREIGN KEY (memberNo)
 	REFERENCES MEMBER (memberNo)
 ;
@@ -299,6 +402,12 @@ ALTER TABLE SUBSCRIBE
 
 ALTER TABLE SUBSCRIBE
 	ADD FOREIGN KEY (targetedMemberNo)
+	REFERENCES MEMBER (memberNo)
+;
+
+
+ALTER TABLE SUBSCRIBE
+	ADD FOREIGN KEY (memberNo)
 	REFERENCES MEMBER (memberNo)
 ;
 
@@ -313,10 +422,6 @@ ALTER TABLE PROJECTSUPPORT
 	ADD FOREIGN KEY (projectNo)
 	REFERENCES PROJECT (projectNo)
 ;
-
-CREATE SEQUENCE SEQ_MEMBER
-NOCACHE
-NOCYCLE;
 
 
 

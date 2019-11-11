@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
 <!doctype html>
 <html lang="en">
 
@@ -69,26 +71,53 @@
                                 </h6>
                                 <div class="divider row"></div>
                                 <div style="padding-bottom: 100px">
-                                	<!-- 정상적인 로그인시 Home.jsp으로 이동 -->
-                                    <form >
+                                <!-- 로그인 하지 않은 상태라면   -->
+                                <sec:authorize access="isAnonymous()">
+                                	<c:if test="${param.erorr!=null }">
+										<div class="row">
+											<div class="alert alert-warning fade in  col-sm-5">
+												<button type="button" class="close" data-dismiss="alert">
+													<span>&times;</span>
+												</button>
+												아이디와 비번이 틀려요
+											</div>
+										</div>
+									</c:if>	
+                                    <form action="<c:url value='/LoginProcess'/>" method="post" >
+                                    	<!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
+									    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
                                         <div class="form-row">
+                                        	
                                             <div class="col-md-6">
-                                                <div class="position-relative form-group"><label for="exampleEmail" class="">ID</label><input name="id" id="id" placeholder="ID를 입력하세요..." type="text" class="form-control"></div>
+											<div class="position-relative form-group">
+	                                                <label for="exampleEmail" class="">ID</label>
+	                                                <!-- 아이디 입력태그 -->
+	                                                <input name="id" id="id" placeholder="ID를 입력하세요..." type="text" class="form-control">
+                                                </div>
                                             </div>
                                             <div class="col-md-6">
-                                                <div class="position-relative form-group"><label for="examplePassword" class="">Password</label><input name="password" id="examplePassword" placeholder="Password을 입력하세요..." type="password"
-                                                                                                                                                       class="form-control"></div>
+                                                <div class="position-relative form-group">
+                                                	<label for="examplePassword" class="">Password</label>
+                                                	<!-- 비밀번호 입력태그  -->
+                                                	<input name="password" id="password" placeholder="Password을 입력하세요..." type="password" class="form-control">
+                                                </div>
                                             </div>
+                                            
                                         </div>
                                         <div class="position-relative form-check"><input name="check" id="exampleCheck" type="checkbox" class="form-check-input"><label for="exampleCheck" class="form-check-label">아이디 저장</label></div>
                                         <div class="divider row"></div>
                                         <div class="d-flex align-items-center">
-                                            <div class="ml-auto"><a href="<c:url value='/ForgotPassword'/>" class="btn-lg btn btn-link"><span class="text-danger">비밀번호 찾기</span></a>
-                                                <input type="submit" value="로그인" formaction="<c:url value='LoginComplete'/>"
-                                                class="btn btn-primary btn-lg"/>
+                                            <div class="ml-auto">
+                                            <a href="<c:url value='/ForgotPassword'/>" class="btn-lg btn btn-link">
+                                            	<span class="text-danger">비밀번호 찾기</span>
+                                            </a>
+                                                <input type="submit" value="로그인" class="btn btn-primary btn-lg"/>
                                             </div>
                                         </div>
                                     </form>
+                                 </sec:authorize>
+                                 
+                                 
                                 </div>
                             </div>
                         </div>
