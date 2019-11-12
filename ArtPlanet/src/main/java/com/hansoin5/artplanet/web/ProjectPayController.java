@@ -105,7 +105,7 @@ public class ProjectPayController {
 				record.put("app_time",dto.getApp_time());
 				record.put("app_no",dto.getApp_no());
 				record.put("res_cd", dto.getRes_cd());
-				record.put("memberno",dto.getMemberno());
+				record.put("memberno",dto.getMemberNo());
 
 				collections.add(record);
 			}

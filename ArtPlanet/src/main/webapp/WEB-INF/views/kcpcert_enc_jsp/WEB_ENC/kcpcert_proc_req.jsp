@@ -168,12 +168,26 @@
             System.out.println( "웹사이트 아이디  "  + cc.getKeyValue("web_siteid"  ) ); // 암호화된 웹사이트 아이디 
             System.out.println( "암호화된 결과코드"  + cc.getKeyValue("res_cd"      ) ); // 암호화된 결과코드
             System.out.println( "암호화된 결과메시지"+ cc.getKeyValue("res_msg"     ) ); // 암호화된 결과메시지  
-             
+         	
             
-            	
+            
+            // 스크립틀릿으로 회원가입폼에 넘겨줄 정보저장
+            String name = cc.getKeyValue("user_name");
+       		String birth = cc.getKeyValue("birth_day");
+            String phoneNumber = cc.getKeyValue("phone_no");
+            
+            // 리퀘스트 영역 인코딩 방식 설정 - UTF-8 
+            request.setCharacterEncoding("UTF-8");
+            
+            // 리퀘스트 영역에 스크립틀릿으로 저장한 변수 저장
+           	request.setAttribute("auth_name", name);
+           	request.setAttribute("auth_birth", birth);
+           	request.setAttribute("auth_phone", phoneNumber);
           
            	
-       
+           	System.out.println("리퀘스트 영역에 저장한 것 출력 : "+request.getAttribute("auth_name"));
+            System.out.println("어플리케이션 영역에 저장한 것 출력 : "+application.getAttribute("a_auth_name"));
+            
 	    }
 	    else/*if( res_cd.equals( "0000" ) != true )*/
 	    {
@@ -185,8 +199,8 @@
     {
         // 암호화 인증 안함
     }
-
-    cc = null; // 객체 반납
+		
+    //cc = null; // 객체 반납
 %>
 
 
@@ -199,7 +213,7 @@
         
         <!-- 모달을 위한 라이브러리 (인증 성공 안내창) -->
         <script src="https://code.jquery.com/jquery-latest.js"></script>
-         
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>         
     </head>
     
      <!-- 모달 디자인 시작 -->
@@ -230,13 +244,16 @@
 	 
 	</style>
 	<!-- 모달 디자인 끝 -->
-		
+	
+	
     <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+        	
+        	
         	
         	
         	<!-- 모달 시작 -->
 		    <div id="myModal" class="modal">
-		 
+		 	
 		      <!-- Modal content -->
 		      <div class="modal-content">
 		                <p style="text-align: center;">
@@ -254,7 +271,8 @@
 		 
 		    </div>
         	<!-- 모달 끝 -->
-        
+        	
+        	
         
        <%--  <form name="form_auth" method="post">
        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -266,17 +284,28 @@
         	//모달을 띄워주는 진입점 
 	        jQuery(document).ready(function() {
 	             $('#myModal').show();
+	             //console.log(opener);
 	        });
         	
 	        //닫기 버튼 눌렀을때 실행되는 함수
 	        function close_pop(flag) {
-	            // $('#myModal').hide(); // id가 myModal 태그를 브라우저에서 숨긴다
-	          	
-	            // 부모창을 url 요청 페이지(회원가입 페이지로 이동 시킵니다)                	
-             	opener.location.href = "<c:url value='/Register'/>"; 
-             	window.close();// 팝업 닫기  
-	        };	        
-        
+	            $('#myModal').hide(); // id가 myModal인 태그를 브라우저에서 숨긴다
+	            
+	            // 부모창 태그접근 및 값 변경
+	            opener.document.getElementById("auth_name").value = '<c:out value="${requestScope.auth_name}"/>';
+	            opener.document.getElementById("auth_birth").value = '<c:out value="${requestScope.auth_birth}"/>';
+	            opener.document.getElementById("auth_phone").value = '<c:out value="${requestScope.auth_phone}"/>';
+	            
+	            //if(opener.transfer()=="undefined")
+            		//alert("부모창에 제어 지정한 함수 없음");
+             	
+             	// 부모창 함수제어
+             	opener.transfer()
+             	// 팝업창 닫기
+             	window.close();  
+	        };	    
+	        
       </script>
+      
     </body>
 </html>

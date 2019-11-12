@@ -9,7 +9,9 @@
 	String ordr_idxx = "TEST" + (new SimpleDateFormat("yyyyMMddHHmmssSSSSSSS")
 			.format(new Date())); // 요청번호 생성 예제
 			
-	System.out.println("인증 start page입니다");			
+	System.out.println("인증 start page입니다");		
+			
+			
 %>    
 
 
@@ -21,16 +23,26 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
    
-    <title>Certification(미완성)</title>
+    <title>본인 인증</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
     />
     <meta name="description" content="Kero HTML Bootstrap 4 Dashboard Template">
 	
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="<c:url value='/resources/js/CertificationByPhone.js'/>"></script>
+	
+	
 	<link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet">
+	
 </head>
+	<script>
+		// 자식창에서 제어되는 함수
+		function transfer(){
+			$('#auth_test').trigger('click')	
+		}
+	</script>
 
 
     <div class="app-container app-theme-white body-tabs-shadow">
@@ -38,9 +50,11 @@
                 <div class="h-100 bg-premium-white">
                     <div class="d-flex h-100 justify-content-center align-items-center">
                         <div class="mx-auto app-login-box col-md-8">
+                            
                             <div class="col-md-6 mx-auto" >
-                            	<img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/>
+                            	<a href="<c:url value='/About'/>"/><img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
                             </div>
+                            
                             <div class="modal-dialog w-100">
                                 <div class="modal-content">
 									<div class="modal-body">
@@ -48,11 +62,28 @@
 										<h5 class="modal-title">
 											<div style="text-align: center;">인증 방식</div>
 										</h5>
-									
+										
+										
+										<!-- 인증완료후 자동으로 제출되는 form -->
+										<form action="<c:url value='/AuthRegister'/>" method="post" >
+											<!-- 스프링 시큐리티 적용 요청시 필수로 보내야 할 값 -->										
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+											
+											<!-- 자식창(인증모듈 팝업창)에서 넘어올 값 받을 태그  : 이름, 생년월일, 핸드폰 번호-->
+											<input type="hidden" name="auth_name" id="auth_name" /> 
+											<input type="hidden" name="auth_birth" id="auth_birth" />
+											<input type="hidden" name="auth_phone" id="auth_phone" />
+											<!-- 전송버튼 -->
+											<button type="submit" name="auth_test" id="auth_test" style="display: none;" ></button>
+										</form>
+										
+										
+											
 										<!-- 입력 폼 시작 -->
 									 	<form name="form_auth" method="post">
-									             
-								             <!-- 스프링 시큐리티 사용시 모든 POST 요청에 반드시 넣어줘야함  -->
+									         
+												
+											 <!-- 스프링 시큐리티 사용시 모든 POST 요청에 반드시 넣어줘야함  -->
 										  	 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 									             
 									         	<!-- 인증요청 정보 출력 테이블 - 인증요청 버튼만 보이게 visibility: collapse 적용 -->

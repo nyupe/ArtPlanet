@@ -25,8 +25,18 @@ public class GcsDAO
 	{
 		return template.insert("blog-uploadImage",map);
 	}
+<<<<<<< HEAD
 	public List<GcsDTO> getListByClass(Map map)
 	{
 		return template.selectList("artclass-getImages",map);
+=======
+	public String getFileNoByURL(String fileUrl)
+	{
+		return template.selectOne("getFileNoByURL", fileUrl);
+	}
+	public int updateBlogNo(Map map)
+	{
+		return template.update("updateBlogNo", map);
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	}
 }

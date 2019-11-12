@@ -62,10 +62,12 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class VisionControllerTest
 {
+	/*
 	private static Image getImage(String filePath) throws IOException
 	{
 		Image image;
@@ -114,10 +116,14 @@ public class VisionControllerTest
 			}
 		}
 	}
+	*/
 	@RequestMapping("/extractLabels")
+	@ResponseBody
 	public String detectLabelsGcs() throws Exception, IOException
 	{
-		String gcsPath = "gs://art-planet-storage/blog/2019-11-15-072752662_kitten.png";
+		String gcsPath = "https://storage.cloud.google.com/art-planet-storage/blog/2019-11-15-072752662_kitten.png";
+		//https://storage.googleapis.com/art-planet-storage/blog/2019-11-15-072752662_kitten.png
+		//https://storage.cloud.google.com/art-planet-storage/blog/2019-11-15-072752662_kitten.png
 		List<AnnotateImageRequest> requests = new ArrayList<>();
 		System.out.println("gcsPath:"+gcsPath);
 		ImageSource imgSource = ImageSource.newBuilder().setGcsImageUri(gcsPath).build();
@@ -155,6 +161,10 @@ public class VisionControllerTest
 					annotation.getAllFields().forEach((k, v) -> System.out.printf("%s : %s\n", k, v.toString()));
 				}
 			}
+		} catch (IllegalAccessError e) {
+			return "faaaaaaaaaailll";
+		} {
+			
 		}
 		return "success";
 	}
