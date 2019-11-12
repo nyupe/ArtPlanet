@@ -2,11 +2,18 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-
+	
+	<!-- 스프링 씨큐러티 설정 파일은 반드시 컨텍스트 초기화 파라미터로
+	     왜냐하면 springSecurityFilterChain 이 시큐러티 관련 설정파일을 찾음
+     -->
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/root-context.xml
+			/WEB-INF/spring/security/security-context.xml
+		</param-value>
+		
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -64,16 +71,8 @@
 		<url-pattern>/*</url-pattern><!-- /*로 모든 요청을 security 필터를 이용 -->
 	</filter-mapping> 
 	
-	<!-- 스프링 씨큐러티 설정 파일은 반드시 컨텍스트 초기화 파라미터로
-	     왜냐하면 springSecurityFilterChain 이 시큐러티 관련 설정파일을 찾음
-     -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			/WEB-INF/spring/root-context.xml
-			/WEB-INF/spring/security/security-context.xml
-		</param-value>
-	</context-param> 
+	
+	
 	
 	<!-- 시작 페이지를 home.bbs로 설정 하기 위한 추가
 	     그리고 HomeController.java에서 매핑 수정

@@ -3,26 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<!doctype html>
-<html lang="en">
+<style>
+	.header_area {
+		display: none;
+	}
+	.footer-area {
+		display: none;
+	}
+	.single-footer-widget {
+		display: none;
+	}
+</style>
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"
-    />
-    <meta name="description" content="Kero HTML Bootstrap 4 Dashboard Template">
-
-    <!-- Disable tap highlight on IE -->
-    <meta name="msapplication-tap-highlight" content="no">
-	
-	<!-- 기존 kero CSS -->
-	<link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet">
-</head>
-<body>
      <div class="app-container app-theme-white body-tabs-shadow">
             <div class="app-container">
                 <div class="h-100">
@@ -59,18 +51,6 @@
                                <div class="col" align="center" style="margin-bottom: 25px; margin-top: 150px">
                                 	<a href="<c:url value='/Search/Artwork'/>">	<img  class="img-fluid" src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
                                 </div>
-                                <h4 class="mb-0">
-                                    <span class="d-block"><span class="text-primary">ArtPlanet</span>에 오신걸 환영합니다,</span>
-                                    <span>로그인 해주세요.</span></h4>
-                                <h6 class="mt-3">회원이 아니시라구요? 
-                                <br/>
-                                	<!-- 회원가입 페이지로 이동  GET방식 -->
-                                	<%-- <a href="<c:url value='AuthStart.do'/>;" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> --%>
-                                	<!-- 로그인 유효성 실시간 처리를 위한 테스트  -->
-                                	<a href="<c:url value='/Register'/>" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> 
-                                </h6>
-                                <div class="divider row"></div>
-                                <div style="padding-bottom: 100px">
                                 <!-- 로그인 하지 않은 상태라면   -->
                                 <sec:authorize access="isAnonymous()">
                                 	<c:if test="${param.erorr!=null }">
@@ -83,6 +63,21 @@
 											</div>
 										</div>
 									</c:if>	
+                                <h4 class="mb-0">
+                                    <span class="d-block"><span class="text-primary">ArtPlanet</span>에 오신걸 환영합니다,</span>
+                                    <span>로그인 해주세요.</span></h4>
+                                <h6 class="mt-3">회원이 아니시라구요? 
+                                <br/>
+                                	<!-- 회원가입 페이지로 이동  GET방식 -->
+                                	<%-- <a href="<c:url value='AuthStart.do'/>;" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> --%>
+                                	<!-- 로그인 유효성 실시간 처리를 위한 테스트  -->
+                                	<a href="<c:url value='/Register'/>" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> 
+                                </h6>
+                                <div class="divider row"></div>
+                                <div style="padding-bottom: 100px">
+                                
+                                	
+									
                                     <form action="<c:url value='/LoginProcess'/>" method="post" >
                                     	<!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
 									    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
@@ -104,7 +99,16 @@
                                             </div>
                                             
                                         </div>
-                                        <div class="position-relative form-check"><input name="check" id="exampleCheck" type="checkbox" class="form-check-input"><label for="exampleCheck" class="form-check-label">아이디 저장</label></div>
+                                        <div class="position-relative form-check">
+	                                        <c:if test="${param.error != null }">
+	                                        	<label class="text-danger">
+	                                        		아이디와 비밀번호가 틀렸습니다.
+	                                        	</label>
+	                                        </c:if>
+	                                        <br>
+	                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input">
+	                                        <label for="exampleCheck" class="form-check-label">아이디 저장</label>
+                                        </div>
                                         <div class="divider row"></div>
                                         <div class="d-flex align-items-center">
                                             <div class="ml-auto">
@@ -116,8 +120,14 @@
                                         </div>
                                     </form>
                                  </sec:authorize>
-                                 
-                                 
+                                 <!-- 로그인된 사용자라면 -->
+                                 <sec:authorize access="isAuthenticated()">
+									<div class="alert alert-success col-md-5">
+										<sec:authentication property="principal.username" />
+										님 즐감하세요
+									</div>
+								</sec:authorize>
+
                                 </div>
                             </div>
                         </div>
@@ -126,6 +136,5 @@
             </div>
     </div>
 	<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/> "/>
-</body>
-</html>
+
     
