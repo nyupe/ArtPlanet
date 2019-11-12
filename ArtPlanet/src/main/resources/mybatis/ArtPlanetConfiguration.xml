@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <typeAlias alias="MemberDTO" type="com.hansoin5.artplanet.service.MemberDTO"/>
 		 <typeAlias alias="ArtPlanetPayDTO" type="com.hansoin5.artplanet.service.ArtPlanetPayDTO"/>		 
 		 <typeAlias alias="ArtPlanetRecAuthDTO" type="com.hansoin5.artplanet.service.ArtPlanetRecAuthDTO"/>		 
+		 <typeAlias alias="ArtPlanetCancelDTO" type="com.hansoin5.artplanet.service.ArtPlanetCancelDTO"/>		 
 	</typeAliases>
 
 	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 -->	
@@ -23,6 +24,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/Authority.xml" />
 		<!-- 정기인증정보 -->
 		<mapper resource="mybatis/RecAuth.xml" />
+		<!-- 일반결제  취소 -->
+		<mapper resource="mybatis/Cancel.xml"/>
 		
 	</mappers>
 </configuration>

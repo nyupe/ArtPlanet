@@ -9,11 +9,15 @@ import javax.annotation.Resource;
 
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hansoin5.artplanet.service.ArtPlanetPayDTO;
 import com.hansoin5.artplanet.service.ArtPlanetRecAuthDTO;
+import com.hansoin5.artplanet.service.impl.ArtPlanetCancelDAO;
 import com.hansoin5.artplanet.service.impl.ArtPlanetPayDAO;
 import com.hansoin5.artplanet.service.impl.ArtPlanetRecAuthDAO;
 
@@ -26,28 +30,31 @@ public class AdminController {
 	@Resource(name="recAuth")	
 	private ArtPlanetRecAuthDAO recAuthDao;
 	
+	@Resource(name="cancel")
+	private ArtPlanetCancelDAO 	cancelDao;
+	
 	//메뉴 가입회원
-	@RequestMapping("AdmUserInfo.ad")
+	@RequestMapping("/AdmUserInfo.ad")
 	public String admUser() {
 		
 		return "admin/admUserInfo";
 	}//////AdmUserInfo.ad
 	
 	//메뉴 일반결제-취소가능
-	@RequestMapping("AdmUserPay.ad")
+	@RequestMapping("/AdmUserPay.ad")
 	public String admPay() {
 		
 		return "admin/admPay";
 	}//////AdmUserPay.ad
 	
 	//메뉴 정기결제-배치키
-	@RequestMapping("AdmUserBatch.ad")
+	@RequestMapping("/AdmUserBatch.ad")
 	public String admBatch() {
 		return "admin/admBatchKey";
 	}//////AdmUserBatch.ad
 	
 	//메뉴 정기결제
-	@RequestMapping("AdmUserRecPay.ad")
+	@RequestMapping("/AdmUserRecPay.ad")
 	public String admReccuring() {
 		return "admin/admRecurring";
 	}//////AdmUserPay.ad
@@ -60,6 +67,7 @@ public class AdminController {
 	@RequestMapping(value="AdmUserPayList.ad",produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String admPayList() {
+		//cancelButtonShow
 		//비지니스 로직 호출]
 			Map map = new HashMap();
 			map.put("start",1);
@@ -89,6 +97,7 @@ public class AdminController {
 				record.put("app_time",dto.getApp_time());
 				record.put("app_no",dto.getApp_no());
 				record.put("memberno",dto.getMemberno());
+				record.put("isCanceled",cancelDao.cancelButtonShowCount(dto.getTno()));
 				
 				
 				collections.add(record);
@@ -105,7 +114,7 @@ public class AdminController {
 [{"app_time":"20191106220723","memberno":5,"amount":30000,"tno":"19940928719018","card_name":"롯데카드","buyr_name":"아트플래닛","app_no":"18849194","ordr_idxx":"TEST201911061573045462216","good_name":"강좌결제테스트상품 ","buyr_tel2":"010-0000-0000","buyr_tel1":"02-0000-0000","buyr_mail":"rlawq@naver.com"},{"app_time":"20191106230620","memberno":8,"amount":30000,"tno":"19940928719407","card_name":"롯데카드","buyr_name":"아트플래닛","app_no":"86503020","ordr_idxx":"TEST201911061573049030968","good_name":"강좌결제테스트상품 ","buyr_tel2":"010-0000-0000","buyr_tel1":"02-0000-0000","buyr_mail":"abc@seungchan.kr"}]
 			 */	
 			System.out.println(JSONArray.toJSONString(collections));
-	
+			//model.addAttribute("cancelButtonShow",cancelDao.cancelButtonShowCount());
 			return JSONArray.toJSONString(collections);
 		}////////////////////AdmUserPayList.ad
 	

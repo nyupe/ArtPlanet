@@ -311,7 +311,9 @@
             <input type="hidden" name="app_no"     value="<%= app_no     %>">  <!-- 승인번호 -->
             <input type="hidden" name="quota"      value="<%= quota      %>">  <!-- 할부개월 -->
             <input type="hidden" name="noinf"      value="<%= noinf      %>">  <!-- 무이자여부 -->
-
+			
+			 <!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
         </form>
     </body>
     </html>

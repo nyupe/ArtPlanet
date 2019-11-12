@@ -34,7 +34,7 @@ public class ArtPlanetPayDAO {
 			return template.selectList("paySelectlist", map);
 		}
 		
-		//총 레코드수
+		//총 레코드수 사용안하는중. 쿼리는 맞은상태
 		public int payCount() {
 			return template.selectOne("payCounter");
 		}

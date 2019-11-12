@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -8,8 +11,9 @@
     <meta http-equiv="X-UA-Compatible" content="text/html;charset=utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
   <link
-   href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">  
+   href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">
 </head>
 
 
@@ -197,23 +201,85 @@
 	<!-- 케로 관리자UI -->
    	<div class="app-container app-theme-gray">
 		  <div class="app-main">
+      <!-- 왼쪽바 시작 -->
             <div class="app-sidebar-wrapper">
                 <div class="app-sidebar sidebar-shadow">
                 
-                <div class="app-header__logo">
+                	<div>
+                	<a class="navbar-brand logo_h" href="<c:url value='/Search/Artwork'/>"><img style="width: 200px; height: 86px;"
+					src="<c:url value='/resources/img/logo.png'/>" alt="logo"></a>
+					
                         <a href="#" data-toggle="tooltip" data-placement="bottom" title="KeroUI Admin Template" class="logo-src"></a>
+                        <!-- 햄버거 네줄 
                         <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
                                 <span class="hamburger-box">
                                     <span class="hamburger-inner"></span>
                                 </span>
                         </button>
+                         -->
                     </div>
-                    <div class="scrollbar-sidebar scrollbar-container">
+                    
+                      <div class="scrollbar-sidebar scrollbar-container">
                         <div class="app-sidebar__inner">
-                     	</div>
-                     </div>
-                  </div>
-              </div><!-- side bar -->
+                            <ul class="vertical-nav-menu">
+                                <li class="app-sidebar__heading">Admin Menu</li>
+                                  <li class="mm-active">
+      
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        	회원관리
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    
+                                    <ul>          
+                                        <li><a href="AdmUserInfo.ad">가입회원</a></li>
+
+                                    </ul>
+                                 
+                                  </li>
+                                 
+                                 <!-- 작품관리 -->
+                                  <li class="mm-active">
+      
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        	결제관리
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    
+                                    <ul>          
+                                     	<li><a href="AdmUserPay.ad">일반결제-취소가능</a></li>
+                                     	<li><a href="AdmUserPay.ad">정기결제-배치키</a></li>
+                                        <li><a href="AdmUserRecPay.ad">정기결제</a></li>
+                                    </ul>
+                                 
+                                  </li>
+                                 
+                                  <!-- 결제관리 -->
+                                  <li class="mm-active">
+      
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        	작품관리
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    
+                                    <ul>          
+                                       <li><a href="">프로젝트</a></li>
+                                       <li><a href="">클래스</a></li>
+                                    </ul>
+                                 
+                                  </li>
+                                 
+                                                                        
+                                      
+                            </ul>
+                     		</div><!-- 앱 사이드바 이너 -->
+                     	</div><!-- 스크롤바 사이드바 스크롤바 컨테이너 -->
+                     
+                     
+                 	 </div><!-- 앱 사이드바 사이드바 섀도우 -->
+              </div><!-- side bar 앱 사이드바 래퍼 -->
               
               <!-- 여기 -->
                <div class="app-main__outer">
@@ -250,6 +316,7 @@
     out.println( "쿠폰 금액: "      + coupon_mny + "<br>");
     out.println( "취소 시간: "  	+ canc_time  + "<br>");
     out.println( "결과메세지 : "    + res_msg    + "<p>");
+    
     }
  else if ( res_cd.equals( "0000" ) && mod_type.equals( "STPC"))
     {
@@ -277,7 +344,37 @@ else
 /* =   07. 취소 결과 출력 END                                                   = */
 /* ============================================================================== */
 %>     											
-     											
+     					
+     					
+</div>
+ 					
+ 									
+
+<%
+	System.out.println(tno);
+	System.out.println(res_cd);
+	System.out.println(res_msg);
+%>
+								
+     									<form id="cancelSave" action="CancelSave.do" method="post">
+  											
+  											<input type="hidden" name="tno" id="tno" value="<%=tno%>">
+  									
+ 											<input type="hidden" name="res_cd" id="res_cd" value="<%=res_cd%>">
+ 											<input type="hidden" name="res_msg" id="res_msg" value="<%=res_msg%>">
+ 											<input type="hidden" name="memberno" id="memberno"">
+ 										 	
+ 										 	<input type="submit" value="Submit">
+ 										 
+ 											<!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+ 										 
+										</form>
+     									
+     									<script type="text/javascript">
+											this.document.getElementById("cancelSave").submit();
+										</script>
+     									
                                                     </div><!-- card-body -->
                                                  </div><!-- main card mb -->
                                              </div><!-- col md 12 -->

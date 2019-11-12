@@ -44,6 +44,8 @@
 			    $('#'+id).html(tableString);
 			};
 	
+			var abc = $("#number").val()
+			console.log(abc);
 	</script>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
@@ -53,7 +55,7 @@
       <!-- 왼쪽바 시작 -->
             <div class="app-sidebar-wrapper">
                 <div class="app-sidebar sidebar-shadow">
-                
+                <input type="hidden" value="${cancelButtonShow}" id="number"/>
                 	<div>
                 	<a class="navbar-brand logo_h" href="<c:url value='/Search/Artwork'/>"><img style="width: 200px; height: 86px;"
 					src="<c:url value='/resources/img/logo.png'/>" alt="logo"></a>
@@ -80,9 +82,8 @@
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
                                     
-                                    <ul>          
-                                        <li><a href="AdmUserInfo.ad">가입회원</a></li>
-
+                                  <ul>          
+                                        <li><a href="<c:url value='/AdmUserInfo.ad'/>">가입회원</a></li>
                                     </ul>
                                  
                                   </li>
@@ -97,12 +98,12 @@
                                     </a>
                                     
                                     <ul>          
-                                     	<li><a href="AdmUserPay.ad">일반결제-취소가능</a></li>
-                                     	<li><a href="AdmUserPay.ad">정기결제-배치키</a></li>
-                                        <li><a href="AdmUserRecPay.ad">정기결제</a></li>
+                                     	<li><a href="<c:url value='/AdmUserPay.ad'/>">일반결제-취소가능</a></li>
+                                     	<li><a href="<c:url value='/AdmUserBatch.ad'/>">정기결제-배치키</a></li>
+                                        <li><a href="<c:url value='/RecurringPayOrder.do'/>">정기결제-소량결제</a></li>
+                                        <li><a href="<c:url value='/AdmUserRecPay.ad'/>">정기결제-결제내역</a></li>
+                                        
                                     </ul>
-                                 
-                                  </li>
                                  
                                   <!-- 결제관리 -->
                                   <li class="mm-active">
