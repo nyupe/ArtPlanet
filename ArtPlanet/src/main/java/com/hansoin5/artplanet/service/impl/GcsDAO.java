@@ -21,15 +21,14 @@ public class GcsDAO
 	{
 		return template.insert("editor-uploadImage",map);
 	}
-	public int blogUploadImage(Map map)
+	public int uploadImage(Map map)
 	{
-		return template.insert("blog-uploadImage",map);
+		return template.insert("uploadImage",map);
 	}
-<<<<<<< HEAD
 	public List<GcsDTO> getListByClass(Map map)
 	{
 		return template.selectList("artclass-getImages",map);
-=======
+	}
 	public String getFileNoByURL(String fileUrl)
 	{
 		return template.selectOne("getFileNoByURL", fileUrl);
@@ -37,6 +36,5 @@ public class GcsDAO
 	public int updateBlogNo(Map map)
 	{
 		return template.update("updateBlogNo", map);
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	}
 }
