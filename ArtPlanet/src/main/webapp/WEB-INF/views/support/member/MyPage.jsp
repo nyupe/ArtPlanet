@@ -1,151 +1,127 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
+<!-- 아이디 얻어서 var에 지정한 변수 id저장 -->
+<sec:authentication property="principal.username" var="id" />
 
-  
- 
-  
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet"></head>
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.1/dist/Chart.min.js"></script>
-  
-  <script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>"></script>
+<script>
 
-  <script>
-	$(//진입점 window.onload()와 같음
+	$(function(){ // 진입점 시작
+		
 		$.ajax({
-		    url: 'JsData.js',
-		    dataType: "script",
-		    type: "get",
-		    success: function (data) { MyAlert('Hello ','World'); },
-		    error: err
-			
+			url:"<c:url value='/GetMeberInfo'/>",
+			dataType:'json',
+			type: "get",
+			data:{id:"${id}"},
+			success:displayUserProfile
+		})/////ajax
+	})// 진입점 끝
+	
+	
+	var displayUserProfile = function(data){
 
-		}),
-
-		function(){//무명 메서드
-			$('#user_name').html("");
-		}
-		
-	);
-	
-</script>	
-	
-	
-	  
-  <style>
- 	.jumbotron{
-		   
-		   padding:0px;
-		   background-color: white;
-		   
+		$('#user_id').html(data.user_id)
+		$('#user_name').html(data.user_name)
+		$('#user_nickName').html(data.user_nickName)
+		$('#user_phoneNumber').html(data.user_phoneNumber)
+		$('#user_address').html(data.user_address)
 	}
-  </style>
-  
-  
-
-<div class="app-header"></div>
-<div class="jumbotron" style="" >
-	<div class="container">
-	<%--<div class="row" />
-			<div class="col" >
-				<img   class="img-fluid" src="<c:url value='/resources/img/logo.png'/>" alt="로고이미지" />
-			</div>
-			<div class="col" align="right" style="vertical-align: bottom;">
-					<div style="margin: 10px">
-						<h1 style="margin: 25px">내정보</h1>
-					</div>
-			</div>
-		</div> --%>
-		<div class="row">
-			<div class="col">
-				<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-				  <a class="navbar-brand" href="#">내정보</a>
-				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-				    <span class="navbar-toggler-icon"></span>
-				  </button>
-				  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-				    <ul class="navbar-nav">
-				      <li class="nav-item">
-				        <a class="nav-link" href="#">회원정보</a>
-				      </li>
-				      <li class="nav-item">
-				        <a class="nav-link" href="#">구독정보</a>
-				      </li>
-				      <li class="nav-item">
-				        <a class="nav-link" href="#">문의사항</a>
-				      </li>    
-				    </ul>
-				  </div>  
-				</nav>
-			</div>
-		</div>
-	</div>
+	
+</script>
 
 
+<!-- 내정보 카드 -->	
+<div class="container" style="padding-top: 200px; margin-bottom: 150px">
 
-
-
-	<!-- 내정보 카드 -->	
-	<div class="container" style="margin-top:100px">
-  
-		<div class="row" style="margin-bottom: 50px">
-			<div class="col" align="center" style="margin-bottom: 50px">
-				<div class="card" style="width: 500px">
-					<div class="card-body">
-						<img src="" alt="프로필사진" />
-						<span id="user_name"></span>
-						<h4 class="card-title">무슨무슨(이름)님 프로필</h4>
-						<p class="card-text">성함 : <br>아이디: <br>닉네임: <br>핸드폰 번호: <br>주소:</p>						<a href="#" class="btn btn-primary">내정보 수정</a> 
-						<a href="#" class="btn btn-primary">회원탈퇴</a>
-					</div>
-				</div>
-			</div>
-			
-			<div class="col" align="center">
-				<div class="card" style="width: 500px">
-					<div class="card-body">
-						<h4 class="card-title">최근 게시물</h4>
-						<p class="card-text">여기에 최근 게시물 뿌려줘야함 사진 4~5개 사진 누르면 상세보기 모달창으로 띄워줄것</p>
-						<a href="#" class="btn btn-primary">내 블로그로 가기</a>
-					</div>
+	<div class="row" style="margin-bottom: 50px">
+	
+		<div class="col-md-6" align="center" style="margin-bottom: 50px">
+			<div class="card" style="width: 500px">
+				<div class="card-body">
+					<img src="" alt="프로필사진" />
+					<h4 class="card-title"><span id="user_name"></span>님 프로필</h4>
+					<p class="card-text">
+						아이디:<span id="user_id"></span><br>
+						닉네임:<span id="user_nickName"></span><br>
+						핸드폰 번호:<span id="user_phoneNumber"></span><br>
+						주소:<span id="user_address"></span>
+					</p>						
+					<a href="#" class="btn btn-primary">내정보 수정</a> 
+					<a href="#" class="btn btn-primary">회원탈퇴</a>
 				</div>
 			</div>
 		</div>
 		
-		<div class="row">
-			<div class="col" align="center" style="margin-bottom: 50px">
-				<div class="card" style="width: 500px">
-					<div class="card-body">
-						<h4 class="card-title">최근 구독 및 수입 현황</h4>
-						<p class="card-text">월별 구독자 수</p>
-						<canvas id="myChart" width="100" height="100"></canvas>
-						<a href="#" class="btn btn-primary">구독 및 수입 현황 상세보기</a>
-					</div>
+		<div class="col-md-6" align="center">
+			<div class="card" style="width: 500px">
+				<div class="card-body">
+					<h4 class="card-title">최근 게시물</h4>
+					<p class="card-text">여기에 최근 게시물 뿌려줘야함 사진 4~5개 사진 누르면 상세보기 모달창으로 띄워줄것</p>
+					<a href="#" class="btn btn-primary">내 블로그로 가기</a>
 				</div>
 			</div>
-			
-			<div class="col" align="center">
-				<div class="card" style="width: 500px">
-					<div class="card-body">
-						<h4 class="card-title">여긴 채팅형식으로 메시지함?</h4>
-						<p class="card-text"></p>
-						<a href="#" class="btn btn-primary">메시지함으로 이동</a>
-					</div>
-				</div>
-			</div>
+		</div>
+		
 	</div>
+	
+	<div class="row">
+	
+		<div class="col-md-6" align="center" style="margin-bottom: 50px">
+			<div class="card" style="width: 500px">
+				<div class="card-body">
+					<h4 class="card-title">최근 구독 및 수입 현황</h4>
+					<p class="card-text">월별 구독자 수</p>
+					<canvas id="myChart" width="100" height="100"></canvas>
+					<a href="#" class="btn btn-primary">구독 및 수입 현황 상세보기</a>
+				</div>
+			</div>
+		</div>
+		
+		<div class="col-md-6" align="center">
+			<div class="card" style="width: 500px">
+				<div class="card-body">
+					<h4 class="card-title">여긴 채팅형식으로 메시지함?</h4>
+					<p class="card-text"></p>
+					<a href="#" class="btn btn-primary">메시지함으로 이동</a>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	
 </div>
 
-<div><br><br><br></div>
-<div class="jumbotron text-center" style="margin-bottom:0; padding: 0;">
-  <p>Copyright © ArtPlanet 2019</p>
-</div>
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/chart.js@2.9.1/dist/Chart.min.js"></script>
+
+
+<script>
+	$(//진입점 window.onload()와 같음
+	$.ajax({
+		url : 'JsData.js',
+		dataType : "script",
+		type : "get",
+		success : function(data) {
+			MyAlert('Hello ', 'World');
+		},
+		error : function(data){
+			alert('차트에러 발생')
+		}
+	}),
+
+	function() {//무명 메서드
+		$('#user_name').html("");
+	}
+
+	);
+</script>
+
+
 
 
 

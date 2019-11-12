@@ -9,15 +9,19 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 	
 		 <typeAlias alias="MemberDTO" type="com.hansoin5.artplanet.service.MemberDTO"/>
+		 <!-- <typeAlias alias="BlogPostDTO" type="com.hansoin5.artplanet.service.BlogPostDTO"/> -->
 		 <typeAlias alias="ArtPlanetPayDTO" type="com.hansoin5.artplanet.service.ArtPlanetPayDTO"/>		 
 		 <typeAlias alias="ArtPlanetRecAuthDTO" type="com.hansoin5.artplanet.service.ArtPlanetRecAuthDTO"/>		 
 		 <typeAlias alias="ArtPlanetCancelDTO" type="com.hansoin5.artplanet.service.ArtPlanetCancelDTO"/>		 
+		 <typeAlias alias="ArtPlanetRecAuthDTO" type="com.hansoin5.artplanet.service.ArtPlanetRecAuthDTO"/>
 	</typeAliases>
 
 	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 -->	
 	<mappers>
 		<!-- 용주 회원관리 -->
 		<mapper resource="mybatis/Member.xml" />
+		<!-- 블로그 게시판 -->
+		<!-- <mapper resource="maybatis/BlogPost.xml" /> -->
 		<!-- 결제정보 -->
 		<mapper resource="mybatis/PayInfo.xml" />
 		<!-- 권한정보  -->

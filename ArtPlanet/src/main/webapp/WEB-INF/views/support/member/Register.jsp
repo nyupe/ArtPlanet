@@ -9,16 +9,7 @@
 			.format(new Date())); // 요청번호 생성 예제
 	boolean flag = false;			
 %>
-<!doctype html>
-<html lang="en">
-<head>
-    <title>Register page</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
-    <meta name="description" content="Kero HTML Bootstrap 4 Dashboard Template"/>
+
     
     <!-- 제이쿼리 코어 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -291,40 +282,19 @@
 					else $("#btnRegister").prop("disabled", false); 
 				}	
 		) */
-		
-		 
-		
 	</script>		
 	
-    <!-- Disable tap highlight on IE -->
-    <meta name="msapplication-tap-highlight" content="no">
-		
-	<!-- 기존 kero CSS -->
-	<link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet">
-	
-	
-		
-<body>	
-   		<div style="margin-top: 200px;" class="app-container app-theme-white body-tabs-shadow">
-           	<div class="app-container">
-               	<div class="h-100">
-                   	<div class="h-100 no-gutters row">
-                       	<div class="h-100 d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 ">
-                        	<div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
-                        	<div class="form-row">
-                        	<!-- 사이트 logo 시작-->
-								<div class="col" align="center" style="margin-bottom: 25px; margin-top: 150px">
+	<div class="container" style="margin-bottom: 150px">	
+           <div class="row">
+      		<div class="col-lg-12 col-md-12">
+        		 <div class="card-body">
+                            <div class="col" align="center" style="margin-bottom: 25px; margin-top: 150px">
                                 	<a href="<c:url value='/Search/Artwork'/>">	<img  class="img-fluid" src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
-                                </div>
-                        	</div>
-                        	<!-- 사이트 logo 끝-->                        		
-                           
-                            <div>
+                            </div>
                             <!-- 회원가입 form 시작 --> 
-							<form method="post"  action="<c:url value='/Register'/>"  >
+							<form method="post"  action="<c:url value='/Register'/>"  enctype="multipart/form-data" >
 								<!-- 스프링 시큐리티 사용시 모든 요청에 반드시 넣어줘야함  -->
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-								<div class="form-row">
 									
 									<!-- ID 입력 필드 시작 -->								
 									<div class="col-md-7 mx-auto">
@@ -455,8 +425,17 @@
 										</div>
 									</div>
 									<!-- 주소 입력 필드 끝 -->
+									
+									<!-- 프로필 사진 입력 필드 시작 -->							
+									<div class="col-md-7 mx-auto">
+										<label for="exampleFile" class="">Profile Picture</label>
+										<input name="profilePicture" id="profilePicture" type="file" class="form-control-file"> 
+									</div>
+									
 								</div>
-								<div style="margin-bottom: 200px" class="col-md-7 mx-auto">
+								
+								
+								<div  class="col-md-7 mx-auto">
 									<div class="mt-3 position-relative form-check">
 										<!-- 체크박스  -->
 										<input name="checkMembershipTerms" value="동의" id="membershipTerms" 
@@ -480,13 +459,10 @@
 								</div>
 							</form>
 							<!-- 회원가입 form 끝  -->
-						</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+       				</div>
+      		 </div>
+       </div>
+	
 
 <!-- Daum 우편번호 서비스 CDN -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -535,7 +511,5 @@
 		}).open();
 	}
 </script>
-<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>"/>
-</body>
-</html>
+
     

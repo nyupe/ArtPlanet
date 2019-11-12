@@ -21,6 +21,10 @@ public class ArtclassController {
 	{
 		return "sub/art_class/Test1.tiles";
 	}
-	
+	@RequestMapping("/View_Input")
+	public String viewinput()
+	{
+		return "sub/art_class/View_Input.tiles";
+	}
 	
 }
