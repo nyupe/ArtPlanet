@@ -1,0 +1,62 @@
+package com.hansoin5.artplanet.service;
+
+public class BlogPostDTO
+{
+	private String blogNo; //글번호
+	private String title; //글제목
+	private String content; //글내용
+	private java.util.Date postDate; //작성일
+	private int viewCount; //조회수
+	private String memberNo; //(작성자)회원번호
+	
+	
+	public String getBlogNo()
+	{
+		return blogNo;
+	}
+	public void setBlogNo(String blogNo)
+	{
+		this.blogNo = blogNo;
+	}
+	public String getTitle()
+	{
+		return title;
+	}
+	public void setTitle(String title)
+	{
+		this.title = title;
+	}
+	public String getContent()
+	{
+		return content;
+	}
+	public void setContent(String content)
+	{
+		this.content = content;
+	}
+	public java.util.Date getPostDate()
+	{
+		return postDate;
+	}
+	public void setPostDate(java.util.Date postDate)
+	{
+		this.postDate = postDate;
+	}
+	public int getViewCount()
+	{
+		return viewCount;
+	}
+	public void setViewCount(int viewCount)
+	{
+		this.viewCount = viewCount;
+	}
+	public String getMemberNo()
+	{
+		return memberNo;
+	}
+	public void setMemberNo(String memberNo)
+	{
+		this.memberNo = memberNo;
+	}
+	
+}

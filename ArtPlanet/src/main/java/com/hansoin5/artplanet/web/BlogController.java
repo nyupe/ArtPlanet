@@ -80,6 +80,7 @@ public class BlogController
 	                .build(),
 	            os.toByteArray());
 	    // return the public download link
+	    System.out.println("blobInfo.getMediaLink() : "+blobInfo.getMediaLink());
 	    return blobInfo.getMediaLink();
 	  }
 	  // [END uploadFile]
@@ -179,12 +180,14 @@ public class BlogController
           System.out.println("업로드 성공");
         return originalFilename;
     }
-    /*
+    
     @ResponseBody
     @RequestMapping(value = "/FileUploadToCloud")
-    public String uploadToCloud() {
-    	
+    public String uploadToCloud(Part filePart) throws IOException {
+    	System.out.println("uploadToCloud 호출");
+    	uploadFile(filePart, "art-planet-storage");
+    	return "SUCCESS!!!!";
     }
-    */
+    
     
 }

@@ -196,7 +196,7 @@ $(document).ready(function(){
      
     function sendFileToServer(formData,status)
     {
-        var uploadURL = "<c:url value='/FileUploadToCloud'/>"; //Upload URL
+        var uploadURL = "<c:url value='/FileUpload'/>"; //Upload URL
         var extraData ={}; //Extra Data.
         var jqXHR=$.ajax({
                 xhr: function() {
@@ -240,7 +240,9 @@ function previewImage(filename) {
 }
 
 function postForm() {
-    $('textarea[name="content"]').val($('#summernote').summernote('code'));
+    var content = $('textarea[name="content"]').val($('#summernote').summernote('code'));
+    $('#post-title').val($('#text-title').val());
+    console.log(content.val());
 }
 var makeTagdiv = function() {
 	if($('#post-tag').val().trim() == '') return false;
@@ -277,25 +279,25 @@ var removeTagdiv = function(e) {
 						<i class="fa fa-fw" aria-hidden="true" title="Copy to use camera"></i> 이미지
 					</div>
 					<div id="fileUpload" class="dragAndDropDiv"><span class="upload-span">여기에 파일을 드래그하세요</span></div>
-					<form>
-						<div class="form-group" style="margin-top:10px;">
-							<input type="text" class="form-control" id="post-title" placeholder="글제목(필수)">
-						</div>
+					
+					<div class="form-group" style="margin-top:10px;">
+						<input type="text" class="form-control" id="text-title" placeholder="글제목(필수)">
+					</div>
+					
+					<div id="summernote"></div>
+					<script>
+						$(document).ready(function() {
+						    $('#summernote').summernote({
+						    	height: 400
+						    });
+						});
+					</script>
+					<div style="font-size:22px; border-bottom: 1px solid #ced4da; margin:10px -10px 10px -10px; padding-left: 10px; padding-bottom: 5px;">
+					<i class="fa fa-fw" aria-hidden="true" title="Copy to use tags"></i> 태그
+					<div class="clear"></div>
+						<input type="text" class="form-control" id="post-tag" onkeypress="if( event.keyCode==13 ){makeTagdiv();}" placeholder="태그 추가.." >
+					</div>
 						
-						<div id="summernote"></div>
-						<script>
-							$(document).ready(function() {
-							    $('#summernote').summernote({
-							    	height: 400
-							    });
-							});
-						</script>
-						<div style="font-size:22px; border-bottom: 1px solid #ced4da; margin:10px -10px 10px -10px; padding-left: 10px; padding-bottom: 5px;">
-						<i class="fa fa-fw" aria-hidden="true" title="Copy to use tags"></i> 태그
-						<div class="clear"></div>
-							<input type="text" class="form-control" id="post-tag" onkeypress="if( event.keyCode==13 ){makeTagdiv();}" placeholder="태그 추가.." >
-						</div>
-					</form>				
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -306,16 +308,19 @@ var removeTagdiv = function(e) {
 							<form role="form" method="post" onsubmit="postForm()">
 								<div class="radio" style="padding-left: 20px; padding-top:10px;">
 									<label style="font-size: 20px;">
-										<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"
-										style="width:20px;height:20px;border:1px;" checked/>모두</label>
+										<input type="radio" name="authRadio" id="authRadioPublic" value="0"
+										style="width:20px;height:20px;border:1px;" checked/>모두
+									</label>
 								</div>
 								<div class="radio" style="padding-left: 20px;">
 									<label style="font-size: 20px;">
-										<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2"
-										style="width:20px;height:20px;border:1px;"/>구독자만</label>
+										<input type="radio" name="authRadio" id="authRadioPrivate" value="1"
+										style="width:20px;height:20px;border:1px;"/>구독자만
+									</label>
 								</div>
+								<input type="hidden" class="form-control" name="title" id="post-title">
 								<textarea name="content" style="display: none"></textarea>
-								<button class="button rounded-0 primary-bg text-white w-100"
+								<button id="btnSubmit" class="button rounded-0 primary-bg text-white w-100"
 								 style="border-radius: 5px !important;" type="submit">작성 완료</button>
 							</form>
 						</div>						

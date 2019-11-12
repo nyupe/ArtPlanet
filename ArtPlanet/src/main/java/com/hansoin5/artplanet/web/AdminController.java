@@ -52,6 +52,10 @@ public class AdminController {
 		return "admin/admRecurring";
 	}//////AdmUserPay.ad
 	
+	
+	
+	
+	
 	//일반결제 데이터 AJAX뿌려주기
 	@RequestMapping(value="AdmUserPayList.ad",produces = "text/html; charset=UTF-8")
 	@ResponseBody
@@ -60,6 +64,7 @@ public class AdminController {
 			Map map = new HashMap();
 			map.put("start",1);
 			map.put("end",10);
+			
 			List<ArtPlanetPayDTO> list=dao.paySelectlist(map);
 			//[{},{},{},{}]형태로 반환
 			
@@ -89,12 +94,18 @@ public class AdminController {
 				collections.add(record);
 			}
 			/*
+			Map map2 = new HashMap();
+			map2.put("payCounter", dao.payCount());
+			
+			collections.add(map2);
+			*/
+			/*
 			 * ※아래 형태로 반환됨
 			 * [{"app_time":"20191106220723","memberno":5,"amount":30000,"tno":"19940928719018","card_name":"롯데카드","buyr_name":"아트플래닛","app_no":"18849194","ordr_idxx":"TEST201911061573045462216","good_name":"강좌결제테스트상품 ","buyr_tel2":"010-0000-0000","buyr_tel1":"02-0000-0000","buyr_mail":"rlawq@naver.com"},{"app_time":"20191106230620","memberno":8,"amount":30000,"tno":"19940928719407","card_name":"롯데카드","buyr_name":"아트플래닛","app_no":"86503020","ordr_idxx":"TEST201911061573049030968","good_name":"강좌결제테스트상품 ","buyr_tel2":"010-0000-0000","buyr_tel1":"02-0000-0000","buyr_mail":"abc@seungchan.kr"}]
 [{"app_time":"20191106220723","memberno":5,"amount":30000,"tno":"19940928719018","card_name":"롯데카드","buyr_name":"아트플래닛","app_no":"18849194","ordr_idxx":"TEST201911061573045462216","good_name":"강좌결제테스트상품 ","buyr_tel2":"010-0000-0000","buyr_tel1":"02-0000-0000","buyr_mail":"rlawq@naver.com"},{"app_time":"20191106230620","memberno":8,"amount":30000,"tno":"19940928719407","card_name":"롯데카드","buyr_name":"아트플래닛","app_no":"86503020","ordr_idxx":"TEST201911061573049030968","good_name":"강좌결제테스트상품 ","buyr_tel2":"010-0000-0000","buyr_tel1":"02-0000-0000","buyr_mail":"abc@seungchan.kr"}]
 			 */	
 			System.out.println(JSONArray.toJSONString(collections));
-			
+	
 			return JSONArray.toJSONString(collections);
 		}////////////////////AdmUserPayList.ad
 	

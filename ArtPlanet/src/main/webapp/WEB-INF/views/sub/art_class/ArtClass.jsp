@@ -59,6 +59,24 @@ margin: 0px;
 
 </style>
 
+<script>
+$(function(){
+	
+	$(document).ready(function(){
+		$("#national a").click(function(e){
+		e.preventDefault();
+		var category = $(this).attr("title");
+		$("#category li").fadeOut("slow");
+		if(national == "all"){$("#category li").fadeIn("slow");}
+		else{$("#category li[class*="+national+"]").fadeIn("slow");}
+		});
+		});
+
+		
+});
+
+</script>
+
 
 		<section class="portfolio_area area-padding" id="portfolio" >
 			<div class="container" style="max-width:1700px" >
@@ -165,14 +183,14 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 			  <div class="filters portfolio-filter"    >			
 				 <div class="dropdown d-inline-block"  >
 				     <ul >
-                        <button type="button" aria-haspopup="true"
+                        <button  type="button" aria-haspopup="true"
                                   aria-expanded="false"
                                   data-toggle="dropdown"
                                   class="mb-2 mr-2 dropdown-toggle btn btn-outline-primary">
                                   	지역별
                           </button>
                           
-                          <div tabindex="-1" role="menu" aria-hidden="true"
+                          <div id=national  tabindex="-1" role="menu" aria-hidden="true"
                                class="dropdown-menu" >
                               <button  type="button" tabindex="1"
                                       class="dropdown-item">
@@ -245,7 +263,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
                                                           카테고리
                           </button>
                           	<ul class="menu">
-                          <div tabindex="-1" role="menu" aria-hidden="true"
+                          <div id=category tabindex="-1" role="menu" aria-hidden="true"
                                class="dropdown-menu">
                               <button type="button" tabindex="0"
                                       class="dropdown-item">
