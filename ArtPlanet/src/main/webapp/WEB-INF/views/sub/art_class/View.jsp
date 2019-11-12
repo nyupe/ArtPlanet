@@ -796,15 +796,16 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 												<form name='form' style="right: 10px;bottom: 8px; position: relative">
 													<table style="margin: 10px;">
 														<td>인원</td>
-														<td><input type='text' name='count' value='1' size='3'
+														<td><input id="pricount" type='text' name='count' value='1' size='3'
 															readonly></td>
-														<td><a href='#' onclick='javascript_:change(1);'>▲</a><br>
-															<a href='#' onclick='javascript_:change(-1);'>▼</a> </td>
+														<td><a href='#' onclick='change(1);'>▲</a><br>
+															<a href='#' onclick='change(-1);'>▼</a> </td>
 													</table>
 												
 												</form>
 															<form style="position: relative; left: 20px;bottom: 8px; ">    
-												                       합계:<input type="text" value="30000원" style="position: relative; left: 20px;" />
+												                       합계:<input type="text" id="classPrice" value="30000원" style="position: relative; left: 20px;" />
+												                      
 															</form>
                                                         </div>
                                                         <div data-parent="#accordion" id="collapseOne3" class="collapse">
@@ -812,6 +813,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
                                                             </div>
                                                         </div>
                                                     </div>
+                                                     	<input type="text" id="classValue" style="visibility: hidden;" value=30000 />
                                                 </div>
                                             
 	                                            <!-- accordion  end -->              
@@ -977,13 +979,32 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 		var div = document.form
 	}
 </script>
-<script language='javascript'>
+<script >
 	function change(num) {
-		var x = document.form;
-		var y = Number(x.count.value) + num;
-		if (y < 1)
-			y = 1;
-		x.count.value = y;
+		
+		var value = $('#classValue').val();
+		var counter = $('#pricount').val();
+		
+		if(num == 1){
+			counter++;
+			//alert((counter*value));
+			document.getElementById("pricount").value = counter;
+			document.getElementById("classPrice").value=(counter*value)+"원";
+		}
+		else
+		{
+			counter--;
+			
+			if(counter<=0){
+		        
+			}
+			//alert((counter*value));
+			document.getElementById("pricount").value = counter;
+			document.getElementById("classPrice").value=(counter*value)+"원";
+			
+		}
+		
+		
 	}
 </script>
 
