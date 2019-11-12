@@ -17,12 +17,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	<insert id="editor-uploadImage" parameterType="java.util.Map">
 		INSERT INTO gcs(fileNo, fileName, fileUrl, downloadUrl, fileSize)
-			VALUES(SEQ_gcs_fileNo.NEXTVAL, #{fileName}, #{downloadUrl}, #{fileUrl}, #{fileSize})
+			VALUES(SEQ_gcs_fileNo.NEXTVAL, #{fileName}, #{fileUrl}, #{downloadUrl}, #{fileSize})
 	</insert>
 	
 	<insert id="blog-uploadImage" parameterType="java.util.Map">
 		INSERT INTO gcs(fileNo, fileName, fileUrl, downloadUrl, fileSize, blogNo)
-			VALUES(SEQ_gcs_fileNo.NEXTVAL, #{fileName}, #{downloadUrl}, #{fileUrl}, #{fileSize}, #{blogNo})
+			VALUES(SEQ_gcs_fileNo.NEXTVAL, #{fileName}, #{fileUrl}, #{downloadUrl}, #{fileSize}, #{blogNo})
 	</insert>
 	
+	
+	<!-- <insert id="artclass-uploadImage" parameterType="java.util.Map">
+		INSERT INTO gcs(fileNo, fileName, fileUrl, downloadUrl, fileSize, classNo)
+			VALUES(SEQ_gcs_fileNo.NEXTVAL, #{fileName}, #{fileUrl}, #{downloadUrl}, #{fileSize}, #{classNo})
+	</insert> -->
+	
+	<select id="artclass-getImages">
+		SELECT * FROM gcs WHERE classNo=#{classNo}
+	</select>
 </mapper>

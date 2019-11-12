@@ -397,6 +397,9 @@ var removeTagdiv = function(e) {
 						success: function(data)
 			            {
 							console.log(data);
+							$(data).each(function() {
+							
+							});
 			            }
 
 					})

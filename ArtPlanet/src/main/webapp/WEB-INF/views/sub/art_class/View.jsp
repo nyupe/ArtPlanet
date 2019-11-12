@@ -176,6 +176,49 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 }
 </style>
 
+
+<!-- 
+<!--로그인시 버튼 수정 삭제  
+<script>
+	$(function(){
+		
+		//페이지 로드시 코멘트 목록 뿌려주기]
+		showComment();
+		
+		
+		//코멘트 입력및 수정처리]
+		$('#submit').click(function(){
+			if($(this).val()=='등록')
+				var action="<c:url value='/MemoComment/BBS/Write.bbs'/>";
+			else
+				var action="<c:url value='/MemoComment/BBS/Edit.bbs'/>";	
+			//ajax로 요청]
+			$.ajax({
+				url:action,
+				data:$('#frm').serialize(),
+				dataType:'text',
+				type:'post',
+				success:function(data){
+					console.log(data);
+					//등록한후 현재 모든 댓글 뿌려주기
+					showComment();
+					//입력댓글 클리어 및 포커스 주기
+					$('#title').val('');
+					$('#title').focus();
+					//글 수정후 등록버튼으로 다시 교체하기
+					if($('#submit').val()=='수정')
+						$('#submit').val('등록');
+				}				
+			});	
+			
+		});//#submit
+</script>
+ -->
+
+<!--로그인시 버튼 수정 삭제 끝 -->
+
+
+
 <!-- Stylesheets -->
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass/css/plugins.css'/>">
@@ -206,15 +249,15 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 
 	<div class="container">			
 									
-								<a href="<c:url value='/View_Input'/>">  
-								<input type="button" value="입력" > </a>
+								
 		<div class="row">
 
 			<div class="col-lg-6 col-md-6 col-sm-12">
 
-				<div class="food__menu__container" style="position: relative;top: 70px;left: 50px;">
+				<div class="food__menu__container" style="position: relative;top: 5%;left: 5%;">
 
 					<div class="carousel-inner mySlides">
+					
 						<div class="carousel-item active" >
 
 
@@ -488,7 +531,18 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 
 			<div class="col-lg-4 col-md-12 col-sm-14 md--mt--40 sm--mt--40"
 				style="left: 150px;">
-
+                         			    <!-- 수정 삭제 버튼 -->
+                          <div class="col-lg-10" style="left: 40%;">
+                           <a href="<c:url value='/View_Input'/>">  
+                            <button class="mb-2 mr-2 btn-icon btn-pill btn btn-outline-primary">
+                               <i class="pe-7s-tools btn-icon-wrapper"> </i>수정하기
+                            </button></a>
+                                                     
+                            <button class="mb-2 mr-2 btn-icon btn-pill btn btn-outline-danger">
+                                <i class="pe-7s-trash btn-icon-wrapper"> </i>삭제하기
+                            </button>
+                          </div>
+                          				<!-- 수정 삭제 버튼 -->
 				<!--================Banner Area =================-->
 
 				<div class="food__category__area mt--60">
@@ -1077,3 +1131,13 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 	});
 </script>
 <!-- 맵끝 -->
+<!-- 삭제 처리 -->
+<script>		
+   		function isDelete(){
+   			if(confirm("정말로 삭제 하시겠습니까?")){
+   				location.replace("<c:url value='/OneMemo/BBS/Delete.jsp?no=${record.no}'/>");
+   			}
+   		}  
+   		
+</script>
+<!-- 삭제 처리  끝-->

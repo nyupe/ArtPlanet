@@ -55,28 +55,79 @@ margin: 0px;
 }	
 
 
-
+.search-inner {
+		background-color: #fff;
+	}
+#search_input {
+		width: 45%;
+		color: #1a1d24;
+		display: inline-block;
+	}
 
 </style>
 
 <script>
 $(function(){
 	
-	$(document).ready(function(){
+	/*  $(document).ready(function(){
 		$("#national a").click(function(e){
 		e.preventDefault();
 		var category = $(this).attr("title");
 		$("#category li").fadeOut("slow");
 		if(national == "all"){$("#category li").fadeIn("slow");}
 		else{$("#category li[class*="+national+"]").fadeIn("slow");}
-		});
-		});
-
+		});  */
 		
-});
+	
+	
+	$.ajax({
+	        type    :   "get",
+	        url     :   "<c:url value='/getClassList'/>", 
+	        dataType:   "json",
+	         success :   function(data) {
+	        				console.log(data);
+	        				
+	        //var list= "<a href='<c:url value='/View'/>' class='block-5'
+	       //style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">"			
+	       // var list = "<div class='text'>"		
+	         var list = "<div class='text'>"
+	        $.each(data, function(index,element){
+	        	
+	        		
+	        		list+= "<h3 class=heading>"+element['categoryNo']+"</h3>"+"<div class='post-meta'><span>장소:"+element['classAddress']+"</span></div>"+
+	        		"<p><span class='price'>"+element['tuitionFee']+"</span></p>"
+	        		 
+	        	   
+	        		list+= "</div>";
+	        	}
+	        );//.each			
+	    		// list=	"</a>"; 
+	        $('#listInfo').html(list);
+	        }             
+	    });	//ajax
+	
+});// function
+
 
 </script>
+<!--  
+						<a href="<c:url value='/View'/>" class="block-5"
+							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
 
+							<div class="text">
+
+								<h3 class="heading">페인팅</h3>
+								<div class="post-meta">
+									<span>장소:가산디지털단지</span>
+								</div>
+								<p>
+									<span class="price">￦30,000</span>
+								</p>
+								<p>재미있어요</p>
+							</div>
+						</a>
+					</div>
+							-->
 
 		<section class="portfolio_area area-padding" id="portfolio" >
 			<div class="container" style="max-width:1700px" >
@@ -84,15 +135,19 @@ $(function(){
 						<div class="area-heading">
 						 	<h3>당신의 <span>기술과 멋진 경험을</span> 공유하세요.</h3>
                             <p>새로운 분야에 도전하거나, 당신의 기술을 향상시키거나. 어느 것이든 좋습니다.</p>
+                            	<form class="search-inner" action="<c:url value='/Search'/>">
+				<input type="text" class="form-control" id="search_input" placeholder="Search Here">
+				<button type="submit" class="btn"><i class="fas fa-search"></i></button>
+			         </form>					
 							<div class="row no-gutters justify-content-center mb-2 pb-2 ftco-animate">
-																
+										
 								<div class="col-md-7 text-center heading-section">
-						        
+				<!--    	        
 		<video type="video/webm" autoplay loop="" muted="" playsinline="">
   			 <source src="https://player.vimeo.com/external/160999247.sd.mp4?s=193dc7c78332bb051ef5b59b31d076c68ee5d827&profile_id=164"/>
    
 		</video>
-
+-->	
 <!--  
 동영상 주소
 https://player.vimeo.com/external/307814435.hd.mp4?s=112c2d57d192c55a37de507121645654613ec150&profile_id=174
@@ -299,31 +354,47 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
                           
                       </div>
                       </ul> 
+                      <!-- 등록하기 버튼 -->
+                      <a href="<c:url value='/View_Input'/>">  
+                       <button class="btn-wide mb-2 mr-2 btn-pill btn btn-primary" style="left: 75%;">
+                                                                    등록하기</button> </a>
+                     <!-- 등록하기 버튼 끝 -->                                         
 				</div>
 				<!-- 메뉴 바 끝 -->	
 			<div class="col-md-12 filters-content">
 				<div class="row portfolio-grid">
 					<div class="grid-sizer col-md-6 col-lg-3 "></div>
 						<div class="col-md-6 col-lg-3 all illustration  seoul class_content">
-						
+							
 							<a href="<c:url value='/View'/>" class="block-5"
 								style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
 								<div class="text">
-	
-									<h3 class="heading">일러스트레이션</h3>
+								<!--     
+							<c:if test="${empty list }" var="isEmpty">
+					<tr>
+						<td colspan="4">등록된 게시물이 없습니다</td>
+					</tr>
+							</c:if>
+							-->
+								<c:if test="${not isEmpty}">
+					        <c:forEach var="list" items="${list}" varStatus="status">
+									<h3 class="heading">${list.category}</h3>
 									<div class="post-meta">
-										<span>장소:가산디지털단지</span>
+										<span>장소: ${list.classAddress}</span>
 									</div>
 									<p>
-										<span class="price">￦30,000</span>
+										<span class="price">￦ ${list.tuitionFee}</span>
 									</p>
+					        </c:forEach>
+								</c:if>
 									<p>재미있어요</p>
 								</div>
 							</a>
 						</div>
 
 
-					<div class="col-md-6 col-lg-3 all painting  seoul class_content">
+					<div  class="col-md-6 col-lg-3 all painting  seoul class_content">
+	
 						<a href="<c:url value='/View'/>" class="block-5"
 							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
 
@@ -340,12 +411,19 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 							</div>
 						</a>
 					</div>
-
-
+							<!-- ajax 적용 -->
+				<div id="listInfo" class="col-md-6 col-lg-3 all painting  seoul class_content">
+					<a href="<c:url value='/View'/>" class="block-5"
+							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
+					<!-- ajax로 목록 뿌리기 -->
+					</a>
+					
+				</div>
+						<!--  ajax 끝 -->
 					<div class="col-md-6 col-lg-3 all design daejeon class_content">
 						<a href="<c:url value='/View'/>" class="block-5"
 							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
-
+							
 							<div class="text">
 
 								<h3 class="heading">디자인</h3>
@@ -472,8 +550,6 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 <script	src="<c:url value='/resources/artclass2/js/jquery.animateNumber.min.js'/>"></script>
 <script	src="<c:url value='/resources/artclass2/js/bootstrap-datepicker.js'/>"></script>
 <script	src="<c:url value='/resources/artclass2/js/jquery.timepicker.min.js'/>"></script>
-<script	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="<c:url value='/resources/artclass2/js/google-map.js'/>"></script>
 <script src="<c:url value='/resources/artclass2/js/main.js'/>"></script>
 
     
