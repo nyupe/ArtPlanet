@@ -87,22 +87,25 @@ $(function(){
 	         success :   function(data) {
 	        				console.log(data);
 	        				
-	        //var list= "<a href='<c:url value='/View'/>' class='block-5'
+	        var listString;
+	        
 	       //style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">"			
-	       // var list = "<div class='text'>"		
-	         var list = "<div class='text'>"
+	        
 	        $.each(data, function(index,element){
-	        	
+	        		console.log("들어왓나")
 	        		
-	        		list+= "<h3 class=heading>"+element['categoryNo']+"</h3>"+"<div class='post-meta'><span>장소:"+element['classAddress']+"</span></div>"+
+	        		
+	        		listString += "<a title="+element['classNo']+" href='<c:url value="/View"/>?classNo="+element['classNo']+"' class='block-5'>
+	        		+element+['imageUrl']"
+	        		listString += "<div class='text'>"
+	        		listString+= "<h3 class=heading>"+element['categoryNo']+"</h3>"+"<div class='post-meta'><span>장소:"+element['classAddress']+"</span></div>"+
 	        		"<p><span class='price'>"+element['tuitionFee']+"</span></p>"
-	        		 
-	        	   
-	        		list+= "</div>";
+	        		listString+= "</div>";
+	        		listString+="</a>";
 	        	}
 	        );//.each			
-	    		// list=	"</a>"; 
-	        $('#listInfo').html(list);
+	    		  
+	        $('#listInfo').html(listString);
 	        }             
 	    });	//ajax
 	
@@ -413,9 +416,10 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 					</div>
 							<!-- ajax 적용 -->
 				<div id="listInfo" class="col-md-6 col-lg-3 all painting  seoul class_content">
+				
 					<a href="<c:url value='/View'/>" class="block-5"
 							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
-					<!-- ajax로 목록 뿌리기 -->
+						<!-- ajax로 목록 뿌리기  -->
 					</a>
 					
 				</div>

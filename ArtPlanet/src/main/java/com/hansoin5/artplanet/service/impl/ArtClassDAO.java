@@ -19,7 +19,8 @@ public class ArtClassDAO
   }
   
   public ArtClassDTO selectOne(Map map) {
-	  return template.selectOne("classSelectOne", map);
+	  System.out.println("DAO 접근성공");
+	  return template.selectOne("getClassOne", map);
   }
   
   public int delete(Map map)

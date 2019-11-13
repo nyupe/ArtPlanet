@@ -11,8 +11,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 입력폼 -->
  <insert id="classInsert" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="classNo" keyColumn="classNo">
   	
-  	INSERT INTO ARTCLASS(classNo,title,classLevel,timeRequired,numberOfPeople,tuitionFee,classAddress,detailedAddr)
-  	VALUES(SEQ_ARTCLASS_CLASSNO.NEXTVAL,#{title},#{classLevel},#{timeRequired},#{numberOfPeople},#{tuitionFee},#{classAddress},#{detailedAddr})
+  	INSERT INTO ARTCLASS(classNo,title,content,numberOfPeople,tuitionFee,classAddress,detailedAddr,classLevel,timeRequired,categorie)
+  	VALUES(SEQ_ARTCLASS_CLASSNO.NEXTVAL,#{title},#{content},#{numberOfPeople},#{tuitionFee},#{classAddress},#{detailedAddr},#{classLevel},#{timeRequired},#{categorie})
 
 
   </insert>
@@ -22,13 +22,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   </select>
   
   
-  <!-- 
-    <select id="calssSelectOne" parameterType="java.util.Map" resultType="ArtclassDTO">
-  	SELECT o.*,name FROM artclass o JOIN member m ON o.id=m.id
-  	WHERE ClassNo = #{ClassNo}
+   
+    <select id="getClassOne" parameterType="java.util.Map" resultType="ArtclassDTO">
+  	SELECT * FROM artclass 
+  	 WHERE ClassNo = #{classNo}
   </select>
 
-
+<!--  
   
     <select id="classUpdate" parameterType="java.util.Map">
   	UPDATE artclass SET title=#{title},content=#{content},content=#{classLevel},content=#{timeRequired},content=#{numberOfPeople},content=#{tuitionFee},content=#{classAddress},content=#{detailedAddr} WHERE classNo=#{classNo}
