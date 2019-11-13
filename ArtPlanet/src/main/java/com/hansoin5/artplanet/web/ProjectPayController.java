@@ -19,7 +19,7 @@ import com.hansoin5.artplanet.service.impl.RecAuthDAO;
 import com.hansoin5.artplanet.service.impl.RecPayDAO;
 
 @Controller
-public class RecurringController {
+public class ProjectPayController {
 
 	@Resource(name = "recAuth")
 	private RecAuthDAO authDao;
@@ -27,59 +27,56 @@ public class RecurringController {
 	private RecPayDAO payDao;
 
 	// 인증
-	@RequestMapping("RecurringAuthReq.do")
+	@RequestMapping("/ProjectAuthReq.do")
 	public String authReq() {
-		return "recurring_pay/sample/auth/Requestkey.tiles";
+		return "project_pay/sample/auth/Requestkey.tiles";
 	}////////////// RecurringAuthReq.do
-	
-	
-	
-	@RequestMapping("RecurringAuthHub.do")
+
+	@RequestMapping("/ProjectAuthHub.do")
 	public String authHub() {
-		return "recurring_pay/sample/auth/pp_cli_hub";
+		return "project_pay/sample/auth/pp_cli_hub";
 	}////////////// RecurringAuthHub.do
 
 	// DB저장
-	@RequestMapping("RecurringAuthRes.do")
+	@RequestMapping("/ProjectAuthRes.do")
 	public String authRes(@RequestParam Map map) {
 		System.out.println(map.get("batch_key"));
 		int affected = authDao.recAuthInsert(map);
 		if (affected == 1) {
-			System.out.println("배치[인증] DB입력완료");
+			System.out.println("프로젝트 후원[인증] DB입력완료");
 		}
 
-		return "recurring_pay/sample/auth/result";
+		return "project_pay/sample/auth/result";
 	}/////////// RecurringAuthRes.do
 
 	// 결제
-	@RequestMapping("RecurringPayOrder.do")
+	@RequestMapping("/ProjectPayOrder.do")
 	public String payOrder() {
-		return "recurring_pay/sample/payx/order";
+		return "project_pay/sample/payx/order";
 	}////////////// RecurringPayOrder.do
 
-	@RequestMapping("RecurringPayHub.do")
+	@RequestMapping("/ProjectPayHub.do")
 	public String payHub() {
-		return "recurring_pay/sample/payx/pp_cli_hub";
+		return "project_pay/sample/payx/pp_cli_hub";
 	}////////// RecurringPayHub.do
 
-	
 
-	@RequestMapping(value = "/RecurringPayRes2", method = RequestMethod.POST)
+	@RequestMapping(value = "/ProjectPayRes", method = RequestMethod.POST)
 	public String payRes2(@RequestParam Map map) {
 	
 		int affected = payDao.recPayInsert(map);
 
 		if (affected == 1) {
-			System.out.println("배치[결제] DB입력완료");
+			System.out.println("프로젝트 후원[결제] DB입력완료");
 		}
-		return "recurring_pay/sample/payx/result";
+		return "project_pay/sample/payx/result";
 		//return "support/member/Login";
 	}////////////// RecurringPayRes.do
 	
 	//정기결제 데이터 AJAX뿌려주기
-	@RequestMapping(value="/AdmBatchPayList.ad",produces = "text/html; charset=UTF-8")
+	@RequestMapping(value="/AdmBatchPayList2222.ad",produces = "text/html; charset=UTF-8")
 	@ResponseBody
-	public String admBatchPayList() {
+	public String admBatchKeyList() {
 		//비지니스 로직 호출]
 			Map map = new HashMap();
 			map.put("start",1);

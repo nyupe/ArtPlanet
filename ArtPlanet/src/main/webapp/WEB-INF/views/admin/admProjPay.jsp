@@ -2,27 +2,84 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 
 <head>
-    <title>Art Planet - 취소</title>
+    <title>Art Planet - 관리자</title>
     <meta http-equiv="X-UA-Compatible" content="text/html;charset=utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
   <link
    href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">
-  
-  
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script type="text/javascript">
+
+    
+    
+  	//원화 세자리씩 끊어주기함수
+	function numberWithCommas(x) {
+	    return x.toLocaleString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
 	
+
+	$(function(){
+	
+		$.ajax({
+		url:"<c:url value='/AdmBatchPayForProjList.ad'/>",
+		dataType:'json',
+		success:function(data){successAjax(data,'list');},
+		error:function(request,error){
+			console.log('상태코드:',request.status);
+			console.log('서버로부터 받은 HTML데이타:',request.responseText);
+			console.log('에러:',error);
+		}
+	});			
+		
+		
+		
+		
+	});  // onload
+	
+	 var successAjax = function(data,id){
+			console.log('서버로부터 받은 정기결제 데이타:',data);
+			
+			var tableString="<table style='width: 100%;' id='example' class='table table-hover table-striped table-bordered'>";
+		 	tableString += "<thead><tr><th>번호</th><th>결제금액</th><th>주문번호</th><th>주문자명</th><th>이메일주소</th><th>연락처</th><th>결제일</th><th>카드사</th><th>거래번호</th><th>성공실패</th></tr></thead>";
+			tableString += "<tbody>";
+	   
+	    $.each(data,function(index,element){
+	 			
+				tableString+="<tr>";		
+				//memberno
+				tableString+="<td>"+(index+1)+"</td><td>"+numberWithCommas(element['good_mny'])+"원</td><td>"+element['ordr_idxx']+"</td><td>"+element['buyr_name']+
+				"</td><td>"+element['buyr_mail']+"</td><td>"+element['buyr_tel2']+"</td><td>"+element['app_time']+
+				"</td><td>"+element['card_name']+"</td><td>"+element['tno']+"</td><td>"
+				if(element['res_cd'] == '0000')
+					tableString+="<button type='button' onclick='clickBtn(this);' class='badge badge-pill badge-success' data-toggle='modal' data-target='#exampleModal'>성공</button></td>"					       			
+				else{
+					tableString+="<button type='button' onclick='clickBtn(this);' class='badge badge-pill badge-danger' data-toggle='modal' data-target='#exampleModal'>실패</button></td>";				
+				}
+				tableString+="</tr>";
+				
+				console.log(element['res_cd']);
+	 			
+	    		console.log(element['res_cd']=='0000');
+				
+			});
+	    tableString+="</tbody><tfoot><tr><th>No</th><th>memberno</th><th>ordr_idxx</th><th>buyr_name</th><th>buyr_email</th><th>buyr_tel2</th><th>app_time</th><th>card_name</th><th>tno</th><th>cancel</th></tr></tfoot></table>";	
+	    $('#'+id).html(tableString);
+		};
+		
+    </script>
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
 	<!-- 케로 관리자UI -->
    	<div class="app-container app-theme-gray">
 		  <div class="app-main">
-            <!-- 왼쪽바 시작 -->
+      <!-- 왼쪽바 시작 -->
             <div class="app-sidebar-wrapper">
                 <div class="app-sidebar sidebar-shadow">
                 
@@ -52,7 +109,7 @@
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
                                     
-                                    <ul>          
+                                   <ul>          
                                         <li><a href="<c:url value='/AdmUserInfo.ad'/>">가입회원</a></li>
                                     </ul>
                                  
@@ -106,30 +163,19 @@
                  	 </div><!-- 앱 사이드바 사이드바 섀도우 -->
               </div><!-- side bar 앱 사이드바 래퍼 -->
               
-              <!-- 여기 -->
+ <!-- 여기 -->
                <div class="app-main__outer">
                 	<div class="app-header">
                         <div class="page-title-heading">
-                            회원 관리
+                            정기과금 관리
                             <div class="page-title-subheading">
-                                회원관리 페이지입니다.
+                                정기과금관리 페이지입니다.
                             </div>
                         </div>
              
                         <div class="app-header-overlay d-none animated fadeIn"></div>
                     </div><!-- 앱 헤더 -->
-          	
-          	<!-- 구글API -->
-          <!-- 	 <div id="chart_div" style="width: 900px; height: 500px;"></div> -->
-                     
-                  <!-- chart.js -->
-                  <div  class="card-body" style="width:40%;margin:0 auto; ">
-					<%-- <canvas id="chart_canvas" class="chartjs" style="display: block; width: 100%; height: 100%;"></canvas> --%>
-					<!-- 차트테스트  -->
-					<canvas id="myChart" width="20%" height="20%"></canvas>
-  				  </div>
-
-                     
+          
                                          
                     <!-- dashboard 시작 -->
                     
@@ -142,34 +188,36 @@
                                             <div class="col-md-12">
                                                 <div class="main-card mb-3 card">
                                                     <div class="card-body">
+                                                       	<!-- 뿌려주기 -->
+                                                         <div id=list></div>
+                                                        <!-- 
                                                         <table style="width: 100%;" id="example"
                                                                class="table table-hover table-striped table-bordered">
                                                             <thead>
                                                             <tr>
                                                             	<th>번호</th>
                                                                 <th>아이디</th>
-                                                                <th>닉네임</th>
-                                                                <th>이름</th>
-                                                                <th>주소</th>
-                                                                <th>연락처</th>
-                                                                <th>생년월일</th>
-                                                                <th>가입일</th>
-                                                                <th>회원</th>
+                                                                <th>주문번호</th>
+                                                                <th>주문자명</th>
+                                                                <th>카드코드</th>
+                                                                <th>배치키</th>
+                                                                <th>결제시도일</th>
+                                                                <th>카드사응답</th>
+                            
                                                             </tr>
                                                             </thead>
                                                             <tbody>
                                                             <tr>
                                                             	<td>1</td>
                                                             	<td>KIM</td>
-                                                                <td>Tiger Nixon</td>
+                                                                <td>20191010</td>
                                                                 <td>김길동</td>
-                                                                <td>서울특별시 금천구 가산동</td>
-                                                                <td>01011112222</td>
-                                                                <td>2011/04/25</td>
+                                                                <td>CCLG</td>
+                                                                <td>19102911457819EA</td>                                            
                                                                 <td>2019/04/25</td>
-                                                                <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                                          			 탈퇴
+                                                                <td>
+                                                   					<button type="button" class="badge badge-pill badge-success" data-toggle="modal" data-target="#exampleModal">
+                                                          			 성공
                                                     			    </button>
                                                     			</td>
                                                             </tr>
@@ -177,50 +225,34 @@
                                                            <tr>
                                                             	<td>2</td>
                                                             	<td>LEE</td>
-                                                                <td>Nixon</td>
+                                                                <td>20191010</td>
                                                                 <td>이길동</td>
-                                                                <td>대전광역시 서구</td>
-                                                                <td>01011112222</td>
-                                                                <td>1970/12/25</td>
+                                                                <td>CCSS</td>  
+                                                                <td>19102911457819EA</td>  
                                                                 <td>2019/10/25</td>
-                                                                <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                                          			 탈퇴
+                                                                <td>
+                                                   					<button type="button" class="badge badge-pill badge-danger" data-toggle="modal" data-target="#exampleModal">
+                                                          			 실패
                                                     			    </button>
                                                     			</td>
                                                             </tr>
-                                                            
-                                                             <tr>
-                                                            	<td>3</td>
-                                                            	<td>Park</td>
-                                                                <td>qqqq</td>
-                                                                <td>박길동</td>
-                                                                <td>부산광역시</td>
-                                                                <td>01011112222</td>
-                                                                <td>1990/05/25</td>
-                                                                <td>2019/12/01</td>
-                                                                <td><!-- Button trigger modal -->
-                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                                          			 탈퇴
-                                                    			    </button>
-                                                    			</td>
-                                                            </tr>
-                                                            
-                                                            </tbody>
+   		                                                  </tbody>
+   		                                                  
                                                             <tfoot>
                                                             <tr>
                                                             	<th>No</th>
                                                             	<th>ID</th>
-                                                            	<th>Nick</th>
-                                                                <th>Name</th>
-                                                                <th>Addr</th>
-                                                                <th>tell</th>
-                                                                <th>Birth</th>
-                                                                <th>Regidate</th>
-                                                                <th>Ban</th>
+                                                            	<th>ordr_idxx</th>
+                                                                <th>buyr_name</th>
+                                                                <th>card_cd</th>
+                                                                <th>batch_key</th>
+                                                                <th>date</th>
+                                                                <th>sucFail</th>
+                                                              
                                                             </tr>
                                                             </tfoot>
                                                         </table>
+                                                         -->
                                                     </div><!-- 카드바디 -->
                                                 </div>
                                             </div><!-- 다이브12 -->
@@ -237,45 +269,8 @@
      </div><!-- app-container gray -->   
                         
    
-   	<script>
-			var ctx = document.getElementById('myChart').getContext('2d');
-			var myChart = new Chart(ctx, {
-			    type: 'bar',
-			    data: {
-			        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-			        datasets: [{
-			            label: '# of Votes',
-			            data: [12, 19, 3, 5, 2, 3],
-			            backgroundColor: [
-			                'rgba(255, 99, 132, 0.2)',
-			                'rgba(54, 162, 235, 0.2)',
-			                'rgba(255, 206, 86, 0.2)',
-			                'rgba(75, 192, 192, 0.2)',
-			                'rgba(153, 102, 255, 0.2)',
-			                'rgba(255, 159, 64, 0.2)'
-			            ],
-			            borderColor: [
-			                'rgba(255, 99, 132, 1)',
-			                'rgba(54, 162, 235, 1)',
-			                'rgba(255, 206, 86, 1)',
-			                'rgba(75, 192, 192, 1)',
-			                'rgba(153, 102, 255, 1)',
-			                'rgba(255, 159, 64, 1)'
-			            ],
-			            borderWidth: 1
-			        }]
-			    },
-			    options: {
-			        scales: {
-			            yAxes: [{
-			                ticks: {
-			                    beginAtZero: true
-			                }
-			            }]
-			        }
-			    }
-			});
-	</script>
+    
+   
     
     <!-- javascript -->
  	<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>"></script>

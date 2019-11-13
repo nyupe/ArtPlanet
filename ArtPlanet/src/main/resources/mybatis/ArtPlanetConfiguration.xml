@@ -10,10 +10,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	
 		 <typeAlias alias="MemberDTO" type="com.hansoin5.artplanet.service.MemberDTO"/>
 		 <!-- <typeAlias alias="BlogPostDTO" type="com.hansoin5.artplanet.service.BlogPostDTO"/> -->
-		 <typeAlias alias="ArtPlanetPayDTO" type="com.hansoin5.artplanet.service.ArtPlanetPayDTO"/>		 
-		 <typeAlias alias="ArtPlanetRecAuthDTO" type="com.hansoin5.artplanet.service.ArtPlanetRecAuthDTO"/>		 
-		 <typeAlias alias="ArtPlanetCancelDTO" type="com.hansoin5.artplanet.service.ArtPlanetCancelDTO"/>		 
-		 <typeAlias alias="ArtPlanetRecAuthDTO" type="com.hansoin5.artplanet.service.ArtPlanetRecAuthDTO"/>
+		 <typeAlias alias="PayDTO" type="com.hansoin5.artplanet.service.PayDTO"/>		 	 
+		 <typeAlias alias="CancelDTO" type="com.hansoin5.artplanet.service.CancelDTO"/>		 
+		 <typeAlias alias="RecAuthDTO" type="com.hansoin5.artplanet.service.RecAuthDTO"/>
+		 <typeAlias alias="RecPayDTO" type="com.hansoin5.artplanet.service.RecPayDTO"/>
 	</typeAliases>
 
 	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 -->	
@@ -22,14 +22,23 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/Member.xml" />
 		<!-- 블로그 게시판 -->
 		<!-- <mapper resource="maybatis/BlogPost.xml" /> -->
-		<!-- 결제정보 -->
-		<mapper resource="mybatis/PayInfo.xml" />
 		<!-- 권한정보  -->
 		<mapper resource="mybatis/Authority.xml" />
-		<!-- 정기인증정보 -->
-		<mapper resource="mybatis/RecAuth.xml" />
+		
+		<!-- 결제정보 -->
+		<mapper resource="mybatis/PayInfo.xml" />
 		<!-- 일반결제  취소 -->
 		<mapper resource="mybatis/Cancel.xml"/>
+		
+		<!-- 정기인증정보 -->
+		<mapper resource="mybatis/RecAuth.xml" />	
+		<!-- 정기결제정보 -->
+		<mapper resource="mybatis/RecPay.xml"/>
+		
+		<!-- 블로그후원(일회성)인증정보 -->
+		<mapper resource="mybatis/ProjAuth.xml" />
+		<!-- 블로그후원(일회성)결제정보 -->
+		<mapper resource="mybatis/ProjPay.xml"/>
 		
 	</mappers>
 </configuration>

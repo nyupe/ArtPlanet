@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=euc-kr" pageEncoding="utf-8"%>
 <%@ include file="../../cfg/site_conf_inc.jsp" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%request.setCharacterEncoding ( "utf-8" ) ;%>
 <% response.setContentType("text/html;charset=utf-8"); %>
 <%!   
@@ -126,7 +125,7 @@
                       <div class="card-body">
    	   <!-- PG사로 폼값 포스트로 전송하기 -->
                               
-       <form name="formOrder" method="post" action="RecurringAuthHub.do">
+       <form name="formOrder" method="post" action="<c:url value='/ProjectAuthHub.do'/>">
        <!-- 상단 문구 -->
        <div class="sample">
        <p>후원자의 신원정보와 신용카드 정보를 입력하여</br> 
@@ -199,9 +198,10 @@
  
     <!-- 상품제공기간 설정 -->
     <input type='hidden' name='good_expr' value='2:1m'>
+	
 	<!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
-	
+			
 	<!-- 주민번호 S / 사업자번호 C 픽스 여부 -->
     <!-- <input type='hidden' name='batch_soc_choice' value='' /> -->
  

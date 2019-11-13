@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, SEQ_MEMBER.NEXTVAL)
 	</insert>
 	
-	<select id="recAuthSelectlist" parameterType="java.util.Map" resultType="ArtPlanetRecAuthDTO">
+	<select id="recAuthSelectlist" parameterType="java.util.Map" resultType="RecAuthDTO">
 		SELECT * FROM RECAUTH
 	</select>
 	

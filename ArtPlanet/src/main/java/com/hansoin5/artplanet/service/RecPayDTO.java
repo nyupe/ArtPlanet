@@ -1,21 +1,21 @@
 package com.hansoin5.artplanet.service;
 
-public class ArtPlanetPayDTO {
-	private String tno;//거래번호
-	private String ordr_idxx;//주문번호
-	private int amount;//결제금액
-	private String good_name; //상품명
-	private String buyr_name; //주문자명
-	private String buyr_tel1; //집전화
-	private String buyr_tel2; //핸번
-	private String buyr_mail; //이메일
-	private String card_name; //카드사
-	private String app_time; //승인시간
-	private String app_no; //승인번호
-	private int memberno; //회원번호
+public class RecPayDTO {
+	String tno;
+	String ordr_idxx;
+	String good_mny;
+	String good_name;
+	String buyr_name;
+	String buyr_tel1;
+	String buyr_tel2;
+	String buyr_mail;
+	String card_name;
+	String app_time;
+	String app_no;
+	String res_cd;
+	String memberno;
 	
-	private int isCanceled;//취소여부 확인 위한 추가 멤버변수 0==취소전 1==취소됨
-	
+
 	//게터세터
 	public String getTno() {
 		return tno;
@@ -29,11 +29,11 @@ public class ArtPlanetPayDTO {
 	public void setOrdr_idxx(String ordr_idxx) {
 		this.ordr_idxx = ordr_idxx;
 	}
-	public int getAmount() {
-		return amount;
+	public String getGood_mny() {
+		return good_mny;
 	}
-	public void setAmount(int amount) {
-		this.amount = amount;
+	public void setGood_mny(String good_mny) {
+		this.good_mny = good_mny;
 	}
 	public String getGood_name() {
 		return good_name;
@@ -83,17 +83,18 @@ public class ArtPlanetPayDTO {
 	public void setApp_no(String app_no) {
 		this.app_no = app_no;
 	}
-	public int getMemberno() {
+	public String getRes_cd() {
+		return res_cd;
+	}
+	public void setRes_cd(String res_cd) {
+		this.res_cd = res_cd;
+	}
+	public String getMemberno() {
 		return memberno;
 	}
-	public void setMemberno(int memberno) {
+	public void setMemberno(String memberno) {
 		this.memberno = memberno;
 	}
 
-	public int getIsCanceled() {
-		return isCanceled;
-	}
-	public void setIsCanceled(int isCanceled) {
-		this.isCanceled = isCanceled;
-	}
+	
 }

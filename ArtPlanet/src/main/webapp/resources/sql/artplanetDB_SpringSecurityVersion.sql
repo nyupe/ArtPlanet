@@ -363,7 +363,7 @@ CREATE TABLE RECPAY
 	-- 주문번호
 	ordr_idxx nvarchar2(40) NOT NULL,
 	-- 결제금액
-	amount number,
+	good_mny number,
 	-- 상품명
 	good_name nvarchar2(20),
 	-- 주문자명
@@ -384,8 +384,7 @@ CREATE TABLE RECPAY
 	res_cd nvarchar2(10),
 	-- 회원번호
 	memberNo number NOT NULL,
-	-- 배치키
-	batch_key nvarchar2(20),
+	
 	PRIMARY KEY (ordr_idxx)
 );
 

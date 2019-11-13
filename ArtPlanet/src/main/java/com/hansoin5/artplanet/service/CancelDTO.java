@@ -1,6 +1,6 @@
 package com.hansoin5.artplanet.service;
 
-public class ArtPlanetCancelDTO {
+public class CancelDTO {
 	private String tno;
 	private String res_cd;
 	private String res_msg;

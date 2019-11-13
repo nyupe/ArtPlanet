@@ -102,6 +102,9 @@
                                      	<li><a href="<c:url value='/AdmUserBatch.ad'/>">정기결제-배치키</a></li>
                                         <li><a href="<c:url value='/RecurringPayOrder.do'/>">정기결제-소량결제</a></li>
                                         <li><a href="<c:url value='/AdmUserRecPay.ad'/>">정기결제-결제내역</a></li>
+                                        <hr style="background-color:orange;height:1px" />
+                                        <li><a href="<c:url value='/AdmUserProjBatch.ad'/>">프로젝트후원-배치키(일회성)</a></li>
+                                        <li><a href="<c:url value='/AdmUserProjPay.ad'/>">프로젝트후원-결제내역</a></li>
                                         
                                     </ul>
                                  

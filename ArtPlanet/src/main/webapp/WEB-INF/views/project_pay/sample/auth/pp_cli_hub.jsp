@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     /* ============================================================================== */
     /* =   PAGE : 인증 요청 및 결과 처리 PAGE                                       = */
@@ -110,16 +111,15 @@
     </script>
     </head>
     <body onload="goResult()">
-    <form name="pay_info" method="post" action="RecurringAuthRes.do">
+    <form name="pay_info" method="post" action="<c:url value='/ProjectAuthRes.do'/>">
         <input type="hidden" name="res_cd"      value="<%=res_cd%>">            <!-- 결과 코드 -->
         <input type="hidden" name="res_msg"     value="<%=res_msg%>">           <!-- 결과 메세지 -->
         <input type="hidden" name="ordr_idxx"   value="<%=ordr_idxx%>">         <!-- 주문번호 -->
         <input type="hidden" name="buyr_name"   value="<%=buyr_name%>">         <!-- 요청자 이름 -->
         <input type="hidden" name="card_cd"     value="<%=card_cd%>">           <!-- 카드 코드 -->
         <input type="hidden" name="batch_key"   value="<%=batch_key%>">         <!-- 배치 인증키 -->
-   	 	<!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
+    	 <!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
-		
     </form>
     </body>
     </html>

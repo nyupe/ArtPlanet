@@ -1,6 +1,6 @@
 package com.hansoin5.artplanet.service;
 
-public class ArtPlanetRecAuthDTO {
+public class RecAuthDTO {
 	private String ordr_idxx;//주문번호
 	private String res_cd;// 응답코드
 	private String batch_key;// 배치키
