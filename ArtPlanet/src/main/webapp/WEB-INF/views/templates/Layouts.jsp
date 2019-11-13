@@ -10,6 +10,9 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
+    <%-- <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+	<!-- default header name is X-CSRF-TOKEN -->
+	<meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/> --%>
 	<!-- 홈페이지 탭 아이콘 -->
 	<link rel="icon" href="<c:url value='/resources/img/favicon.png'/>" type="image/png">
 	

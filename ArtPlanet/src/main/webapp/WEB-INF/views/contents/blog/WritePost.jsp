@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <style>
 .dragAndDropDiv {
     border: 1px dashed #888;
@@ -140,13 +141,13 @@ $(document).ready(function(){
             var fd = new FormData();
             fd.append('file', files[i]);
       
-            var status = new createStatusbar(obj); //Using this we can set progress.
-            status.setFileNameSize(files[i].name,files[i].size);
+            //var status = new createStatusbar(obj); //Using this we can set progress.
+            //status.setFileNameSize(files[i].name,files[i].size);
             sendFileToServer(fd,status);
       
        }
     }
-     
+    /* 
     var rowCount=0;
     function createStatusbar(obj){
              
@@ -193,12 +194,15 @@ $(document).ready(function(){
             });
         }
     }
-     
+    */
     function sendFileToServer(formData,status)
     {
-        var uploadURL = "<c:url value='/FileUpload'/>"; //Upload URL
+        var uploadURL = "<c:url value='/FileUploadToCloud'/>"; //Upload URL
         var extraData ={}; //Extra Data.
+        //var token = $("meta[name='_csrf']").attr("content");
+        //var header = $("meta[name='_csrf_header']").attr("content");
         var jqXHR=$.ajax({
+        	/*
                 xhr: function() {
                 var xhrobj = $.ajaxSettings.xhr();
                 if (xhrobj.upload) {
@@ -216,27 +220,32 @@ $(document).ready(function(){
                     }
                 return xhrobj;
             },
+            */
+            beforeSend : function(xhr)
+            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+            },
             url: uploadURL,
-            type: "POST",
+            enctype:"multipart/form-data",
+            type:"POST",
             contentType:false,
-            processData: false,
-            cache: false,
-            data: formData,
-            success: function(data){
-                status.setProgress(100);
+            processData:false,
+            cache:false,
+            data:formData,
+            success: function(data)
+            {
+                //status.setProgress(100);
                 console.log(data);
                 previewImage(data);
-                
-                //$("#status1").append("File upload Done<br>");           
             }
         }); 
       
-        status.setAbort(jqXHR);
+        //status.setAbort(jqXHR);
     }
      
 });
 function previewImage(filename) {
-	$('.dragAndDropDiv').before('<img src="D:/fileupload-test/'+filename+'" />');
+	//$('.dragAndDropDiv').before('<img src="D:/fileupload-test/'+filename+'" />');
 }
 
 function postForm() {
@@ -305,7 +314,9 @@ var removeTagdiv = function(e) {
 					<aside class="single_sidebar_widget search_widget">
 						<div class="menu-header-content">
 							<h4 style="font-weight: bold;">누가 이 그림을 볼 수 있나요?</h4>
-							<form role="form" method="post" onsubmit="postForm()">
+							<form role="form" method="post" onsubmit="postForm()" enctype="multipart/form-data" action="<c:url value='/FileUploadToCloud'/>">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+								<input type="file" name="testfile">
 								<div class="radio" style="padding-left: 20px; padding-top:10px;">
 									<label style="font-size: 20px;">
 										<input type="radio" name="authRadio" id="authRadioPublic" value="0"

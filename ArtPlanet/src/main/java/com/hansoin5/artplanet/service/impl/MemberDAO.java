@@ -20,8 +20,7 @@ public class MemberDAO {
 	//sqlSessionTemplate주입 받는다
 	@Resource(name="template")
 	private SqlSessionTemplate template;
-	
-	
+		
 	//아이디로 회원번호 가져오기 
 	public String getMemberNo(String id) {
 		return template.selectOne("getMemberNo", id);

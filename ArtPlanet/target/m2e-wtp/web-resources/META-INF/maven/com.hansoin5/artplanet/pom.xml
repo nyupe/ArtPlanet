@@ -234,6 +234,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/m
 		    <artifactId>google-cloud-storage</artifactId>
 		    <version>1.99.0</version>
 		</dependency>
+		<dependency>
+		   <groupId>com.google.appengine.tools</groupId>
+		   <artifactId>appengine-gcs-client</artifactId>
+		   <version>0.8</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
 		<dependency>
 		    <groupId>joda-time</groupId>
