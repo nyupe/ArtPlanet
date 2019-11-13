@@ -1,10 +1,4 @@
 
-/* Drop Triggers */
-
-DROP TRIGGER TRI_MEMBER_memberNo;
-
-
-
 /* Drop Tables */
 
 DROP TABLE CLASSOPENINGDATE CASCADE CONSTRAINTS;
@@ -33,6 +27,7 @@ DROP TABLE MEMBER CASCADE CONSTRAINTS;
 
 /* Drop Sequences */
 
+DROP SEQUENCE SEQ_AUTH_SECURITY_authorityNo;
 DROP SEQUENCE SEQ_MEMBER_memberNo;
 
 
@@ -40,7 +35,8 @@ DROP SEQUENCE SEQ_MEMBER_memberNo;
 
 /* Create Sequences */
 
-CREATE SEQUENCE SEQ_MEMBER_memberNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_AUTH_SECURITY_authorityNo NOCYCLE NOCACHE;
+CREATE SEQUENCE SEQ_MEMBER_memberNo NOCYCLE NOCACHE;
 
 
 
@@ -258,12 +254,12 @@ CREATE TABLE MEMBER
 	membershipDate date DEFAULT SYSDATE NOT NULL,
 	-- 생년월일
 	birth nvarchar2(11),
-	-- 프로필사진_서버파일명
-	profilePicture varchar2(50),
-	-- 대문사진_서버파일명
-	mainPicture varchar2(50),
+	-- 프로필사진_서버에 저장된 경로
+	profilePicture varchar2(500),
+	-- 대문사진_서버에 저장된 경로
+	mainPicture varchar2(500),
 	-- 소개글
-	introContent nvarchar2(100),
+	introContent nvarchar2(500),
 	-- 구독료
 	SubscriptionFee number,
 	PRIMARY KEY (memberNo)
@@ -590,21 +586,6 @@ ALTER TABLE PROJECTSUPPORT
 	ADD FOREIGN KEY (projectNo)
 	REFERENCES PROJECT (projectNo)
 ;
-
-
-
-/* Create Triggers */
-
-CREATE OR REPLACE TRIGGER TRI_MEMBER_memberNo BEFORE INSERT ON MEMBER
-FOR EACH ROW
-BEGIN
-	SELECT SEQ_MEMBER_memberNo.nextval
-	INTO :new.memberNo
-	FROM dual;
-END;
-
-/
-
 
 
 

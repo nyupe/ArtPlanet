@@ -292,7 +292,7 @@
                                 	<a href="<c:url value='/Search/Artwork'/>">	<img  class="img-fluid" src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
                             </div>
                             <!-- 회원가입 form 시작 --> 
-							<form method="post"  action="<c:url value='/Register'/>"  enctype="multipart/form-data" >
+							<form method="post"  action="<c:url value='/Register'/>" enctype="multipart/form-data" >
 								<!-- 스프링 시큐리티 사용시 모든 요청에 반드시 넣어줘야함  -->
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 									
@@ -426,12 +426,85 @@
 									</div>
 									<!-- 주소 입력 필드 끝 -->
 									
-									<!-- 프로필 사진 입력 필드 시작 -->							
+									 <!-- 프로필 사진 입력 필드 시작 -->							
 									<div class="col-md-7 mx-auto">
 										<label for="exampleFile" class="">Profile Picture</label>
-										<input name="profilePicture" id="profilePicture" type="file" class="form-control-file"> 
-									</div>
+										<!-- 이미지 미리보여지는 div 시작-->
+										<table>
+											<tr>
+												<td>
+													<!--  overflow: hidden;
+												            display: flex;
+												            align-items: center;
+												            justify-content: center;
+												            width: 300px;
+												            height: 300px; -->
+													<div id="preview" 
+													 style=" overflow:hidden; display:flex; align-items: center; justify-content:center; width:auto; height:auto;  max-height: 300px; max-width: 300px"></div>
+												</td>
+												<td>
+													<label class="mb-2 mr-2 btn-icon btn-shadow btn-outline-2x btn btn-outline-primary" for="profilePicture">프로필 사진 등록하기</label>
+													<input style="display: none" name="upload" id="profilePicture" accept=".gif, .jpg, .png" type="file" class="form-control-file">
+													<script>
+														
+													</script>
+												</td>
+												<td>
+													<!-- 폼안에 button에는 기본적으로 submit이 내장되어 있기에 type을 button으로 바꿔 submit 기능을 막습니다  -->
+													<button type="button" id="btn-delete" class="mb-2 mr-2 btn-icon btn-shadow btn-outline-2x btn btn-outline-primary">
+														<i class="lnr-store btn-icon-wrapper"></i>
+														취소
+													</button> 
+												</td>
+											</tr>
+										</table>
+										<!-- 이미지 미리보여지는 div 끝-->
+									</div> 
+									 <!-- 프로필 사진 입력 필드 끝 -->			
 									
+									<!-- 이미지 미리보기 로직 시작 -->
+									<script>
+										// 미리보기 로직
+										function readInputFile(input){
+											if(input.files && input.files[0]){
+												var reader = new FileReader();
+												reader.onload = function (e){
+													$('#preview').html("<img src="+e.target.result+">");
+												}
+												reader.readAsDataURL(input.files[0]);
+											}
+										}
+										// id가 profilePicture인 태그의 change 이벤트 발생시  호출될 readInputFile 메소드 
+										$("#profilePicture").on('change', function(){
+											readInputFile(this);
+										})
+										
+										
+										//등록 이미지 삭제 로직 
+										function resetInputFile($input, $preview){
+											var agent = navigator.userAgent.toLowerCase();
+											if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident')!=-1)
+													||(agent.indexOf("mise")!=-1)){ //브라우저 IE인 경우
+												$input.replaceWith($.input.clone(true))
+												$preview.empty();		
+											}
+											else{ // 다른 브라우저
+												$input.val("")
+												$preview.empty()
+											}
+										}
+										
+										// 아이디가 btn-delete인 태그에 클릭이벤트 발생시 실행되는 로직
+										$("#btn-delete").click(function(event){
+											var $input = $("#profilePicture");
+											var $preview = $('#preview');
+											resetInputFile($input, $preview)
+										})
+										
+									</script>
+									<!-- 이미지 미리보기 로직 끝 -->
+									
+									<!-- 프로필 사진 입력 필드 끝 -->
 								</div>
 								
 								

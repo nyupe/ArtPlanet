@@ -59,6 +59,19 @@
 	</filter-mapping>
 	
 	
+	<!-- 스프링 시큐리티에서 CSRF 필터 사용시 
+	form 데이터를 multipart/form-data로 보내면 request의 형식이 바뀌어 인식을 못한다. -->
+	<filter>
+        <display-name>springMultipartFilter</display-name>
+        <filter-name>springMultipartFilter</filter-name>
+        <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springMultipartFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+	
 	<!-- spring-security filter -->
     <!-- 필터명은 반드시 springSecurityFilterChain으로-->
 	<filter>

@@ -9,7 +9,6 @@
 <script>
 
 	$(function(){ // 진입점 시작
-		
 		$.ajax({
 			url:"<c:url value='/GetMeberInfo'/>",
 			dataType:'json',
@@ -24,9 +23,11 @@
 
 		$('#user_id').html(data.user_id)
 		$('#user_name').html(data.user_name)
+		$('#user_name_blog').html(data.user_name)
 		$('#user_nickName').html(data.user_nickName)
 		$('#user_phoneNumber').html(data.user_phoneNumber)
 		$('#user_address').html(data.user_address)
+		$('#user_profilePicture').attr("src","/artplanet/ProfilePicture/"+data.user_profilePicture)
 	}
 	
 </script>
@@ -40,8 +41,8 @@
 		<div class="col-md-6" align="center" style="margin-bottom: 50px">
 			<div class="card" style="width: 500px">
 				<div class="card-body">
-					<img src="" alt="프로필사진" />
 					<h4 class="card-title"><span id="user_name"></span>님 프로필</h4>
+					<img id="user_profilePicture" style="width: auto;height: auto; max-height: 100px; max-width: 100px"  alt="프로필사진" />
 					<p class="card-text">
 						아이디:<span id="user_id"></span><br>
 						닉네임:<span id="user_nickName"></span><br>
@@ -57,8 +58,8 @@
 		<div class="col-md-6" align="center">
 			<div class="card" style="width: 500px">
 				<div class="card-body">
-					<h4 class="card-title">최근 게시물</h4>
-					<p class="card-text">여기에 최근 게시물 뿌려줘야함 사진 4~5개 사진 누르면 상세보기 모달창으로 띄워줄것</p>
+					<h4 class="card-title"><span id="user_name_blog"></span>님의 최근 블로그 게시물</h4>
+					<p class="card-text">여기에 최근 게시물  사진 4~5개  썸네일로 뿌려줘야함 사진 누르면 상세보기 모달창으로 띄워줄것</p>
 					<a href="#" class="btn btn-primary">내 블로그로 가기</a>
 				</div>
 			</div>
