@@ -219,6 +219,9 @@
 	            <div class="modal-body">
 	               
 	                 <form name="acnt_form" action="Cancel.do" method="post" >
+	                 
+	                 			<!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
+									    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
         <table class="tbl" cellpadding="0" cellspacing="0">
 		<tr>
                 <th>거래번호</th>
@@ -230,7 +233,9 @@
                 <td>
                     <select name="mod_type" class="frmselect" onChange="sub_cancel_chk(this.value);"/>
                         <option value="STSC">전체 취소요청</option>
+                        <!-- 
                         <option value="STPC">부분 취소요청</option>
+                         -->
                     </select>
                 </td>
             </tr>

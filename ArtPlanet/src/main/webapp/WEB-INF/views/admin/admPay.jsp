@@ -23,6 +23,10 @@
     <link href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
     <script type="text/javascript">
+    
+
+    var cancelButtonShow =0;
+    
 			function  jsf__go_mod( form )
 		    {
 		        if ( form.tno.value.length < 14 )
@@ -49,8 +53,30 @@
 		        }
 		    }
 			
+			// 취소 카운트
+
 			$(function(){
+				/*
+				//취소카운트
+				$.ajax({
+					url:"<c:url value='CancelCount.do'/>",
+					dataType: 'text',
+					type:'get',
+					data:,
+					success:function(data){successAjax2(data,'cancelButtonShow');},
+					error:function(request,error){
+						console.log('상태코드:',request.status);
+						console.log('취소카운트데이터:',request.responseText);
+						console.log('에러:',error);
+					}
+				});			
 				
+				var successAjax2 = function(data,id){
+					console.log('서버로 부터 받은 cancelButtonShow 0or1 데이타:',data);
+				
+				}
+				*/
+				////////////////////////////
 				$.ajax({
 					url:"<c:url value='AdmUserPayList.ad'/>",
 					dataType:'json',
@@ -61,22 +87,20 @@
 						console.log('에러:',error);
 					}
 				});			
-				
-				 console.log('김승찬');
-						
+
 						//없어도됨 작동안됨
-				 		var kim;
-						var clickBtn2 = $('.cancel').click(function(){
-							var  btnIndex  = clickBtn.index(this);
-								console.log('index : ',clickBtn.index(this));
+				 		//var kim;
+						//var clickBtn2 = $('.cancel').click(function(){
+						//	var  btnIndex  = clickBtn.index(this);
+						//		console.log('index : ',clickBtn.index(this));
 							
-							console.log($(this).parent().prev().text());
-							kim = $(this).parent().prev().text();
-							$('#tno').val(kim);
+						//	console.log($(this).parent().prev().text());
+						//	kim = $(this).parent().prev().text();
+						//	$('#tno').val(kim);
 						
 						
-							}); ///  clickBtn
-				
+						//	}); ///  clickBtn
+						
 			});  // onload
 			
 			//거래번호 모달옮기기
@@ -84,6 +108,12 @@
 				document.getElementById('tno').value = e.parentNode.previousSibling.innerHTML;
 			};
 			
+			//원화 세자리씩 끊어주기함수
+			function numberWithCommas(x) {
+			    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			}
+
+
 			var successAjax = function(data,id){
 				console.log('서버로 부터 받은 데이타:',data);
 				/*JSON배열을 출력할때는 $.each(data,function(index,index에 따른 요소값){}); 
@@ -111,35 +141,51 @@
 				*/
 				
 				var tableString="<table style='width: 100%;' id='example' class='table table-hover table-striped table-bordered'>";
-               tableString += "<thead><tr><th>번호</th><th>아이디(고유번호)</th><th>주문번호</th><th>주문자명</th><th>이메일주소</th><th>연락처</th><th>결제일</th><th>카드사</th><th>거래번호</th><th>취소</th></tr></thead>";
+               tableString += "<thead><tr><th>번호</th><th>결제금액</th><th>주문번호</th><th>주문자명</th><th>이메일주소</th><th>연락처</th><th>결제일</th><th>카드사</th><th>거래번호</th><th>취소</th></tr></thead>";
                tableString += "<tbody>";
                var totalOrderCount = 0;
                var totalOrderMoney = 0;
+               var totalCancelMoney =0;
+               
                $.each(data,function(index,element){
             	   totalOrderCount++;
             	   totalOrderMoney += parseInt(element['amount']);
             	   console.log(totalOrderMoney);
-					tableString+="<tr>";					
-					tableString+="<td>"+(index+1)+"</td><td>"+element['memberno']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['buyr_name']+
+					tableString+="<tr>";		
+					//memberno
+					tableString+="<td>"+(index+1)+"</td><td>"+numberWithCommas(element['amount'])+"원</td><td>"+element['ordr_idxx']+"</td><td>"+element['buyr_name']+
 					"</td><td>"+element['buyr_mail']+"</td><td>"+element['buyr_tel2']+"</td><td>"+element['app_time']+
 					"</td><td>"+element['card_name']+"</td><td>"+element['tno']+"</td><td>"
-					+"<button type='button' onclick='clickBtn(this);' class='btn mr-2 mb-2 btn-primary cancel' data-toggle='modal' data-target='#exampleModal'>취소</button></td>"
-					;
-				
+					if(element['isCanceled'] == 0)
+						tableString+="<button type='button' onclick='clickBtn(this);' class='btn mr-2 mb-2 btn-primary cancel' data-toggle='modal' data-target='#exampleModal'>취소</button></td>";
+					else{
+						tableString+="<p style='color: red; font-size: 1.2em'>기취소</p>";
+						totalCancelMoney += parseInt(element['amount']);
+					}
 					tableString+="</tr>";
+					
+					
 				});
                tableString+="</tbody><tfoot><tr><th>No</th><th>memberno</th><th>ordr_idxx</th><th>buyr_name</th><th>buyr_email</th><th>buyr_tel2</th><th>app_time</th><th>card_name</th><th>tno</th><th>cancel</th></tr></tfoot></table>";		    
 			    $('#'+id).html(tableString);
 			    $('#totalOrderCount').html("총 "+totalOrderCount+"건");
-			    $('#totalOrderMoney').html("￦ "+totalOrderMoney);
+			    $('#totalOrderMoney').html("￦ "+numberWithCommas(totalOrderMoney));
+			    $('#totalCancelMoney').html("￦"+numberWithCommas(totalCancelMoney));
+				
+			    //프로그레스바
+			  
+				$('#prgress3').html(totalCancelMoney/totalOrderMoney);
+			
 			};
-
+		
+				
+				
 	 </script>
 	 
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
 	<!-- 케로 관리자UI -->
-	
+
    	<div class="app-container app-theme-gray">
 		  <div class="app-main">
 		  <!-- 왼쪽바 시작 -->
@@ -173,8 +219,7 @@
                                     </a>
                                     
                                     <ul>          
-                                        <li><a href="AdmUserInfo.ad">가입회원</a></li>
-
+                                        <li><a href="<c:url value='/AdmUserInfo.ad'/>">가입회원</a></li>
                                     </ul>
                                  
                                   </li>
@@ -189,9 +234,11 @@
                                     </a>
                                     
                                     <ul>          
-                                     	<li><a href="AdmUserPay.ad">일반결제-취소가능</a></li>
-                                     	<li><a href="AdmUserBatch.ad">정기결제-배치키</a></li>
-                                        <li><a href="AdmUserRecPay.ad">정기결제</a></li>
+                                     	<li><a href="<c:url value='/AdmUserPay.ad'/>">일반결제-취소가능</a></li>
+                                     	<li><a href="<c:url value='/AdmUserBatch.ad'/>">정기결제-배치키</a></li>
+                                        <li><a href="<c:url value='/RecurringPayOrder.do'/>">정기결제-소량결제</a></li>
+                                        <li><a href="<c:url value='/AdmUserRecPay.ad'/>">정기결제-결제내역</a></li>
+                                        
                                     </ul>
                                  
                                   </li>
@@ -246,7 +293,7 @@
                                                         <div class="widget-content-wrapper">
                                                             <div class="widget-content-left">
                                                                 <div class="widget-heading">총 주문건수</div>
-                                                                <div class="widget-subheading">이번달</div>
+                                                                <div class="widget-subheading">현재까지</div>
                                                             </div>
                                                             <div class="widget-content-right">
                                                                 <div id="totalOrderCount" class="widget-numbers text-success"></div>
@@ -261,7 +308,7 @@
                                                                      style="width: 40%;"></div>
                                                             </div>
                                                             <div class="progress-sub-label">
-                                                                <div class="sub-label-left">YoY Growth</div>
+                                                                <div class="sub-label-left">오늘 결제건/어제 결제건</div>
                                                                 <div class="sub-label-right">100%</div>
                                                             </div>
                                                         </div>
@@ -274,7 +321,7 @@
                                                         <div class="widget-content-wrapper">
                                                             <div class="widget-content-left">
                                                                 <div class="widget-heading">총 결제금액</div>
-                                                                <div class="widget-subheading">이번달</div>
+                                                                <div class="widget-subheading">현재까지</div>
                                                             </div>
                                                             <div class="widget-content-right">
                                                                 <div id="totalOrderMoney" class="widget-numbers text-warning"></div>
@@ -301,10 +348,10 @@
                                                         <div class="widget-content-wrapper">
                                                             <div class="widget-content-left">
                                                                 <div class="widget-heading">총 취소금액</div>
-                                                                <div class="widget-subheading">이번달</div>
+                                                                <div class="widget-subheading">현재까지</div>
                                                             </div>
                                                             <div class="widget-content-right">
-                                                                <div class="widget-numbers text-danger">45,9%</div>
+                                                                <div id="totalCancelMoney" class="widget-numbers text-danger"></div>
                                                             </div>
                                                         </div>
                                                         <div class="widget-progress-wrapper">
@@ -315,8 +362,8 @@
                                                                      style="width: 46%;"></div>
                                                             </div>
                                                             <div class="progress-sub-label">
-                                                                <div class="sub-label-left">Twitter Progress</div>
-                                                                <div class="sub-label-right">100%</div>
+                                                                <div class="sub-label-left">결제금액 대비 취소금액 비율</div>
+                                                                <div id="#prgress3" class="sub-label-right"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -340,7 +387,7 @@
                                                   		
                                                     <div class="card-body">
                                                       
-                                                         
+                                                        
                                                          <div id=list></div>
                                                       <!-- 
                                                         <table style="width: 100%;" id="example"
@@ -432,6 +479,9 @@
 	            <div class="modal-body">
 	               
 	                 <form name="acnt_form" action="Cancel.do" method="post" >
+	                 <!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+									    
         <table class="tbl" cellpadding="0" cellspacing="0">
 		<tr>
                 <th>거래번호</th>

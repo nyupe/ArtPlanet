@@ -53,8 +53,7 @@
                                     </a>
                                     
                                     <ul>          
-                                        <li><a href="AdmUserInfo.ad">가입회원</a></li>
-
+                                        <li><a href="<c:url value='/AdmUserInfo.ad'/>">가입회원</a></li>
                                     </ul>
                                  
                                   </li>
@@ -69,9 +68,11 @@
                                     </a>
                                     
                                     <ul>          
-                                     	<li><a href="AdmUserPay.ad">일반결제-취소가능</a></li>
-                                     	<li><a href="AdmUserBatch.ad">정기결제-배치키</a></li>
-                                        <li><a href="AdmUserRecPay.ad">정기결제</a></li>
+                                     	<li><a href="<c:url value='/AdmUserPay.ad'/>">일반결제-취소가능</a></li>
+                                     	<li><a href="<c:url value='/AdmUserBatch.ad'/>">정기결제-배치키</a></li>
+                                        <li><a href="<c:url value='/RecurringPayOrder.do'/>">정기결제-소량결제</a></li>
+                                        <li><a href="<c:url value='/AdmUserRecPay.ad'/>">정기결제-결제내역</a></li>
+                                        
                                     </ul>
                                  
                                   </li>

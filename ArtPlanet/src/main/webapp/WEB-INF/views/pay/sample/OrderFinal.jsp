@@ -301,8 +301,12 @@
                                     <button type="button"
                                        class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary"
                                        onclick="jsf__pay(this.form);">Pay</button>
-
+									
+								    <!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+					
                                     <!-- 히든타입 가맹점정보 -->
+                                    
                                     <input type="hidden" name="req_tx" value="pay" />
                                     <input type="hidden" name="site_cd" value="<%=g_conf_site_cd%>" />
                                     <input type="hidden" name="site_name" value="<%=g_conf_site_name%>" />

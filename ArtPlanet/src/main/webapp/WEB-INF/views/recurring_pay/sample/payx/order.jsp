@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html;charset=utf-8"%>
-
+<%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head>
-    <title>Art Planet - 정기결제</title>
+    <title>Art Planet - 관리자 정기결제</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Type" content="text/html; charset=euc-kr" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <link
    href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css"
    rel="stylesheet">
@@ -60,28 +60,92 @@
     </script>
 </head>
 
-<body onload="init_orderid();">
+<body onload="init_orderid();" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
 
-<!-- 케로 관리자UI -->
+	<!-- 케로 관리자UI -->
    	<div class="app-container app-theme-gray">
 		  <div class="app-main">
+            <!-- 왼쪽바 시작 -->
             <div class="app-sidebar-wrapper">
                 <div class="app-sidebar sidebar-shadow">
                 
-                <div class="app-header__logo">
+                	<div>
+                	<a class="navbar-brand logo_h" href="<c:url value='/Search/Artwork'/>"><img style="width: 200px; height: 86px;"
+					src="<c:url value='/resources/img/logo.png'/>" alt="logo"></a>
+					
                         <a href="#" data-toggle="tooltip" data-placement="bottom" title="KeroUI Admin Template" class="logo-src"></a>
+                        <!-- 햄버거 네줄 
                         <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
                                 <span class="hamburger-box">
                                     <span class="hamburger-inner"></span>
                                 </span>
                         </button>
+                         -->
                     </div>
-                    <div class="scrollbar-sidebar scrollbar-container">
+                    
+                      <div class="scrollbar-sidebar scrollbar-container">
                         <div class="app-sidebar__inner">
-                     	</div>
-                     </div>
-                  </div>
-              </div><!-- side bar -->
+                            <ul class="vertical-nav-menu">
+                                <li class="app-sidebar__heading">Admin Menu</li>
+                                  <li class="mm-active">
+      
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        	회원관리
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    
+                                    <ul>          
+                                        <li><a href="<c:url value='/AdmUserInfo.ad'/>">가입회원</a></li>
+                                    </ul>
+                                 
+                                  </li>
+                                 
+                                 <!-- 작품관리 -->
+                                  <li class="mm-active">
+      
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        	결제관리
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    
+                                    <ul>          
+                                     	<li><a href="<c:url value='/AdmUserPay.ad'/>">일반결제-취소가능</a></li>
+                                     	<li><a href="<c:url value='/AdmUserBatch.ad'/>">정기결제-배치키</a></li>
+                                        <li><a href="<c:url value='/RecurringPayOrder.do'/>">정기결제-소량결제</a></li>
+                                        <li><a href="<c:url value='/AdmUserRecPay.ad'/>">정기결제-결제내역</a></li>
+                                        
+                                    </ul>
+                                 
+                                  </li>
+                                 
+                                  <!-- 결제관리 -->
+                                  <li class="mm-active">
+      
+                                    <a href="#">
+                                        <i class="metismenu-icon pe-7s-rocket"></i>
+                                        	작품관리
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    </a>
+                                    
+                                    <ul>          
+                                       <li><a href="">프로젝트</a></li>
+                                       <li><a href="">클래스</a></li>
+                                    </ul>
+                                 
+                                  </li>
+                                 
+                                                                        
+                                      
+                            </ul>
+                     		</div><!-- 앱 사이드바 이너 -->
+                     	</div><!-- 스크롤바 사이드바 스크롤바 컨테이너 -->
+                     
+                     
+                 	 </div><!-- 앱 사이드바 사이드바 섀도우 -->
+              </div><!-- side bar 앱 사이드바 래퍼 -->
+              
               
               <!-- 여기 -->
                <div class="app-main__outer">
@@ -220,6 +284,8 @@
         <!-- 필수 항목 : 결제 금액/화폐단위 -->
         <input type="hidden" name="currency" value="410"/>
         
+        <!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
                                  </form>
                                  <!-- 폼끝 -->
 
