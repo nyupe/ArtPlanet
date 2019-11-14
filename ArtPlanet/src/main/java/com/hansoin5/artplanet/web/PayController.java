@@ -8,13 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.hansoin5.artplanet.service.impl.ArtPlanetPayDAO;
+import com.hansoin5.artplanet.service.impl.PayDAO;
 
 @Controller
 public class PayController {
 	
 	@Resource(name="payInfo")
-	private ArtPlanetPayDAO dao;
+	private PayDAO dao;
 	
 	@RequestMapping("Order.do")
 	public String order()

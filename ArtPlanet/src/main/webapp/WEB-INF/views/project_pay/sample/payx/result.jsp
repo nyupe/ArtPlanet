@@ -205,9 +205,9 @@
                <div class="app-main__outer">
                <div class="app-header">
                         <div class="page-title-heading">
-                            정기과금결제 결과페이지
+                           프로젝트 결제 결과페이지
                             <div class="page-title-subheading">
-                                정기과금결제 결과를 출력하는 페이지입니다.
+                                프로젝트 결제 결과를 출력하는 페이지입니다.
                             </div>
                         </div>
                         
@@ -429,7 +429,7 @@
                 <tr>
 
                 <div class="btnset">
-                <a href="../index.html" class="home">처음으로</a>
+                <a href="<c:url value='/Search/Artwork'/>" class="home">처음으로</a>
                 </div>
                 </tr>
               </tr>

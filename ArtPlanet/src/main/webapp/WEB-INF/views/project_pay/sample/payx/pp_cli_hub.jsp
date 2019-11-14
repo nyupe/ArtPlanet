@@ -285,7 +285,7 @@
     </head>
 								
     <body onload="goResult();">  
-        <form name="pay_info" method="post" action="<c:url value='/RecurringPayRes2'/>">
+        <form name="pay_info" method="post" action="<c:url value='/ProjectPayRes'/>">
             <input type="hidden" name="req_tx"     value="<%= req_tx     %>">  <!-- 요청 구분 -->
             <input type="hidden" name="pay_method" value="<%= pay_method %>">  <!-- 사용한 결제 수단 -->
             <input type="hidden" name="bSucc"      value="<%= bSucc      %>">  <!-- 쇼핑몰 DB 처리 성공 여부 -->

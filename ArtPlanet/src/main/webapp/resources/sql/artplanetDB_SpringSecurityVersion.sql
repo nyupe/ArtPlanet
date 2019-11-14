@@ -1,10 +1,4 @@
 
-/* Drop Triggers */
-
-DROP TRIGGER TRI_MEMBER_memberNo;
-
-
-
 /* Drop Tables */
 
 DROP TABLE CLASSOPENINGDATE CASCADE CONSTRAINTS;
@@ -29,18 +23,6 @@ DROP TABLE RECPAY CASCADE CONSTRAINTS;
 DROP TABLE SUBSCRIBE CASCADE CONSTRAINTS;
 DROP TABLE MEMBER CASCADE CONSTRAINTS;
 
-
-
-/* Drop Sequences */
-
-DROP SEQUENCE SEQ_MEMBER_memberNo;
-
-
-
-
-/* Create Sequences */
-
-CREATE SEQUENCE SEQ_MEMBER_memberNo INCREMENT BY 1 START WITH 1;
 
 
 
@@ -381,7 +363,7 @@ CREATE TABLE RECPAY
 	-- 주문번호
 	ordr_idxx nvarchar2(40) NOT NULL,
 	-- 결제금액
-	amount number,
+	good_mny number,
 	-- 상품명
 	good_name nvarchar2(20),
 	-- 주문자명
@@ -402,8 +384,7 @@ CREATE TABLE RECPAY
 	res_cd nvarchar2(10),
 	-- 회원번호
 	memberNo number NOT NULL,
-	-- 배치키
-	batch_key nvarchar2(20),
+	
 	PRIMARY KEY (ordr_idxx)
 );
 
@@ -569,13 +550,13 @@ ALTER TABLE RECPAY
 
 
 ALTER TABLE SUBSCRIBE
-	ADD FOREIGN KEY (memberNo)
+	ADD FOREIGN KEY (targetedMemberNo)
 	REFERENCES MEMBER (memberNo)
 ;
 
 
 ALTER TABLE SUBSCRIBE
-	ADD FOREIGN KEY (targetedMemberNo)
+	ADD FOREIGN KEY (memberNo)
 	REFERENCES MEMBER (memberNo)
 ;
 
@@ -590,21 +571,6 @@ ALTER TABLE PROJECTSUPPORT
 	ADD FOREIGN KEY (projectNo)
 	REFERENCES PROJECT (projectNo)
 ;
-
-
-
-/* Create Triggers */
-
-CREATE OR REPLACE TRIGGER TRI_MEMBER_memberNo BEFORE INSERT ON MEMBER
-FOR EACH ROW
-BEGIN
-	SELECT SEQ_MEMBER_memberNo.nextval
-	INTO :new.memberNo
-	FROM dual;
-END;
-
-/
-
 
 
 

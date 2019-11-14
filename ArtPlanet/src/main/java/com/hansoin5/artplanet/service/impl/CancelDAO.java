@@ -9,7 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository("cancel")
-public class ArtPlanetCancelDAO {
+public class CancelDAO {
 	
 	@Resource(name="template")
 	private SqlSessionTemplate template;

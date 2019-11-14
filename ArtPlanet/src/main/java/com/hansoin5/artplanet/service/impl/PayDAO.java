@@ -8,10 +8,10 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.hansoin5.artplanet.service.ArtPlanetPayDTO;
+import com.hansoin5.artplanet.service.PayDTO;
 
 @Repository("payInfo")
-public class ArtPlanetPayDAO {
+public class PayDAO {
 	
 	//sqlSessionTemplate주입 받는다
 		@Resource(name="template")
@@ -30,7 +30,7 @@ public class ArtPlanetPayDAO {
 		}
 		
 		//게시판 결제테이블용
-		public List<ArtPlanetPayDTO> paySelectlist(Map map){
+		public List<PayDTO> paySelectlist(Map map){
 			return template.selectList("paySelectlist", map);
 		}
 		

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
+ <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
@@ -121,24 +121,7 @@
 				data:서버로부터 전송받은 데이타(JSON배열타입)
 				index:JSON배열의 인덱스(0부터 시작)	
 				index에 따른 요소값:JSON배열에서 하나씩 꺼내온거를 담은 인자		
-			    
-			    var tableString="<table style='border-spacing:1px;background-color:red'>";
-			    tableString+="<tr style='background-color:white'><th>번호</th><th>제목</th><th>이름</th><th>작성일</th></tr>";
-				$.each(data,function(index,element){
-					tableString+="<tr style='background-color:white'>";
-					
-					tableString+="<td>"+(index+1)+"</td><td>"+element['tno']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['buyr_mail']+"</td>";
-					//서버에서 보내준 데이타 순서대로 뿌려줄때
-					/*
-					$.each(element,function(key,value){
-						tableString+="<td>"+value+"</td>";				
-					});
-					tableString+="</tr>";
-				});		
-			    tableString+="</table>";		    
-			    $('#'+id).html(tableString);
-		
-				*/
+			*/
 				
 				var tableString="<table style='width: 100%;' id='example' class='table table-hover table-striped table-bordered'>";
                tableString += "<thead><tr><th>번호</th><th>결제금액</th><th>주문번호</th><th>주문자명</th><th>이메일주소</th><th>연락처</th><th>결제일</th><th>카드사</th><th>거래번호</th><th>취소</th></tr></thead>";
@@ -157,9 +140,10 @@
 					"</td><td>"+element['buyr_mail']+"</td><td>"+element['buyr_tel2']+"</td><td>"+element['app_time']+
 					"</td><td>"+element['card_name']+"</td><td>"+element['tno']+"</td><td>"
 					if(element['isCanceled'] == 0)
-						tableString+="<button type='button' onclick='clickBtn(this);' class='btn mr-2 mb-2 btn-primary cancel' data-toggle='modal' data-target='#exampleModal'>취소</button></td>";
+						tableString+="<button type='button' onclick='clickBtn(this);' class='mb-2 mr-2 btn-square btn btn-success active' data-toggle='modal' data-target='#exampleModal'>취소가능</button></td>";
 					else{
-						tableString+="<p style='color: red; font-size: 1.2em'>기취소</p>";
+						tableString+="<button disabled='' class='mb-2 mr-2 btn-square btn btn-danger disabled'>취소완료</button>";
+						
 						totalCancelMoney += parseInt(element['amount']);
 					}
 					tableString+="</tr>";
@@ -234,10 +218,15 @@
                                     </a>
                                     
                                     <ul>          
-                                     	<li><a href="<c:url value='/AdmUserPay.ad'/>">일반결제-취소가능</a></li>
-                                     	<li><a href="<c:url value='/AdmUserBatch.ad'/>">정기결제-배치키</a></li>
-                                        <li><a href="<c:url value='/RecurringPayOrder.do'/>">정기결제-소량결제</a></li>
-                                        <li><a href="<c:url value='/AdmUserRecPay.ad'/>">정기결제-결제내역</a></li>
+                                     	<li><a href="<c:url value='/AdmUserPay.ad'/>">[ARTCLASS]일반결제</a></li>
+                                     	<hr style="background-color:gray;height:1px; width:220px" />
+                                     	<li><a href="<c:url value='/AdmUserBatch.ad'/>">[BLOG]정기결제-배치키</a></li>
+                                        <li><a href="<c:url value='/RecurringPayOrder.do'/>">[BLOG]정기결제-관리자결제</a></li>
+                                        <li><a href="<c:url value='/AdmUserRecPay.ad'/>">[BLOG]정기결제-결제내역</a></li>
+                                        <hr style="background-color:gray;height:1px; width:220px" />
+                                        <li><a href="<c:url value='/AdmUserProjBatch.ad'/>">[PROJECT]후원-배치키(일회성)</a></li>
+                                        <li><a href="<c:url value='/ProjectPayOrder.do'/>">[PROJECT]후원-관리자결제</a></li>
+                                        <li><a href="<c:url value='/AdmUserProjPay.ad'/>">[PROJECT]후원-결제내역</a></li>
                                         
                                     </ul>
                                  
