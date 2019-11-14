@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style>
+.previewImg {
+	max-height:300px;
+	display:block;
+	margin:20px auto;
+}
 .dragAndDropDiv {
     border: 1px dashed #888;
     width: 100%;
@@ -117,7 +122,7 @@ $(document).ready(function(){
         e.preventDefault();
         var files = e.originalEvent.dataTransfer.files;
      
-        handleFileUpload(files,objDragAndDrop);
+        blogFileUpload(files,objDragAndDrop);
     });
      
     $(document).on('dragenter', function (e){
@@ -134,7 +139,7 @@ $(document).ready(function(){
         e.preventDefault();
     });
      
-    function handleFileUpload(files,obj)
+    function blogFileUpload(files,obj)
     {
        for (var i = 0; i < files.length; i++) 
        {
@@ -148,6 +153,7 @@ $(document).ready(function(){
       
        }
     }
+    
     /* 
     var rowCount=0;
     function createStatusbar(obj){
@@ -233,6 +239,7 @@ $(document).ready(function(){
             processData:false,
             cache:false,
             data:formData,
+            dataType:"json",
             success: function(data)
             {
                 //status.setProgress(100);
@@ -246,8 +253,38 @@ $(document).ready(function(){
      
 });
 
+//summernote 이미지 업로드 요청
+function blogEditorUpload(file, editor)
+{
+	var uploadURL = "<c:url value='/FileUploadToCloud'/>";
+	var form_data = new FormData();
+  	form_data.append('file', file);
+	form_data.append('role','blog');
+  	$.ajax({
+  		beforeSend : function(xhr)
+        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+        },
+    	type: "POST",
+    	enctype: 'multipart/form-data',
+    	url: uploadURL,
+    	cache: false,
+    	contentType: false,
+    	processData: false,
+    	data: form_data,
+    	dataType:"json",
+    	success: function(data)
+    	{
+    		console.log(data);
+      		$(editor).summernote('insertImage', data.fileUrl);
+    	}
+  	});
+}
+
+
+
 function previewImage(src) {
-	$('.dragAndDropDiv').before('<img src="'+src+'" />');
+	$('.previewDiv').append('<img class="previewImg" src="'+src+'" />');
 }
 
 //submit 이전에 호출됨
@@ -290,19 +327,31 @@ var removeTagdiv = function(e) {
 					<div style="font-size:22px; border-bottom: 1px solid #ced4da; margin:0 -10px 10px -10px; padding-left: 10px; padding-bottom: 5px;">
 						<i class="fa fa-fw" aria-hidden="true" title="Copy to use camera"></i> 이미지
 					</div>
+					<div class="previewDiv" style="text-align: center;"></div>
 					<div id="fileUpload" class="dragAndDropDiv"><span class="upload-span">여기에 파일을 드래그하세요</span></div>
 					
 					<div class="form-group" style="margin-top:10px;">
 						<input type="text" class="form-control" id="text-title" placeholder="글제목(필수)">
 					</div>
-					
+					<p>캐시dd아님</p>
 					<div id="summernote"></div>
 					<script>
 						$(document).ready(function() {
 						    $('#summernote').summernote({
-						    	height: 400
+						    	height: 400,
+						    	callbacks:
+						    	{
+						    		onImageUpload: function(files, editor, editable)
+						    		{
+							            for (var i = files.length - 1; i >= 0; i--)
+							            {
+							            	blogEditorUpload(files[i], this);
+							            }
+							        }
+								}
 						    });
 						});
+						
 					</script>
 					<div style="font-size:22px; border-bottom: 1px solid #ced4da; margin:10px -10px 10px -10px; padding-left: 10px; padding-bottom: 5px;">
 					<i class="fa fa-fw" aria-hidden="true" title="Copy to use tags"></i> 태그

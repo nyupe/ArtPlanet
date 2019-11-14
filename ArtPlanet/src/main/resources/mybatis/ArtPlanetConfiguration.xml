@@ -9,37 +9,24 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 	
 		 <typeAlias alias="MemberDTO" type="com.hansoin5.artplanet.service.MemberDTO"/>
-<<<<<<< HEAD
 		 <typeAlias alias="BlogPostDTO" type="com.hansoin5.artplanet.service.BlogPostDTO"/>
 		 <typeAlias alias="GcsDTO" type="com.hansoin5.artplanet.service.GcsDTO"/>
-		 <typeAlias alias="ArtPlanetPayDTO" type="com.hansoin5.artplanet.service.ArtPlanetPayDTO"/>		 
-		 <typeAlias alias="ArtPlanetRecAuthDTO" type="com.hansoin5.artplanet.service.ArtPlanetRecAuthDTO"/>		 
-		 <typeAlias alias="ArtPlanetCancelDTO" type="com.hansoin5.artplanet.service.ArtPlanetCancelDTO"/>		 
-		 <typeAlias alias="ArtPlanetRecAuthDTO" type="com.hansoin5.artplanet.service.ArtPlanetRecAuthDTO"/>
-=======
-		 <!-- <typeAlias alias="BlogPostDTO" type="com.hansoin5.artplanet.service.BlogPostDTO"/> -->
 		 <typeAlias alias="PayDTO" type="com.hansoin5.artplanet.service.PayDTO"/>		 	 
 		 <typeAlias alias="CancelDTO" type="com.hansoin5.artplanet.service.CancelDTO"/>		 
 		 <typeAlias alias="RecAuthDTO" type="com.hansoin5.artplanet.service.RecAuthDTO"/>
 		 <typeAlias alias="RecPayDTO" type="com.hansoin5.artplanet.service.RecPayDTO"/>
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	</typeAliases>
 
 	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 -->	
 	<mappers>
 		<!-- 회원관리 -->
 		<mapper resource="mybatis/Member.xml" />
-<<<<<<< HEAD
 		<!-- 블로그 게시물 -->
 		<mapper resource="mybatis/BlogPost.xml" />
 		<!-- 구글 클라우드 스토리지 -->
 		<mapper resource="mybatis/Gcs.xml" />
 		<!-- 결제정보 -->
 		<mapper resource="mybatis/PayInfo.xml" />
-=======
-		<!-- 블로그 게시판 -->
-		<!-- <mapper resource="maybatis/BlogPost.xml" /> -->
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 		<!-- 권한정보  -->
 		<mapper resource="mybatis/Authority.xml" />
 		
