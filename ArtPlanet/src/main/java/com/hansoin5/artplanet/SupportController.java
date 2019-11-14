@@ -38,13 +38,16 @@ public class SupportController {
 	public String getMemberInfo(@RequestParam Map map) {
 		
 		JSONObject json = new JSONObject();
+		
 		json.put("user_id", memberDao.getMemberDTO(map).getId());
 		json.put("user_name",memberDao.getMemberDTO(map).getName());
 		json.put("user_nickName", memberDao.getMemberDTO(map).getNickName());
 		json.put("user_phoneNumber", memberDao.getMemberDTO(map).getPhoneNumber());
 		json.put("user_address", memberDao.getMemberDTO(map).getAddress());
+		json.put("user_birth",memberDao.getMemberDTO(map).getBirth());
 		int start = memberDao.getMemberDTO(map).getProfilePicture().lastIndexOf("\\");
 		json.put("user_profilePicture", memberDao.getMemberDTO(map).getProfilePicture().substring(start+1));
+		
 		System.out.println(json.toJSONString(map));
 		return json.toJSONString();
 		//return memberDao.getMemberDTO(map);

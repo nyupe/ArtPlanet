@@ -41,7 +41,8 @@
 
     String g_conf_ENC_KEY      = "E66DCEB95BFBD45DF9DFAEEBCB092B5DC2EB3BF0";
     
-    String g_conf_Ret_URL      = "http://localhost:8080/artplanet/AuthReq.do";/*start페이지에 있던 Ret_url*/
+    /*start페이지에 있던 Ret_url*/
+    String g_conf_Ret_URL      = "http://localhost:7070/artplanet/AuthReq.do";
     
    
     
@@ -53,7 +54,7 @@
     /* = 실결제 시 : src="https://cert.kcp.co.kr/kcp_cert/cert_view.jsp"            = */
     /* = -------------------------------------------------------------------------- = */
 
-    String g_conf_gw_url       = "https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp";
+    String g_conf_gw_url   = "https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp";
 
     /* ============================================================================== */
 %>

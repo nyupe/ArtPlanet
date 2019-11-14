@@ -43,7 +43,7 @@ public class TopController
 			 @RequestParam MultipartFile upload,  HttpServletRequest req) throws IllegalStateException, IOException{
 			
 		
-		if (!upload.isEmpty()) { // 회원가입시 프로필 사진을 같이 첨부했을 경우 
+		if (!upload.isEmpty()) { // 회원가입시 프로필 사진 첨부했을 경우 
 			//1]서버의 물리적 경로 얻기 String
 			String phisicalPath = req.getServletContext().getRealPath("/ProfilePicture");
 			// 2]File객체 생성 //똑같은 파일의 이름을 업로드시 서버에 저장되는 파일 변경 String
@@ -60,7 +60,10 @@ public class TopController
 			map.put("profilePicture",defaultProfilePicturePath);
 		}
 		
+		// 주소 + 상세주소
+		map.put("address",map.get("address").toString()+" "+map.get("detailAddress").toString()); 
 		memberDao.insert(map);// 회원정보 입력 
+		
 		map.put("memberNo", memberDao.getMemberDTO(map).getMemberNo()); // 권한설정용 회원번호 저장 
 		authorityDao.insertAuthority(map); // 회원 권한 설정
 		

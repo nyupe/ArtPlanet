@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hansoin5.artplanet.service.impl.ArtPlanetCancelDAO;
+import com.hansoin5.artplanet.service.impl.CancelDAO;
 
 
 @Controller
 public class CancelController {
 	
 	@Resource(name="cancel")
-	private ArtPlanetCancelDAO dao;
+	private CancelDAO dao;
 	
 	
 	

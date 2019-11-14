@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html;charset=euc-kr"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="kr.co.kcp.CT_CLI"%>
 <%@ page import="java.net.URLDecoder"%>
 <%@ include file="../cfg/cert_conf.jsp"%>
-<%
+<%	
+	System.out.println(" reS page 입니다 " );
     /* ============================================================================== */
     /* =   인증데이터 수신 및 복호화 페이지                                         = */
     /* = -------------------------------------------------------------------------- = */
@@ -129,7 +131,7 @@
 
             // 가맹점 DB 처리 페이지 영역
 
-          /*   System.out.println(site_cd);
+             System.out.println(site_cd);
             System.out.println(cert_no);
             //System.out.println(enc_cert_data2); // 암호화 v2
             
@@ -155,8 +157,8 @@
             System.out.println( "DI_URL"             + URLDecoder.decode( cc.getKeyValue("di_url"      ) ) ); // DI URL 인코딩 값
             System.out.println( "웹사이트 아이디  "  + cc.getKeyValue("web_siteid"  ) ); // 암호화된 웹사이트 아이디
             System.out.println( "암호화된 결과코드"  + cc.getKeyValue("res_cd"      ) ); // 암호화된 결과코드
-            System.out.println( "암호화된 결과메시지"+ cc.getKeyValue("res_msg"     ) ); // 암호화된 결과메시지 */
-            	System.out.println("여긴 res 페이지 " );
+            System.out.println( "암호화된 결과메시지"+ cc.getKeyValue("res_msg"     ) ); // 암호화된 결과메시지 
+            
         }
         
         
@@ -181,35 +183,117 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> <!-- utf-8 수정 -->
         <title>*** NHN KCP Online Payment System [Jsp Version] ***</title>
+        <script src="https://code.jquery.com/jquery-latest.js"></script> 
         <script type="text/javascript">
 
-            window.onload=function()
+          /*   window.onload=function()
             {	
             	
                 try
-                {
-<<<<<<< HEAD
-                    opener.auth_data( document.form_auth ); // 부모창으로 값 전달
-
-                    window.close();// 팝업 닫기
-=======
-                    opener.auth_data( document.form_auth  ); // 부모창으로 값 전달     
+                {	
+					// 부모창을 url 요청 페이지로 이동 시킵니다                	
+                	//opener.location.href = "<c:url value='/Register'/>"; 
+                	
+                	// 팝업창이 닫혀야 밑에 있는 소스가 실행됩니다.
+                	// opener.alert('reS page에서 부모창에 alert 띄우기') 
+                	
+                	// 팝업창에 alert 띄우기
+               		confirm("휴대폰 인증 성공")
+               		
+               		
+               		//document.location.href = "<c:url value='/Register'/>"
+               		//opener.location.href = "<c:url value='/Register'/>";
+               	}
+                	
+                    // opener.auth_data( document.form_auth ); // 부모창으로 값 전달 
                     
-                    window.close();// 팝업 닫기 
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+                    //window.close();// 팝업 닫기  
+                   
                     
-                }
+                
                 catch(e)
                 {	
                     alert(e); // 정상적인 부모창의 iframe 를 못찾은 경우임
                 }
-            }
+            } */
         </script>
+        <style>
+	        
+	        /* The Modal (background) */
+	        .modal {
+	            display: none; /* Hidden by default */
+	            position: fixed; /* Stay in place */
+	            z-index: 1; /* Sit on top */
+	            left: 0;
+	            top: 0;
+	            width: 100%; /* Full width */
+	            height: 100%; /* Full height */
+	            overflow: auto; /* Enable scroll if needed */
+	            background-color: rgb(0,0,0); /* Fallback color */
+	            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	        }
+	    
+	        /* Modal Content/Box */
+	        .modal-content {
+	            background-color: #fefefe;
+	            margin: 15% auto; /* 15% from the top and centered */
+	            padding: 20px;
+	            border: 1px solid #888;
+	            width: 30%; /* Could be more or less, depending on screen size */                          
+	        }
+	 
+		</style>
     </head>
     <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+        
+          	<!-- The Modal -->
+		    <div id="myModal" class="modal">
+		 
+		      <!-- Modal content -->
+		      <div class="modal-content">
+		                <p style="text-align: center;">
+		                <span style="font-size: 14pt;">
+	                		<b><span style="font-size: 24pt;">휴대폰 인증 성공</span></b></span>
+		                </p>
+		               <!--  <p style="text-align: center; line-height: 1.5;"><br /></p>
+		                <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">사이트 서버 점검으로</span></p>
+		                <p style="text-align: center; line-height: 1.5;"><b><span style="color: rgb(255, 0, 0); font-size: 14pt;">10:00 - 18:00 까지</span></b></p>
+		                <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">사이트 사용이 중지 됩니다.</span></p>
+		                <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;"><br /></span></p>
+		                <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">이용에 불편을 드린 점 양해를 </span></p>
+		                <p style="text-align: center; line-height: 1.5;"><span style="font-size: 14pt;">부탁드립니다.</span></p>
+		                <p style="text-align: center; line-height: 1.5;"><br /></p>
+		                <p><br /></p> -->
+		                
+	            	<div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop();">
+		                <span class="pop_bt" style="font-size: 13pt;" >
+		                    	 닫기
+		                </span>
+		            </div>
+		      </div>
+		 
+		    </div>
+        <!--End Modal-->
+        
         <form name="form_auth" method="post">
+       	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <%= sbParam.toString() %>
         </form>
+        
+        <script type="text/javascript">
+      
+	        jQuery(document).ready(function() {
+	             $('#myModal').show();
+	        });
+	        //팝업 Close 기능
+	        function close_pop(flag) {
+	             $('#myModal').hide();
+	          	// 부모창을 url 요청 페이지(회원가입 페이지로 이동 시킵니다)                	
+             	opener.location.href = "<c:url value='/Register'/>"; 
+             	window.close();// 팝업 닫기  
+	        };
+        
+      </script>
         
     </body>
 </html>
