@@ -30,15 +30,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<!-- 일반결제  취소 -->
 		<mapper resource="mybatis/Cancel.xml"/>
 		
-		<!-- 정기인증정보 -->
-		<mapper resource="mybatis/RecAuth.xml" />	
-		<!-- 정기결제정보 -->
-		<mapper resource="mybatis/RecPay.xml"/>
+		<!-- 정기인증+프로젝트1회성인증 정보 -->
+		<mapper resource="mybatis/RecAndProjAuth.xml" />	
+		<!-- 정기결제+프로젝트1회성결제 정보 -->
+		<mapper resource="mybatis/RecAndProjPay.xml"/>
 		
-		<!-- 블로그후원(일회성)인증정보 -->
-		<mapper resource="mybatis/ProjAuth.xml" />
-		<!-- 블로그후원(일회성)결제정보 -->
-		<mapper resource="mybatis/ProjPay.xml"/>
 		
 	</mappers>
 </configuration>

@@ -41,7 +41,7 @@ public class ProjectPayController {
 	@RequestMapping("/ProjectAuthRes.do")
 	public String authRes(@RequestParam Map map) {
 		System.out.println(map.get("batch_key"));
-		int affected = authDao.recAuthInsert(map);
+		int affected = authDao.projAuthInsert(map);
 		if (affected == 1) {
 			System.out.println("프로젝트 후원[인증] DB입력완료");
 		}
@@ -64,7 +64,7 @@ public class ProjectPayController {
 	@RequestMapping(value = "/ProjectPayRes", method = RequestMethod.POST)
 	public String payRes2(@RequestParam Map map) {
 	
-		int affected = payDao.recPayInsert(map);
+		int affected = payDao.projPayInsert(map);
 
 		if (affected == 1) {
 			System.out.println("프로젝트 후원[결제] DB입력완료");
@@ -81,7 +81,7 @@ public class ProjectPayController {
 			Map map = new HashMap();
 			map.put("start",1);
 			map.put("end",10);
-			List<RecPayDTO> list=payDao.recPaySelectlist(map);
+			List<RecPayDTO> list=payDao.projPaySelectlist(map);
 			//[{},{},{},{}]형태로 반환
 			
 			/*JSONArray의 정적 메소드인 toJSONString(List계열 컬렉션)

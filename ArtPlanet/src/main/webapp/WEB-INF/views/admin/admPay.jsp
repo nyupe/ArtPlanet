@@ -140,9 +140,10 @@
 					"</td><td>"+element['buyr_mail']+"</td><td>"+element['buyr_tel2']+"</td><td>"+element['app_time']+
 					"</td><td>"+element['card_name']+"</td><td>"+element['tno']+"</td><td>"
 					if(element['isCanceled'] == 0)
-						tableString+="<button type='button' onclick='clickBtn(this);' class='btn mr-2 mb-2 btn-primary cancel' data-toggle='modal' data-target='#exampleModal'>취소</button></td>";
+						tableString+="<button type='button' onclick='clickBtn(this);' class='mb-2 mr-2 btn-square btn btn-success active' data-toggle='modal' data-target='#exampleModal'>취소가능</button></td>";
 					else{
-						tableString+="<p style='color: red; font-size: 1.2em; font-weight: bold;'>기취소</p>";
+						tableString+="<button disabled='' class='mb-2 mr-2 btn-square btn btn-danger disabled'>취소완료</button>";
+						
 						totalCancelMoney += parseInt(element['amount']);
 					}
 					tableString+="</tr>";
@@ -217,13 +218,15 @@
                                     </a>
                                     
                                     <ul>          
-                                     	<li><a href="<c:url value='/AdmUserPay.ad'/>">일반결제-취소가능</a></li>
-                                     	<li><a href="<c:url value='/AdmUserBatch.ad'/>">정기결제-배치키</a></li>
-                                        <li><a href="<c:url value='/RecurringPayOrder.do'/>">정기결제-소량결제</a></li>
-                                        <li><a href="<c:url value='/AdmUserRecPay.ad'/>">정기결제-결제내역</a></li>
-                                        <hr style="background-color:orange;height:1px" />
-                                        <li><a href="<c:url value='/AdmUserProjBatch.ad'/>">프로젝트후원-배치키(일회성)</a></li>
-                                         <li><a href="<c:url value='/AdmUserProjPay.ad'/>">프로젝트후원-결제내역</a></li>
+                                     	<li><a href="<c:url value='/AdmUserPay.ad'/>">[ARTCLASS]일반결제</a></li>
+                                     	<hr style="background-color:gray;height:1px; width:220px" />
+                                     	<li><a href="<c:url value='/AdmUserBatch.ad'/>">[BLOG]정기결제-배치키</a></li>
+                                        <li><a href="<c:url value='/RecurringPayOrder.do'/>">[BLOG]정기결제-관리자결제</a></li>
+                                        <li><a href="<c:url value='/AdmUserRecPay.ad'/>">[BLOG]정기결제-결제내역</a></li>
+                                        <hr style="background-color:gray;height:1px; width:220px" />
+                                        <li><a href="<c:url value='/AdmUserProjBatch.ad'/>">[PROJECT]후원-배치키(일회성)</a></li>
+                                        <li><a href="<c:url value='/ProjectPayOrder.do'/>">[PROJECT]후원-관리자결제</a></li>
+                                        <li><a href="<c:url value='/AdmUserProjPay.ad'/>">[PROJECT]후원-결제내역</a></li>
                                         
                                     </ul>
                                  

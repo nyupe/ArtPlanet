@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=euc-kr" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../../cfg/site_conf_inc.jsp" %>
 <%request.setCharacterEncoding ( "utf-8" ) ;%>
 <% response.setContentType("text/html;charset=utf-8"); %>
@@ -115,7 +116,7 @@
                          aria-controls="collapseOne"
                          class="text-left m-0 p-0 btn btn-link btn-block">
                          <!-- STEP2 입력폼 -->
-                         <span class="form-heading">정기과금 카드등록페이지
+                         <span class="form-heading">프로젝트 후원 카드등록페이지
                             <p>Enter your user informations below</p>
                          </span>
                       </button>
@@ -132,7 +133,7 @@
                신용카드의 인증요청하는 페이지입니다.</br>
                요청자의 신원정보와 카드사에 등록된 신원정보가  일치된 경우</br> 
                과금을 신청 할 수 있는 인증키가 리턴됩니다.</br></br>
-               리턴된 인증키로 결제요청 페이지를 통해 정기과금 결제를 요청 할 수 있습니다.</p>
+               리턴된 인증키로 결제요청 페이지를 통해 프로젝트 후원 결제를 요청 할 수 있습니다.</p>
        <!-- 인증 정보시작  -->
        
        <div class="col-md-6">
@@ -148,7 +149,7 @@
        <div class="col-md-6">
           <div class="position-relative form-group">
              <label>주문자명</label> 
-             <input class="form-control" type="text" name="buyr_name" value="김승" />
+             <input class="form-control" type="text" name="buyr_name" value="프로젝트100퍼달성" />
           </div>
        </div>
 	  

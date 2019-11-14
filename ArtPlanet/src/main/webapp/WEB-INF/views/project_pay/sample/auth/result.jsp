@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
     /* ============================================================================== */
     /* =   PAGE : 결과 처리 PAGE                                                    = */
@@ -90,7 +91,7 @@
                               style="background-color: rgb(255, 255, 255);"></div>
                         </div>
                         <div class="results-subtitle mt-4">Finished!</div>
-                        <div class="results-title">후원자가 목표인원에 도달할 경우,</br>해당카드로 정기결제가 시작됩니다</div>
+                        <div class="results-title">후원금액이 목표액에 도달할 경우,</br>해당카드로 한번의 결제가 진행됩니다</div>
                         <div class="mt-3 mb-3"></div>
                         <div class="text-center"></div>
                      </div>
@@ -218,6 +219,7 @@
                                class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary" >
                                              홈으로
 		 					  </button>
+		 					  <!-- "<c:url value='/Search/Artwork'/>" -->
     </div><!-- 클리어픽스 -->
  </div>
 

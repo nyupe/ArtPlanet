@@ -6,11 +6,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 
-<mapper namespace="mybatis.ProjPay">
+<mapper namespace="mybatis.RecAndProjPay">
 	
 	<!-- 배치결제정보 CRUD 쿼리문  -->
 	
 	<!-- 배치결제 디비입력 처리 -->
+	<insert id="recPayInsert" parameterType="java.util.Map" >
+			INSERT INTO RECPAY(TNO, ORDR_IDXX, GOOD_MNY, GOOD_NAME, BUYR_NAME, BUYR_TEL1, BUYR_TEL2, BUYR_MAIL, 
+			CARD_NAME, APP_TIME, APP_NO, RES_CD, MEMBERNO)
+			VALUES(#{tno}, #{ordr_idxx}, #{good_mny}, #{good_name}, #{buyr_name}, #{buyr_tel1}, #{buyr_tel2}, 
+			#{buyr_mail}, #{card_name}, #{app_time}, #{app_no}, #{res_cd}, SEQ_MEMBER.NEXTVAL)
+	</insert>
+	
+	<select id="recPaySelectlist" parameterType="java.util.Map" resultType="RecPayDTO">
+		SELECT * FROM RECPAY
+	</select>
+	
+	<!-- 프로젝트1회성 결제정보 CRUD 쿼리문  -->
+	
+	<!-- 프로젝트1회성 결제 디비입력 처리 -->
 	<insert id="projPayInsert" parameterType="java.util.Map" >
 			INSERT INTO PROJPAY(TNO, ORDR_IDXX, GOOD_MNY, GOOD_NAME, BUYR_NAME, BUYR_TEL1, BUYR_TEL2, BUYR_MAIL, 
 			CARD_NAME, APP_TIME, APP_NO, RES_CD, MEMBERNO)
@@ -21,7 +35,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="projPaySelectlist" parameterType="java.util.Map" resultType="RecPayDTO">
 		SELECT * FROM PROJPAY
 	</select>
-	
 	
 	
 	<!-- 수업예제 쿼리문  -->

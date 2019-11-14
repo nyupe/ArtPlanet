@@ -6,20 +6,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
 <!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
 
-<mapper namespace="mybatis.ProjAuth">
+<mapper namespace="mybatis.RecAndProjAuth">
+	
+	<!-- 배치키정보 CRUD 쿼리문  -->
+	
+	<!-- 인증 배치키 디비입력 처리 -->
+	<insert id="recAuthInsert" parameterType="java.util.Map" >
+			INSERT INTO RECAUTH(ORDR_IDXX, RES_CD, BATCH_KEY, CARD_CD, BUYR_NAME, MEMBERNO)
+			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, SEQ_MEMBER.NEXTVAL)
+	</insert>
+	
+	<select id="recAuthSelectlist" parameterType="java.util.Map" resultType="RecAuthDTO">
+		SELECT * FROM RECAUTH
+	</select>
+	
 	
 	<!-- 블로그후원(일회성)정기인증정보 배치키 CRUD 쿼리문  -->
-	
 	<!-- 인증 배치키 디비입력 처리 -->
 	<insert id="projAuthInsert" parameterType="java.util.Map" >
 			INSERT INTO PROJAUTH(ORDR_IDXX, RES_CD, BATCH_KEY, CARD_CD, BUYR_NAME, MEMBERNO)
 			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, SEQ_MEMBER.NEXTVAL)
 	</insert>
-	
 	<select id="projAuthSelectlist" parameterType="java.util.Map" resultType="RecAuthDTO">
 		SELECT * FROM PROJAUTH
 	</select>
 	<!--반드시 삭제쿼리문 집어넣을것  -->
+	
 	
 	
 	<!-- 수업예제 쿼리문  -->

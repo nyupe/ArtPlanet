@@ -111,10 +111,15 @@
                                     </a>
                                     
                                     <ul>          
-                                     	<li><a href="<c:url value='/AdmUserPay.ad'/>">일반결제-취소가능</a></li>
-                                     	<li><a href="<c:url value='/AdmUserBatch.ad'/>">정기결제-배치키</a></li>
-                                        <li><a href="<c:url value='/RecurringPayOrder.do'/>">정기결제-소량결제</a></li>
-                                        <li><a href="<c:url value='/AdmUserRecPay.ad'/>">정기결제-결제내역</a></li>
+                                        <li><a href="<c:url value='/AdmUserPay.ad'/>">[ARTCLASS]일반결제</a></li>
+                                     	<hr style="background-color:gray;height:1px; width:220px" />
+                                     	<li><a href="<c:url value='/AdmUserBatch.ad'/>">[BLOG]정기결제-배치키</a></li>
+                                        <li><a href="<c:url value='/RecurringPayOrder.do'/>">[BLOG]정기결제-관리자결제</a></li>
+                                        <li><a href="<c:url value='/AdmUserRecPay.ad'/>">[BLOG]정기결제-결제내역</a></li>
+                                        <hr style="background-color:gray;height:1px; width:220px" />
+                                        <li><a href="<c:url value='/AdmUserProjBatch.ad'/>">[PROJECT]후원-배치키(일회성)</a></li>
+                                        <li><a href="<c:url value='/ProjectPayOrder.do'/>">[PROJECT]후원-관리자결제</a></li>
+                                        <li><a href="<c:url value='/AdmUserProjPay.ad'/>">[PROJECT]후원-결제내역</a></li>
                                         
                                     </ul>
                                  
@@ -151,9 +156,9 @@
                <div class="app-main__outer">
                <div class="app-header">
                         <div class="page-title-heading">
-                            정기과금결제요청페이지
+                            프로젝트결제요청페이지
                             <div class="page-title-subheading">
-                                정기과금결제요청결과를 출력하는 페이지입니다.
+                                프로젝트결제요청결과를 출력하는 페이지입니다.
                             </div>
                         </div>
                         
@@ -171,7 +176,7 @@
                                                         <!-- 내용 -->
 
 
-    <form name="form_order" method="post" action="RecurringPayHub.do">
+    <form name="form_order" method="post" action="<c:url value='/ProjectPayHub.do'/>">
 				<!-- 케로UI -->
 				 <div id="step-2">
                      <div id="accordion" class="accordion-wrapper mb-3">
@@ -211,14 +216,14 @@
                                        <div class="col-md-6">
                                           <div class="position-relative form-group">
                                              <label>상품명</label> <input class="form-control"
-                                                type="text" name="good_name" value="정기후원_TEST " />
+                                                type="text" name="good_name" value="일회성모금_TEST " />
                                           </div>
                                        </div>
 
                                        <div class="col-md-6">
                                           <div class="position-relative form-group">
                                              <label>주문자명</label> <input class="form-control"
-                                                type="text" name="buyr_name" value="아트플" />
+                                                type="text" name="buyr_name" value="래닛" />
                                           </div>
                                        </div>
 
