@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<sec:authentication property="principal.username" var="id"/>
 <style>
 .previewImg {
 	max-height:300px;
@@ -144,6 +145,7 @@ $(document).ready(function(){
      
     function blogFileUpload(files,obj)
     {
+    	console.log("blogFileupload()");
        for (var i = 0; i < files.length; i++) 
        {
             var fd = new FormData();
@@ -207,6 +209,7 @@ $(document).ready(function(){
     */
     function sendFileToServer(formData,status)
     {
+    	console.log("sebdFileToServer()");
         var uploadURL = "<c:url value='/FileUploadToCloud'/>"; //Upload URL
         var extraData ={}; //Extra Data.
         //var token = $("meta[name='_csrf']").attr("content");
@@ -258,6 +261,7 @@ $(document).ready(function(){
 //VisionAI에 이미지분석 요청
 function sendImgToVision(gcsPath)
 {
+	console.log("sendImgToVision()");
 	$.ajax({
   		type: "GET",
     	url: "http://localhost:7070/vision/extractLabels?gcsPath="+gcsPath,
@@ -314,6 +318,7 @@ function removeImage(el) {
 //submit 이전에 호출됨
 function postForm() {
     var content = $('textarea[name="content"]').val($('#summernote').summernote('code'));
+    $('#post-categorie').val($('#text-categorie').val());
     $('#post-title').val($('#text-title').val());
     
     /*
@@ -388,8 +393,20 @@ var sendTags = function() {
 		<div class="row">
 			<div class="col-lg-8 posts-list">
 				<div class="write-form">
+					<div style="font-size:22px;border-bottom: 1px solid #ced4da;margin:0 -10px 10px -10px;padding-left: 10px;padding-bottom: 5px;">
+    					<i class="fa fa-fw" aria-hidden="true"></i> 카테고리
+					</div>
+					<div style="font-size:22px;border-bottom: 1px solid #ced4da;margin:0 -10px 10px -10px;padding-left: 10px;padding-bottom: 10px;">
+						<select id="text-categorie" class="col-lg-offset-4 col-lg-4 col-md-4 col-sm-6 form-control-lg form-control">
+							<option>일러스트레이션</option>
+							<option>애니메이션</option>
+							<option>디자인</option>
+							<option>캘리그라피</option>
+							<option>조소/공예</option>
+						</select>
+					</div>
 					<div style="font-size:22px; border-bottom: 1px solid #ced4da; margin:0 -10px 10px -10px; padding-left: 10px; padding-bottom: 5px;">
-						<i class="fa fa-fw" aria-hidden="true" title="Copy to use camera"></i> 이미지
+						<i class="fa fa-fw" aria-hidden="true"></i> 이미지
 					</div>
 					<div class="previewDiv" style="text-align: center;"></div>
 					<div id="fileUpload" class="dragAndDropDiv"><span class="upload-span">여기에 파일을 드래그하세요</span></div>
@@ -443,10 +460,12 @@ var sendTags = function() {
 										style="width:20px;height:20px;border:1px;"/>구독자만
 									</label>
 								</div>
+								<input type="hidden" class="form-control" name="categorie" id="post-categorie">
 								<input type="hidden" class="form-control" name="title" id="post-title">
 								<input type="hidden" class="form-control" name="imgs" id="post-imgs">
 								<input type="hidden" class="form-control" name="tags" id="post-tags">
 								<textarea name="content" style="display: none"></textarea>
+								<input type="hidden" class="form-control" name="id" id="post-id" value="${id}"/>
 								<button id="btnSubmit" class="button rounded-0 primary-bg text-white w-100"
 								 style="border-radius: 5px !important;" type="submit">작성 완료</button>
 							</form>

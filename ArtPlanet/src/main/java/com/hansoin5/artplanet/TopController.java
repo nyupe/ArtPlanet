@@ -2,6 +2,7 @@ package com.hansoin5.artplanet;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hansoin5.artplanet.service.ProjectDTO;
 import com.hansoin5.artplanet.service.impl.AuthorityDAO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
+import com.hansoin5.artplanet.service.impl.ProjectDAO;
 import com.hansoin5.artplanet.utils.FileUpDownUtils;
 
 @Controller
@@ -28,6 +31,9 @@ public class TopController
 	// AUTH_SECURITY 테이블에 접근하는 객체주입
 	@Resource(name="authorityDAO")
 	private AuthorityDAO authorityDao;
+	// PROJECT 테이블에 접근하는 객체 주입
+	@Resource(name = "projectDAO")
+	private ProjectDAO projectDao;
 
 	
 	//핸드폰 인증 모듈에서 받은 데이터를 가지고 회원가입 페이지로 이동(post방식)
@@ -56,12 +62,11 @@ public class TopController
 	
 	// 회원가입 처리
 	// 프로필 사진 업로드시 업로드 input TAG의 name속성명 = MultipartFile (upload) 이어야함! 안그러면 파일업로드 요청 거절함  
-	/*
 	@RequestMapping(value = "/Register" , method=RequestMethod.POST)
 	public String registerOk(@RequestParam Map map, ModelMap modelmap,
 			 @RequestParam MultipartFile upload,  HttpServletRequest req) throws IllegalStateException, IOException{
 			
-		System.out.println("컨트롤러에서 찍어보기 : "+map.get("auth_name"));
+		//System.out.println("컨트롤러에서 찍어보기 : "+map.get("auth_name"));
 		
 		if (!upload.isEmpty()) { // 회원가입시 프로필 사진 첨부했을 경우 
 			//1]서버의 물리적 경로 얻기 String
@@ -91,7 +96,6 @@ public class TopController
 		//뷰정보반환]-회원가입 완료페이지로 이동
 		return "forward:/WEB-INF/views/support/member/Welcome.jsp";
 	}/////registerOk()
-	*/
 	
 	@RequestMapping("/About")
 	public String about()
@@ -112,8 +116,11 @@ public class TopController
 	}
 	
 	@RequestMapping("/Search/Project")
-	public String searchProject()
-	{
+	public String searchProject(@RequestParam Map map,Model model)
+	{	
+		List<ProjectDTO> list = projectDao.selectlist(map);
+		model.addAttribute("list",list);
+		
 		return "contents/SearchProject.tiles";
 	}
 	
@@ -142,6 +149,15 @@ public class TopController
 		return "support/member/Login.tiles";
 	}/////login()
 	
+
+	//리액트 페이지로 이동
+	@RequestMapping(value = "/React.bbs")
+	public String React()
+	{
+		return "react/index.tiles";
+	}/////login()
+	
+
 	/*
 	 * //회원가입 페이지으로 이동
 	 * 
@@ -157,5 +173,6 @@ public class TopController
 	 * 
 	 * return "support/member/Register.tiles"; }/////register()
 	 */
+
 
 }/////class

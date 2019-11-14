@@ -7,8 +7,9 @@ public class BlogPostDTO
 	private String content; //글내용
 	private java.util.Date postDate; //작성일
 	private int viewCount; //조회수
+	private String categorie; // 카테고리
+	private String accessRight; //열람권한
 	private String memberNo; //(작성자)회원번호
-	
 	
 	public String getBlogNo()
 	{
@@ -57,6 +58,22 @@ public class BlogPostDTO
 	public void setMemberNo(String memberNo)
 	{
 		this.memberNo = memberNo;
+	}
+	public String getCategorie()
+	{
+		return categorie;
+	}
+	public void setCategorie(String categorie)
+	{
+		this.categorie = categorie;
+	}
+	public String getAccessRight()
+	{
+		return accessRight;
+	}
+	public void setAccessRight(String accessRight)
+	{
+		this.accessRight = accessRight;
 	}
 	
 }

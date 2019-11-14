@@ -74,13 +74,14 @@ public class GcsController
 			}
 			// throw new ServletException("이미지만 업로드 할 수 있습니다.");
 		}
-
+		System.out.println("return null");
 		return null;
 	}
 
 	@SuppressWarnings("deprecation")
 	public Map uploadFile(Part filePart, final String bucketName, String extension, String path) throws IOException
 	{
+		System.out.println("uploadFile");
 		// 파일 중복 막기 위한 네이밍 로직
 		DateTimeFormatter dtf = DateTimeFormat.forPattern("YYYY-MM-dd-HHmmssSSS");
 		DateTime dt = DateTime.now(DateTimeZone.UTC);
@@ -115,7 +116,8 @@ public class GcsController
 		map.put("downloadUrl", blobInfo.getMediaLink());
 		map.put("gcsPath", gcsPath);
 		map.put("fileSize", blobInfo.getSize());
-
+		System.out.println("fileName:"+fileName);
+		System.out.println("fileUrl:"+fileUrl);
 		return map;
 	}
 
@@ -123,6 +125,7 @@ public class GcsController
 	@ResponseBody
 	public String upload(HttpServletRequest req, HttpServletResponse resp) throws Exception
 	{
+		System.out.println("/FileUploadToCloud()");
 		Map map = uploadGcs(req, resp, BUCKET_NAME);
 		if (map == null)
 			return "{'error':'이미지만 업로드 할 수 있습니다.'}";
@@ -132,7 +135,9 @@ public class GcsController
 		case "editor":
 			dao.editorUploadImage(map);
 			break;
-			
+		case "project":
+			dao.projectUploadImage(map);
+			break;
 		default:
 			dao.uploadImage(map);
 			break;

@@ -149,13 +149,13 @@
             // 정상적으로 복호화 된경우에만 인증데이터를 가져올수 있습니다.
             cc.decryptEncCert( g_conf_ENC_KEY, site_cd, cert_no, enc_cert_data2 );
            
-            System.out.println( "이름 너왜 자꾸 깨져그만좀깨져"               + cc.getKeyValue("user_name"   ) ); // 이름              
+            //System.out.println( "이름 너왜 자꾸 깨져그만좀깨져"               + cc.getKeyValue("user_name"   ) ); // 이름              
              
              
             //cc.setCharSetUtf8(); // 복호와 결과값 인코딩 변경 메서드 ( UTF-8 인코딩 사용시 주석을 해제하시기 바랍니다.)  //수정 주석해제함
             
            
-            System.out.println( "이동통신사 코드"    + cc.getKeyValue("comm_id"     ) ); // 이동통신사 코드   
+          /*   System.out.println( "이동통신사 코드"    + cc.getKeyValue("comm_id"     ) ); // 이동통신사 코드   
             System.out.println( "전화번호"           + cc.getKeyValue("phone_no"    ) ); // 전화번호          
             System.out.println( "이름"               + cc.getKeyValue("user_name"   ) ); // 이름              
             System.out.println( "생년월일"           + cc.getKeyValue("birth_day"   ) ); // 생년월일          
@@ -168,6 +168,7 @@
             System.out.println( "웹사이트 아이디  "  + cc.getKeyValue("web_siteid"  ) ); // 암호화된 웹사이트 아이디 
             System.out.println( "암호화된 결과코드"  + cc.getKeyValue("res_cd"      ) ); // 암호화된 결과코드
             System.out.println( "암호화된 결과메시지"+ cc.getKeyValue("res_msg"     ) ); // 암호화된 결과메시지  
+            */ 
          	
             
             
@@ -185,8 +186,8 @@
            	request.setAttribute("auth_phone", phoneNumber);
           
            	
-           	System.out.println("리퀘스트 영역에 저장한 것 출력 : "+request.getAttribute("auth_name"));
-            System.out.println("어플리케이션 영역에 저장한 것 출력 : "+application.getAttribute("a_auth_name"));
+           	//System.out.println("리퀘스트 영역에 저장한 것 출력 : "+request.getAttribute("auth_name"));
+            //System.out.println("어플리케이션 영역에 저장한 것 출력 : "+application.getAttribute("a_auth_name"));
             
 	    }
 	    else/*if( res_cd.equals( "0000" ) != true )*/
@@ -255,13 +256,13 @@
 		    <div id="myModal" class="modal">
 		 	
 		      <!-- Modal content -->
-		      <div class="modal-content">
+		      <div class="modal-content" style="width:200px">
 		                <p style="text-align: center;">
-		                <span style="font-size: 14pt;">
-	                		<b><span style="font-size: 24pt;">휴대폰 인증 성공</span></b></span>
+		                <span style="font-size: 12pt;">
+	                		<b><span style="font-size: 12pt;">인증 되었습니다</span></b></span>
 		                </p>
 					<!-- 닫기 버튼  시작-->		                
-	            	<div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop();">
+	            	<div style="cursor:pointer;background-color: #e2d8d8;text-align: center;width:150px;margin-left:25px;height:40px;line-height:40px;" onClick="close_pop();">
 		                <span class="pop_bt" style="font-size: 13pt;" >
 		                    	 닫기
 		                </span>

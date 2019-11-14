@@ -24,6 +24,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO gcs(fileNo, fileName, fileUrl, downloadUrl, fileSize)
 			VALUES(SEQ_gcs_fileNo.NEXTVAL, #{fileName}, #{fileUrl}, #{downloadUrl}, #{fileSize})
 	</insert>
+	<!-- 프로젝트 작성폼 이미지 업로드 -->
+	<insert id="project-uploadImage" parameterType="java.util.Map">
+		INSERT INTO gcs(fileNo, fileName, fileUrl, downloadUrl, fileSize, projectNo)
+			VALUES(SEQ_gcs_fileNo.NEXTVAL, #{fileName}, #{fileUrl}, #{downloadUrl}, #{fileSize}, #{projectNo})
+	</insert>
 	
 	<select id="getFileNoByURL" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT fileNo FROM gcs WHERE fileUrl=#{fileUrl}
