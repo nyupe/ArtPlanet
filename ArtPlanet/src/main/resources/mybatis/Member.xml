@@ -17,9 +17,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 회원가입 처리 -->
 	<insert id="memberInsert" parameterType="java.util.Map" >
-			INSERT INTO MEMBER(MEMBERNO, ID, PASSWORD, NAME, PHONENUMBER, ADDRESS, NICKNAME, BIRTH)
+			INSERT INTO MEMBER(MEMBERNO, ID, PASSWORD, NAME, PHONENUMBER, ADDRESS, NICKNAME, BIRTH, PROFILEPICTURE)
 			<!-- 회원번호(시퀀스), 아이디, 비밀번호, 이름, 핸드폰번호, 주소, 생년월일, 프로필사진-디폴트값 필요, 가입일(현재날짜로 자동초기화) -->
-			VALUES(SEQ_MEMBER.NEXTVAL, #{id}, #{password}, #{name}, #{phoneNumber}, #{address}, #{nickName}, #{birth} )
+			VALUES(SEQ_MEMBER_memberNo.NEXTVAL, #{id}, #{password}, #{name}, #{phoneNumber}, #{address}, #{nickName}, #{birth}, #{profilePicture} )
 	</insert>
 	
 	<!-- 아이디 중복 처리 -->

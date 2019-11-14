@@ -43,6 +43,8 @@ public class SupportController {
 		json.put("user_nickName", memberDao.getMemberDTO(map).getNickName());
 		json.put("user_phoneNumber", memberDao.getMemberDTO(map).getPhoneNumber());
 		json.put("user_address", memberDao.getMemberDTO(map).getAddress());
+		int start = memberDao.getMemberDTO(map).getProfilePicture().lastIndexOf("\\");
+		json.put("user_profilePicture", memberDao.getMemberDTO(map).getProfilePicture().substring(start+1));
 		System.out.println(json.toJSONString(map));
 		return json.toJSONString();
 		//return memberDao.getMemberDTO(map);
