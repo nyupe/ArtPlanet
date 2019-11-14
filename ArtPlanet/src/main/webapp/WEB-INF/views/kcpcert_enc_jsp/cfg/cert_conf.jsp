@@ -54,7 +54,7 @@
     /* = 실결제 시 : src="https://cert.kcp.co.kr/kcp_cert/cert_view.jsp"            = */
     /* = -------------------------------------------------------------------------- = */
 
-    String g_conf_gw_url       = "https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp";
+    String g_conf_gw_url   = "https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp";
 
     /* ============================================================================== */
 %>

@@ -99,7 +99,7 @@
 													<!-- 인증요청 이미지 버튼 -->
 													<tr id="show_pay_btn">
 														<td colspan="2" align="center"><input type="submit"
-															formaction="<c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/>"
+															formaction="https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp"
 															class="mb-2 mr-2 btn btn-primary btn-sm"
 															onclick="return auth_type_check();" 
 															value="휴대폰으로 인증하겠습니다" /></td>
