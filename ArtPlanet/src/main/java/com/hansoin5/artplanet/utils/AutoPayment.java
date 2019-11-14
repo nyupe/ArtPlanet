@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Service;
 
 //셀레니움 라이브러리 사용해보기 
-@Service
+//@Service
 public class AutoPayment {
 	
 	//WebDriver
