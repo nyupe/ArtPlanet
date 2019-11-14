@@ -165,6 +165,8 @@
     }
 
     cc = null; // 객체 반납
+    
+    System.out.println("여기는 res 페이지 입니다");
 %>
 
 

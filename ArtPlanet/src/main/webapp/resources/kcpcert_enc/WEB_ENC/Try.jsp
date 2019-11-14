@@ -46,7 +46,7 @@
 									<div class="divider row"></div>
 									<!-- 휴대폰 인증 시작 -->
 							<div align="center">
-            <form name="form_auth">
+            <%-- <form name="form_auth">
                 <table width="589" cellpadding="0" cellspacing="0">
                     <tr style="height:14px"><td style="background-image:url('../img/boxtop589.gif');"></td></tr>
                     <tr>
@@ -119,7 +119,7 @@
                         </td>
                     </tr>
                     <tr><td><img src="../img/boxbtm589.gif" alt="Copyright(c) NHN KCP Inc. All rights reserved."/></td></tr>
-                </table>
+                </table> --%>
         
                 <!-- 요청종류 -->
                 <input type="hidden" name="req_tx"       value="cert"/>

@@ -18,18 +18,23 @@
 	                  가장 특수한 경우를 위쪽에 놓고 일반적인 경우를 아래에 설정한다
 	-->
 	
-	<!-- hasRole('ROLE_USER') -->	
-	<security:http auto-config="true" use-expressions="true">
+	
+	<!-- csrf 제외 Url 설정 -->
+	<security:http pattern="/AuthReq.do" security="none" />
+	<security:http pattern="/AuthRes.do" security="none" />
+	
+	
+	<security:http auto-config="true" use-expressions="true" >
 
-		<!--  -->
+		<!-- ??? -->
 		<security:headers>
 			<security:frame-options disabled="true" />
 		</security:headers>
 		
-		
+			
 		<security:intercept-url pattern="/MyPage" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/**" access="permitAll"/> 
-	
+		
 	
 	
 	
@@ -67,6 +72,7 @@
 	
 		<!-- 공격을 방어하기 위한 설정 CSRF방어 설정시에는 사용자 정의 로그인 폼 사용시에 아래 hidden태그 필수 -->
 		<security:csrf disabled="false"/>
+		
 		
 		<security:session-management invalid-session-url="/Login"> <!-- 중복 로그인이 일어났을 경우 이동 할 URL -->
 		

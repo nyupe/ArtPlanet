@@ -174,6 +174,7 @@
         // 인증창으로 넘기는 form 데이터 생성 필드 ( up_hash )
         sbParam.append( "<input type=\"hidden\" name=\"up_hash\" value=\"" + up_hash + "\"/>" );
     }
+    System.out.println("여기는 req 페이지 입니다");
 %>
 
 

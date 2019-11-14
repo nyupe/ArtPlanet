@@ -5,6 +5,7 @@
 <%@ page import="java.net.URLDecoder"%>
 <%@ include file="../cfg/cert_conf.jsp"%>
 <%
+	System.out.println("인증 reQ page입니다");	
     /* ============================================================================== */
     /* =   인증데이터 수신 및 복호화 페이지                                         = */
     /* = -------------------------------------------------------------------------- = */
@@ -159,19 +160,18 @@
             System.out.println( "웹사이트 아이디  "  + cc.getKeyValue("web_siteid"  ) ); // 암호화된 웹사이트 아이디 */
             System.out.println( "암호화된 결과코드"  + cc.getKeyValue("res_cd"      ) ); // 암호화된 결과코드
             System.out.println( "암호화된 결과메시지"+ cc.getKeyValue("res_msg"     ) ); // 암호화된 결과메시지  
-            if(res_cd != null)
-            	System.out.println("여긴 REQ 페이지 " );
-        %>
-         <%--  <% if(res_cd != null ){%>
-            	System.out.println("여긴 REQ 페이지 " );
-            	<script>location.href = "<c:url value='/Login'/>";</script>
-            <% }%> --%>
-		<%
-        }
-        else/*if( res_cd.equals( "0000" ) != true )*/
-        {
-            // 인증실패
-        }
+            
+            
+            	
+          
+           	
+       
+	    }
+	    else/*if( res_cd.equals( "0000" ) != true )*/
+	    {
+	        // 인증실패
+	    }
+        
     }
     else/*if( cert_enc_use.equals( "Y" ) != true )*/
     {
@@ -189,14 +189,21 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> <!-- utf-8 수정 -->
         <title>*** NHN KCP Online Payment System [Jsp Version] ***</title>
         <script type="text/javascript">
+        	
+        	
+        
             window.onload=function()
             {
                 try
-                {
-                    opener.auth_data( document.form_auth ); // 부모창으로 값 전달
+                {	
+                    /* opener.auth_data( document.form_auth ); // 부모창으로 값 전달 */
+                    
                     //회원가입 입력폼 페이지로 이동 
-                    opener.location.href = "<c:url value='/Register'/>";
-                    window.close();// 팝업 닫기
+                  	
+                   	 /* opener.location.href = "<c:url value='/AuthRes.do'/>"; */ 
+                   	 location.href = "<c:url value='/AuthRes.do'/>";
+                    // 팝업(인증번호 6자리 누르는 창) 닫기 
+                     /* window.close(); */ 
                 }
                 catch(e)
                 {
@@ -207,6 +214,7 @@
     </head>
     <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
         <form name="form_auth" method="post">
+        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <%= sbParam.toString() %>
             
         </form>

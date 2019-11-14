@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html;charset=euc-kr"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.Enumeration" %>
 <%@ page import="kr.co.kcp.CT_CLI"%>
 <%@ page import="java.net.URLDecoder"%>
 <%@ include file="../cfg/cert_conf.jsp"%>
-<%
+<%	
+	System.out.println(" reS page 입니다 " );
     /* ============================================================================== */
     /* =   인증데이터 수신 및 복호화 페이지                                         = */
     /* = -------------------------------------------------------------------------- = */
@@ -156,7 +158,7 @@
             System.out.println( "웹사이트 아이디  "  + cc.getKeyValue("web_siteid"  ) ); // 암호화된 웹사이트 아이디
             System.out.println( "암호화된 결과코드"  + cc.getKeyValue("res_cd"      ) ); // 암호화된 결과코드
             System.out.println( "암호화된 결과메시지"+ cc.getKeyValue("res_msg"     ) ); // 암호화된 결과메시지 */
-            	System.out.println("여긴 res 페이지 " );
+            
         }
         
         
@@ -187,16 +189,17 @@
             {	
             	
                 try
-                {
-<<<<<<< HEAD
-                    opener.auth_data( document.form_auth ); // 부모창으로 값 전달
-
-                    window.close();// 팝업 닫기
-=======
-                    opener.auth_data( document.form_auth  ); // 부모창으로 값 전달     
+                {	
+					// 부모창을 url 요청 페이지로 이동 시킵니다                	
+                	opener.location.href = "<c:url value='/Register'/>";
+                	
+                	// 팝업창이 닫혀야 밑에 있는 소스가 실행됩니다.
+                	opener.alert('reS page에서 부모창에 alert 띄우기')
+                	
+                    /* opener.auth_data( document.form_auth ); // 부모창으로 값 전달 */
                     
                     window.close();// 팝업 닫기 
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+                   
                     
                 }
                 catch(e)
@@ -208,6 +211,9 @@
     </head>
     <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
         <form name="form_auth" method="post">
+        	
+        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        	
             <%= sbParam.toString() %>
         </form>
         

@@ -246,7 +246,10 @@
                     </tr>
                     <tr><td><img src="../img/boxbtm589.gif" alt="Copyright(c) NHN KCP Inc. All rights reserved."/></td></tr>
                 </table>
-        
+        		
+        		<!-- 스프링 시큐리티 사용시 모든 POST 요청에 반드시 넣어줘야함  -->
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				
                 <!-- 요청종류 -->
                 <input type="hidden" name="req_tx"       value="cert"/>
                 <!-- 요청구분 -->
@@ -260,8 +263,9 @@
                 <!-- 사이트코드 -->
                 <input type="hidden" name="site_cd"      value="<%= site_cd %>" />
                 <!-- Ret_URL : 인증결과 리턴 페이지 ( 가맹점 URL 로 설정해 주셔야 합니다. ) -->
-                <input type="hidden" name="Ret_URL"      value="http://localhost:8080/artplanet/views/support/login/kcpcert_proc_req"/>
-                
+                <input type="hidden" name="Ret_URL"      value="http://192.168.0.47:7070/artplanet/views/support/login/kcpcert_proc_req"/>
+                <%-- <input type="hidden" name="Ret_URL"      value="<c:url value='/AuthReq.do'/>"/> --%>
+                																<!-- http://localhost:8080/artplanet/AuthReq.do -->
                 <!-- https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp -->
                 <%-- <c:url value='/resources/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp'/> --%>
                 <!-- value="http://192.168.0.47:8080/kcpcert_enc/WEB_ENC/kcpcert_proc_req.jsp" -->

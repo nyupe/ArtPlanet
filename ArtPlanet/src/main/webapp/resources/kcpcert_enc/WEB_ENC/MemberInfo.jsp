@@ -25,9 +25,10 @@
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
 	<script type="text/javascript" src="<c:url value='/resources/js/CertificationByPhone.js'/>"></script>
+	
 	<link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet"></head>
 
-<body>
+	<body>
     <div class="app-container app-theme-white body-tabs-shadow">
             <div class="app-container">
                 <div class="h-100 bg-premium-white">
@@ -153,12 +154,12 @@
 									<!-- 휴대폰 인증 끝 -->
 									<div class="divider row"></div>
 									<div align="center">
-									<!-- 이메일 인증 시작  -->
-									<input type="submit"
+									 <!-- 이메일 인증 시작  -->
+									<!-- <input type="submit"
 														class="mb-2 mr-2 btn btn-primary btn-sm"
-														value="이메일로 인증하겠습니다." />
+														value="이메일로 인증하겠습니다." /> -->
 									</div>
-									<!-- 이메일 인증 끝  -->
+									
 								</div>
 							</div>
                             <div class="text-center text-dark opacity-8 mt-3">Copyright © ArtPlanet</div>
@@ -167,10 +168,7 @@
                 </div>
             </div>
     </div>
-<<<<<<< HEAD
 <script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>" ></script>
-=======
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 </body>
 </html>
     
