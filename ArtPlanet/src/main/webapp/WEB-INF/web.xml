@@ -2,11 +2,19 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-
+	
+	<!-- 스프링 씨큐러티 설정 파일은 반드시 컨텍스트 초기화 파라미터로
+	     왜냐하면 springSecurityFilterChain 이 시큐러티 관련 설정파일을 찾음
+     -->
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/root-context.xml
+			/WEB-INF/spring/security/security-context.xml
+		</param-value>
+		
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -23,6 +31,13 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<!-- 파일업로드 최대 크기 -->
+		<multipart-config>
+			<!-- 50MB max -->
+			<max-file-size>52428800</max-file-size> <!-- 50MB -->
+			<max-request-size>52428800</max-request-size>
+			<file-size-threshold>0</file-size-threshold>
+		</multipart-config>
 	</servlet>
 	<!-- 디폴트 -->
 	<servlet-mapping>
@@ -51,6 +66,28 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<!-- PartFilter -->
+	<filter>
+	  <filter-name>MultipartFilter</filter-name>
+	  <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	  <filter-name>MultipartFilter</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- 스프링 시큐리티에서 CSRF 필터 사용시 
+	form 데이터를 multipart/form-data로 보내면 request의 형식이 바뀌어 인식을 못한다. -->
+	<filter>
+        <display-name>springMultipartFilter</display-name>
+        <filter-name>springMultipartFilter</filter-name>
+        <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springMultipartFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
 	
 	<!-- spring-security filter -->
     <!-- 필터명은 반드시 springSecurityFilterChain으로-->
@@ -64,16 +101,8 @@
 		<url-pattern>/*</url-pattern><!-- /*로 모든 요청을 security 필터를 이용 -->
 	</filter-mapping> 
 	
-	<!-- 스프링 씨큐러티 설정 파일은 반드시 컨텍스트 초기화 파라미터로
-	     왜냐하면 springSecurityFilterChain 이 시큐러티 관련 설정파일을 찾음
-     -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>
-			/WEB-INF/spring/root-context.xml
-			/WEB-INF/spring/security/security-context.xml
-		</param-value>
-	</context-param> 
+	
+	
 	
 	<!-- 시작 페이지를 home.bbs로 설정 하기 위한 추가
 	     그리고 HomeController.java에서 매핑 수정

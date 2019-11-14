@@ -4,7 +4,8 @@
 <!-- 스프링 써큐리티 적용에 필요한 태그라이브러리 -->
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<header class="header_area">
+
+<header class="header_area" >
 	<div class="main_menu">
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
@@ -27,10 +28,12 @@
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artwork'/>">Artworks</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artist'/>">Artists</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Project'/>">Projects</a></li>
-						<li  class="nav-item"><a class="nav-link" href="<c:url value='/ArtClass'/>">Art Class</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/ArtClass'/>">Art Class</a></li>						
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Pay'/>">Pay</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/AdmUserInfo.ad'/>">Admin</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Register'/>">Register</a></li>
+						
 						<sec:authorize access="isAnonymous()"> <!-- 로그인 안한 상태 -->
 							<li  class="nav-item"><a class="nav-link" href="<c:url value='/Login'/>">Login</a></li>
 				 		</sec:authorize>
@@ -55,29 +58,18 @@
 				</div>
 			</div>
 		</nav>
+			<!-- 스프링 씨큐러티 사용시  -->
+		<form id="logoutForm" method="post" action="<c:url value='/logout'/>">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		</form>
+		<script>
+			//스프링 시큐리티 로그아웃 처리
+			//csrf 사용시에만 아래함수 필요
+			function logout(){
+				$('#logoutForm').submit();
+			}
+		</script>
 	</div>
-	<!-- 스프링 씨큐러티 사용시  -->
-	<form id="logoutForm" method="post" action="<c:url value='/logout'/>">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-	</form>
-	<!-- 검색바 -->
-	<!-- 
-	<div class="search_input" id="search_input_box">
-		<div class="container">
-			<form class="d-flex justify-content-between search-inner" action="<c:url value='/Search'/>">
-				<input type="text" class="form-control" id="search_input"
-					placeholder="Search Here">
-				<button type="submit" class="btn"></button>
-				<span class="ti-close" id="close_search" title="Close Search"></span>
-			</form>
-		</div>
-	</div>
-	 -->
-	<script>
-		//스프링 시큐리티 로그아웃 처리
-		//csrf 사용시에만 아래함수 필요
-		function logout(){
-			$('#logoutForm').submit();
-		}
-	</script>
 </header>
+
+

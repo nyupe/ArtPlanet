@@ -9,16 +9,7 @@
 			.format(new Date())); // 요청번호 생성 예제
 	boolean flag = false;			
 %>
-<!doctype html>
-<html lang="en">
-<head>
-    <title>Register page</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="Content-Language" content="en">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
-    <meta name="description" content="Kero HTML Bootstrap 4 Dashboard Template"/>
+
     
     <!-- 제이쿼리 코어 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -291,40 +282,19 @@
 					else $("#btnRegister").prop("disabled", false); 
 				}	
 		) */
-		
-		 
-		
 	</script>		
 	
-    <!-- Disable tap highlight on IE -->
-    <meta name="msapplication-tap-highlight" content="no">
-		
-	<!-- 기존 kero CSS -->
-	<link href="<c:url value='/resources/kero/main.07a59de7b920cd76b874.css'/>" rel="stylesheet">
-	
-	
-		
-<body>	
-   		<div style="margin-top: 200px;" class="app-container app-theme-white body-tabs-shadow">
-           	<div class="app-container">
-               	<div class="h-100">
-                   	<div class="h-100 no-gutters row">
-                       	<div class="h-100 d-md-flex d-sm-block bg-white justify-content-center align-items-center col-md-12 ">
-                        	<div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
-                        	<div class="form-row">
-                        	<!-- 사이트 logo 시작-->
-								<div class="col" align="center" style="margin-bottom: 25px; margin-top: 150px">
+	<div class="container" style="margin-bottom: 150px">	
+           <div class="row">
+      		<div class="col-lg-12 col-md-12">
+        		 <div class="card-body">
+                            <div class="col" align="center" style="margin-bottom: 25px; margin-top: 150px">
                                 	<a href="<c:url value='/Search/Artwork'/>">	<img  class="img-fluid" src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
-                                </div>
-                        	</div>
-                        	<!-- 사이트 logo 끝-->                        		
-                           
-                            <div>
+                            </div>
                             <!-- 회원가입 form 시작 --> 
-							<form method="post"  action="<c:url value='/Register'/>"  >
+							<form method="post"  action="<c:url value='/Register'/>" enctype="multipart/form-data" >
 								<!-- 스프링 시큐리티 사용시 모든 요청에 반드시 넣어줘야함  -->
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-								<div class="form-row">
 									
 									<!-- ID 입력 필드 시작 -->								
 									<div class="col-md-7 mx-auto">
@@ -455,8 +425,90 @@
 										</div>
 									</div>
 									<!-- 주소 입력 필드 끝 -->
+									
+									 <!-- 프로필 사진 입력 필드 시작 -->							
+									<div class="col-md-7 mx-auto">
+										<label for="exampleFile" class="">Profile Picture</label>
+										<!-- 이미지 미리보여지는 div 시작-->
+										<table>
+											<tr>
+												<td>
+													<!--  overflow: hidden;
+												            display: flex;
+												            align-items: center;
+												            justify-content: center;
+												            width: 300px;
+												            height: 300px; -->
+													<div id="preview" 
+													 style=" overflow:hidden; display:flex; align-items: center; justify-content:center; width:auto; height:auto;  max-height: 300px; max-width: 300px"></div>
+												</td>
+												<td>
+													<label class="mb-2 mr-2 btn-icon btn-shadow btn-outline-2x btn btn-outline-primary" for="profilePicture">프로필 사진 등록하기</label>
+													<input style="display: none" name="upload" id="profilePicture" accept=".gif, .jpg, .png" type="file" class="form-control-file">
+													<script>
+														
+													</script>
+												</td>
+												<td>
+													<!-- 폼안에 button에는 기본적으로 submit이 내장되어 있기에 type을 button으로 바꿔 submit 기능을 막습니다  -->
+													<button type="button" id="btn-delete" class="mb-2 mr-2 btn-icon btn-shadow btn-outline-2x btn btn-outline-primary">
+														<i class="lnr-store btn-icon-wrapper"></i>
+														취소
+													</button> 
+												</td>
+											</tr>
+										</table>
+										<!-- 이미지 미리보여지는 div 끝-->
+									</div> 
+									 <!-- 프로필 사진 입력 필드 끝 -->			
+									
+									<!-- 이미지 미리보기 로직 시작 -->
+									<script>
+										// 미리보기 로직
+										function readInputFile(input){
+											if(input.files && input.files[0]){
+												var reader = new FileReader();
+												reader.onload = function (e){
+													$('#preview').html("<img src="+e.target.result+">");
+												}
+												reader.readAsDataURL(input.files[0]);
+											}
+										}
+										// id가 profilePicture인 태그의 change 이벤트 발생시  호출될 readInputFile 메소드 
+										$("#profilePicture").on('change', function(){
+											readInputFile(this);
+										})
+										
+										
+										//등록 이미지 삭제 로직 
+										function resetInputFile($input, $preview){
+											var agent = navigator.userAgent.toLowerCase();
+											if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident')!=-1)
+													||(agent.indexOf("mise")!=-1)){ //브라우저 IE인 경우
+												$input.replaceWith($.input.clone(true))
+												$preview.empty();		
+											}
+											else{ // 다른 브라우저
+												$input.val("")
+												$preview.empty()
+											}
+										}
+										
+										// 아이디가 btn-delete인 태그에 클릭이벤트 발생시 실행되는 로직
+										$("#btn-delete").click(function(event){
+											var $input = $("#profilePicture");
+											var $preview = $('#preview');
+											resetInputFile($input, $preview)
+										})
+										
+									</script>
+									<!-- 이미지 미리보기 로직 끝 -->
+									
+									<!-- 프로필 사진 입력 필드 끝 -->
 								</div>
-								<div style="margin-bottom: 200px" class="col-md-7 mx-auto">
+								
+								
+								<div  class="col-md-7 mx-auto">
 									<div class="mt-3 position-relative form-check">
 										<!-- 체크박스  -->
 										<input name="checkMembershipTerms" value="동의" id="membershipTerms" 
@@ -480,13 +532,10 @@
 								</div>
 							</form>
 							<!-- 회원가입 form 끝  -->
-						</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+       				</div>
+      		 </div>
+       </div>
+	
 
 <!-- Daum 우편번호 서비스 CDN -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -535,7 +584,5 @@
 		}).open();
 	}
 </script>
-<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>"/>
-</body>
-</html>
+
     

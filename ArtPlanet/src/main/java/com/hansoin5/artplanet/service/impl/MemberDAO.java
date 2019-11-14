@@ -14,8 +14,6 @@ import com.hansoin5.artplanet.service.MemberDTO;
 //데이터베이스에 직접적으로 관련된 로직이 있는 클래스에는 레포지토리 어노테이션
 @Repository
 public class MemberDAO {
-
-	
 	
 	//sqlSessionTemplate주입 받는다
 	@Resource(name="template")

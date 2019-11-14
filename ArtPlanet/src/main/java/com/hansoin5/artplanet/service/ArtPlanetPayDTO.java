@@ -14,6 +14,8 @@ public class ArtPlanetPayDTO {
 	private String app_no; //승인번호
 	private int memberno; //회원번호
 	
+	private int isCanceled;//취소여부 확인 위한 추가 멤버변수 0==취소전 1==취소됨
+	
 	//게터세터
 	public String getTno() {
 		return tno;
@@ -87,5 +89,11 @@ public class ArtPlanetPayDTO {
 	public void setMemberno(int memberno) {
 		this.memberno = memberno;
 	}
-	
+
+	public int getIsCanceled() {
+		return isCanceled;
+	}
+	public void setIsCanceled(int isCanceled) {
+		this.isCanceled = isCanceled;
+	}
 }

@@ -448,6 +448,9 @@
 
     <body onload="goResult()">
     <form name="pay_info" method="post" action="Result.do">
+         <!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+       
         <input type="hidden" name="site_cd"         value="<%= g_conf_site_cd   %>">    <!-- 사이트 코드 -->
         <input type="hidden" name="req_tx"          value="<%= req_tx           %>">    <!-- 요청 구분 -->
         <input type="hidden" name="use_pay_method"  value="<%= use_pay_method   %>">    <!-- 사용한 결제 수단 -->

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
+<!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
+
+<mapper namespace="mybatis.Cancel">
+	
+	<!-- 일반결제 취소건 CRUD 쿼리문  -->
+	
+	<!-- 일반결제 취소 디비입력 처리 -->
+<!-- 	INSERT INTO CANCEL(TNO, RES_CD, RES_MSG, MEMBERNO)
+		VALUES(#{tno}, #{res_cd}, #{res_msg}, SEQ_MEMBER.NEXTVAL)
+		ON DUPLICATE KEY UPDATE RES_CD=1004 -->
+	<update id="cancelInsert" parameterType="java.util.Map" >
+	 <![CDATA[
+		MERGE INTO CANCEL USING DUAL
+        ON (tno = #{tno})
+            WHEN MATCHED THEN
+                      UPDATE SET RES_CD = #{res_cd}, RES_MSG=#{res_msg}
+                    
+            WHEN NOT MATCHED THEN
+                      INSERT (TNO, RES_CD, RES_MSG, MEMBERNO) 
+                      VALUES (#{tno}, #{res_cd}, #{res_msg}, SEQ_MEMBER.NEXTVAL)
+		  ]]>
+	</update>
+	
+	<select id="cancelSelectlist" parameterType="java.util.Map" resultType="int">
+		SELECT * FROM CANCEL
+	</select>
+	<!-- 취소버튼 노출용 쿼리 -->
+	<select id="cancelButtonShow" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM (SELECT * FROM CANCEL WHERE tno=#{tno}) WHERE res_cd=0000 OR res_cd=8133
+		
+	</select>
+<!-- 	SELECT COUNT(*) FROM cancel WHERE tno=#{tno}	 -->
+	
+	
+	<!-- 수업예제 쿼리문  -->
+	<!-- <select id="memoIsLogin" parameterType="java.util.Map" resultType="int">
+			SELECT COUNT(*) FROM MEMBER WHERE ID = #{id} and PWD = #{pwd}
+	</select> 
+
+	<select id="memoSelectlist" parameterType="java.util.Map" resultType="OneMemoDTO">
+			SELECT * FROM (SELECT T.*, ROWNUM R FROM(SELECT O.*, NAME,(SELECT COUNT(*) FROM MEMOCOMMENT WHERE NO = O.NO ) commentCount FROM ONEMEMO O JOIN MEMBER M ON O.ID = M.ID
+			<if test="searchColumn != null">
+				WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
+			</if> 
+			ORDER BY NO DESC) T)
+			WHERE R BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="memoTotal" parameterType="java.util.Map" resultType="int">
+			SELECT COUNT(*) FROM ONEMEMO
+			<if test="searchColumn != null">
+				WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
+			</if> 
+	</select>
+	
+	<insert id="memoInsert" parameterType="java.util.Map" >
+			INSERT INTO ONEMEMO(NO, TITLE, CONTENT, ID)
+			VALUES(SEQ_ONEMEMO.NEXTVAL, #{title}, #{content}, #{id} )
+	</insert>
+	
+	<select id="memoSelectOne" parameterType="java.util.Map" resultType="OneMemoDTO">
+			SELECT O.*,NAME FROM ONEMEMO O JOIN MEMBER M ON O.ID = M.ID
+			WHERE NO = #{no} 
+	</select>
+	
+	<select id="memoUpdate" parameterType="java.util.Map" >
+			UPDATE ONEMEMO SET TITLE = #{title}, CONTENT = #{content} WHERE NO = #{no}
+	</select>
+	
+	<delete id="memoDelete" parameterType="java.util.Map" >
+			DELETE ONEMEMO WHERE NO = #{no}
+	</delete> -->
+</mapper>

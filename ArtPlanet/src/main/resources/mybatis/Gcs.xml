@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	public String attachfileNo; //파일번호
+	public String originalFileName; //원래 파일명
+	public String serverFileName; // Storage에 저장된 파일 이름(주소)
+	public String fileSize; //파일크기
+	public String blogNo; //글번호
+ -->
+<mapper namespace="mybatis.Gcs">
+	
+	<insert id="blog-uploadImage" parameterType="java.util.Map">
+		INSERT INTO gcs(fileNo, fileName, fileUrl, fileSize, blogNo)
+			VALUES(SEQ_gcs_fileNo.NEXTVAL, #{fileName}, #{fileUrl}, #{fileSize}, #{blogNo})
+	</insert>
+	
+</mapper>

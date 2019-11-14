@@ -204,8 +204,10 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 	class="blog__list__view section-padding--lg menudetails-right-sidebar bg--white">
 
 
-	<div class="container">
-
+	<div class="container">			
+									
+								<a href="<c:url value='/View_Input'/>">  
+								<input type="button" value="입력" > </a>
 		<div class="row">
 
 			<div class="col-lg-6 col-md-6 col-sm-12">
@@ -271,7 +273,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 								<li class="slide-container">
 									<div class="slide">
 										<img
-											src="http://farm9.staticflickr.com/8504/8365873811_d32571df3d_z.jpg" />
+											src="<c:url value='/resources/artclass/images/4.jpg'/>" />
 									</div>
 									<div class="nav">
 										<label for="img-1" class="prev">&#x2039;</label> <label
@@ -794,19 +796,24 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 												<form name='form' style="right: 10px;bottom: 8px; position: relative">
 													<table style="margin: 10px;">
 														<td>인원</td>
-														<td><input type='text' name='count' value='1' size='3'
-															readonly>
-														<td><a href='#' onclick='javascript_:change(1);'>▲</a><br>
-															<a href='#' onclick='javascript_:change(-1);'>▼</a>
+														<td><input id="pricount" type='text' name='count' value='1' size='3'
+															readonly></td>
+														<td><a href='#' onclick='change(1);'>▲</a><br>
+															<a href='#' onclick='change(-1);'>▼</a> </td>
 													</table>
+												
 												</form>
-										
+															<form style="position: relative; left: 20px;bottom: 8px; ">    
+												                       합계:<input type="text" id="classPrice" value="30000원" style="position: relative; left: 20px;" />
+												                      
+															</form>
                                                         </div>
                                                         <div data-parent="#accordion" id="collapseOne3" class="collapse">
                                                             <div class="card-body">
                                                             </div>
                                                         </div>
                                                     </div>
+                                                     	<input type="text" id="classValue" style="visibility: hidden;" value=30000 />
                                                 </div>
                                             
 	                                            <!-- accordion  end -->              
@@ -972,13 +979,32 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 		var div = document.form
 	}
 </script>
-<script language='javascript'>
+<script >
 	function change(num) {
-		var x = document.form;
-		var y = Number(x.count.value) + num;
-		if (y < 1)
-			y = 1;
-		x.count.value = y;
+		
+		var value = $('#classValue').val();
+		var counter = $('#pricount').val();
+		
+		if(num == 1){
+			counter++;
+			//alert((counter*value));
+			document.getElementById("pricount").value = counter;
+			document.getElementById("classPrice").value=(counter*value)+"원";
+		}
+		else
+		{
+			counter--;
+			
+			if(counter<=0){
+		        
+			}
+			//alert((counter*value));
+			document.getElementById("pricount").value = counter;
+			document.getElementById("classPrice").value=(counter*value)+"원";
+			
+		}
+		
+		
 	}
 </script>
 
@@ -1003,7 +1029,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 			lon = position.coords.longitude; // 경도
 
 			var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-			message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+			message = '<div style="padding:5px;">현재위치</div>'; // 인포윈도우에 표시될 내용입니다
 
 			// 마커와 인포윈도우를 표시합니다
 			displayMarker(locPosition, message);

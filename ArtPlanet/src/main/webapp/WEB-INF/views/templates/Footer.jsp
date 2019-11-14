@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<footer class="footer-area section_gap">
+<footer class="footer-area section_gap" >
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-4  col-md-6 col-sm-6">
@@ -10,11 +10,16 @@
 					<p>Art Planet</p>
 					<p class="footer-text m-0">
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+<<<<<<< HEAD
 						Copyright &copy; 2019 All rights reserved
+=======
+						Copyright &copy 2019 All rights reserved
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 					</p>
 				</div>
 			</div>
+			<!-- 
 			<div class="offset-lg-1 col-lg-5   col-md-6 col-sm-6">
 				<div class="single-footer-widget">
 					<h6>Newsletter</h6>
@@ -47,7 +52,8 @@
 					</div>
 				</div>
 			</div>
-			<!-- 
+		 -->			
+		 <!-- 
 			<div class="col-lg-2 col-md-6 col-sm-6">
 				<div class="single-footer-widget">
 					<h6>Follow Us</h6>

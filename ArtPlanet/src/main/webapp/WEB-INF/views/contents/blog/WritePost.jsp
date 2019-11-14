@@ -140,6 +140,7 @@ $(document).ready(function(){
        {
             var fd = new FormData();
             fd.append('file', files[i]);
+            fd.append('role','blog'); //role 설정해서 보내주자
       
             //var status = new createStatusbar(obj); //Using this we can set progress.
             //status.setFileNameSize(files[i].name,files[i].size);
@@ -236,7 +237,7 @@ $(document).ready(function(){
             {
                 //status.setProgress(100);
                 console.log(data);
-                previewImage(data);
+                previewImage(data.fileUrl);
             }
         }); 
       
@@ -244,15 +245,17 @@ $(document).ready(function(){
     }
      
 });
-function previewImage(filename) {
-	//$('.dragAndDropDiv').before('<img src="D:/fileupload-test/'+filename+'" />');
+
+function previewImage(src) {
+	$('.dragAndDropDiv').before('<img src="'+src+'" />');
 }
 
+//submit 이전에 호출됨
 function postForm() {
     var content = $('textarea[name="content"]').val($('#summernote').summernote('code'));
     $('#post-title').val($('#text-title').val());
-    console.log(content.val());
 }
+
 var makeTagdiv = function() {
 	if($('#post-tag').val().trim() == '') return false;
 	var isExistTag = false;
@@ -314,9 +317,8 @@ var removeTagdiv = function(e) {
 					<aside class="single_sidebar_widget search_widget">
 						<div class="menu-header-content">
 							<h4 style="font-weight: bold;">누가 이 그림을 볼 수 있나요?</h4>
-							<form role="form" method="post" onsubmit="postForm()" enctype="multipart/form-data" action="<c:url value='/FileUploadToCloud'/>">
+							<form role="form" method="post" onsubmit="postForm()" action="<c:url value='/UploadBlogPost'/>">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-								<input type="file" name="testfile">
 								<div class="radio" style="padding-left: 20px; padding-top:10px;">
 									<label style="font-size: 20px;">
 										<input type="radio" name="authRadio" id="authRadioPublic" value="0"
