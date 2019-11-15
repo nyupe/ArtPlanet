@@ -32,7 +32,7 @@
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Pay'/>">Pay</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/AdmUserInfo.ad'/>">Admin</a></li>
-						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Register'/>">Register</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/AuthStart.do'/>">Register</a></li>
 						
 						<sec:authorize access="isAnonymous()"> <!-- 로그인 안한 상태 -->
 							<li  class="nav-item"><a class="nav-link" href="<c:url value='/Login'/>">Login</a></li>

@@ -4,19 +4,30 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 
+import com.google.appengine.tools.cloudstorage.GcsFileOptions;
+import com.google.appengine.tools.cloudstorage.GcsFilename;
+import com.google.appengine.tools.cloudstorage.GcsOutputChannel;
+import com.google.appengine.tools.cloudstorage.GcsService;
+import com.google.appengine.tools.cloudstorage.GcsServiceFactory;
+import com.google.appengine.tools.cloudstorage.RetryParams;
 import com.google.cloud.storage.Acl;
 import com.google.cloud.storage.Acl.Role;
 import com.google.cloud.storage.Acl.User;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import com.hansoin5.artplanet.service.impl.BlogPostDAO;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.channels.Channels;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -37,79 +48,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Controller
 public class BlogController
 {
-	private static Storage storage = null;
-
-	  // [START init]
-	  static {
-	    storage = StorageOptions.getDefaultInstance().getService();
-	  }
-	  // [END init]
-	// [START uploadFile]
-
-	  /**
-	   * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
-	   * environment variable, appending a timestamp to end of the uploaded filename.
-	   */
-	  // Note: this sample assumes small files are uploaded. For large files or streams use:
-	  // Storage.writer(BlobInfo blobInfo, Storage.BlobWriteOption... options)
-	  public String uploadFile(Part filePart, final String bucketName) throws IOException {
-	    DateTimeFormatter dtf = DateTimeFormat.forPattern("-YYYY-MM-dd-HHmmssSSS");
-	    DateTime dt = DateTime.now(DateTimeZone.UTC);
-	    String dtString = dt.toString(dtf);
-	    final String fileName = filePart.getSubmittedFileName() + dtString;
-	    System.out.println("fileName:"+fileName);
-	    System.out.println(dtString);
-	    
-	    // The InputStream is closed by default, so we don't need to close it here
-	    // Read InputStream into a ByteArrayOutputStream.
-	    InputStream is = filePart.getInputStream();
-	    ByteArrayOutputStream os = new ByteArrayOutputStream();
-	    byte[] readBuf = new byte[4096];
-	    while (is.available() > 0) {
-	      int bytesRead = is.read(readBuf);
-	      os.write(readBuf, 0, bytesRead);
-	    }
-
-	    // Convert ByteArrayOutputStream into byte[]
-	    BlobInfo blobInfo =
-	        storage.create(
-	            BlobInfo
-	                .newBuilder(bucketName, fileName)
-	                // Modify access list to allow all users with link to read file
-	                .setAcl(new ArrayList<>(Arrays.asList(Acl.of(User.ofAllUsers(), Role.READER))))
-	                .build(),
-	            os.toByteArray());
-	    // return the public download link
-	    System.out.println("blobInfo.getMediaLink() : "+blobInfo.getMediaLink());
-	    return blobInfo.getMediaLink();
-	  }
-	  // [END uploadFile]
-
-	  // [START getImageUrl]
-
-	  /**
-	   * Extracts the file payload from an HttpServletRequest, checks that the file extension
-	   * is supported and uploads the file to Google Cloud Storage.
-	   */
-	  public String getImageUrl(HttpServletRequest req, HttpServletResponse resp,
-	                            final String bucket) throws IOException, ServletException {
-	    Part filePart = req.getPart("file");
-	    final String fileName = filePart.getSubmittedFileName();
-	    String imageUrl = req.getParameter("imageUrl");
-	    // Check extension of file
-	    if (fileName != null && !fileName.isEmpty() && fileName.contains(".")) {
-	      final String extension = fileName.substring(fileName.lastIndexOf('.') + 1);
-	      String[] allowedExt = {"jpg", "jpeg", "png", "gif"};
-	      for (String s : allowedExt) {
-	        if (extension.equals(s)) {
-	          return this.uploadFile(filePart, bucket);
-	        }
-	      }
-	      throw new ServletException("file must be an image");
-	    }
-	    return imageUrl;
-	  }
-	  // [END getImageUrl]
+	@Resource(name="blogPostDAO")	
+	private BlogPostDAO dao;
 	
 	@RequestMapping("/Blog")
 	public String blog()
@@ -135,14 +75,7 @@ public class BlogController
 		return "contents/blog/EditPost.tiles";
 	}
 	
-	@RequestMapping(value = "/fileUpload", method = RequestMethod.GET)
-    public String dragAndDrop(Model model) {
-         
-        return "fileUpload";
-         
-    }
-	
-    @RequestMapping(value = "/FileUpload") //ajax에서 호출하는 부분
+    @RequestMapping(value = "/FileUpload", method = RequestMethod.POST) //ajax에서 호출하는 부분
     @ResponseBody
     public String upload(MultipartHttpServletRequest multipartRequest) { //Multipart로 받는다.
           
@@ -180,14 +113,5 @@ public class BlogController
           System.out.println("업로드 성공");
         return originalFilename;
     }
-    
-    @ResponseBody
-    @RequestMapping(value = "/FileUploadToCloud")
-    public String uploadToCloud(Part filePart) throws IOException {
-    	System.out.println("uploadToCloud 호출");
-    	uploadFile(filePart, "art-planet-storage");
-    	return "SUCCESS!!!!";
-    }
-    
     
 }

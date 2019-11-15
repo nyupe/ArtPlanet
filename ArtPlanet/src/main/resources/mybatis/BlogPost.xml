@@ -1,7 +1,20 @@
-<!-- <?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	private String blogNo; //글번호
+	private String title; //글제목
+	private String content; //글내용
+	private java.util.Date postDate; //작성일
+	private int viewCount; //조회수
+	private String memberNo; //(작성자)회원번호
+ -->
 <mapper namespace="mybatis.BlogPost">
 
-	
+	<insert id="uploadBlogPost" parameterType="java.util.Map">
+		INSERT INTO blogPost(blogNo, title, content, postDate, viewCount, memberNo)
+			VALUES(SEQ_BLOGPOST_blogNo.NEXTVAL, #{title}, #{content}, SYSDATE, 0, #{memberNo})
+	</insert>
 
-</mapper> -->
+</mapper>

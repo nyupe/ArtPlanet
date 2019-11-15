@@ -20,7 +20,45 @@
 	
 	
 	var displayUserProfile = function(data){
-
+		
+		//data 콘솔에 찍어보기 회원정보를 뽑아준
+		console.log(data)
+		
+		// 프로필 카드 id = card_profile
+		//data 프로필 카드안에 넣어줄 테이블 
+		var profileTable = "<h5 class='card-title'>"+data.user_name+"님의 회원정보</h5>"
+		
+		profileTable += "<table class='mb-0 table table-borderless'>" 
+		
+		profileTable += "<tr>"
+		profileTable += "<td rowspan='5'><img style='width: auto;height: auto; max-height: 100px; max-width: 100px' src='/artplanet/ProfilePicture/"+data.user_profilePicture+"' alt='프로필사진'/></td>"
+		profileTable += "<td>아이디</td><td>"+data.user_id+"</td>"
+		profileTable += "</tr>"
+		
+		profileTable += "<tr>"
+		profileTable += "<td>닉네임</td><td>"+data.user_nickName+"</td>"
+		profileTable += "</tr>"
+		
+		profileTable += "<tr>"
+		profileTable += "<td>생년월일</td><td>"+data.user_birth+"</td>"
+		profileTable += "</tr>"
+		
+		profileTable += "<tr>"
+		profileTable += "<td>주소</td><td>"+data.user_address+"</td>"
+		profileTable += "</tr>"
+				
+		profileTable += "<tr>"
+		profileTable += "<td>핸드폰 번호</td><td>"+data.user_phoneNumber+"</td>"
+		profileTable += "</tr>"
+		
+		profileTable += "</table>"
+		
+		$("#card_profile").html(profileTable);
+		
+		
+		
+		
+		
 		$('#user_id').html(data.user_id)
 		$('#user_name').html(data.user_name)
 		$('#user_name_blog').html(data.user_name)
@@ -40,7 +78,7 @@
 	
 		<div class="col-md-6" align="center" style="margin-bottom: 50px">
 			<div class="card" style="width: 500px">
-				<div class="card-body">
+				<div class="card-body" id="card_profile">
 					<h4 class="card-title"><span id="user_name"></span>님 프로필</h4>
 					<img id="user_profilePicture" style="width: auto;height: auto; max-height: 100px; max-width: 100px"  alt="프로필사진" />
 					<p class="card-text">

@@ -222,17 +222,35 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/m
             <artifactId>commons-io</artifactId>
             <version>2.6</version>
         </dependency>
-        <!-- Google Cloud Vision API -->
+        <!-- Google Cloud Vision AI -->
 		<dependency>
 			<groupId>com.google.cloud</groupId>
 			<artifactId>google-cloud-vision</artifactId>
 			<version>1.75.0</version>
 		</dependency>
+		<!-- Google Cloud Vision AI For Spring Framework -->
+		<!-- <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-gcp-dependencies</artifactId>
+			<version>1.1.2.RELEASE</version>
+			<type>pom</type>
+			<scope>import</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-gcp-starter-vision</artifactId>
+		    <version>1.1.3.RELEASE</version>
+		</dependency> -->
 		<!-- google-cloud-storage -->
 		<dependency>
 		    <groupId>com.google.cloud</groupId>
 		    <artifactId>google-cloud-storage</artifactId>
 		    <version>1.99.0</version>
+		</dependency>
+		<dependency>
+		   <groupId>com.google.appengine.tools</groupId>
+		   <artifactId>appengine-gcs-client</artifactId>
+		   <version>0.8</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
 		<dependency>
@@ -248,6 +266,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/m
 			<version>1.3</version>
 		</dependency>
         
+
         <!-- 작업스케쥴러 라이브러리 quartz 라이브러러리 https://offbyone.tistory.com/256 -->
 	
 		
@@ -256,6 +275,19 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/m
 		    <artifactId>spring-context-support</artifactId>
 		    <version>5.2.1.RELEASE</version>
 		</dependency>
+
+        <!-- 스케쥴러 -->
+        <dependency>
+		    <groupId>org.quartz-scheduler</groupId>
+		    <artifactId>quartz</artifactId>
+		    <version>2.3.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>5.2.1.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 	
     <build>

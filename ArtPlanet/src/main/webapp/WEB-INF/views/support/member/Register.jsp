@@ -27,7 +27,9 @@
 	var v_phoneNumber = false;
 	var v_Terms = false;
 	
-		
+	
+	
+	
 	
 		//아이디 유효성 처리
 		function idCheck(){
@@ -200,7 +202,7 @@
 				v_address = true;
 				signupCheck()
 			}
-		}/////addressCheck()
+		}/////addressCheck() 
 		
 		
 		//생년월일 유효성 처리
@@ -271,7 +273,7 @@
 	 	});
 		
 		
-		/* $(
+		/*  $(
 				function signupCheck(){
 					var v_Terms = $('#membershipTerms').is(":checked");
 					console.log(v_Terms);
@@ -281,7 +283,7 @@
 					
 					else $("#btnRegister").prop("disabled", false); 
 				}	
-		) */
+		)  */
 	</script>		
 	
 	<div class="container" style="margin-bottom: 150px">	
@@ -293,7 +295,7 @@
                             </div>
                             <!-- 회원가입 form 시작 --> 
 							<form method="post"  action="<c:url value='/Register'/>" enctype="multipart/form-data" >
-								<!-- 스프링 시큐리티 사용시 모든 요청에 반드시 넣어줘야함  -->
+								<!-- 스프링 시큐리티 사용시 모든 POST 요청에 반드시 넣어줘야함  -->
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 									
 									<!-- ID 입력 필드 시작 -->								
@@ -407,8 +409,11 @@
 												class="mb-2 mr-2 btn-icon btn-shadow btn-outline-2x btn btn-outline-primary btn-sm"
 												onclick="sample6_execDaumPostcode()" value="주소 검색"><br>
 											<!-- 주소 입력태그  -->
-											<input name="address" value="${param.address}"
-											id="address" placeholder="" oninput = "addressCheck()"
+												<%-- <input name="address" value="${param.address}"
+												id="address"  placeholder="" onchange ="addressCheck()" oninput="addressCheck()"
+													type="text" class="form-control"> --%>
+												<input name="address" 
+												id="address"  placeholder="" 
 												type="text" class="form-control">
 											<span id="addressError"></span>
 										</div>
@@ -419,7 +424,7 @@
 											<label for="detailAddress" class=""> Detail Address</label>
 											<!-- 상세주소 입력태그  -->
 											<input
-												name="detailAddress" value="${param.detailAddress}"
+												name="detailAddress" 
 												id="detailAddress" 
 												placeholder="" type="text" class="form-control">
 										</div>
@@ -440,10 +445,12 @@
 												            width: 300px;
 												            height: 300px; -->
 													<div id="preview" 
-													 style=" overflow:hidden; display:flex; align-items: center; justify-content:center; width:auto; height:auto;  max-height: 300px; max-width: 300px"></div>
+													 style="width:auto; height:auto;  max-height: 200px; max-width: 300px"></div>
 												</td>
 												<td>
-													<label class="mb-2 mr-2 btn-icon btn-shadow btn-outline-2x btn btn-outline-primary" for="profilePicture">프로필 사진 등록하기</label>
+													<label class="mb-2 mr-2 btn-icon btn-shadow btn-outline-2x btn btn-outline-primary" for="profilePicture">
+														프로필 사진 등록하기
+													</label>
 													<input style="display: none" name="upload" id="profilePicture" accept=".gif, .jpg, .png" type="file" class="form-control-file">
 													<script>
 														
@@ -452,7 +459,6 @@
 												<td>
 													<!-- 폼안에 button에는 기본적으로 submit이 내장되어 있기에 type을 button으로 바꿔 submit 기능을 막습니다  -->
 													<button type="button" id="btn-delete" class="mb-2 mr-2 btn-icon btn-shadow btn-outline-2x btn btn-outline-primary">
-														<i class="lnr-store btn-icon-wrapper"></i>
 														취소
 													</button> 
 												</td>
@@ -469,7 +475,7 @@
 											if(input.files && input.files[0]){
 												var reader = new FileReader();
 												reader.onload = function (e){
-													$('#preview').html("<img src="+e.target.result+">");
+													$('#preview').html("<img src="+e.target.result+" style='width:auto; height:auto;  max-height: 200px; max-width: 300px'>");
 												}
 												reader.readAsDataURL(input.files[0]);
 											}
@@ -510,11 +516,11 @@
 								
 								<div  class="col-md-7 mx-auto">
 									<div class="mt-3 position-relative form-check">
-										<!-- 체크박스  -->
-										<input name="checkMembershipTerms" value="동의" id="membershipTerms" 
-										type="checkbox" class="form-check-input" >
+											<!-- 체크박스  -->
+											<input name="checkMembershipTerms"  id="membershipTerms" 
+											type="checkbox" class="form-check-input" >
 											<label for="exampleCheck" class="form-check-label">
-											<a href="javascript:void(0);"><span class="text-primary">ArtPlanet회원 약관</span> </a>을 읽고 체크해주세요</label>
+											<a href="javascript:void(0);"><span class="text-primary">ArtPlanet의 회원약관</span></a>을 읽고 체크해주세요</label>
 											<span class="text-danger">${checkMembershipTermsError }</span>		
 									</div>
 									<div class="mt-4 d-flex align-items-center">
@@ -578,8 +584,14 @@
 
 				//주소 정보를 해당 필드에 넣는다.
 				document.getElementById("address").value = addr;
-				// 커서를 상세주소 필드로 이동한다.
+				//커서를 상세주소 필드로 이동한다.
 				document.getElementById("detailAddress").focus();
+				
+				//주소 입력이 끝난후 유효성 통과
+				$('#address').css("background-color", "#B0F6AC");
+				$('#addressError').css("color","green");
+				$('#addressError').text("");
+				v_address = true;
 			}
 		}).open();
 	}
