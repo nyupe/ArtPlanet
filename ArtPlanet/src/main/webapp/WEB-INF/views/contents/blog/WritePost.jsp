@@ -259,7 +259,7 @@ function blogEditorUpload(file, editor)
 	var uploadURL = "<c:url value='/FileUploadToCloud'/>";
 	var form_data = new FormData();
   	form_data.append('file', file);
-	form_data.append('role','blog');
+	form_data.append('role','editor');
   	$.ajax({
   		beforeSend : function(xhr)
         {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
@@ -333,7 +333,6 @@ var removeTagdiv = function(e) {
 					<div class="form-group" style="margin-top:10px;">
 						<input type="text" class="form-control" id="text-title" placeholder="글제목(필수)">
 					</div>
-					<p>캐시dd아님</p>
 					<div id="summernote"></div>
 					<script>
 						$(document).ready(function() {
@@ -388,6 +387,22 @@ var removeTagdiv = function(e) {
 						</div>						
 					</aside>
 				</div>
+				<button onclick="visionTest()">비전 테스트</button>				
+				<script type="text/javascript">
+				function visionTest()
+				{
+					$.ajax({
+						url: "<c:url value='/extractLabels'/>", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+						method: "GET", // HTTP 요청 메소드(GET, POST 등) 
+						success: function(data)
+			            {
+							console.log(data);
+			            }
+
+					})
+					
+				}
+				</script>
 			</div>
 		</div>
 	</div>
