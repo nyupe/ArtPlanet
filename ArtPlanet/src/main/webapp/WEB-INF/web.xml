@@ -7,6 +7,7 @@
 	     왜냐하면 springSecurityFilterChain 이 시큐러티 관련 설정파일을 찾음
      -->
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
@@ -30,6 +31,13 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<!-- 파일업로드 최대 크기 -->
+		<multipart-config>
+			<!-- 50MB max -->
+			<max-file-size>52428800</max-file-size> <!-- 50MB -->
+			<max-request-size>52428800</max-request-size>
+			<file-size-threshold>0</file-size-threshold>
+		</multipart-config>
 	</servlet>
 	<!-- 디폴트 -->
 	<servlet-mapping>
@@ -58,7 +66,16 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	
+	<!-- PartFilter -->
+	<filter>
+	  <filter-name>MultipartFilter</filter-name>
+	  <filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	  <filter-name>MultipartFilter</filter-name>
+	  <url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<!-- 스프링 시큐리티에서 CSRF 필터 사용시 
 	form 데이터를 multipart/form-data로 보내면 request의 형식이 바뀌어 인식을 못한다. -->
 	<filter>

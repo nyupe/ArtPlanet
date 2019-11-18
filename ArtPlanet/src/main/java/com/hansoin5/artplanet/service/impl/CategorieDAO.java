@@ -7,14 +7,21 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.hansoin5.artplanet.service.CategorieDTO;
+
 @Repository
-public class BlogPostDAO
+public class CategorieDAO
 {
 	@Resource(name="template")
 	private SqlSessionTemplate template;
 	
-	public int uploadPost(Map map)
+	public int insert(Map map)
 	{
-		return template.insert("uploadBlogPost",map);
+		return template.insert("insertCategorie",map);
+	}
+	
+	public CategorieDTO getCategorieDTO(Map map)
+	{
+		return null;
 	}
 }

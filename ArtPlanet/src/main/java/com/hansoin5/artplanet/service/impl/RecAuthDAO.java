@@ -34,6 +34,8 @@ public class RecAuthDAO {
 			return template.selectList("recAuthSelectlist", map);
 		}
 		
+		
+		
 		/////////////////////////////////////////////////
 		//프로젝트용 1회용 배치키
 		
@@ -54,5 +56,10 @@ public class RecAuthDAO {
 			return template.selectList("projAuthSelectlist", map);
 		}
 		
-	
+		// PROJECTSUPPORT테이블과 조인해서 PROJECTSUPPORTSUM컬럼만 셀렉트해오는 
+		public List<RecAuthDTO> recAuthSelectProjectSupportSum(){
+			return template.selectList("recAuthSelectProjectSupportSum");
+		}
+				
+				
 }/////

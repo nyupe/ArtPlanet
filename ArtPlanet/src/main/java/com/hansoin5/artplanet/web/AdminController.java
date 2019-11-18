@@ -153,10 +153,10 @@ public class AdminController {
 					Map record = new HashMap();
 					record.put("ordr_idxx",dto.getOrdr_idxx());
 					record.put("res_cd",dto.getRes_cd());
-					record.put("batch_key",dto.getBatch_key());
-					record.put("card_cd",dto.getCard_code());					
+					record.put("batch_key",dto.getBatch_key()==null? "인증실패" :dto.getBatch_key());
+					record.put("card_cd",dto.getCard_cd()==null? "인증실패" :dto.getCard_cd());					
 					record.put("buyr_name",dto.getBuyr_name());					
-					record.put("memberno",dto.getMemberno());
+					record.put("memberno",dto.getMemberNo());
 	
 					collections.add(record);
 				}
@@ -192,7 +192,7 @@ public class AdminController {
 				List<Map> collections = new Vector<Map>();
 				for(RecPayDTO dto:list) {
 					Map record = new HashMap();
-					record.put("tno", dto.getTno());
+					record.put("tno", dto.getTno()==null? "결제실패" : dto.getTno());
 					record.put("ordr_idxx",dto.getOrdr_idxx());
 					record.put("good_mny",dto.getGood_mny());
 					record.put("good_name",dto.getGood_name());
@@ -200,11 +200,11 @@ public class AdminController {
 					record.put("buyr_tel1",dto.getBuyr_tel1());
 					record.put("buyr_tel2",dto.getBuyr_tel2());
 					record.put("buyr_mail",dto.getBuyr_mail());
-					record.put("card_name",dto.getCard_name());
-					record.put("app_time",dto.getApp_time());
-					record.put("app_no",dto.getApp_no());
+					record.put("card_name",dto.getCard_name()==null?"결제실패":dto.getCard_name());
+					record.put("app_time",dto.getApp_time()==null?"결제실패":dto.getApp_time());
+					record.put("app_no",dto.getApp_no()==null? "결제실패":dto.getApp_no());
 					record.put("res_cd", dto.getRes_cd());
-					record.put("memberno",dto.getMemberno());
+					record.put("memberno",dto.getMemberNo());
 
 					collections.add(record);
 				}
@@ -242,10 +242,10 @@ public class AdminController {
 					Map record = new HashMap();
 					record.put("ordr_idxx",dto.getOrdr_idxx());
 					record.put("res_cd",dto.getRes_cd());
-					record.put("batch_key",dto.getBatch_key());
-					record.put("card_cd",dto.getCard_code());					
+					record.put("batch_key",dto.getBatch_key()==null? "인증실패" :dto.getBatch_key());
+					record.put("card_cd",dto.getCard_cd()==null? "인증실패" :dto.getCard_cd());					
 					record.put("buyr_name",dto.getBuyr_name());					
-					record.put("memberno",dto.getMemberno());
+					record.put("memberno",dto.getMemberNo());
 	
 					collections.add(record);
 				}
@@ -280,7 +280,7 @@ public class AdminController {
 				List<Map> collections = new Vector<Map>();
 				for(RecPayDTO dto:list) {
 					Map record = new HashMap();
-					record.put("tno", dto.getTno());
+					record.put("tno", dto.getTno()==null? "결제실패" :dto.getTno());
 					record.put("ordr_idxx",dto.getOrdr_idxx());
 					record.put("good_mny",dto.getGood_mny());
 					record.put("good_name",dto.getGood_name());
@@ -288,11 +288,11 @@ public class AdminController {
 					record.put("buyr_tel1",dto.getBuyr_tel1());
 					record.put("buyr_tel2",dto.getBuyr_tel2());
 					record.put("buyr_mail",dto.getBuyr_mail());
-					record.put("card_name",dto.getCard_name());
-					record.put("app_time",dto.getApp_time());
-					record.put("app_no",dto.getApp_no());
+					record.put("card_name",dto.getCard_name()==null? "결제실패" :dto.getCard_name());
+					record.put("app_time",dto.getApp_time()==null? "결제실패" :dto.getApp_time());
+					record.put("app_no",dto.getApp_no()==null? "결제실패" :dto.getApp_no());
 					record.put("res_cd", dto.getRes_cd());
-					record.put("memberno",dto.getMemberno());
+					record.put("memberno",dto.getMemberNo());
 
 					collections.add(record);
 				}

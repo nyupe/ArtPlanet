@@ -13,7 +13,7 @@ public class RecPayDTO {
 	String app_time;
 	String app_no;
 	String res_cd;
-	String memberno;
+	String memberNo;
 	
 
 	//게터세터
@@ -89,11 +89,11 @@ public class RecPayDTO {
 	public void setRes_cd(String res_cd) {
 		this.res_cd = res_cd;
 	}
-	public String getMemberno() {
-		return memberno;
+	public String getMemberNo() {
+		return memberNo;
 	}
-	public void setMemberno(String memberno) {
-		this.memberno = memberno;
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 
 	
