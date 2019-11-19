@@ -3,17 +3,88 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
+<script>
+		
+		// 아이디 저장(쿠키사용) 기능 로직
+		$(document).ready(function(){ // 진입점
+		    
+			var userInputId = getCookie("userInputId");//저장된 쿠기값 가져오기
+		    
+			$("input[name='id']").val(userInputId); 
+		     
+		    if($("input[name='id']").val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩
+		                                           // 아이디 저장하기 체크되어있을 시,
+		        $("#idSave").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+		    }/////if
+		     
+		    $("#idSave").change(function(){ // 체크박스에 변화가 발생시
+		        if($("#idSave").is(":checked")){ // ID 저장하기 체크했을 때,
+		            var userInputId = $("input[name='id']").val();
+		            setCookie("userInputId", userInputId, 7); // 7일 동안 쿠키 보관
+		        }else{ // ID 저장하기 체크 해제 시,
+		            deleteCookie("userInputId");
+		        }
+		    });///// $("#idSave").change(function(){})
+		     
+		    // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+		    $("input[name='id']").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
+		        if($("#idSave").is(":checked")){ // ID 저장하기를 체크한 상태라면,
+		            var userInputId = $("input[name='id']").val();
+		            setCookie("userInputId", userInputId, 7); // 7일 동안 쿠키 보관
+		        }
+		    });///// $("input[name='id']").keyup(function(){})
+		    
+		}); // 진입점 끝
+		
+	
+		/* 위에 있는 아이디 저장 기능 로직에서 호출되는 함수들 */
+		
+		//쿠키 설정
+		function setCookie(cookieName, value, exdays){
+		    var exdate = new Date();
+		    exdate.setDate(exdate.getDate() + exdays);
+		    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+		    document.cookie = cookieName + "=" + cookieValue;
+		}
+		
+		//쿠키 삭제
+		function deleteCookie(cookieName){
+		    var expireDate = new Date();
+		    expireDate.setDate(expireDate.getDate() - 1);
+		    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+		}
+		
+		//쿠기 가져오기
+		function getCookie(cookieName) {
+		    cookieName = cookieName + '=';
+		    var cookieData = document.cookie;
+		    var start = cookieData.indexOf(cookieName);
+		    var cookieValue = '';
+		    if(start != -1){
+		        start += cookieName.length;
+		        var end = cookieData.indexOf(';', start);
+		        if(end == -1)end = cookieData.length;
+		        cookieValue = cookieData.substring(start, end);
+		    }
+		    return unescape(cookieValue);
+		}
+			
+</script>
+
+
 <style>
-	.header_area {
-		display: none;
-	}
-	.footer-area {
-		display: none;
-	}
-	.single-footer-widget {
-		display: none;
-	}
+		.header_area {
+			display: none;
+		}
+		.footer-area {
+			display: none;
+		}
+		.single-footer-widget {
+			display: none;
+		}
 </style>
+
+
 
      <div class="app-container app-theme-white body-tabs-shadow">
             <div class="app-container">
@@ -68,10 +139,8 @@
                                     <span>로그인 해주세요.</span></h4>
                                 <h6 class="mt-3">회원이 아니시라구요? 
                                 <br/>
-                                	<!-- 회원가입 페이지로 이동  GET방식 -->
-                                	<%-- <a href="<c:url value='AuthStart.do'/>;" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> --%>
-                                	<!-- 로그인 유효성 실시간 처리를 위한 테스트  -->
-                                	<a href="<c:url value='/Register'/>" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> 
+                                
+                                	<a href="<c:url value='/AuthStart.do'/>" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> 
                                 </h6>
                                 <div class="divider row"></div>
                                 <div style="padding-bottom: 100px">
@@ -99,16 +168,21 @@
                                             </div>
                                             
                                         </div>
+                                       
                                         <div class="position-relative form-check">
+	                                        
 	                                        <c:if test="${param.error != null }">
 	                                        	<label class="text-danger">
 	                                        		아이디와 비밀번호가 틀렸습니다.
 	                                        	</label>
 	                                        </c:if>
-	                                        <br>
-	                                        <input name="check" id="exampleCheck" type="checkbox" class="form-check-input">
-	                                        <label for="exampleCheck" class="form-check-label">아이디 저장</label>
+											<br>	
+	                                        <input type="checkbox" name="idSave" id="idSave"  />
+											<label for="idSave">아이디 저장</label>
+	                                        
+	                                        
                                         </div>
+                                        
                                         <div class="divider row"></div>
                                         <div class="d-flex align-items-center">
                                             <div class="ml-auto">

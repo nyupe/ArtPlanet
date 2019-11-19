@@ -60,9 +60,6 @@
         <beans:property name="maxInMemorySize" value="1048576" /> <!-- 1MB -->
     </beans:bean>
 	
-	<!-- 서버의 이미지 불러오기 시도 첫번째 -->
-	<!-- <resources location="file:///D:/AYJ/Workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp5/wtpwebapps/ArtPlanet/ProfilePicture/" 
-	mapping="/image/**"/> -->
 	
-	
+
 </beans:beans>

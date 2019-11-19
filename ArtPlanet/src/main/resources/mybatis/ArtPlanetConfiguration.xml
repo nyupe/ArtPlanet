@@ -15,6 +15,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <typeAlias alias="CancelDTO" type="com.hansoin5.artplanet.service.CancelDTO"/>		 
 		 <typeAlias alias="RecAuthDTO" type="com.hansoin5.artplanet.service.RecAuthDTO"/>
 		 <typeAlias alias="RecPayDTO" type="com.hansoin5.artplanet.service.RecPayDTO"/>
+		 <typeAlias alias="MonthTotDTO" type="com.hansoin5.artplanet.service.MonthTotDTO"/>
+		 
 	</typeAliases>
 
 	<!-- 매퍼파일(SQL쿼리 결과와 자바빈 매핑) 정보 설정 -->	

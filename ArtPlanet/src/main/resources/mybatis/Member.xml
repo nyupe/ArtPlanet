@@ -8,7 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="mybatis.Member">
 	
-	<!-- 회원정보 CRUD 쿼리문  -->
+	
+	<!-- 회원 리스트 전체조회 -->
+	<select id="getMemberList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM MEMBER ORDER BY MEMBERNO DESC
+	</select>
 	
 	<!-- 로그인 처리  -->
 	<select id="loginProcess" parameterType="java.util.Map" resultType="int">
@@ -32,6 +36,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT COUNT(*) FROM MEMBER WHERE NICKNAME = #{nickName} 
 	</select>
 	
+	<!-- 닉네임 수정처리  -->
+	<update id="MemberUpdate" parameterType="java.util.Map">
+			UPDATE MEMBER SET NICKNAME = #{nickName} WHERE ID = #{id}
+	</update>
+	
 	<!-- 회원정보 조회  -->
 	<select id="getMemberDTO" parameterType="java.util.Map" resultType="MemberDTO">
 			SELECT * FROM MEMBER WHERE ID = #{id}
@@ -42,6 +51,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT MEMBERNO FROM MEMBER WHERE ID = #{id}
 	</select>
 	
+	<!-- 회원 탈퇴처리  -->
+	<delete id="MemberDelete" parameterType="java.util.Map">
+			DELETE MEMBER WHERE ID = #{id}
+	</delete>
+	
+	<!-- 월별가입회원수조회 -->
+	<select id="getMemberTotal" parameterType="java.util.Map" resultType="MonthTotDTO">
+			SELECT SUBSTR(MEMBERSHIPDATE,4,2) AS MONTH, COUNT(*) AS TOT FROM MEMBER
+			WHERE MEMBERSHIPDATE BETWEEN '2019-01-01' AND '2019-12-31'
+			GROUP BY SUBSTR(MEMBERSHIPDATE,4,2)
+			ORDER BY SUBSTR(MEMBERSHIPDATE,4,2)
+	</select>
 	
 	
 	<!-- 수업예제 쿼리문  -->

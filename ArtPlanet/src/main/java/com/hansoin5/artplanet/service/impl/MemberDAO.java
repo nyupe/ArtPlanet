@@ -9,16 +9,23 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.hansoin5.artplanet.service.MemberDTO;
+import com.hansoin5.artplanet.service.MonthTotDTO;
 
 
 //데이터베이스에 직접적으로 관련된 로직이 있는 클래스에는 레포지토리 어노테이션
 @Repository
 public class MemberDAO {
-	
 	//sqlSessionTemplate주입 받는다
 	@Resource(name="template")
 	private SqlSessionTemplate template;
-		
+	
+	
+	// 회원리스트 반환
+	public List<Map> getMembers(Map map) {
+		return template.selectList("getMemberList", map);
+	}/////getMembers()
+	
+	
 	//아이디로 회원번호 가져오기 
 	public String getMemberNo(String id) {
 		return template.selectOne("getMemberNo", id);
@@ -53,7 +60,15 @@ public class MemberDAO {
 		return (Integer)template.selectOne("loginProcess", map)== 1 ? true : false;
 	}/////loginProcess()
 	
+	// 닉네임 수정
+	public int updateNickName(Map map) {
+		return template.update("MemberUpdate",map);
+	}/////updateNickName()
 	
+	// 회원 탈퇴
+	public int deleteMember(Map map) {
+		return template.delete("MemberDelete",map);
+	}/////delete()
 	
 	
 	
@@ -65,22 +80,18 @@ public class MemberDAO {
 	public MemberDTO selectOne(Map map) {
 		return template.selectOne("getMemberInfo", map);
 	}
+
+	// 월별가입회원수조회 
+	public List<MonthTotDTO> getMemberTotal() {
 	
-	// 계정 탈퇴시 사용
-	public int delete(Map map) {
-		return template.delete("MemberDelete",map);
+		return template.selectList("getMemberTotal");
 	}
 	
 	
-	// 내정보 수정
-	public int update(Map map) {
-		return template.update("MemberUpdate",map);
-	}
 	
-	// ========================== 미사용 메소드 시작 ===================================
-	public List<MemberDTO> selectlist(Map map) {return null;}
-	public int getTotalRecord(Map map) {return 0;}
-	// ========================== 미사용 메소드 끝 ===================================
+	
+	
+	
 	
 	
 }/////class
