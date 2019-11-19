@@ -22,4 +22,12 @@ public class GcsDAO
 	{
 		return template.insert("blog-uploadImage",map);
 	}
+	public String getFileNoByURL(String fileUrl)
+	{
+		return template.selectOne("getFileNoByURL", fileUrl);
+	}
+	public int updateBlogNo(Map map)
+	{
+		return template.update("updateBlogNo", map);
+	}
 }

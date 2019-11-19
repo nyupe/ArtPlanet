@@ -13,7 +13,7 @@ public class BlogPostDAO
 	@Resource(name="template")
 	private SqlSessionTemplate template;
 	
-	public int uploadPost(Map map)
+	public int uploadBlogPost(Map map)
 	{
 		return template.insert("uploadBlogPost",map);
 	}
