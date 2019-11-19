@@ -9,7 +9,7 @@
 			.format(new Date())); // 요청번호 생성 예제
 	boolean flag = false;			
 %>
-
+	
     
     <!-- 제이쿼리 코어 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -18,16 +18,16 @@
 	
 	<!-- 유효성 검증 관련 로직 -->
 	<script>
-	var v_id = false;
-	var v_nickName = false;
-	var v_name = false;
-	var v_password = false;
-	var v_address = false;
-	var v_birth = false;
-	var v_phoneNumber = false;
-	var v_Terms = false;
-	
-	
+	// 이름과 생년월일 핸드폰번호는 인증결과 처리된 값을 그대로 사용하므로 유효성 체크에서 제외(true)
+	// 이름, 생년월일, 핸드폰 번호에 해당하는 입력필드는 전부 readonly 속성 걸어둠(읽기만 하고 입력은 불가)
+	var v_id = false; // 아이디
+	var v_nickName = false; // 닉네임
+	var v_name = true; // 이름
+	var v_password = false; // 비밀번호
+	var v_address = false; // 주소
+	var v_birth = true; // 생년월일
+	var v_phoneNumber = true; // 핸드폰 번호
+	var v_Terms = false; // 약관체크
 	
 	
 	
@@ -284,8 +284,8 @@
 					else $("#btnRegister").prop("disabled", false); 
 				}	
 		)  */
-	</script>		
-	
+	</script>
+		
 	<div class="container" style="margin-bottom: 150px">	
            <div class="row">
       		<div class="col-lg-12 col-md-12">
@@ -312,16 +312,19 @@
 										</div>
 									</div>
 									<!-- ID 입력 필드 끝 -->
-				
+									
+									 
+									
 									<!-- 이름 입력 필드 시작 -->
 									<div class="col-md-7 mx-auto">
 										<div class="position-relative form-group">
 											<label for="exampleName" class=""><span
 												class="text-danger">*</span> Name</label>
 											<!-- 이름 입력태그  -->
-											<input name="name" value="" oninput="nameCheck()"
-												id="name" placeholder="" type="text"
-												class="form-control">
+											<input name="name" placeholder="" oninput="nameCheck()"
+												id="name" value="<c:out value='${auth_name}'/>"  
+												type="text" readonly="readonly"
+												class="form-control"/>
 											<span id="nameError"></span>
 										</div>
 									</div>
@@ -348,8 +351,8 @@
 											<label for="exampleName" class=""><span
 												class="text-danger">*</span> Birth</label>
 											<!-- 이름 입력태그  -->
-											<input name="birth" value="" oninput="birthCheck()"
-												id="birth" placeholder="ex)19911115" type="text"
+											<input name="birth" value="<c:out value='${auth_birth}'/>" oninput="birthCheck()"
+												id="birth" placeholder="ex)19911115" type="text" readonly="readonly"
 												class="form-control">
 											<span id="birthError"></span>
 										</div>
@@ -377,6 +380,7 @@
 											<input name="passwordConfirm" value=""
 												id="passwordConfirm" placeholder="" oninput="passwordConfirmCheck()"
 												type="password" class="form-control">
+												
 											<span id="passwordConfirmError"></span>
 										</div>
 									</div>
@@ -389,9 +393,9 @@
 										<div class="position-relative form-group">
 											<label for="exampleName" class=""><span
 												class="text-danger">*</span> Phone</label>
-											<!-- 닉네임 입력태그  -->
-											<input name="phoneNumber" value="" oninput="phoneNumberCheck()"
-												id="phoneNumber" placeholder="ex)01011111111" type="text"
+											<!-- 핸드폰 번호 입력태그 -->
+											<input name="phoneNumber" value="<c:out value='${auth_phone}'/>" oninput="phoneNumberCheck()"
+												id="phoneNumber" placeholder="ex)01011111111" type="text" readonly="readonly"
 												class="form-control">
 											<span id="phoneNumberError"></span>
 										</div>
@@ -412,8 +416,8 @@
 												<%-- <input name="address" value="${param.address}"
 												id="address"  placeholder="" onchange ="addressCheck()" oninput="addressCheck()"
 													type="text" class="form-control"> --%>
-												<input name="address" 
-												id="address"  placeholder="" 
+												<input name="address" readonly="readonly"
+												id="address"  placeholder="" oninput="addressCheck()"
 												type="text" class="form-control">
 											<span id="addressError"></span>
 										</div>

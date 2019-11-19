@@ -33,7 +33,8 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "contents/SearchArtwork.tiles";
+		 return "contents/SearchArtwork.tiles"; // 프로젝트 첫 시작을  SearchArtwork.jsp로 
+		/* return "support/member/Login.tiles"; */ // 프로젝트 첫 시작을 Login.jsp로
 	}
 	
 }

@@ -11,8 +11,13 @@
 	</page_setting>
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
+<<<<<<< HEAD
 	<x>246</x>
 	<y>156</y>
+=======
+	<x>-24</x>
+	<y>360</y>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	<default_color>
 		<r>128</r>
 		<g>128</g>
@@ -41,7 +46,7 @@
 		<suspend_validator>false</suspend_validator>
 		<export_setting>
 			<export_ddl_setting>
-				<output_path>src\main\webapp\resources\sql\ksc1114</output_path>
+				<output_path>src\main\webapp\resources\sql\test.sql</output_path>
 				<encoding>UTF-8</encoding>
 				<line_feed>CR+LF</line_feed>
 				<is_open_after_saved>true</is_open_after_saved>
@@ -54,13 +59,13 @@
 					<create_sequence>true</create_sequence>
 					<create_table>true</create_table>
 					<create_tablespace>false</create_tablespace>
-					<create_trigger>true</create_trigger>
+					<create_trigger>false</create_trigger>
 					<create_view>true</create_view>
 					<drop_index>true</drop_index>
 					<drop_sequence>true</drop_sequence>
 					<drop_table>true</drop_table>
 					<drop_tablespace>false</drop_tablespace>
-					<drop_trigger>true</drop_trigger>
+					<drop_trigger>false</drop_trigger>
 					<drop_view>true</drop_view>
 					<inline_column_comment>true</inline_column_comment>
 					<inline_table_comment>true</inline_table_comment>
@@ -135,7 +140,11 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2019-11-11 21:43:49</creation_date>
+<<<<<<< HEAD
 			<updated_date>2019-11-19 17:07:25</updated_date>
+=======
+			<updated_date>2019-11-15 19:55:28</updated_date>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<model_property>
 				<name>프로젝트명</name>
 				<value></value>
@@ -201,6 +210,25 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
+<<<<<<< HEAD
+=======
+			<id>1</id>
+			<length>null</length>
+			<decimal>null</decimal>
+			<array>false</array>
+			<array_dimension>null</array_dimension>
+			<unsigned>false</unsigned>
+			<zerofill>false</zerofill>
+			<binary>false</binary>
+			<args></args>
+			<char_semantics>false</char_semantics>
+			<description></description>
+			<logical_name>결제금액</logical_name>
+			<physical_name>amount</physical_name>
+			<type>decimal</type>
+		</word>
+		<word>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<id>2</id>
 			<length>10</length>
 			<decimal>null</decimal>
@@ -298,6 +326,25 @@
 		</word>
 		<word>
 			<id>8</id>
+<<<<<<< HEAD
+=======
+			<length>20</length>
+			<decimal>null</decimal>
+			<array>false</array>
+			<array_dimension>null</array_dimension>
+			<unsigned>false</unsigned>
+			<zerofill>false</zerofill>
+			<binary>false</binary>
+			<args></args>
+			<char_semantics>false</char_semantics>
+			<description></description>
+			<logical_name>배치키</logical_name>
+			<physical_name>batch_key</physical_name>
+			<type>nvarchar(n)</type>
+		</word>
+		<word>
+			<id>9</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>11</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -313,7 +360,11 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>9</id>
+=======
+			<id>10</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -329,7 +380,11 @@
 			<type>decimal</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>10</id>
+=======
+			<id>11</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>30</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -345,7 +400,11 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>11</id>
+			<length>10</length>
+=======
+			<id>12</id>
 			<length>10</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -361,6 +420,24 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
+			<id>13</id>
+			<length>30</length>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+			<decimal>null</decimal>
+			<array>false</array>
+			<array_dimension>null</array_dimension>
+			<unsigned>false</unsigned>
+			<zerofill>false</zerofill>
+			<binary>false</binary>
+			<args></args>
+			<char_semantics>false</char_semantics>
+			<description></description>
+			<logical_name>주문자명</logical_name>
+			<physical_name>buyr_name</physical_name>
+			<type>nvarchar(n)</type>
+		</word>
+		<word>
+<<<<<<< HEAD
 			<id>12</id>
 			<length>30</length>
 			<decimal>null</decimal>
@@ -378,6 +455,9 @@
 		</word>
 		<word>
 			<id>13</id>
+=======
+			<id>14</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>15</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -393,7 +473,11 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>14</id>
+=======
+			<id>15</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>20</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -409,7 +493,11 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>15</id>
+=======
+			<id>16</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>10</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -425,7 +513,11 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>16</id>
+=======
+			<id>17</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>10</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -441,7 +533,11 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>17</id>
+=======
+			<id>18</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>50</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -457,7 +553,11 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>18</id>
+=======
+			<id>19</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -473,7 +573,11 @@
 			<type>decimal</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>19</id>
+=======
+			<id>20</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -489,7 +593,11 @@
 			<type>decimal</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>20</id>
+=======
+			<id>21</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -505,7 +613,11 @@
 			<type>decimal</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>21</id>
+=======
+			<id>22</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -521,7 +633,11 @@
 			<type>date</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>22</id>
+=======
+			<id>23</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>200</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -537,7 +653,11 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>23</id>
+=======
+			<id>24</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -553,7 +673,11 @@
 			<type>decimal</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>24</id>
+=======
+			<id>25</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -569,6 +693,7 @@
 			<type>date</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>25</id>
 			<length>2000</length>
 			<decimal>null</decimal>
@@ -585,6 +710,8 @@
 			<type>nvarchar(n)</type>
 		</word>
 		<word>
+=======
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<id>26</id>
 			<length>2000</length>
 			<decimal>null</decimal>
@@ -618,6 +745,25 @@
 		</word>
 		<word>
 			<id>28</id>
+<<<<<<< HEAD
+=======
+			<length>2000</length>
+			<decimal>null</decimal>
+			<array>false</array>
+			<array_dimension>null</array_dimension>
+			<unsigned>false</unsigned>
+			<zerofill>false</zerofill>
+			<binary>false</binary>
+			<args></args>
+			<char_semantics>false</char_semantics>
+			<description></description>
+			<logical_name>글내용</logical_name>
+			<physical_name>content</physical_name>
+			<type>nvarchar(n)</type>
+		</word>
+		<word>
+			<id>29</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -633,7 +779,11 @@
 			<type>date</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>29</id>
+=======
+			<id>30</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -649,7 +799,11 @@
 			<type>decimal</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>30</id>
+=======
+			<id>31</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<length>null</length>
 			<decimal>null</decimal>
 			<array>false</array>
@@ -665,6 +819,7 @@
 			<type>decimal</type>
 		</word>
 		<word>
+<<<<<<< HEAD
 			<id>31</id>
 			<length>null</length>
 			<decimal>null</decimal>
@@ -681,6 +836,8 @@
 			<type>decimal</type>
 		</word>
 		<word>
+=======
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<id>32</id>
 			<length>20</length>
 			<decimal>null</decimal>
@@ -1066,7 +1223,11 @@
 		</word>
 		<word>
 			<id>56</id>
+<<<<<<< HEAD
 			<length>50</length>
+=======
+			<length>500</length>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<decimal>null</decimal>
 			<array>false</array>
 			<array_dimension>null</array_dimension>
@@ -1532,7 +1693,11 @@
 			<connections>
 				<relation>
 					<id>0</id>
+<<<<<<< HEAD
 					<source>18</source>
+=======
+					<source>20</source>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<target>0</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -1561,7 +1726,11 @@
 			<option></option>
 			<columns>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>23</word_id>
+=======
+					<word_id>24</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>0</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1594,7 +1763,11 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>22</word_id>
+=======
+					<word_id>23</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>1</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1627,7 +1800,11 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>24</word_id>
+=======
+					<word_id>25</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>2</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1661,7 +1838,11 @@
 				</normal_column>
 				<normal_column>
 					<id>3</id>
+<<<<<<< HEAD
 					<referenced_column>88</referenced_column>
+=======
+					<referenced_column>108</referenced_column>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<relation>0</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -1846,7 +2027,11 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>30</word_id>
+=======
+					<word_id>31</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>7</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2668,7 +2853,11 @@
 				</relation>
 				<relation>
 					<id>7</id>
+<<<<<<< HEAD
 					<source>18</source>
+=======
+					<source>20</source>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<target>7</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2697,7 +2886,11 @@
 			<option></option>
 			<columns>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>20</word_id>
+=======
+					<word_id>21</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>23</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2797,7 +2990,11 @@
 				</normal_column>
 				<normal_column>
 					<id>26</id>
+<<<<<<< HEAD
 					<referenced_column>88</referenced_column>
+=======
+					<referenced_column>108</referenced_column>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<relation>7</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -2910,7 +3107,11 @@
 				</relation>
 				<relation>
 					<id>9</id>
+<<<<<<< HEAD
 					<source>18</source>
+=======
+					<source>20</source>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<target>8</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -2939,7 +3140,11 @@
 			<option></option>
 			<columns>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>18</word_id>
+=======
+					<word_id>19</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>28</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3005,7 +3210,11 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>25</word_id>
+=======
+					<word_id>27</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>30</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3038,7 +3247,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
-					<word_id>54</word_id>
+					<word_id>53</word_id>
 					<id>31</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3137,7 +3346,11 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>17</word_id>
+=======
+					<word_id>18</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>34</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3171,7 +3384,11 @@
 				</normal_column>
 				<normal_column>
 					<id>35</id>
+<<<<<<< HEAD
 					<referenced_column>88</referenced_column>
+=======
+					<referenced_column>108</referenced_column>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<relation>9</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3252,8 +3469,8 @@
 			<width>334</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>567</x>
-			<y>1332</y>
+			<x>576</x>
+			<y>1302</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -3262,7 +3479,11 @@
 			<connections>
 				<relation>
 					<id>10</id>
+<<<<<<< HEAD
 					<source>18</source>
+=======
+					<source>20</source>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<target>9</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -3413,7 +3634,11 @@
 				</normal_column>
 				<normal_column>
 					<id>40</id>
+<<<<<<< HEAD
 					<referenced_column>88</referenced_column>
+=======
+					<referenced_column>108</referenced_column>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<relation>10</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3504,7 +3729,11 @@
 			<connections>
 				<relation>
 					<id>12</id>
+<<<<<<< HEAD
 					<source>18</source>
+=======
+					<source>20</source>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<target>10</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -3566,7 +3795,11 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>78</word_id>
+=======
+					<word_id>77</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>43</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3599,7 +3832,11 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>27</word_id>
+=======
+					<word_id>28</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>44</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3665,7 +3902,11 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>28</word_id>
+=======
+					<word_id>29</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>46</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3732,7 +3973,11 @@
 				</normal_column>
 				<normal_column>
 					<id>48</id>
+<<<<<<< HEAD
 					<referenced_column>88</referenced_column>
+=======
+					<referenced_column>108</referenced_column>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<relation>12</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3833,7 +4078,11 @@
 				</relation>
 				<relation>
 					<id>15</id>
+<<<<<<< HEAD
 					<source>18</source>
+=======
+					<source>20</source>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<target>11</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -3863,7 +4112,11 @@
 			<columns>
 				<normal_column>
 					<id>49</id>
+<<<<<<< HEAD
 					<referenced_column>88</referenced_column>
+=======
+					<referenced_column>108</referenced_column>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<relation>15</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -3988,7 +4241,11 @@
 			<connections>
 				<relation>
 					<id>16</id>
+<<<<<<< HEAD
 					<source>8</source>
+=======
+					<source>20</source>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<target>12</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -4017,7 +4274,11 @@
 			<option></option>
 			<columns>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>19</word_id>
+=======
+					<word_id>10</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>52</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4050,12 +4311,85 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>46</word_id>
+=======
+					<word_id>78</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>53</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
+<<<<<<< HEAD
+=======
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>26</word_id>
+					<id>54</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>54</word_id>
+					<id>55</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<type>date</type>
 					<constraint></constraint>
 					<default_value></default_value>
@@ -4083,8 +4417,46 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<id>54</id>
 					<referenced_column>28</referenced_column>
+=======
+					<word_id>83</word_id>
+					<id>56</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>decimal</type>
+					<constraint></constraint>
+					<default_value>0</default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<id>57</id>
+					<referenced_column>108</referenced_column>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<relation>16</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4193,6 +4565,228 @@
 		</table>
 		<table>
 			<id>13</id>
+<<<<<<< HEAD
+=======
+			<height>149</height>
+			<width>330</width>
+				<font_name>맑은 고딕</font_name>
+				<font_size>9</font_size>
+			<x>1344</x>
+			<y>1132</y>
+			<color>
+				<r>128</r>
+				<g>128</g>
+				<b>192</b>
+			</color>
+			<connections>
+				<relation>
+					<id>17</id>
+					<source>8</source>
+					<target>13</target>
+						<source_xp>-1</source_xp>
+						<source_yp>-1</source_yp>
+						<target_xp>-1</target_xp>
+						<target_yp>-1</target_yp>
+						<color>
+							<r>0</r>
+							<g>0</g>
+							<b>0</b>
+						</color>
+					<child_cardinality>1..n</child_cardinality>
+					<parent_cardinality>1</parent_cardinality>
+					<reference_for_pk>true</reference_for_pk>
+					<name></name>
+					<on_delete_action>RESTRICT</on_delete_action>
+					<on_update_action>RESTRICT</on_update_action>
+					<referenced_column>null</referenced_column>
+					<referenced_complex_unique_key>null</referenced_complex_unique_key>
+				</relation>
+			</connections>
+			<physical_name>CLASSOPENINGDATE</physical_name>
+			<logical_name>클래스개설날짜정보</logical_name>
+			<description></description>
+			<constraint></constraint>
+			<primary_key_name></primary_key_name>
+			<option></option>
+			<columns>
+				<normal_column>
+					<word_id>20</word_id>
+					<id>58</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>decimal</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>true</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>46</word_id>
+					<id>59</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>date</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<id>60</id>
+					<referenced_column>28</referenced_column>
+					<relation>17</relation>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>decimal</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>true</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>47</word_id>
+					<id>61</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>date</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>22</word_id>
+					<id>62</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>date</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+			</columns>
+			<indexes>
+			</indexes>
+			<complex_unique_key_list>
+			</complex_unique_key_list>
+			<table_properties>
+				<schema></schema>
+			</table_properties>
+		</table>
+		<table>
+			<id>14</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<height>296</height>
 			<width>293</width>
 				<font_name>맑은 고딕</font_name>
@@ -4206,9 +4800,15 @@
 			</color>
 			<connections>
 				<relation>
+<<<<<<< HEAD
 					<id>17</id>
 					<source>18</source>
 					<target>13</target>
+=======
+					<id>18</id>
+					<source>20</source>
+					<target>14</target>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -4236,8 +4836,13 @@
 			<option></option>
 			<columns>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>80</word_id>
 					<id>57</id>
+=======
+					<word_id>81</word_id>
+					<id>63</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4270,7 +4875,11 @@
 				</normal_column>
 				<normal_column>
 					<word_id>48</word_id>
+<<<<<<< HEAD
 					<id>58</id>
+=======
+					<id>64</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4302,8 +4911,13 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>31</word_id>
 					<id>59</id>
+=======
+					<word_id>1</word_id>
+					<id>65</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4336,7 +4950,11 @@
 				</normal_column>
 				<normal_column>
 					<word_id>32</word_id>
+<<<<<<< HEAD
 					<id>60</id>
+=======
+					<id>66</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4368,41 +4986,12 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>11</word_id>
 					<id>61</id>
-					<description></description>
-					<unique_key_name></unique_key_name>
-					<logical_name></logical_name>
-					<physical_name></physical_name>
-					<type>nvarchar(n)</type>
-					<constraint></constraint>
-					<default_value></default_value>
-					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
-					<character_set></character_set>
-					<collation></collation>
-					<sequence>
-						<name></name>
-						<schema></schema>
-						<increment></increment>
-						<min_value></min_value>
-						<max_value></max_value>
-						<start></start>
-						<cache></cache>
-						<nocache>false</nocache>
-						<cycle>false</cycle>
-						<order>false</order>
-						<description></description>
-						<data_type></data_type>
-						<decimal_size>0</decimal_size>
-					</sequence>
-				</normal_column>
-				<normal_column>
-					<word_id>13</word_id>
-					<id>62</id>
+=======
+					<word_id>12</word_id>
+					<id>67</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4435,7 +5024,8 @@
 				</normal_column>
 				<normal_column>
 					<word_id>14</word_id>
-					<id>63</id>
+					<id>68</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4467,6 +5057,83 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
+					<word_id>13</word_id>
+					<id>62</id>
+=======
+					<word_id>15</word_id>
+					<id>69</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+<<<<<<< HEAD
+					<word_id>14</word_id>
+					<id>63</id>
+=======
+					<word_id>11</word_id>
+					<id>70</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+<<<<<<< HEAD
 					<word_id>10</word_id>
 					<id>64</id>
 					<description></description>
@@ -4535,6 +5202,10 @@
 				<normal_column>
 					<word_id>3</word_id>
 					<id>66</id>
+=======
+					<word_id>17</word_id>
+					<id>71</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4566,8 +5237,13 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>2</word_id>
 					<id>67</id>
+=======
+					<word_id>3</word_id>
+					<id>72</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -4599,6 +5275,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<id>68</id>
 					<referenced_column>88</referenced_column>
 					<relation>17</relation>
@@ -4819,6 +5496,9 @@
 				</normal_column>
 				<normal_column>
 					<word_id>12</word_id>
+=======
+					<word_id>2</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>73</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4852,7 +5532,11 @@
 				</normal_column>
 				<normal_column>
 					<id>74</id>
+<<<<<<< HEAD
 					<referenced_column>88</referenced_column>
+=======
+					<referenced_column>108</referenced_column>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<relation>18</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4899,8 +5583,13 @@
 			<width>251</width>
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
+<<<<<<< HEAD
 			<x>72</x>
 			<y>1116</y>
+=======
+			<x>-13</x>
+			<y>900</y>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -4909,7 +5598,11 @@
 			<connections>
 				<relation>
 					<id>19</id>
+<<<<<<< HEAD
 					<source>18</source>
+=======
+					<source>20</source>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<target>15</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -4938,7 +5631,11 @@
 			<option></option>
 			<columns>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>81</word_id>
+=======
+					<word_id>49</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>75</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -4971,7 +5668,11 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>64</word_id>
+=======
+					<word_id>63</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>76</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -5004,8 +5705,47 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>65</word_id>
+=======
+					<word_id>8</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>77</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+<<<<<<< HEAD
+=======
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>16</word_id>
+					<id>78</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5037,8 +5777,47 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+					<word_id>13</word_id>
+					<id>79</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+<<<<<<< HEAD
 					<id>78</id>
 					<referenced_column>88</referenced_column>
+=======
+					<id>80</id>
+					<referenced_column>108</referenced_column>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<relation>19</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -5095,7 +5874,11 @@
 			<connections>
 				<relation>
 					<id>20</id>
+<<<<<<< HEAD
 					<source>18</source>
+=======
+					<source>20</source>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<target>16</target>
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
@@ -5115,10 +5898,204 @@
 					<referenced_column>null</referenced_column>
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
+<<<<<<< HEAD
+=======
+			</connections>
+			<physical_name>CANCEL</physical_name>
+			<logical_name>결제취소 테이블</logical_name>
+			<description></description>
+			<constraint></constraint>
+			<primary_key_name></primary_key_name>
+			<option></option>
+			<columns>
+				<normal_column>
+					<word_id>80</word_id>
+					<id>81</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>true</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>64</word_id>
+					<id>82</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>65</word_id>
+					<id>83</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<id>84</id>
+					<referenced_column>108</referenced_column>
+					<relation>20</relation>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>decimal</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>true</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+			</columns>
+			<indexes>
+			</indexes>
+			<complex_unique_key_list>
+			</complex_unique_key_list>
+			<table_properties>
+				<schema></schema>
+			</table_properties>
+		</table>
+		<table>
+			<id>17</id>
+			<height>170</height>
+			<width>331</width>
+				<font_name>맑은 고딕</font_name>
+				<font_size>9</font_size>
+			<x>48</x>
+			<y>0</y>
+			<color>
+				<r>128</r>
+				<g>128</g>
+				<b>192</b>
+			</color>
+			<connections>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 				<relation>
 					<id>21</id>
+<<<<<<< HEAD
 					<source>18</source>
 					<target>16</target>
+=======
+					<source>20</source>
+					<target>17</target>
+						<source_xp>-1</source_xp>
+						<source_yp>-1</source_yp>
+						<target_xp>-1</target_xp>
+						<target_yp>-1</target_yp>
+						<color>
+							<r>0</r>
+							<g>0</g>
+							<b>0</b>
+						</color>
+					<child_cardinality>1..n</child_cardinality>
+					<parent_cardinality>1</parent_cardinality>
+					<reference_for_pk>true</reference_for_pk>
+					<name></name>
+					<on_delete_action>RESTRICT</on_delete_action>
+					<on_update_action>RESTRICT</on_update_action>
+					<referenced_column>null</referenced_column>
+					<referenced_complex_unique_key>null</referenced_complex_unique_key>
+				</relation>
+				<relation>
+					<id>22</id>
+					<source>20</source>
+					<target>17</target>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -5147,7 +6124,11 @@
 			<columns>
 				<normal_column>
 					<word_id>70</word_id>
+<<<<<<< HEAD
 					<id>79</id>
+=======
+					<id>85</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5180,7 +6161,11 @@
 				</normal_column>
 				<normal_column>
 					<word_id>71</word_id>
+<<<<<<< HEAD
 					<id>80</id>
+=======
+					<id>86</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5212,9 +6197,15 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<id>81</id>
 					<referenced_column>88</referenced_column>
 					<relation>20</relation>
+=======
+					<id>87</id>
+					<referenced_column>108</referenced_column>
+					<relation>22</relation>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name>피구독회원번호</logical_name>
@@ -5246,8 +6237,13 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<id>82</id>
 					<referenced_column>88</referenced_column>
+=======
+					<id>88</id>
+					<referenced_column>108</referenced_column>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<relation>21</relation>
 					<description></description>
 					<unique_key_name></unique_key_name>
@@ -5289,13 +6285,19 @@
 			</table_properties>
 		</table>
 		<table>
+<<<<<<< HEAD
 			<id>17</id>
 			<height>149</height>
 			<width>291</width>
+=======
+			<id>18</id>
+			<height>338</height>
+			<width>293</width>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>480</x>
-			<y>33</y>
+			<x>-24</x>
+			<y>528</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
@@ -5303,9 +6305,15 @@
 			</color>
 			<connections>
 				<relation>
+<<<<<<< HEAD
 					<id>22</id>
 					<source>18</source>
 					<target>17</target>
+=======
+					<id>23</id>
+					<source>20</source>
+					<target>18</target>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 						<source_xp>-1</source_xp>
 						<source_yp>-1</source_yp>
 						<target_xp>-1</target_xp>
@@ -5324,6 +6332,7 @@
 					<referenced_column>null</referenced_column>
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
+<<<<<<< HEAD
 				<relation>
 					<id>23</id>
 					<source>18</source>
@@ -5346,28 +6355,35 @@
 					<referenced_column>89</referenced_column>
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
+=======
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			</connections>
-			<physical_name>AUTH_SECURITY</physical_name>
-			<logical_name>권한 테이블</logical_name>
+			<physical_name>RECPAY</physical_name>
+			<logical_name>정기결제 테이블</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
 			<option></option>
 			<columns>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>6</word_id>
 					<id>83</id>
+=======
+					<word_id>81</word_id>
+					<id>89</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>decimal</type>
+					<type>nvarchar(n)</type>
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
-					<not_null>true</not_null>
-					<primary_key>true</primary_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
 					<collation></collation>
@@ -5388,14 +6404,20 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>5</word_id>
 					<id>84</id>
+=======
+					<word_id>48</word_id>
+					<id>90</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
 					<type>nvarchar(n)</type>
 					<constraint></constraint>
+<<<<<<< HEAD
 					<default_value>ROLE_USER</default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
@@ -5430,8 +6452,11 @@
 					<physical_name></physical_name>
 					<type>decimal</type>
 					<constraint></constraint>
+=======
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
+<<<<<<< HEAD
 					<foreign_key>true</foreign_key>
 					<not_null>true</not_null>
 					<primary_key>false</primary_key>
@@ -5563,6 +6588,8 @@
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>true</auto_increment>
+=======
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<foreign_key>false</foreign_key>
 					<not_null>true</not_null>
 					<primary_key>true</primary_key>
@@ -5586,20 +6613,24 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>33</word_id>
 					<id>89</id>
+=======
+					<word_id>1</word_id>
+					<id>91</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>nvarchar(n)</type>
+					<type>decimal</type>
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
-					<not_null>true</not_null>
+					<not_null>false</not_null>
 					<primary_key>false</primary_key>
-					<unique_key>true</unique_key>
+					<unique_key>false</unique_key>
 					<character_set></character_set>
 					<collation></collation>
 					<sequence>
@@ -5619,6 +6650,140 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+					<word_id>32</word_id>
+					<id>92</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>12</word_id>
+					<id>93</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>14</word_id>
+					<id>94</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>15</word_id>
+					<id>95</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+<<<<<<< HEAD
 					<word_id>51</word_id>
 					<id>90</id>
 					<description></description>
@@ -5654,6 +6819,10 @@
 				<normal_column>
 					<word_id>44</word_id>
 					<id>91</id>
+=======
+					<word_id>11</word_id>
+					<id>96</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5663,7 +6832,7 @@
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
-					<not_null>true</not_null>
+					<not_null>false</not_null>
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
@@ -5685,6 +6854,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>43</word_id>
 					<id>92</id>
 					<description></description>
@@ -5753,6 +6923,10 @@
 				<normal_column>
 					<word_id>1</word_id>
 					<id>94</id>
+=======
+					<word_id>17</word_id>
+					<id>97</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5762,7 +6936,7 @@
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
-					<not_null>true</not_null>
+					<not_null>false</not_null>
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
@@ -5784,17 +6958,122 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>42</word_id>
 					<id>95</id>
+=======
+					<word_id>3</word_id>
+					<id>98</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>date</type>
+					<type>nvarchar(n)</type>
 					<constraint></constraint>
-					<default_value>&lt;현재일자&gt;</default_value>
+					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>2</word_id>
+					<id>99</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>62</word_id>
+					<id>100</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<id>101</id>
+					<referenced_column>108</referenced_column>
+					<relation>23</relation>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>decimal</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>true</foreign_key>
 					<not_null>true</not_null>
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
@@ -5849,20 +7128,100 @@
 						<decimal_size>0</decimal_size>
 					</sequence>
 				</normal_column>
+			</columns>
+			<indexes>
+			</indexes>
+			<complex_unique_key_list>
+			</complex_unique_key_list>
+			<table_properties>
+				<schema></schema>
+			</table_properties>
+		</table>
+		<table>
+			<id>19</id>
+			<height>149</height>
+			<width>291</width>
+				<font_name>맑은 고딕</font_name>
+				<font_size>9</font_size>
+			<x>480</x>
+			<y>33</y>
+			<color>
+				<r>128</r>
+				<g>128</g>
+				<b>192</b>
+			</color>
+			<connections>
+				<relation>
+					<id>24</id>
+					<source>20</source>
+					<target>19</target>
+						<source_xp>-1</source_xp>
+						<source_yp>-1</source_yp>
+						<target_xp>-1</target_xp>
+						<target_yp>-1</target_yp>
+						<color>
+							<r>0</r>
+							<g>0</g>
+							<b>0</b>
+						</color>
+					<child_cardinality>1..n</child_cardinality>
+					<parent_cardinality>1</parent_cardinality>
+					<reference_for_pk>true</reference_for_pk>
+					<name></name>
+					<on_delete_action>RESTRICT</on_delete_action>
+					<on_update_action>RESTRICT</on_update_action>
+					<referenced_column>null</referenced_column>
+					<referenced_complex_unique_key>null</referenced_complex_unique_key>
+				</relation>
+				<relation>
+					<id>25</id>
+					<source>20</source>
+					<target>19</target>
+						<source_xp>-1</source_xp>
+						<source_yp>-1</source_yp>
+						<target_xp>-1</target_xp>
+						<target_yp>-1</target_yp>
+						<color>
+							<r>0</r>
+							<g>0</g>
+							<b>0</b>
+						</color>
+					<child_cardinality>1</child_cardinality>
+					<parent_cardinality>1</parent_cardinality>
+					<reference_for_pk>false</reference_for_pk>
+					<name></name>
+					<on_delete_action>RESTRICT</on_delete_action>
+					<on_update_action>RESTRICT</on_update_action>
+					<referenced_column>109</referenced_column>
+					<referenced_complex_unique_key>null</referenced_complex_unique_key>
+				</relation>
+			</connections>
+			<physical_name>AUTH_SECURITY</physical_name>
+			<logical_name>권한 테이블</logical_name>
+			<description></description>
+			<constraint></constraint>
+			<primary_key_name></primary_key_name>
+			<option></option>
+			<columns>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>56</word_id>
 					<id>97</id>
+=======
+					<word_id>6</word_id>
+					<id>103</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>varchar(n)</type>
+					<type>decimal</type>
 					<constraint></constraint>
 					<default_value></default_value>
-					<auto_increment>false</auto_increment>
+					<auto_increment>true</auto_increment>
 					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
-					<primary_key>false</primary_key>
+					<not_null>true</not_null>
+					<primary_key>true</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
 					<collation></collation>
@@ -5883,12 +7242,18 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>40</word_id>
 					<id>98</id>
+=======
+					<word_id>5</word_id>
+					<id>104</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
+<<<<<<< HEAD
 					<type>varchar(n)</type>
 					<constraint></constraint>
 					<default_value></default_value>
@@ -5922,12 +7287,14 @@
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
+=======
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<type>nvarchar(n)</type>
 					<constraint></constraint>
-					<default_value></default_value>
+					<default_value>ROLE_USER</default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
+					<not_null>true</not_null>
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
@@ -5949,8 +7316,14 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>72</word_id>
 					<id>100</id>
+=======
+					<id>105</id>
+					<referenced_column>108</referenced_column>
+					<relation>24</relation>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -5959,10 +7332,77 @@
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
-					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
+					<foreign_key>true</foreign_key>
+					<not_null>true</not_null>
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>30</word_id>
+					<id>106</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>decimal</type>
+					<constraint></constraint>
+					<default_value>1</default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<id>107</id>
+					<referenced_column>109</referenced_column>
+					<relation>25</relation>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>true</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>true</unique_key>
 					<character_set></character_set>
 					<collation></collation>
 					<sequence>
@@ -5991,19 +7431,26 @@
 			</table_properties>
 		</table>
 		<table>
+<<<<<<< HEAD
 			<id>19</id>
 			<height>338</height>
 			<width>293</width>
+=======
+			<id>20</id>
+			<height>339</height>
+			<width>334</width>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 				<font_name>맑은 고딕</font_name>
 				<font_size>9</font_size>
-			<x>525</x>
-			<y>866</y>
+			<x>420</x>
+			<y>384</y>
 			<color>
 				<r>128</r>
 				<g>128</g>
 				<b>192</b>
 			</color>
 			<connections>
+<<<<<<< HEAD
 				<relation>
 					<id>24</id>
 					<source>18</source>
@@ -6026,15 +7473,18 @@
 					<referenced_column>null</referenced_column>
 					<referenced_complex_unique_key>null</referenced_complex_unique_key>
 				</relation>
+=======
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			</connections>
-			<physical_name>PROJPAY</physical_name>
-			<logical_name>프로젝트결제 테이블</logical_name>
+			<physical_name>MEMBER</physical_name>
+			<logical_name>회원</logical_name>
 			<description></description>
 			<constraint></constraint>
 			<primary_key_name></primary_key_name>
 			<option></option>
 			<columns>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>80</word_id>
 					<id>101</id>
 					<description></description>
@@ -6070,14 +7520,18 @@
 				<normal_column>
 					<word_id>48</word_id>
 					<id>102</id>
+=======
+					<word_id>41</word_id>
+					<id>108</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>nvarchar(n)</type>
+					<type>decimal</type>
 					<constraint></constraint>
 					<default_value></default_value>
-					<auto_increment>false</auto_increment>
+					<auto_increment>true</auto_increment>
 					<foreign_key>false</foreign_key>
 					<not_null>true</not_null>
 					<primary_key>true</primary_key>
@@ -6101,20 +7555,25 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>31</word_id>
 					<id>103</id>
+=======
+					<word_id>33</word_id>
+					<id>109</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
-					<type>decimal</type>
+					<type>nvarchar(n)</type>
 					<constraint></constraint>
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
+					<not_null>true</not_null>
 					<primary_key>false</primary_key>
-					<unique_key>false</unique_key>
+					<unique_key>true</unique_key>
 					<character_set></character_set>
 					<collation></collation>
 					<sequence>
@@ -6134,8 +7593,13 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>32</word_id>
 					<id>104</id>
+=======
+					<word_id>51</word_id>
+					<id>110</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -6145,7 +7609,7 @@
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
+					<not_null>true</not_null>
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
@@ -6167,8 +7631,12 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<word_id>11</word_id>
 					<id>105</id>
+=======
+					<word_id>44</word_id>
+					<id>111</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -6178,7 +7646,7 @@
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
+					<not_null>true</not_null>
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
@@ -6200,8 +7668,47 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+					<word_id>43</word_id>
+					<id>112</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+<<<<<<< HEAD
 					<word_id>13</word_id>
 					<id>106</id>
+=======
+					<word_id>52</word_id>
+					<id>113</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -6211,7 +7718,7 @@
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
-					<not_null>false</not_null>
+					<not_null>true</not_null>
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
@@ -6233,6 +7740,73 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+					<word_id>0</word_id>
+					<id>114</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>nvarchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>42</word_id>
+					<id>115</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>date</type>
+					<constraint></constraint>
+					<default_value>&lt;현재일자&gt;</default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>true</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+<<<<<<< HEAD
 					<word_id>14</word_id>
 					<id>107</id>
 					<description></description>
@@ -6367,13 +7941,16 @@
 				<normal_column>
 					<word_id>2</word_id>
 					<id>111</id>
+=======
+					<word_id>9</word_id>
+					<id>116</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
 					<type>nvarchar(n)</type>
 					<constraint></constraint>
-					<default_value>결제실패</default_value>
+					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>false</foreign_key>
 					<not_null>false</not_null>
@@ -6398,6 +7975,41 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+					<word_id>56</word_id>
+					<id>117</id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>varchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+<<<<<<< HEAD
 					<word_id>62</word_id>
 					<id>112</id>
 					<description></description>
@@ -6651,7 +8263,43 @@
 				</normal_column>
 				<normal_column>
 					<word_id>12</word_id>
+=======
+					<word_id>40</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>118</id>
+					<description></description>
+					<unique_key_name></unique_key_name>
+					<logical_name></logical_name>
+					<physical_name></physical_name>
+					<type>varchar(n)</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+					<primary_key>false</primary_key>
+					<unique_key>false</unique_key>
+					<character_set></character_set>
+					<collation></collation>
+					<sequence>
+						<name></name>
+						<schema></schema>
+						<increment></increment>
+						<min_value></min_value>
+						<max_value></max_value>
+						<start></start>
+						<cache></cache>
+						<nocache>false</nocache>
+						<cycle>false</cycle>
+						<order>false</order>
+						<description></description>
+						<data_type></data_type>
+						<decimal_size>0</decimal_size>
+					</sequence>
+				</normal_column>
+				<normal_column>
+					<word_id>37</word_id>
+					<id>119</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
@@ -6683,6 +8331,7 @@
 					</sequence>
 				</normal_column>
 				<normal_column>
+<<<<<<< HEAD
 					<id>119</id>
 					<referenced_column>88</referenced_column>
 					<relation>25</relation>
@@ -6771,11 +8420,15 @@
 			<columns>
 				<normal_column>
 					<word_id>80</word_id>
+=======
+					<word_id>72</word_id>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<id>120</id>
 					<description></description>
 					<unique_key_name></unique_key_name>
 					<logical_name></logical_name>
 					<physical_name></physical_name>
+<<<<<<< HEAD
 					<type>nvarchar(n)</type>
 					<constraint></constraint>
 					<default_value>결제실패</default_value>
@@ -7464,6 +9117,14 @@
 					<auto_increment>false</auto_increment>
 					<foreign_key>true</foreign_key>
 					<not_null>true</not_null>
+=======
+					<type>decimal</type>
+					<constraint></constraint>
+					<default_value></default_value>
+					<auto_increment>false</auto_increment>
+					<foreign_key>false</foreign_key>
+					<not_null>false</not_null>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<character_set></character_set>
@@ -7500,6 +9161,21 @@
 	</test_data_list>
 	<sequence_set>
 		<sequence>
+			<name>SEQ_AUTH_SECURITY_authorityNo</name>
+			<schema></schema>
+			<increment>1</increment>
+			<min_value></min_value>
+			<max_value></max_value>
+			<start>1</start>
+			<cache></cache>
+			<nocache>false</nocache>
+			<cycle>false</cycle>
+			<order>false</order>
+			<description></description>
+			<data_type></data_type>
+			<decimal_size>0</decimal_size>
+		</sequence>
+		<sequence>
 			<name>SEQ_MEMBER_memberNo</name>
 			<schema></schema>
 			<increment>1</increment>
@@ -7516,6 +9192,12 @@
 		</sequence>
 	</sequence_set>
 	<trigger_set>
+		<trigger>
+			<name>TRI_AUTH_SECURITY_authorityNo</name>
+			<schema></schema>
+			<sql>BEFORE INSERT ON AUTH_SECURITY&#x0D;&#x0A;FOR EACH ROW&#x0D;&#x0A;BEGIN&#x0D;&#x0A;&#x09;SELECT SEQ_AUTH_SECURITY_authorityNo.nextval&#x0D;&#x0A;&#x09;INTO :new.authorityNo&#x0D;&#x0A;&#x09;FROM dual;&#x0D;&#x0A;END</sql>
+			<description></description>
+		</trigger>
 		<trigger>
 			<name>TRI_MEMBER_memberNo</name>
 			<schema></schema>

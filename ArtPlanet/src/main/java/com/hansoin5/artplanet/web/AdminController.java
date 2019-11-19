@@ -9,10 +9,7 @@ import javax.annotation.Resource;
 
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hansoin5.artplanet.service.PayDTO;
@@ -26,6 +23,8 @@ import com.hansoin5.artplanet.service.impl.RecPayDAO;
 //(AdminController)에서는 (Admin)메뉴에서  (페이지이동)과 DB에 저장된 내용을 출력합니다.
 @Controller
 public class AdminController {
+	
+	
 	//일반결제주입
 	@Resource(name="payInfo")	
 	private PayDAO dao;
@@ -39,10 +38,10 @@ public class AdminController {
 	@Resource(name = "recPay")
 	private RecPayDAO recPayDao;
 	
-	//메뉴 가입회원
+	
+	//메뉴 가입회원 리스트 보여주는 페이지로 이동
 	@RequestMapping("/AdmUserInfo.ad")
 	public String admUser() {
-		
 		return "admin/admUserInfo";
 	}//////AdmUserInfo.ad
 	
