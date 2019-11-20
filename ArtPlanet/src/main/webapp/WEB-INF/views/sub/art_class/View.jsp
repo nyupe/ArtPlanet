@@ -603,8 +603,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 																	['3am', '4:00am']
 																]
 															});
-															
-<<<<<<< HEAD
+											
 															var timepicker = $("#timepicker").data("kendoTimePicker");
 															
 															var value = timepicker.value();

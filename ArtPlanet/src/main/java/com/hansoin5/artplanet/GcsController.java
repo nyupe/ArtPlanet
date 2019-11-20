@@ -132,19 +132,9 @@ public class GcsController
 		case "editor":
 			dao.editorUploadImage(map);
 			break;
-		case "blog":
-			dao.blogUploadImage(map);
-			break;
-		case "project":
-			break;
-		case "artclass":
-			break;
-		case "profile":
-			break;
-		case "banner":
-			break;
-
+			
 		default:
+			dao.uploadImage(map);
 			break;
 		}
 		

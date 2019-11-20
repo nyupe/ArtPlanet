@@ -20,21 +20,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			VALUES(SEQ_gcs_fileNo.NEXTVAL, #{fileName}, #{fileUrl}, #{downloadUrl}, #{fileSize})
 	</insert>
 	
+<<<<<<< HEAD
 	<insert id="blog-uploadImage" parameterType="java.util.Map">
+=======
+	<insert id="uploadImage" parameterType="java.util.Map">
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 		INSERT INTO gcs(fileNo, fileName, fileUrl, downloadUrl, fileSize)
+<<<<<<< HEAD
 			VALUES(SEQ_gcs_fileNo.NEXTVAL, #{fileName}, #{fileUrl}, #{downloadUrl}, #{fileSize})
 	</insert>
 
+=======
+			VALUES(SEQ_gcs_fileNo.NEXTVAL, #{fileName}, #{fileUrl}, #{downloadUrl}, #{fileSize})
+	</insert>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	
+	<select id="getFileNoByURL" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT fileNo FROM gcs WHERE fileUrl=#{fileUrl}
+	</select>
 	
-	<!-- <insert id="artclass-uploadImage" parameterType="java.util.Map">
-		INSERT INTO gcs(fileNo, fileName, fileUrl, downloadUrl, fileSize, classNo)
-			VALUES(SEQ_gcs_fileNo.NEXTVAL, #{fileName}, #{fileUrl}, #{downloadUrl}, #{fileSize}, #{classNo})
-	</insert> -->
+	<update id="updateBlogNo" parameterType="java.util.Map">
+		UPDATE gcs SET blogNo=#{blogNo} WHERE fileNo=#{fileNo}
+	</update>
 	
 	<select id="artclass-getImages">
 		SELECT * FROM gcs WHERE classNo=#{classNo}
 	</select>
+<<<<<<< HEAD
 
 	<select id="getFileNoByURL" parameterType="java.lang.String" resultType="java.lang.String">
 		SELECT fileNo FROM gcs WHERE fileUrl=#{fileUrl}
@@ -43,4 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE gcs SET blogNo=#{blogNo} WHERE fileNo=#{fileNo}
 	</update>
 
+=======
+	
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 </mapper>
