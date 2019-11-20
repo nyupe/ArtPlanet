@@ -65,9 +65,9 @@ public class BlogController
 			Map<String,List<Map<String,Object>>> gsonMap = new HashMap<String, List<Map<String,Object>>>();
 			Gson gson = new Gson();
 			JSONParser parser = new JSONParser();
+			//이미지
 			Object obj = parser.parse(map.get("imgs").toString());
 			JSONObject jsonObj = (JSONObject) obj;
-			
 			gsonMap = gson.fromJson(JSONObject.toJSONString(jsonObj).replace("\\/", "/"),
 					new TypeToken<Map<String,List<Map<String,Object>>>>(){}.getType());
 			/////////////////////////////
@@ -77,7 +77,22 @@ public class BlogController
 				map.put("fileNo", fileNo);
 				gcsDAO.updateBlogNo(map);
 			}
+			
 			System.out.println("jsonObj:"+JSONObject.toJSONString(jsonObj).replace("\\/", "/"));
+			//태그
+			System.out.println("gettags:"+map.get("tags").toString());
+			obj = parser.parse(map.get("tags").toString());
+			jsonObj = (JSONObject) obj;
+			gsonMap = gson.fromJson(JSONObject.toJSONString(jsonObj).replace("\\/", "/"),
+					new TypeToken<Map<String,List<Map<String,Object>>>>(){}.getType());
+			for(int i = 0; i < gsonMap.get("tags").size(); i++)
+			{
+				System.out.println(gsonMap.get("tags").get(i).get("tag").toString());
+				
+				//gcsDAO.updateBlogNo(map);
+			}
+			System.out.println("jsonObj2:"+JSONObject.toJSONString(jsonObj).replace("\\/", "/"));
+			
 		}
 		return "contents/blog/WritePost.tiles";
 	}

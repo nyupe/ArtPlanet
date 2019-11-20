@@ -342,11 +342,12 @@ function postForm() {
 	
 	var tagsJson = "{\"tags\":[";
 	$('.tag-button').each(function(index,item) {
-		imagesJson += "{\"tag\":\"" + $(item).html() +"\"}";
-		if(index < $('.previewImg').length -1)
-			imagesJson += ",";
+		console.log($(item).html());
+		tagsJson += "{\"tag\":\"" + $(item).html() +"\"}";
+		if(index < $('.tag-button').length -1)
+			tagsJson += ",";
 		else
-			imagesJson += "]}";
+			tagsJson += "]}";
 	});
 	$('#post-tags').val(tagsJson);
 	
@@ -452,25 +453,11 @@ var sendTags = function() {
 						</div>						
 					</aside>
 				</div>
-				<button onclick="visionTest()">비전 테스트</button>				
+				<button onclick="visionTest()">테스트</button>				
 				<script type="text/javascript">
 				function visionTest()
 				{						
-					/*
-					$.ajax({
-						url: "<c:url value='/extractLabels'/>", // 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
-						method: "GET", // HTTP 요청 메소드(GET, POST 등)
-						dataType: "text",
-						success: function(data)
-			            {
-							console.log(data);
-							$(data).each(function() {
-							
-							});
-			            }
-
-					})
-					*/
+					postForm();
 				}
 				</script>
 			</div>
