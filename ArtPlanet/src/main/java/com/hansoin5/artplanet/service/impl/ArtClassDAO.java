@@ -22,20 +22,21 @@ public class ArtClassDAO
 	  System.out.println("DAO 접근성공");
 	  return template.selectOne("getClassOne", map);
   }
-  
+  /*
   public int delete(Map map)
   {
     this.template.delete("classInfoDelete", map);
     return this.template.delete("classDelete", map);
   }
-  
+  */
   public int insert(Map map)
   {
     return this.template.insert("classInsert", map);
   }
-  
+  /*
   public int update(Map map)
   {
     return this.template.update("classUpdate", map);
   }
+  */
 }
