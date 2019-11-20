@@ -33,8 +33,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE gcs SET blogNo=#{blogNo} WHERE fileNo=#{fileNo}
 	</update>
 	
-	<select id="artclass-getImages">
+	<update id="updateClassNo" parameterType="java.util.Map">
+		UPDATE gcs SET classNo=#{classNo} WHERE fileNo=#{fileNo}
+	</update>
+	
+	<select id="getListByClassNo" parameterType="java.lang.String" resultType="java.util.Map">
 		SELECT * FROM gcs WHERE classNo=#{classNo}
 	</select>
+
+	<select id="getFileNoByURL" parameterType="java.lang.String" resultType="java.lang.String">
+		SELECT fileNo FROM gcs WHERE fileUrl=#{fileUrl}
+	</select>
 	
+	<update id="updateBlogNo" parameterType="java.util.Map">
+		UPDATE gcs SET blogNo=#{blogNo} WHERE fileNo=#{fileNo}
+	</update>
+
 </mapper>

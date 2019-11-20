@@ -2,25 +2,25 @@ package com.hansoin5.artplanet.service;
 
 public class ArtClassDTO
 {
-  private int classNo;
+  private String classNo;
   private String title;
   private String content;
   private String classLevel;
   private String timeRequired;
   private String numberOfPeople;
   private String tuitionFee;
-  private String dateAndTime;
   private String classAddress;
   private String detailedAddr;
+  private String categorie;
   private String memberNo;
-  private String kategorieNo;
+ 
   
-  public int getClassNo()
+  public String getClassNo()
   {
     return this.classNo;
   }
   
-  public void setClassNo(int classNo)
+  public void setClassNo(String classNo)
   {
     this.classNo = classNo;
   }
@@ -85,15 +85,7 @@ public class ArtClassDTO
     this.tuitionFee = tuitionFee;
   }
   
-  public String getDateAndTime()
-  {
-    return this.dateAndTime;
-  }
   
-  public void setDateAndTime(String dateAndTime)
-  {
-    this.dateAndTime = dateAndTime;
-  }
   
   public String getClassAddress()
   {
@@ -124,14 +116,15 @@ public class ArtClassDTO
   {
     this.memberNo = memberNo;
   }
+
+public String getCategorie() {
+	return categorie;
+}
+
+public void setCategorie(String categorie) {
+	this.categorie = categorie;
+}
   
-  public String getKategorieNo()
-  {
-    return this.kategorieNo;
-  }
+ 
   
-  public void setKategorieNo(String kategorieNo)
-  {
-    this.kategorieNo = kategorieNo;
-  }
 }

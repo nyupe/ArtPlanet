@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.hansoin5.artplanet.service.MemberDTO;
+import com.hansoin5.artplanet.service.MonthTotDTO;
 
 
 //데이터베이스에 직접적으로 관련된 로직이 있는 클래스에는 레포지토리 어노테이션
@@ -78,6 +79,18 @@ public class MemberDAO {
 	// 회원정보 가져오기
 	public MemberDTO selectOne(Map map) {
 		return template.selectOne("getMemberInfo", map);
+	}
+
+	// 월별가입회원수조회 
+	public List<MonthTotDTO> getMemberTotal() {
+	
+		return template.selectList("getMemberTotal");
+	}
+
+
+	public List<MonthTotDTO> getAccumulated() {
+		
+		return template.selectList("getAccumulated");
 	}
 	
 	

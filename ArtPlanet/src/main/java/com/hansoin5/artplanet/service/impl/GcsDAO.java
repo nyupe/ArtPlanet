@@ -25,9 +25,9 @@ public class GcsDAO
 	{
 		return template.insert("uploadImage",map);
 	}
-	public List<GcsDTO> getListByClass(Map map)
+	public List<GcsDTO> getListByClassNo(String classNo)
 	{
-		return template.selectList("artclass-getImages",map);
+		return template.selectList("getListByClassNo",classNo);
 	}
 	public String getFileNoByURL(String fileUrl)
 	{
@@ -36,5 +36,9 @@ public class GcsDAO
 	public int updateBlogNo(Map map)
 	{
 		return template.update("updateBlogNo", map);
+	}
+	public int updateClassNo(Map map)
+	{
+		return template.update("updateClassNo", map);
 	}
 }

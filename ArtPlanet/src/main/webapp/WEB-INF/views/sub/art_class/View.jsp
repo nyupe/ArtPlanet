@@ -558,7 +558,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 									<h2>애니메이션</h2>
 									<ul class="food__dtl__prize d-flex">
 
-										<li>￦30,000</li>
+										<li>${record.tuitionFee}</li>
 
 									</ul>
 									<!-- Start Category Area -->
@@ -567,10 +567,10 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 										style="padding: 10px 10px">
 
 										<ul class="food__category">
-											<li><a href="#"> 난이도<span>중</span></a></li>
-											<li><a href="#">소요시간<span>2시간</span>
+											<li><a href="#"> 난이도<span>${record.classLevel}</span></a></li>
+											<li><a href="#">소요시간<span>${record.timeRequired} 시간</span>
 											</a></li>
-											<li><a href="#">최대인원 <span>최대 3명</span></a></li>
+											<li><a href="#">최대인원 <span>최대 ${record.numberOfPeople} 명</span></a></li>
 
 
 										</ul>
@@ -629,7 +629,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 
 
 					<!-- <div class="boking_table">
-=======
+
 													</div>
 												<h5 class="card-title">  </h5>	
 												<a href="Order.do"><button type="button" class="btn btn-danger">예약하기</button></a>
@@ -644,7 +644,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 					
 									
 							<!-- <div class="boking_table">
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
+
 								<div class="row">
 									<div class="col-md-10">
 										<div class="book_tabel_item">
@@ -801,7 +801,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 							<strong>아트 클래스</strong>
 						</h2>
 						<h4 class="h4-responsive">
-							<span class="green-text"> <strong>30000원</strong>
+							<span class="green-text"> <strong>${record.tuitionFee}</strong>
 							<!--  </span> <span class="grey-text"> <small> <s>60000</s> -->
 							</small>
 							</span>
@@ -857,7 +857,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 												
 												</form>
 															<form style="position: relative; left: 20px;bottom: 8px; ">    
-												                       합계:<input type="text" id="classPrice" value="30000원" style="position: relative; left: 20px;" />
+												                       합계:<input type="text" id="classPrice" value="${record.tuitionFee}원" style="position: relative; left: 20px;" />
 												                      
 															</form>
                                                         </div>
@@ -1034,8 +1034,16 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 </script>
 <script >
 	function change(num) {
+	
 		
-		var value = $('#classValue').val();
+		//var str= string.split('w');
+		//var value= ${record.tuitionFee};
+		//var $('￦').after('w'+str) = $('#classValue').val();
+		//var value.split('w')  = $('#classValue').val();
+		//var str = ${record.tuitionFee};
+		//var res = str.substring(1);
+		//var value.split('w')  = $('#classValue').val();
+		var value =$('#classValue').val();
 		var counter = $('#pricount').val();
 		
 		if(num == 1){
@@ -1066,7 +1074,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 	mapOption = {
 		center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		level : 10
+		level : 7
 	// 지도의 확대 레벨 
 	};
 
@@ -1082,7 +1090,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 			lon = position.coords.longitude; // 경도
 
 			var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-			message = '<div style="padding:5px;">현재위치</div>'; // 인포윈도우에 표시될 내용입니다
+			message = '<div style="padding:2px;">현재위치</div>'; // 인포윈도우에 표시될 내용입니다
 
 			// 마커와 인포윈도우를 표시합니다
 			displayMarker(locPosition, message);
@@ -1134,7 +1142,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 <script>		
    		function isDelete(){
    			if(confirm("정말로 삭제 하시겠습니까?")){
-   				location.replace("<c:url value='/OneMemo/BBS/Delete.jsp?no=${record.no}'/>");
+   				/* location.replace("<c:url value='/OneMemo/BBS/Delete.jsp?classNo=${record.classNo}'/>"); */
    			}
    		}  
    		
