@@ -1,20 +1,49 @@
 <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml" >
 
 <head>
-    <title>Art Planet - 관리자</title>
+    <title>Art Planet - 관리자 </title>
     <meta http-equiv="X-UA-Compatible" content="text/html;charset=utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
   <link
    href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
-    <script>
+    <script type="text/javascript">
+   
+    //결제관련
+    
+        console.log("들어가긴하냐");
+        function  jsf__pay( form )
+        {
+            if ( jsf__chk( form ) == true )
+            {
+                return  true;
+            }
+            else
+            {
+                return  false;
+            }
+        }
+        
+        function jsf__chk( form )
+        {
+            if ( form.batch_key.value.length != 16 )
+            {
+                alert("인증키 값을 정확히 입력해 주시기 바랍니다.");
+                form.batch_key.focus();
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        //결제관련끝
+        
+        
     $(function(){
 		
 		$.ajax({
@@ -27,28 +56,68 @@
 				console.log('에러:',error);
 			}
 		});	
+		
+		init_orderid();
+		
     });	///////////////
 		
 		var successAjax = function(data,id){
 			console.log('서버로 부터 받은 배치키 데이타:',data);
 			var tableString="<table style='width: 100%;' id='example' class='table table-hover table-striped table-bordered'>";
-            tableString += "<thead><tr><th>번호</th><th>아이디(고유번호)</th><th>배치키</th><th>주문번호</th><th>응답코드</th><th>카드코드</th><th>주문자명</th></tr></thead>";
+            tableString += "<thead><tr><th>번호</th><th>아이디</th><th>주문번호</th><th>응답코드</th><th>카드코드</th><th>주문자명</th><th>배치키</th><th>금액</th><th>결제하기</th></tr></thead>";
             tableString += "<tbody>";
             $.each(data,function(index,element){
 					tableString+="<tr>";					
-					tableString+="<td>"+(index+1)+"</td><td>"+element['memberno']+"</td><td>"+element['batch_key']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['res_cd']+
-					"</td><td>"+element['card_cd']+"</td><td>"+element['buyr_name']+"</td>";			
+					tableString+="<td>"+(index+1)+"</td><td>"+element['memberno']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['res_cd']+
+					"</td><td>"+element['card_cd']+"</td><td>"+element['buyr_name']+"</td><td>"+element['batch_key']+"</td><td>"+20000+"</td>";			
+					tableString+="<td><button type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-success' data-toggle='modal' data-target='#exampleModal' onclick='payTrigger(this)'>결제하기</button></td>";
 					tableString+="</tr>";
 				});
-            tableString+="</tbody><tfoot><tr><th>No</th><th>memberno</th><th>batch_key</th><th>ordr_idxx</th><th>res_cd</th><th>card_cd</th><th>buyr_name</th></tr></tfoot></table>";		    
+            tableString+="</tbody><tfoot><tr></th></tr></tfoot></table>";		    
 			    $('#'+id).html(tableString);
 			};
 	
 			var abc = $("#number").val()
-			console.log(abc);
+			console.log('니가언디파인드냐',abc);
+	
+		
+			
+		
+			
+			 // 주문번호 생성 예제
+		 var init_orderid =   function(){
+		        var today = new Date();
+		        var year  = today.getFullYear();
+		        var month = today.getMonth()+ 1;
+		        var date  = today.getDate();
+		        var time  = today.getTime();
+
+		        if(parseInt(month) < 10)
+		        {
+		            month = "0" + month;
+		        }
+
+		        var vOrderID = year + "" + month + "" + date + "" + time;
+
+		        document.forms[0].ordr_idxx.value = vOrderID;
+		    
+		    }
+
+		//결제 트리거
+		function payTrigger(el)
+		{
+			console.log('페이트리거 안입니다')
+			$('#good_mny').val($(el).parent().prev().html());
+			$('#batch_key').val($(el).parent().prev().prev().html());
+			$('#pay').trigger('click');
+			
+			
+			//document.form_order.submit();
+		
+		}		
 	</script>
 </head>
-<body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+<body onload="init_orderid()" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
 	<!-- 케로 관리자UI -->
    	<div class="app-container app-theme-gray">
 		  <div class="app-main">
@@ -163,54 +232,108 @@
                                                     <div class="card-body">
                                                     
                                                     	 <div id=list></div>
-                                                    	 <!-- 
-                                                        <table style="width: 100%;" id="example"
-                                                               class="table table-hover table-striped table-bordered">
-                                                            <thead>
-                                                            <tr>
-                                                            	<th>번호</th>
-                                                                <th>아이디</th>
-                                                                <th>주문번호</th>
-                                                                <th>주문자명</th>
-                                                                <th>카드코드</th>
-                                                                <th>배치키</th>
-                                                                <th>결제시도일</th>
-                                                                <th>카드사응답</th>
-                            
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                            	<td>1</td>
-                                                            	<td>KIM</td>
-                                                                <td>20191010</td>
-                                                                <td>김길동</td>
-                                                                <td>CCLG</td>
-                                                                <td>19102911457819EA</td>                                            
-                                                                <td>2019/04/25</td>
-                                                                <td>
-                                                   					<button type="button" class="badge badge-pill badge-success" data-toggle="modal" data-target="#exampleModal">
-                                                          			 성공
-                                                    			    </button>
-                                                    			</td>
-                                                            </tr>
-                                                   
-                                                            </tbody>
-                                                            <tfoot>
-                                                            <tr>
-                                                            	<th>No</th>
-                                                            	<th>ID</th>
-                                                            	<th>ordr_idxx</th>
-                                                                <th>buyr_name</th>
-                                                                <th>card_cd</th>
-                                                                <th>batch_key</th>
-                                                                <th>date</th>
-                                                                <th>sucFail</th>
-                                                              
-                                                            </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                         -->
+                          
+                          <!-- 폼 시작  -->
+                          <div style="display: none">
+                          <form name="form_order" method="post" action="RecurringPayHub.do">          
+                                   <!-- PG사로 폼값 포스트로 전송하기 -->
+                                    <div class="form-row">
+                                       <div class="col-md-6">
+                                          <label>지불방법</label> 
+											<input class="form-control"
+                                                 type="text" name="pay_method"
+                                                value="CARD" maxlength="40" />
+                                       </div>
+
+                                       <div class="col-md-6">
+                                          <div class="position-relative form-group">
+                                             <label>주문번호</label> <input class="form-control"
+                                                placeholder="주문번호" type="text" name="ordr_idxx"
+                                                value="TEST1234" maxlength="40"/>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-6">
+                                          <div class="position-relative form-group">
+                                             <label>상품명</label> <input class="form-control"
+                                                type="text" name="good_name" value="정기후원_TEST " />
+                                          </div>
+                                       </div>
+
+                                       <div class="col-md-6">
+                                          <div class="position-relative form-group">
+                                             <label>주문자명</label> <input class="form-control"
+                                                type="text" name="buyr_name" value="아트플" />
+                                          </div>
+                                       </div>
+
+                                    </div>
+                                    <div class="position-relative form-group">
+                                       <label>결제금액</label> <input class="form-control" type="text"
+                                          name="good_mny" id="good_mny" value="10000" maxlength="9" />원(숫자만 입력)
+                                    </div>
+
+                                    <div class="form-group">
+                                       <label for="email">Email</label>
+                                       <div>
+                                          <input type="text" class="form-control" id="email"
+                                             name="buyr_mail" placeholder="Email" value="test@test.co.kr" />
+                                       </div>
+                                    </div>
+
+                                    <div class="position-relative form-group">
+                                       <label>전화번호</label> 
+                                       <input value="02-0000-0000"
+                                          name="buyr_tel1" placeholder="02-0000-1234" type="text"
+                                          class="form-control"/>
+                                    </div>
+
+                                    <div class="position-relative form-group">
+                                       <label>휴대폰번호</label> 
+                                       <input value="010-0000-0000"
+                                          name="buyr_tel2" placeholder="010-0000-1234" type="text"
+                                          class="form-control" />
+                                    </div>
+                                    
+                                    <div class="position-relative form-group">
+                                       <label>인증키</label> 
+                                       <input value=""
+                                          name="bt_batch_key" id="batch_key" type="text"
+                                          class="form-control" />
+                                    </div>
+                                    
+                                     <div class="position-relative form-group">
+                                       <label>그룹ID</label> 
+                                       <input value="BA0011000348"
+                                          name="bt_group_id" placeholder="010-0000-1234" type="text"
+                                          class="form-control" />
+                                    </div>
+                                    
+                                    <div class="position-relative form-group">
+                                       <label>할부개월</label> 
+                                       <input value="00"
+                                          name="quotaopt" placeholder="010-0000-1234" type="text"
+                                          class="form-control" />
+                                    </div>
+
+                                    <!-- 결제요청 버튼
+                                    <input name="button" type="button" class="submit" value="결제요청" onclick="jsf__pay(this.form);"/>-->
+                                    <button type="submit" id="pay"
+                                       class="btn-shadow btn-wide float-right btn-pill btn-hover-shine btn btn-primary"
+                                       onclick="jsf__pay(this.form);">Pay</button>
+
+                                    <!-- 요청종류 승인(pay)/취소,매입(mod) 요청시 사용 -->
+							        <input type="hidden" name="req_tx"          value="pay"/>
+							        <input type="hidden" name="pay_method"      value="CARD"/>
+							        <input type="hidden" name="card_pay_method" value="Batch"/>
+							        <!-- 필수 항목 : 결제 금액/화폐단위 -->
+							        <input type="hidden" name="currency" value="410"/>
+							        
+							        <!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+                                 </form>
+                                 </div>
+                                 <!-- 폼끝 -->
+                                                    	
                                                     </div><!-- 카드바디 -->
                                                 </div>
                                             </div><!-- 다이브12 -->
@@ -232,6 +355,7 @@
     
     <!-- javascript -->
  	<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>"></script>
+ 
  	
 	
 </body>

@@ -86,6 +86,12 @@ public class MemberDAO {
 	
 		return template.selectList("getMemberTotal");
 	}
+
+
+	public List<MonthTotDTO> getAccumulated() {
+		
+		return template.selectList("getAccumulated");
+	}
 	
 	
 	

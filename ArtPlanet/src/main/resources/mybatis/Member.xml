@@ -64,6 +64,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			ORDER BY SUBSTR(MEMBERSHIPDATE,4,2)
 	</select>
 	
+	<!-- 누적가입회원수조회 -->
+	<select id="getAccumulated" parameterType="java.util.Map" resultType="MonthTotDTO">
+			SELECT MONTH, TOT, SUM(SUM(TOT)) OVER(ORDER BY MONTH ASC ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) accumulated
+			FROM (SELECT SUBSTR(MEMBERSHIPDATE,4,2) AS MONTH, COUNT(*) AS TOT
+     	    FROM MEMBER
+    	    WHERE MEMBERSHIPDATE BETWEEN '2019-01-01' AND '2019-12-31'
+    	    GROUP BY SUBSTR(MEMBERSHIPDATE,4,2)
+     	    ORDER BY SUBSTR(MEMBERSHIPDATE,4,2))
+			WHERE MONTH BETWEEN '01' AND '12'
+			GROUP BY MONTH, TOT
+			ORDER BY MONTH
+	</select>
 	
 	<!-- 수업예제 쿼리문  -->
 	<!-- <select id="memoIsLogin" parameterType="java.util.Map" resultType="int">

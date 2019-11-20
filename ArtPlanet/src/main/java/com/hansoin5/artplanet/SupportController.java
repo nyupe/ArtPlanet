@@ -32,7 +32,7 @@ public class SupportController {
 	@Resource(name="authorityDAO")
 	private AuthorityDAO authorityDao;
 	
-	
+	//회원 chartJS용
 	@RequestMapping(value="/getMemberTotal",produces = "text/html; charset=UTF-8")
 	@ResponseBody
 	public String getMemberTotal() {
@@ -50,7 +50,24 @@ public class SupportController {
 		}
 		return JSONArray.toJSONString(collections);
 	}/////
-	
+	//회원 chartJS용
+		@RequestMapping(value="/getAccumulated",produces = "text/html; charset=UTF-8")
+		@ResponseBody
+		public String getAccumulated() {
+			List<MonthTotDTO> list=memberDao.getAccumulated();
+			System.out.println("찍혀라");
+			List<Map> collections = new Vector<Map>();
+			for(MonthTotDTO dto :list) {
+				Map record = new HashMap();
+				System.out.println(dto.getMonth());
+				record.put("month", dto.getMonth());
+				System.out.println(dto.getTot());
+				record.put("tot", dto.getTot());
+				
+				collections.add(record);
+			}
+			return JSONArray.toJSONString(collections);
+		}/////
 	
 	
 	// 회원 테이블 모든 레코드 반환

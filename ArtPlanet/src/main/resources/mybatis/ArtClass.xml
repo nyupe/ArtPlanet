@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mybatis.ArtClass">
+
+
+<!-- 입력폼 -->
+ <insert id="classInsert" parameterType="java.util.Map" useGeneratedKeys="true" keyProperty="classNo" keyColumn="classNo">
+  	
+  	INSERT INTO ARTCLASS(classNo,title,classLevel,timeRequired,numberOfPeople,tuitionFee,classAddress,detailedAddr)
+  	VALUES(SEQ_ARTCLASS_CLASSNO.NEXTVAL,#{title},#{classLevel},#{timeRequired},#{numberOfPeople},#{tuitionFee},#{classAddress},#{detailedAddr})
+
+
+  </insert>
+  
+  <select id="ClassSelectList" parameterType="java.util.Map" resultType="ArtclassDTO">
+     select * from ARTCLASS
+  </select>
+  
+  
+  <!-- 
+    <select id="calssSelectOne" parameterType="java.util.Map" resultType="ArtclassDTO">
+  	SELECT o.*,name FROM artclass o JOIN member m ON o.id=m.id
+  	WHERE ClassNo = #{ClassNo}
+  </select>
+
+
+  
+    <select id="classUpdate" parameterType="java.util.Map">
+  	UPDATE artclass SET title=#{title},content=#{content},content=#{classLevel},content=#{timeRequired},content=#{numberOfPeople},content=#{tuitionFee},content=#{classAddress},content=#{detailedAddr} WHERE classNo=#{classNo}
+  </select>
+  
+  <delete id="classDelete" parameterType="java.util.Map">
+  	DELETE artclass WHERE ClassNo=#{ClassNo}
+  </delete>
+
+   -->
+  
+  
+  
+  
+  
+  
+
+</mapper>

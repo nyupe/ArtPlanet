@@ -32,6 +32,8 @@
 			showMembers();
 			//추가로 월별회원 가입자수 뿌려주기 chartJS용
 			showMemberTotal();
+			//누적 가입자수 뿌려주기 chartJS용
+			showAccumulated();
 		})
 		//진입점 끝
   		
@@ -217,7 +219,7 @@
 		  
 	};
 	
-	
+	//도넛차트
 	 var ctx2 = document.getElementById('myDoughnutChart').getContext('2d');
 	// And for a doughnut chart
 	var myDoughnutChart = new Chart(ctx2, {
@@ -237,11 +239,27 @@
 	    options: options
 	});
 
-
+	//누적 시작
+	var  showAccumulated = function(){
+		$.ajax({
+			url:"<c:url value='/getAccumulated'/>",
+			dataType:'json',
+			success:function(data){successAjax2(data,'accList');},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+		});			
+	}
 	
+	var successAjax2 = function(data,id){
+		console.log('누적회원 데이타:',data);
+		  $.each(data,function(index,element){
+			  
+		  });
 	
-	
-	
+	};
 	</script>
 	<!-- 회원 테이블 데이터 가져오는 로직 끝 -->
 	

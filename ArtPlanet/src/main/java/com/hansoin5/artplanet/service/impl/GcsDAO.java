@@ -1,11 +1,14 @@
 package com.hansoin5.artplanet.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.hansoin5.artplanet.service.GcsDTO;
 
 @Repository
 public class GcsDAO
@@ -21,5 +24,20 @@ public class GcsDAO
 	public int blogUploadImage(Map map)
 	{
 		return template.insert("blog-uploadImage",map);
+	}
+
+	public List<GcsDTO> getListByClass(Map map)
+	{
+		return template.selectList("artclass-getImages",map);
+	}
+
+	public String getFileNoByURL(String fileUrl)
+	{
+		return template.selectOne("getFileNoByURL", fileUrl);
+	}
+	public int updateBlogNo(Map map)
+	{
+		return template.update("updateBlogNo", map);
+
 	}
 }

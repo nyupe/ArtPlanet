@@ -15,7 +15,16 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <typeAlias alias="CancelDTO" type="com.hansoin5.artplanet.service.CancelDTO"/>		 
 		 <typeAlias alias="RecAuthDTO" type="com.hansoin5.artplanet.service.RecAuthDTO"/>
 		 <typeAlias alias="RecPayDTO" type="com.hansoin5.artplanet.service.RecPayDTO"/>
+
 		 <typeAlias alias="MonthTotDTO" type="com.hansoin5.artplanet.service.MonthTotDTO"/>
+
+		 
+		 <typeAlias type="com.hansoin5.artplanet.service.ArtClassDTO" alias="ArtClassDTO"/>
+
+<typeAlias type="com.hansoin5.artplanet.service.ClassOpeningDateDTO" alias="ClassOpeningDateDTO"/>
+		 
+		 
+
 		 
 	</typeAliases>
 
@@ -41,6 +50,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/RecAndProjAuth.xml" />	
 		<!-- 정기결제+프로젝트1회성결제 정보 -->
 		<mapper resource="mybatis/RecAndProjPay.xml"/>
+		
+		<mapper resource="mybatis/ArtClass.xml"/>
+
+<!--아트 클래스 날짜 및 시간 -->
+
+
+<mapper resource="mybatis/ClassOpeningDate.xml"/>
 		
 		
 	</mappers>

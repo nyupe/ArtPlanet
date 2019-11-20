@@ -682,13 +682,12 @@ function valueCheck(eleForm){
 										<!-- 등록 버튼  -->
                                       <div class="card-body">
                                      <!-- <button type="button" onclick="addScheduleInput()">테스트</button>--> 
-                                         <button type="submit"  class="mb-2 mr-2 btn btn-outline-primary btn-lg btn-block"> 
-                                         <!--     <input type="submit"  value="등록하기" >-->
-                                                                                                      등록하기
-                                          </button>
-                                          <button class="mb-2 mr-2 btn btn-outline-primary btn-block">
-                                                                                                        나가기
-                                          </button>
+                                       <button class="mb-2 mr-2 btn btn-shadow btn-dashed btn-outline-danger btn-lg btn-block">
+                                                                수정하기
+                                                            </button>
+                                                            <button class="mb-2 mr-2 btn btn-shadow btn-dashed btn-outline-danger btn-block">
+                                                               삭제하기
+                                                            </button>
                                          
                                         
                                       </div>
