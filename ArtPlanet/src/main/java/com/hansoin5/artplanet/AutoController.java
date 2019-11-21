@@ -36,16 +36,14 @@ public class AutoController {
 		//2. 정기구독 결제 : ( 현재시각 - 구독시작시각 )이 3분이상인 레코드 조회 // 시연용 3분, 실제 정기구독은 30일의 차이 발생요망
 		                                                      
 		// 정기구독 결제해야하는 레코드가 1개이상 반환될 경우
-		if(subscribeDAO.checkSubPayRecordCount() >= 1) {
-			// 정기구독결제 자동화 서비스 호출
-			autoPayment.autoPayment("subscribe");
-		}/////
-		
-		// 자동 결제 조건에 맞는 크라우드 펀딩 프로젝트를 1개 이상 찾을시
-		if(true) {
-			
-		}/////
-		
+		/*
+		 * if(subscribeDAO.checkSubPayRecordCount() >= 1) { // 정기구독결제 자동화 서비스 호출
+		 * autoPayment.autoPayment("subscribe"); }/////
+		 * 
+		 * // 자동 결제 조건에 맞는 크라우드 펀딩 프로젝트를 1개 이상 찾을시 if(true) {
+		 * 
+		 * }/////
+		 */		
 		
 	}///// autoPay()
 	 
