@@ -256,13 +256,13 @@
 		    <div id="myModal" class="modal">
 		 	
 		      <!-- Modal content -->
-		      <div class="modal-content">
+		      <div class="modal-content" style="width:200px">
 		                <p style="text-align: center;">
-		                <span style="font-size: 14pt;">
-	                		<b><span style="font-size: 24pt;">휴대폰 인증 성공</span></b></span>
+		                <span style="font-size: 12pt;">
+	                		<b><span style="font-size: 12pt;">인증 되었습니다</span></b></span>
 		                </p>
 					<!-- 닫기 버튼  시작-->		                
-	            	<div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px;" onClick="close_pop();">
+	            	<div style="cursor:pointer;background-color: #e2d8d8;text-align: center;width:150px;margin-left:25px;height:40px;line-height:40px;" onClick="close_pop();">
 		                <span class="pop_bt" style="font-size: 13pt;" >
 		                    	 닫기
 		                </span>

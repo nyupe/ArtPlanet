@@ -149,6 +149,15 @@ public class TopController
 		return "support/member/Login.tiles";
 	}/////login()
 	
+
+	//리액트 페이지로 이동
+	@RequestMapping(value = "/React.bbs")
+	public String React()
+	{
+		return "react/index.tiles";
+	}/////login()
+	
+
 	/*
 	 * //회원가입 페이지으로 이동
 	 * 
@@ -164,5 +173,6 @@ public class TopController
 	 * 
 	 * return "support/member/Register.tiles"; }/////register()
 	 */
+
 
 }/////class
