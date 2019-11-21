@@ -56,12 +56,11 @@ public class TopController
 	
 	// 회원가입 처리
 	// 프로필 사진 업로드시 업로드 input TAG의 name속성명 = MultipartFile (upload) 이어야함! 안그러면 파일업로드 요청 거절함  
-	/*
 	@RequestMapping(value = "/Register" , method=RequestMethod.POST)
 	public String registerOk(@RequestParam Map map, ModelMap modelmap,
 			 @RequestParam MultipartFile upload,  HttpServletRequest req) throws IllegalStateException, IOException{
 			
-		System.out.println("컨트롤러에서 찍어보기 : "+map.get("auth_name"));
+		//System.out.println("컨트롤러에서 찍어보기 : "+map.get("auth_name"));
 		
 		if (!upload.isEmpty()) { // 회원가입시 프로필 사진 첨부했을 경우 
 			//1]서버의 물리적 경로 얻기 String
@@ -91,7 +90,7 @@ public class TopController
 		//뷰정보반환]-회원가입 완료페이지로 이동
 		return "forward:/WEB-INF/views/support/member/Welcome.jsp";
 	}/////registerOk()
-	*/
+	
 	
 	@RequestMapping("/About")
 	public String about()
