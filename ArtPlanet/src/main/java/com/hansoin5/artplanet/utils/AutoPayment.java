@@ -18,7 +18,9 @@ public class AutoPayment {
 	//Properties
 	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	//chromedriver.exe 드라이버 설치시 반드시 자신의 크롬브라우저 버전을 확인 후 해당 브라우저에 대응하는 드라이버를 설치할것
-	public static final String WEB_DRIVER_PATH = "D:\\AYJ\\utility\\selenium\\chromedriver_win32\\chromedriver.exe";
+	public static final String WEB_DRIVER_PATH = "D:\\chromeDriver\\chromedriver.exe";
+	
+	
 	
 	//셀리니움 타겟 URL
 	private String tartgetUrl;
