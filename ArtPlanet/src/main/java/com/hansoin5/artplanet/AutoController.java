@@ -47,11 +47,11 @@ public class AutoController {
 		  }/////
 		  
 		  // 자동 결제 조건에 맞는 크라우드 펀딩 프로젝트를 1개 이상 찾을시 
-		  if(projectDAO.autoPayGetProjectRecords() >=1 ) { // 프로젝트 모금액 자동결제 서비스 호출
-			  System.out.println("크라우드 펀딩 자동결제 관련  쿼리 성공");
+		  //if(projectDAO.autoPayGetProjectRecords() >=1 ) { // 프로젝트 모금액 자동결제 서비스 호출
+			  //System.out.println("크라우드 펀딩 자동결제 관련  쿼리 성공");
 			  // 셀리니움 적용한 크라우드 펀딩 프로젝트 결제 메소드 실행
 			  //autoPaymentObj.autoPayment("project");
-		  }/////
+		  //}/////
 	 		
 	}///// autoPay()
 	 
