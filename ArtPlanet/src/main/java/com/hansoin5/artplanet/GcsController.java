@@ -135,9 +135,11 @@ public class GcsController
 		case "editor":
 			dao.editorUploadImage(map);
 			break;
+			/* 불필요
 		case "project":
 			dao.projectUploadImage(map);
 			break;
+			*/
 		default:
 			dao.uploadImage(map);
 			break;

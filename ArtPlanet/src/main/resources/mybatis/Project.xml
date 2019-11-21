@@ -10,8 +10,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 프로젝트 글 작성 -->
 	<insert id="ProjectInsert" parameterType="java.util.Map">
+		<selectKey keyProperty="projectNo" resultType="int" order="BEFORE">
+			SELECT SEQ_PRO.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO project(projectNo, title, content, deadline, targetFigure, memberNo) 
-			VALUES(SEQ_PRO.NEXTVAL, #{title}, #{content}, #{deadline}, #{targetFigure}, #{memberNo})
+			VALUES(#{projectNo}, #{title}, #{content}, #{deadline}, #{targetFigure}, #{memberNo})
 	</insert>
 	<!-- 코멘트 입력하기 -->
 	<insert id="ProjectInsertComment" parameterType="java.util.Map">
@@ -20,12 +23,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<!-- 목록리스트 뿌리기 -->	
 	<select id="Projectselectlist" parameterType="java.util.Map" resultType="ProjectDTO">
-		select p.*,tagname,projectsupportsum,id, fileurl 
-			from (select projectno, WM_CONCAT(tagname) tagname 
-    			from hashtag h join tagrelation tl  on h.tagno = tl.tagno 
-    				group by projectNO) q join project p on q.projectNo=p.projectNo JOIN (select projectNO, sum(projectsupportsum) projectsupportsum 
-	        			from projectsupport 
-	        				group by projectno) sup on p.projectNo = sup.projectno join member m on p.memberNo = m.memberno join gcs g on p.projectNo = g.projectno
+		select p.*,tagname,sup.projectsupportsum,fileUrl,id
+        	From (select projectno, WM_CONCAT(tagname) tagname from tag h join tagrelation tl  on h.tagno = tl.tagno group by projectNO) 
+	        	q join project p on q.projectNo=p.projectNo left outer 
+	        		JOIN (select projectNO, sum(projectsupportsum) projectsupportsum from projectsupport  group by projectno) sup 
+	        			ON p.projectNo = sup.projectno 
+							JOIN member m on p.memberNo = m.memberno join gcs g on p.projectNo = g.projectno ORDER BY p.postdate DESC
 	</select>
 	<!-- 코멘트 리스트 뿌리기 -->
 	<select id="ProjectSelectListComment" parameterType="java.util.Map" resultType="java.util.Map">
@@ -43,9 +46,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 프로젝트 투자 내용 뿌리기 -->
 	<select id="projectSelectOneFundInfo" parameterType="java.util.Map" resultType="ProjectDTO">
-		select q.*,p.projectsupportsum from 
-    		(select sum(projectsupportsum) projectsupportsum,p.projectno from project p join projectsupport ps on p.projectNo = ps.projectNo group by p.projectNo) p 
-        		join (select targetfigure,deadline,postdate,projectno from project) q on p.projectNo = q.projectNo where p.projectno = #{projectNo} ORDER BY postdate DESC
+		Select q.*,p.projectsupportsum from 
+   			(select sum(projectsupportsum) projectsupportsum,p.projectno from project p join projectsupport ps on p.projectNo = ps.projectNo group by p.projectNo) p 
+   				right outer join (select targetfigure,deadline,postdate,projectno from project) q on p.projectNo = q.projectNo where q.projectno = #{projectNo} ORDER BY postdate DESC
+	</select>
+	<select id="projectCommentCount" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM REPLY WHERE projectNo = #{projectNo}
 	</select>
 	
 	

@@ -1,5 +1,6 @@
 package com.hansoin5.artplanet.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,41 +8,61 @@ import javax.annotation.Resource;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hansoin5.artplanet.service.ProjectDTO;
+import com.hansoin5.artplanet.service.impl.GcsDAO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
 import com.hansoin5.artplanet.service.impl.ProjectDAO;
+import com.hansoin5.artplanet.service.impl.TagDAO;
+import com.hansoin5.artplanet.service.impl.TagRelationDAO;
 
 @Controller
 public class ProjectController{
 	
 	@Resource(name="projectDAO")
 	private ProjectDAO projectDao;
+	@Resource(name="memberDAO")
+	private MemberDAO memberDAO;
+	@Resource(name="gcsDAO")	
+	private GcsDAO gcsDAO;
+	@Resource(name="tagDAO")
+	private TagDAO tagDAO;
+	@Resource(name="tagRelationDAO")
+	private TagRelationDAO tagRelationDAO;
 		
 	@RequestMapping("/Search/Project/ProjectView")
 	public String searchProjectview(@RequestParam Map map, Model model)
 	{
-		System.out.println("컨트롤 들어옴");
+		System.out.println("프로젝트 뷰 컨트롤 들어옴");
 		ProjectDTO record = projectDao.selectOne(map);
 		ProjectDTO fundInfo = projectDao.selectFundInfo(map);
+		
+		int commentCount = projectDao.getCommentCount(map);
+		
 		
 		record.setContent(record.getContent().replace("<p>", "").replace("</p>", ""));
 		List<Map> list = projectDao.selectsupport(map);
 		int supportcount = list.size();
-		System.out.println(list.get(0).get("PROJECTSUPPORTDATE"));
 		
 		model.addAttribute("list",list);
 		model.addAttribute("record",record);
 		model.addAttribute("supportcount",supportcount);
 		model.addAttribute("fundInfo",fundInfo);
+		model.addAttribute("commentCount",commentCount);
+		System.out.println(commentCount);
 		
 		
 		return "contents/project/SearchProjectView.tiles";
@@ -52,19 +73,6 @@ public class ProjectController{
 	{
 		return "contents/project/WriteProj.tiles";
 	}
-	
-	//프로젝트 작성
-	@RequestMapping("/Search/Project/Write")
-	public String searchProjectwriteInsert(@RequestParam Map map)
-	
-	{
-		System.out.println("컨트롤러 들어옴");
-		System.out.println(map.get("deadline"));
-		
-		projectDao.insert(map);
-		
-		return "forward:/Search/Project";
-	}
 
 	@ResponseBody
 	@RequestMapping(value = "/Search/Project/Comments")
@@ -73,30 +81,69 @@ public class ProjectController{
 		
 		/* map.put("id", ((UserDetails)auth.getPrincipal()).getUsername()); */
 		System.out.println("쿼리 시작");
+		String memberNo = memberDAO.getMemberNo(map.get("id").toString());
+		map.put("memberNo", memberNo);
 		projectDao.insertcomment(map);
 		System.out.println("쿼리 적용 됨");
-		
 		return map.get("projectNo").toString();
-		
 	}
 	
 	
-	@ResponseBody
-	@RequestMapping(value = "/Search/Project/Writes")
-	public String writeajax(@RequestParam Map map) {
-		System.out.println("컨트롤러들어옴");
-		JSONObject json  = new JSONObject();
-		System.out.println(map.get("title"));
-		
-		if(map.get("title") == "" || map.get("targetFigure") == "" || map.get("deadline") == "" || map.get("content") == "" ) {
-			json.put("empty", "0");
-		}
-		else {
-			json.put("empty", "1");
-		}
-		
-		System.out.println("컨트롤러작동");
-		return json.toJSONString();
+	//프로젝트 작성
+	@RequestMapping("/Search/Project/Write")
+	public String projectWrite(@RequestParam Map map) throws ParseException {
+		System.out.println("프로젝트 작성 폼 컨트롤러 들어옴");
+		String memberNo = memberDAO.getMemberNo(map.get("id").toString());
+		map.put("memberNo", memberNo);
+		int affected = projectDao.projectinsert(map);
+				
+		if(affected > 0) {
+			//JSON형태 문자열 자바객체로 변환
+			Map<String,List<Map<String,Object>>> gsonMap = new HashMap<String, List<Map<String,Object>>>();
+			Gson gson = new Gson();
+			JSONParser parser = new JSONParser();
+			
+			//이미지
+			Object obj = parser.parse(map.get("imgs").toString());
+			JSONObject jsonObj = (JSONObject) obj;
+			gsonMap = gson.fromJson(JSONObject.toJSONString(jsonObj).replace("\\/", "/"),
+					new TypeToken<Map<String,List<Map<String,Object>>>>(){}.getType());
+			for(int i = 0; i < gsonMap.get("images").size(); i++) {
+				String fileNo = gcsDAO.getFileNoByURL(gsonMap.get("images").get(i).get("src").toString());
+				map.put("fileNo", fileNo);
+				gcsDAO.updateProjectNo(map);
+			}//for
+			System.out.println("jsonObj:"+JSONObject.toJSONString(jsonObj).replace("\\/", "/"));
+			System.out.println("이미지 성공");
+			
+			//태그
+			System.out.println("gettags:"+map.get("tags").toString());
+			obj = parser.parse(map.get("tags").toString());
+			jsonObj = (JSONObject) obj;
+			gsonMap = gson.fromJson(JSONObject.toJSONString(jsonObj).replace("\\/", "/"),
+					new TypeToken<Map<String,List<Map<String,Object>>>>(){}.getType());			
+			for(int i = 0; i < gsonMap.get("tags").size(); i++)
+			{
+				System.out.println(gsonMap.get("tags").get(i).get("tag").toString());
+				String tagName = gsonMap.get("tags").get(i).get("tag").toString();
+				map.put("tagName", tagName);
+				tagDAO.insertTag(map);
+				
+				//중복된 태그일시 기존에 있던 태그번호 얻어오기 위해 서비스 한번 더 호출
+				String tagNo = tagDAO.getTagNo(map).toString();
+				map.put("tagNo", tagNo);
+				
+				System.out.println("tagNo:"+tagNo);
+				System.out.println("projectNo:"+map.get("projectNo"));
+				tagRelationDAO.insertProjectTagRelation(map);
+				
+			}//for
+			
+			System.out.println("jsonObj2:"+JSONObject.toJSONString(jsonObj).replace("\\/", "/"));
+			
+		}//if(affected > 0)
+		System.out.println("쿼리 작동");
+		return "forward:/Search/Project";
 	}
 	
 	@ResponseBody

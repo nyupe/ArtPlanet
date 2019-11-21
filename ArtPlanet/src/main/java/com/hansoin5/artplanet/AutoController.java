@@ -15,8 +15,8 @@ public class AutoController {
 	
 	
 	//셀레니움 적용한 서비스(AutoPayment.class) 주입
-	@Resource(name="autoPayment")
-	private AutoPayment autoPayment;
+	//@Resource(name="autoPayment")
+	//private AutoPayment autoPayment;
 	
 	//member 테이블 접근 객체 주입
 	@Resource(name="memberDAO")
@@ -28,7 +28,7 @@ public class AutoController {
 	
 	
 	// 자동 DB 조회 
-	@Scheduled(cron = "0/30 * * * * ?") // 30초마다 조회
+	//@Scheduled(cron = "0/30 * * * * ?") // 30초마다 조회
 	public void autoPay() {
 		
 		//데이터베이스 조회해야 할것(서비스 호출 리스트)

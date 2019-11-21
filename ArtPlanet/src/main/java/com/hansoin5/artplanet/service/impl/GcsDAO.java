@@ -41,6 +41,9 @@ public class GcsDAO
 	{
 		return template.update("updateBlogNo", map);
 	}
+	public int updateProjectNo(Map map) {
+		return template.update("updateProjectNo",map);
+	}
 	public int updateClassNo(Map map)
 	{
 		return template.update("updateClassNo", map);

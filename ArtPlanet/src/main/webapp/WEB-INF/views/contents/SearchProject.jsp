@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<sec:authentication property="principal.username" var="id" />
+
 <style>
 
 .card-header>.nav .nav-link:hover {
@@ -95,7 +98,8 @@ margin: 10px 0px;}
 		</div>
 
 		<div class="filters portfolio-filter">
-			<ul>
+			
+			<ul style="margin:auto 0px;">
 				<li class="active" data-filter="*">all</li>
 				<li data-filter=".illustration">일러스트레이션</li>
 				<li data-filter=".animation">애니메이션</li>
@@ -104,6 +108,12 @@ margin: 10px 0px;}
 				<li data-filter=".crafts">조소/공예</li>
 
 			</ul>
+			
+		
+			<form action="<c:url value='/Search/Project/ProjectWrite'/>" style="width: 100%;">
+				<button class="bb primary-bg w-100" type="submit" style="background:white;border: none;border-radius: 2px;font-weight: bold;cursor: pointer;color: #00c4c4">글쓰기${id }</button>
+			</form>
+			
 		</div>
 
 		<div class="filters-content">
@@ -136,8 +146,12 @@ margin: 10px 0px;}
 							
 							<fmt:parseNumber value="${item.postDate.time / (1000*60*60*24)}" integerOnly="true" var="nowdate"></fmt:parseNumber>
 							<fmt:parseNumber value="${item.deadline.time / (1000*60*60*24)}" integerOnly="true" var="targetdate"></fmt:parseNumber>
+							<c:if test="${item.projectsupportsum != null }" var="total">
 							<fmt:parseNumber value="${item.projectsupportsum / item.targetFigure * 100 }" integerOnly="true" var="per" type="number"></fmt:parseNumber>
-							
+							</c:if>
+							<c:if test="${not total }">
+							<fmt:parseNumber value="0" integerOnly="true" var="per" type="number"></fmt:parseNumber>
+							</c:if>
 							
 							
 						

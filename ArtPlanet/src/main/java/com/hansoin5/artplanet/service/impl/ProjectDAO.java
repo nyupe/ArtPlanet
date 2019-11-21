@@ -38,7 +38,7 @@ public class ProjectDAO {
 	}
 	
 	// 프로젝트 등록
-	public int insert(Map map) {
+	public int projectinsert(Map map) {
 		return template.insert("ProjectInsert",map);
 	}
 	
@@ -60,6 +60,10 @@ public class ProjectDAO {
 	// 프로젝트 펀딩 정보 뿌리기
 	public ProjectDTO selectFundInfo(Map map) {
 		return template.selectOne("projectSelectOneFundInfo",map);
+	}
+	
+	public int getCommentCount(Map map) {
+		return template.selectOne("projectCommentCount", map);
 	}
 	
 	// 프로젝트에 서포터 리스트

@@ -4,6 +4,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication property="principal.username" var="id"/>
 
 
 <style>
@@ -269,7 +271,7 @@ $(document).ready(function(){
 						<li class="nav-item"><a class="nav-link bb" href="#proinfo">Refund-Info</a></li>
 						<li class="nav-item"><a class="nav-link bb" href="#proupdate">Update&nbsp;</a></li>
 						<li class="nav-item"><a class="nav-link bb" href="#prosupporter">Supporter&nbsp;<span class="badge badge-primary" style="">${supportcount }</span></a></li>
-						<li class="nav-item"><a class="nav-link bb" href="#commentlist">Comments&nbsp;<span class="badge badge-primary" style="">4</span></a></li>
+						<li class="nav-item"><a class="nav-link bb" href="#commentlist">Comments&nbsp;<span class="badge badge-primary" style="">${commentCount }</span></a></li>
 						
 					</ul>
 					
@@ -340,7 +342,7 @@ $(document).ready(function(){
 											<img src="<c:url value='/resources/img/blog/c1.png'/>" alt="">
 										</div>
 										<div class="supportdesc">
-											<p class="comment"><span style="font-weight: bold;">${item.NAME }</span>님이 ${item.PROJECTSUPPORTSUM} 원 펀딩으로 참여하였습니다</p>
+											<p class="comment"><span style="font-weight: bold;">${item.NICKNAME }</span>님이 ${item.PROJECTSUPPORTSUM} 원 펀딩으로 참여하였습니다</p>
 		
 											<div class="d-flex justify-content-between">
 											
@@ -434,7 +436,7 @@ $(document).ready(function(){
 						<input type="hidden" name="projectNo" value="${record.projectNo}" />
 						<input type="hidden" name="replyNo" />
 						<input type="hidden" name="replyPostDate" />
-						<input type="hidden" name="memberNo" value="${record.memberNo }" /> 
+						<input type="hidden" name="id" value="${id }" /> 
 						<!-- 로그인 연결 안해서 memberNo는 임시로 글등록한 memberNo로 가져와서 등록 중 -->
 						<div class="form-group">
 							<button id="commentsubmit" type="submit" class="button button-contactForm">등록</button>
@@ -473,13 +475,13 @@ $(document).ready(function(){
 								<div style="width:50%;text-align: left;font-weight: bold;">목표금액</div><span style="font-weight: bold;">${fundInfo.targetFigure }</span>
 							<fmt:parseNumber value="${fundInfo.postDate.time / (1000*60*60*24)}" integerOnly="true" var="now"></fmt:parseNumber>
 							<fmt:parseNumber value="${fundInfo.deadline.time / (1000*60*60*24)}" integerOnly="true" var="target"></fmt:parseNumber>
-								<div style="width:50%;text-align: left;font-weight: bold;">남은기간</div><span style="font-weight: bold;">${target - now }</span>
+								<div style="width:50%;text-align: left;font-weight: bold;">남은기간</div><span style="font-weight: bold;">${target - now }일</span>
 								<div style="text-align:left;width:100%; height:auto; overflow-wrap: break-word;margin-top: 5px;">#100%이상 모이면 펀딩이 성공되는 프로젝트입니다 , 해당 프로젝트는 펀딩 마감일 까지 목표금액이 100% 모이지 않으면 <span style="font-weight: bold;color: red;">결제</span>가 되지 않습니다</div>
 							</div>
 							
 							<div class="row" style="margin-bottom: 20px;" >
 								
-								<form action="<c:url value='/Search/Project/ProjectWrite'/>" style="width: 100%;margin: 10px 0px;">
+								<form action="#" style="width: 100%;margin: 10px 0px;">
 									<button class="bb primary-bg text-white w-100" type="submit" style="background: #00c4c4;border: none;height: 50px;border-radius: 2px;font-weight: bold;cursor: pointer;margin-bottom: 20px;">후원하기</button>
 								</form>
 								
