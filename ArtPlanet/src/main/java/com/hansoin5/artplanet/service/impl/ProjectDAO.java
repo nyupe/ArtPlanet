@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.hansoin5.artplanet.service.MemberDTO;
 import com.hansoin5.artplanet.service.ProjectDTO;
 
 
@@ -67,9 +66,11 @@ public class ProjectDAO {
 		return template.selectList("ProjectSelectListSupport",map);
 	}
 	
-	
-	
-
-	
+	//  크라우드 펀딩 프로젝트 결제관련
+	// 현재날짜와 마감일이 일치하는 동시에 ( 모금액 - 목표액 )이 0이상인 레코드수 반환  - 용주
+	// AutoPay.xml과 연관된 메소드
+	public int autoPayGetProjectRecords() {
+		return template.selectOne("autoPayGetProjectRecords");
+	}/////autoPayGetProjectRecords
 	
 }/////class

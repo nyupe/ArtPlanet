@@ -1,4 +1,6 @@
 package com.hansoin5.artplanet.utils;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -96,12 +98,26 @@ public class AutoPayment {
 				Thread.sleep(2000); // 2초 쉬고
 				
 				if(AutoKind == "subscribe") {// 정기 구독 결제인경우 
+					//버튼들 얻기
+					List<WebElement> subPayButtons = driver.findElements(By.className("")/*클래스명 넣기*/);
+
+					//버튼들 1초시간 두면서 클릭
+					for(WebElement subPayButton : subPayButtons) {
+						subPayButton.click();
+						Thread.sleep(1000); 
+					}//for
 					
+				}/////if
+				else if(AutoKind == "project") { // 프로젝트 후원결제인 경우
+					List<WebElement> projcetPayButtons = driver.findElements(By.className("")/*클래스명 넣기*/);
 					
-				}
-				else { // 프로젝트 후원결제인 경우
+					//버튼들 1초시간 두면서 클릭
+					for(WebElement projcetPayButton : projcetPayButtons) {
+						projcetPayButton.click();
+						Thread.sleep(1000); 
+					}//for
 					
-				}/////else
+				}/////else if
 				
 				
 				//관리자 페이지에 있는 로고 누르기:(TOP)이 보이는 페이지로 이동 
@@ -113,8 +129,6 @@ public class AutoPayment {
 				webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li[10]/a")));
 				webElement.click();
 			
-			
-			
 		}/////try
 		catch(Exception e) {
 			e.printStackTrace();
@@ -125,9 +139,4 @@ public class AutoPayment {
 			
 		}
 	}/////autoSubPayment()
-	
-	
-	
-	
-	
 }/////class
