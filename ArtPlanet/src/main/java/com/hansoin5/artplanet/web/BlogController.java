@@ -59,13 +59,13 @@ public class BlogController
 	{
 		return "contents/blog/EditPost.tiles";
 	}
-	
+	/*
 	@RequestMapping("/getArtworkList")
 	public String editPost2()
 	{
 		return "contents/blog/EditPost.tiles";
 	}
-	
+	*/
 	
 	@RequestMapping("/UploadBlogPost")
 	public String UploadBlogPost(@RequestParam Map map) throws ParseException

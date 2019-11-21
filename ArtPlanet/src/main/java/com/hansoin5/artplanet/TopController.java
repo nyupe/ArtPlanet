@@ -2,6 +2,7 @@ package com.hansoin5.artplanet;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hansoin5.artplanet.service.ProjectDTO;
 import com.hansoin5.artplanet.service.impl.AuthorityDAO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
+import com.hansoin5.artplanet.service.impl.ProjectDAO;
 import com.hansoin5.artplanet.utils.FileUpDownUtils;
 
 @Controller
@@ -28,6 +31,9 @@ public class TopController
 	// AUTH_SECURITY 테이블에 접근하는 객체주입
 	@Resource(name="authorityDAO")
 	private AuthorityDAO authorityDao;
+	// PROJECT 테이블에 접근하는 객체 주입
+	@Resource(name = "projectDAO")
+	private ProjectDAO projectDao;
 
 	
 	//핸드폰 인증 모듈에서 받은 데이터를 가지고 회원가입 페이지로 이동(post방식)
@@ -110,8 +116,11 @@ public class TopController
 	}
 	
 	@RequestMapping("/Search/Project")
-	public String searchProject()
-	{
+	public String searchProject(@RequestParam Map map,Model model)
+	{	
+		List<ProjectDTO> list = projectDao.selectlist(map);
+		model.addAttribute("list",list);
+		
 		return "contents/SearchProject.tiles";
 	}
 	
