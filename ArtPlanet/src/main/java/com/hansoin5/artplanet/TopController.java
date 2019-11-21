@@ -22,14 +22,13 @@ import com.hansoin5.artplanet.utils.FileUpDownUtils;
 @Controller
 public class TopController
 {
-	
 	// MEMBER 테이블에 접근하는 객체주입
 	@Resource(name="memberDAO")
 	private MemberDAO memberDao;
 	// AUTH_SECURITY 테이블에 접근하는 객체주입
 	@Resource(name="authorityDAO")
 	private AuthorityDAO authorityDao;
-	
+
 	
 	//핸드폰 인증 모듈에서 받은 데이터를 가지고 회원가입 페이지로 이동(post방식)
 	@RequestMapping(value ="/AuthRegister", method = RequestMethod.POST, produces = "text/plain; charset:UTF-8")
@@ -136,7 +135,7 @@ public class TopController
 	}/////moveMyPage()
 	
 	//로그인 페이지로 이동
-	@RequestMapping(value = "/Login")
+	@RequestMapping(value="/Login")
 	public String login()
 	{
 		return "support/member/Login.tiles";

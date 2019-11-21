@@ -40,6 +40,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<!-- 정기결제+프로젝트1회성결제 정보 -->
 		<mapper resource="mybatis/RecAndProjPay.xml"/>
 		
+		<!-- 자동결제 -->
+		<mapper resource="mybatis/AutoPay.xml"/>
 		
 	</mappers>
 </configuration>
