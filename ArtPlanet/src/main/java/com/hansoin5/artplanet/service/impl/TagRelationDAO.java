@@ -7,20 +7,19 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-
 @Repository
-public class TagDAO
+public class TagRelationDAO
 {
 	//sqlSessionTemplate주입 받는다
 	@Resource(name="template")
 	private SqlSessionTemplate template;
-	
-	public String getTagNo(Map map)
+		
+	public int insertBlogTagRelation(Map map)
 	{
-		return template.selectOne("getTagNo", map);
+		return template.insert("blog-insertTagRelation", map);
 	}
-	public int insertTag(Map map)
+	public int insertProjectTagRelation(Map map)
 	{
-		return template.insert("insertTag", map);
+		return template.insert("project-insertTagRelation", map);
 	}
 }

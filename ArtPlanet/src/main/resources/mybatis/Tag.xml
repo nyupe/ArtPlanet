@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- public String tagNo; public String tagName; -->
+<mapper namespace="mybatis.Tag">
+	<!-- 처음 넘겨주는 map에는 blogNo라는 키값은 없지만 아래 selectKey구문에서 map에 blogNo라는 키값으로 
+		데이터를 넣어준다. 따라서 아래에서 #{blogNo}와 같이 사용가능 -->
+	<!-- 반환할때 역시 map.get("blogNo")로 방금 입력된 데이터를 받을 수 있다 -->
+	<insert id="insertTag" parameterType="java.util.Map">
+		<selectKey keyProperty="tagNo" resultType="int"
+			order="BEFORE">
+			SELECT SEQ_TAG_tagNo.NEXTVAL FROM DUAL
+		</selectKey>
+		<![CDATA[
+		MERGE INTO tag USING DUAL ON (tagName = #{tagName})
+			WHEN NOT MATCHED THEN
+				INSERT (tagNo, tagName) 
+				VALUES (#{tagNo}, #{tagName})
+		]]>
+	</insert>
+	<!-- 중복태그 입력시 기존태그 태그번호 얻기위함 -->
+	<select id="getTagNo" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT tagNo FROM tag WHERE tagName = #{tagName}
+	</select>
+</mapper>

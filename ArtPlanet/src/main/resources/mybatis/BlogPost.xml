@@ -8,6 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	private String content; //글내용
 	private java.util.Date postDate; //작성일
 	private int viewCount; //조회수
+	private String categorie; // 카테고리
+	private String accessRight; //열람권한
 	private String memberNo; //(작성자)회원번호
  -->
 <mapper namespace="mybatis.BlogPost">
@@ -17,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<selectKey keyProperty="blogNo" resultType="int" order="BEFORE">
 			SELECT SEQ_BLOGPOST_blogNo.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO blogPost(blogNo, title, content, postDate, viewCount, accessRight, memberNo)
-			VALUES(#{blogNo}, #{title}, #{content}, SYSDATE, 0, #{accessRight}, #{memberNo})
+		INSERT INTO blogPost(blogNo, title, content, postDate, viewCount, categorie, accessRight, memberNo)
+			VALUES(#{blogNo}, #{title}, #{content}, SYSDATE, 0, #{categorie}, #{accessRight}, #{memberNo})
 	</insert>
 </mapper>
