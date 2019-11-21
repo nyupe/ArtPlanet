@@ -3,10 +3,69 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
-<!-- 아이디 얻어서 var에 지정한 변수 id저장 -->
+<!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
 <sec:authentication property="principal.username" var="id" />
 
 <script>
+//닉네임 유효성 처리
+	
+	v_nickName = false;
+	
+	function nickNameCheck(){
+		var nickName = $('#nickName').val();			 			
+		$.ajax({
+			url:"<c:url value='/ValidationNickName'/>",
+			dataType:'text',
+			type: "get",
+			data:{nickName:$('#nickName').val()},
+			success:function(data){
+				if(data=='true'){
+					$('#nickName').css("background-color","#FFCECE");
+					$('#nickNameError').css("color","red");
+					$('#nickNameError').text("이미 사용중인 닉네임입니다");
+					v_nickName = false;
+					nickNameUpdateCheck()
+				}
+				else if(nickName==''){
+					$('#nickName').css("background-color","#FFCECE");
+					$('#nickNameError').css("color","red");
+					$('#nickNameError').text("닉네임을 입력하세요");
+					v_nickName = false;
+					nickNameUpdateCheck()
+				}
+				else if(nickName.length < 3 || nickName.length > 10){
+					$('#nickName').css("background-color","#FFCECE");
+					$('#nickNameError').css("color","red");
+					$('#nickNameError').text("닉네임은 최소 3글자 최대 10글자 이내로 적어주세요");
+					v_nickName = false;	
+					nickNameUpdateCheck()
+				}
+				
+				else{ 
+					$('#nickName').css("background-color", "#B0F6AC");
+					$('#nickNameError').css("color","green");
+					$('#nickNameError').text("사용가능한 닉네임입니다.");
+					v_nickName = true;	
+					nickNameUpdateCheck()
+				}
+			}/////success:function(data)
+		})/////ajax
+	}/////nickNameCheck()
+	
+	
+	function nickNameUpdateCheck(){
+		
+		if(v_nickName){//닉네임 중복 아닐시 닉네임변경 활성화
+			$("#btn_updateNickName").prop("disabled", false);
+		}
+		else{//닉네임 중복일시 닉네임변경 버튼 활성화
+			$("#btn_updateNickName").prop("disabled", true);
+		} 
+	}////// 
+	
+	
+	
+	
 
 	$(function(){ // 진입점 시작
 		$.ajax({
@@ -16,6 +75,8 @@
 			data:{id:"${id}"},
 			success:displayUserProfile
 		})/////ajax
+		
+		
 	})// 진입점 끝
 	
 	
@@ -24,6 +85,8 @@
 		//data 콘솔에 찍어보기 회원정보를 뽑아준
 		console.log(data)
 		
+		
+		
 		// 프로필 카드 id = card_profile
 		//data 프로필 카드안에 넣어줄 테이블 
 		var profileTable = "<h5 class='card-title'>"+data.user_name+"님의 회원정보</h5>"
@@ -31,44 +94,108 @@
 		profileTable += "<table class='mb-0 table table-borderless'>" 
 		
 		profileTable += "<tr>"
-		profileTable += "<td rowspan='5'><img style='width: auto;height: auto; max-height: 100px; max-width: 100px' src='/artplanet/ProfilePicture/"+data.user_profilePicture+"' alt='프로필사진'/></td>"
-		profileTable += "<td>아이디</td><td>"+data.user_id+"</td>"
+		profileTable += "<td rowspan='4'><img style='width: auto;height: auto; max-height: 100px; max-width: 100px' src='/artplanet/ProfilePicture/"+data.user_profilePicture+"' alt='프로필사진'/></td>"
+		profileTable += "<td style='font-weight:bold;'>아이디</td><td>"+data.user_id+"</td>"
 		profileTable += "</tr>"
 		
 		profileTable += "<tr>"
-		profileTable += "<td>닉네임</td><td>"+data.user_nickName+"</td>"
+		profileTable += "<td style='font-weight:bold;'>닉네임</td><td>"+data.user_nickName+"</td>"
 		profileTable += "</tr>"
 		
 		profileTable += "<tr>"
-		profileTable += "<td>생년월일</td><td>"+data.user_birth+"</td>"
+		profileTable += "<td style='font-weight:bold;'>생년월일</td><td>"+data.user_birth+"</td>"
 		profileTable += "</tr>"
 		
 		profileTable += "<tr>"
-		profileTable += "<td>주소</td><td>"+data.user_address+"</td>"
+		profileTable += "<td style='font-weight:bold;'>주소</td><td>"+data.user_address+"</td>"
 		profileTable += "</tr>"
 				
 		profileTable += "<tr>"
-		profileTable += "<td>핸드폰 번호</td><td>"+data.user_phoneNumber+"</td>"
+		profileTable += "<td></td><td style='font-weight:bold;'>핸드폰 번호</td><td>"+data.user_phoneNumber+"</td>"
+		profileTable += "</tr>"
+	
+		profileTable += "<tr style='text-align:right'>"
+		profileTable += "<td></td><td colspan='3'><br><button data-toggle='modal' data-target='#updateProfile' id='updateProfile' class='mb-2 mr-2 border-0 btn-transition btn btn-outline-primary'>닉네임 변경</button>"
+		profileTable += "<button id='deleteMember' button data-toggle='modal' data-target='#deleteMember' class='mb-2 mr-2 btn-hover-shine btn btn-danger'>회원탈퇴</button></td>"
 		profileTable += "</tr>"
 		
 		profileTable += "</table>"
 		
 		$("#card_profile").html(profileTable);
+	
 		
 		
 		
-		
-		
-		$('#user_id').html(data.user_id)
-		$('#user_name').html(data.user_name)
-		$('#user_name_blog').html(data.user_name)
-		$('#user_nickName').html(data.user_nickName)
-		$('#user_phoneNumber').html(data.user_phoneNumber)
-		$('#user_address').html(data.user_address)
-		$('#user_profilePicture').attr("src","/artplanet/ProfilePicture/"+data.user_profilePicture)
-	}
+	}/////displayUserProfile
 	
 </script>
+
+<!-- profile 수정하는 modal 시작 -->
+<div id="updateProfile" class="modal fade" role="dialog"> 
+  <div class="modal-dialog" >
+	
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">닉네임 변경</h4>
+        <button type="button" class="close" data-dismiss="modal">x</button>
+      </div>
+      	<!-- 닉네임 수정폼 시작 -->
+	      <form action="<c:url value='/UpdateNickName'/>" method="post"> 
+		      <div class="modal-body">
+		      	 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		      	 <input type="hidden" name="id" value="${id}"/>
+		         <input class="form-control" id="nickName" name="nickName" type="text" placeholder="변경하시려는 닉네임을 입력하세요" oninput="nickNameCheck()"/>
+		         <div style="margin-top: 10px">
+		         	<span id="nickNameError"></span>
+		         </div>
+		         <br>
+		         <button id="btn_updateNickName" type="submit" class="btn btn-primary" disabled="disabled">닉네임 변경</button>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" data-dismiss="modal" class="btn btn-danger">취소</button>
+		      </div>
+	 	 </form>
+	 	<!-- 닉네임 수정폼 끝 -->
+    </div>
+  </div>
+</div>
+<!-- profile 수정하는 modal 끝-->
+
+
+<!-- 회원탈퇴 확인 modal 시작 -->
+<div id="deleteMember" class="modal fade" role="dialog"> 
+  <div class="modal-dialog" >
+	
+    <!-- Modal content-->
+    <div class="modal-content">
+     <!--  <div class="modal-header">
+        <h4 class="modal-title">회원 탈퇴</h4>
+        <button type="button" class="close" data-dismiss="modal">x</button>
+      </div> -->
+      
+	      <form action="<c:url value='/DeleteMember'/>" method="post"> 
+		      <div class="modal-body" align="center">
+		      <div align="center">
+		      	<h3>탈퇴하시겠습니까?</h3>
+		      </div>
+		      	 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		      	 <input type="hidden" name="id" value="${id}"/>
+		         <br>
+		         <button id="btn_updateNickName" type="submit" class="btn btn-danger">네</button>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" data-dismiss="modal" class="btn btn-danger">취소</button>
+		      </div>
+	 	 </form>
+	 
+    </div>
+  </div>
+</div>
+	
+<!-- 회원탈퇴 확인 modal 끝 -->
+
+
 
 
 <!-- 내정보 카드 -->	

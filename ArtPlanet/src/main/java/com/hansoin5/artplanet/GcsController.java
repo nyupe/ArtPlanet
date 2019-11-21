@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.cloud.storage.Acl;
 import com.google.cloud.storage.Acl.Role;
 import com.google.cloud.storage.Acl.User;
+import com.hansoin5.artplanet.service.impl.BlogPostDAO;
+import com.hansoin5.artplanet.service.impl.GcsDAO;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -40,7 +44,9 @@ import org.json.simple.JSONObject;
 @Controller
 public class GcsController
 {
-
+	@Resource(name="gcsDAO")
+	private GcsDAO dao;
+	
 	public static final String BUCKET_NAME = "art-planet-storage";// 버켓명
 
 	private static Storage storage = null;
@@ -121,6 +127,28 @@ public class GcsController
 		Map map = uploadGcs(req, resp, BUCKET_NAME);
 		if (map == null)
 			return "{'error':'이미지만 업로드 할 수 있습니다.'}";
+		
+		switch (req.getParameter("role"))
+		{
+		case "editor":
+			dao.editorUploadImage(map);
+			break;
+		case "blog":
+			dao.blogUploadImage(map);
+			break;
+		case "project":
+			break;
+		case "artclass":
+			break;
+		case "profile":
+			break;
+		case "banner":
+			break;
+		
+
+		default:
+			break;
+		}
 		
 		return JSONObject.toJSONString(map).replace("\\/", "/"); // 슬래시가 이스케이프처리되는 문제 해결
 	}

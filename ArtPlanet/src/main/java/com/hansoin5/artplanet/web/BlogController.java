@@ -16,6 +16,7 @@ import com.google.cloud.storage.Acl.User;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
+import com.hansoin5.artplanet.service.impl.BlogPostDAO;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -24,6 +25,7 @@ import java.nio.channels.Channels;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +48,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Controller
 public class BlogController
 {
+	@Resource(name="blogPostDAO")	
+	private BlogPostDAO dao;
 	
 	@RequestMapping("/Blog")
 	public String blog()

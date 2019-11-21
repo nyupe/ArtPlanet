@@ -73,5 +73,5 @@
 	</div>
 </header> --%>
  
-<iframe style="border: none; width: 100%; height: 1750px; overflow-y:hidden; "
+<iframe style="border: none; width: 100%; height: 1750px; overflow-y:hidden;"
 	src="http://192.168.0.58:9090/"></iframe>

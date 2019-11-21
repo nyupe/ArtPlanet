@@ -1,12 +1,15 @@
 package com.hansoin5.artplanet;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,12 +21,34 @@ import com.hansoin5.artplanet.service.impl.MemberDAO;
 @Controller
 public class SupportController {
 	
-	//DAO 주입	
+	//MEMBER 테이블 접근 객체 주입
 	@Resource(name="memberDAO")
 	private MemberDAO memberDao;
-	
+	// AUTH_SECURITY 테이블에 접근하는 객체주입
 	@Resource(name="authorityDAO")
 	private AuthorityDAO authorityDao;
+	
+	
+	
+	// 회원 테이블 모든 레코드 반환
+	@RequestMapping(value = "/getMemberList", produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String getMemberList(@RequestParam Map map){
+		
+		List<Map> memberList = memberDao.getMembers(map);
+		
+		//날짜값을 문자열로 변경해야한다 그렇지 않으면 JSON형식에 맞지 않는다
+		//날짜를 2018-09-02 10:15:38.0에서 "2018-09-12"형태로 변경
+		for(Map member:memberList) {
+			//여기서 키값은 실제 테이블의 컬럼명과 정확히 일치해야함 MEMBER 테이블의 MEMBERSHIPDATE(회원가입일)컬럼
+			//아래의 코드는 하나의 멤버 요소를 꺼내서 날짜 문자열 인덱스 0번부터 10번인덱스까지 추출하여 덮어씌움
+			member.put("MEMBERSHIPDATE",member.get("MEMBERSHIPDATE").toString().substring(0, 10));
+		}
+		//반환값이 String(JSON객체배열(JSONArray)을 문자열로 변환)
+		return JSONArray.toJSONString(memberList);
+	}/////getMembers()
+	
+	
 	
 	
 	// 아이디를 받아 회원번호를 반환하는 
@@ -49,6 +74,7 @@ public class SupportController {
 		json.put("user_profilePicture", memberDao.getMemberDTO(map).getProfilePicture().substring(start+1));
 		
 		System.out.println(json.toJSONString(map));
+		
 		return json.toJSONString();
 		//return memberDao.getMemberDTO(map);
 	}/////getMemberInfo()
@@ -70,24 +96,40 @@ public class SupportController {
 	}/////others()
 	
 	
-	
-	
 	// 아이디 중복 처리 
 	@RequestMapping(value="/Validation")
 	@ResponseBody
 	public boolean validation(@RequestParam Map map) {
 		return memberDao.isDuplicated(map);
-	}/////validation
+	}/////validation()
 	
 	// 닉네임 중복 처리
 	@RequestMapping(value = "/ValidationNickName")
 	@ResponseBody
 	public boolean validationNickName(@RequestParam Map map) {
 		return memberDao.nickNameisDuplicated(map);
-	}/////ValidationNickName
+	}/////ValidationNickName()
+	
+	// 닉네임 수정
+	@RequestMapping(value="/UpdateNickName", method = RequestMethod.POST)
+	public String updateNickname(@RequestParam Map map) {
+		//닉네임 수정 서비스 호출 
+		memberDao.updateNickName(map);
+		//마이페이지로 돌아가기
+		return "support/member/MyPage.tiles";
+	}/////
 	
 	
-	
+	//회원탈퇴
+	@RequestMapping("/DeleteMember")
+	public String deleteMember(@RequestParam Map map){
+		
+		//회원탈퇴 서비스 호출
+		memberDao.deleteMember(map);
+		
+		//탈퇴 후 사진들 뿌려주는 게시판으로 
+		return "contents/SearchArtwork.tiles";
+	}/////deleteMember()
 	
 	
 	//비밀번호 찾기 요청 
@@ -96,11 +138,6 @@ public class SupportController {
 		return "support/member/ForgotPassword";
 	}
 	
-	//회원탈퇴 요청
-	@RequestMapping("/LeaveArtPlanet")
-	public String leaveArtplanet(){
-		return "support/member/LeaveArtPlanet";
-	}
 	
 	
 	

@@ -32,8 +32,8 @@
 		</security:headers>
 		
 			
-		<security:intercept-url pattern="/MyPage" access="hasRole('ROLE_USER')"/>
 		<security:intercept-url pattern="/**" access="permitAll"/> 
+		<security:intercept-url pattern="/MyPage" access="hasRole('ROLE_USER')"/>
 		
 	
 	

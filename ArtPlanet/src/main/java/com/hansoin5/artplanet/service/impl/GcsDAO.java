@@ -14,7 +14,11 @@ public class GcsDAO
 	@Resource(name="template")
 	private SqlSessionTemplate template;
 	
-	public int uploadImage(Map map)
+	public int editorUploadImage(Map map)
+	{
+		return template.insert("editor-uploadImage",map);
+	}
+	public int blogUploadImage(Map map)
 	{
 		return template.insert("blog-uploadImage",map);
 	}
