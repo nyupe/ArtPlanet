@@ -146,7 +146,7 @@
                                 <div style="padding-bottom: 100px">
                                 
                                 	
-									
+									<!-- 로그인 폼 시작  -->
                                     <form action="<c:url value='/LoginProcess'/>" method="post" >
                                     	<!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
 									    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
@@ -189,10 +189,12 @@
                                             <a href="<c:url value='/ForgotPassword'/>" class="btn-lg btn btn-link">
                                             	<span class="text-danger">비밀번호 찾기</span>
                                             </a>
-                                                <input type="submit" value="로그인" class="btn btn-primary btn-lg"/>
+                                                <input type="submit" id="btnLogin" value="로그인" class="btn btn-primary btn-lg"/>
                                             </div>
                                         </div>
                                     </form>
+                                    <!-- 로그인 폼 끝  -->
+                                    
                                  </sec:authorize>
                                  <!-- 로그인된 사용자라면 -->
                                  <sec:authorize access="isAuthenticated()">

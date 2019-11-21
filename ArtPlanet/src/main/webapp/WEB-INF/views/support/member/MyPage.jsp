@@ -11,6 +11,17 @@
 	
 	v_nickName = false;
 	
+
+	$(function(){ // 진입점 시작
+		$.ajax({
+			url:"<c:url value='/GetMeberInfo'/>",
+			dataType:'json',
+			type: "get",
+			data:{id:"${id}"},
+			success:displayUserProfile
+		})/////ajax
+	})// 진입점 끝
+	
 	function nickNameCheck(){
 		var nickName = $('#nickName').val();			 			
 		$.ajax({
@@ -66,18 +77,6 @@
 	
 	
 	
-
-	$(function(){ // 진입점 시작
-		$.ajax({
-			url:"<c:url value='/GetMeberInfo'/>",
-			dataType:'json',
-			type: "get",
-			data:{id:"${id}"},
-			success:displayUserProfile
-		})/////ajax
-		
-		
-	})// 진입점 끝
 	
 	
 	var displayUserProfile = function(data){
@@ -206,7 +205,7 @@
 		<div class="col-md-6" align="center" style="margin-bottom: 50px">
 			<div class="card" style="width: 500px">
 				<div class="card-body" id="card_profile">
-					<h4 class="card-title"><span id="user_name"></span>님 프로필</h4>
+					<!-- <h4 class="card-title"><span id="user_name"></span>님 프로필</h4>
 					<img id="user_profilePicture" style="width: auto;height: auto; max-height: 100px; max-width: 100px"  alt="프로필사진" />
 					<p class="card-text">
 						아이디:<span id="user_id"></span><br>
@@ -215,7 +214,7 @@
 						주소:<span id="user_address"></span>
 					</p>						
 					<a href="#" class="btn btn-primary">내정보 수정</a> 
-					<a href="#" class="btn btn-primary">회원탈퇴</a>
+					<a href="#" class="btn btn-primary">회원탈퇴</a> -->
 				</div>
 			</div>
 		</div>

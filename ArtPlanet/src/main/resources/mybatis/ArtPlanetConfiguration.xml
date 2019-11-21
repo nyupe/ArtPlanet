@@ -43,6 +43,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/RecAndProjAuth.xml" />	
 		<!-- 정기결제+프로젝트1회성결제 정보 -->
 		<mapper resource="mybatis/RecAndProjPay.xml"/>
+		<!-- 자동결제 -->
+		<mapper resource="mybatis/AutoPay.xml"/>
 		<!-- 아트 클래스 -->
 		<mapper resource="mybatis/ArtClass.xml"/>
 		<!-- 아트 클래스 날짜 및 시간 -->

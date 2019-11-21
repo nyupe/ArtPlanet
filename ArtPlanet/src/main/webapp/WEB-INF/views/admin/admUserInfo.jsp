@@ -63,13 +63,15 @@
 	   		
 			// data : 회원리스트  / index : 리스트 인덱스 번호(0부터 시작) / element : 리스트에서 꺼낸 값(Map) 
 	    	$.each(data,function(index,element){
-				tableString+="<tr>";		
-				//memberno
-				tableString+="<td>"+element['MEMBERNO']+"</td><td>"+element['ID']+"</td><td>"+element['NICKNAME']+"</td><td>"+element['NAME']+
-				"</td><td>"+element['ADDRESS']+"</td><td>"+element['PHONENUMBER']+"</td><td>"+element['BIRTH']+
-				"</td><td>"+element['MEMBERSHIPDATE']+"</td>"
-				tableString+="<td><button type='button' class='btn_Exile badge badge-pill badge-danger' title='"+element['ID']+"'  data-toggle='modal' data-target='#exampleModal'>추방</button></td>";
-				tableString+="</tr>";
+	    		if(element['ID']!='ADMIN'){
+					tableString+="<tr>";		
+					//memberno
+					tableString+="<td>"+element['MEMBERNO']+"</td><td>"+element['ID']+"</td><td>"+element['NICKNAME']+"</td><td>"+element['NAME']+
+					"</td><td>"+element['ADDRESS']+"</td><td>"+element['PHONENUMBER']+"</td><td>"+element['BIRTH']+
+					"</td><td>"+element['MEMBERSHIPDATE']+"</td>"
+					tableString+="<td><button type='button' class='btn_Exile badge badge-pill badge-danger' title='"+element['ID']+"'  data-toggle='modal' data-target='#exampleModal'>추방</button></td>";
+					tableString+="</tr>";
+	    		}
 			});
 	    		
 	    		tableString+="</tbody><tfooter></tfooter></table>";

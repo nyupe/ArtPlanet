@@ -1,20 +1,14 @@
 package com.hansoin5.artplanet.web;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 import javax.annotation.Resource;
 
-import org.json.simple.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hansoin5.artplanet.service.RecPayDTO;
 import com.hansoin5.artplanet.service.impl.RecAuthDAO;
 import com.hansoin5.artplanet.service.impl.RecPayDAO;
 //(RecurringController)에서는 (BLOG)메뉴에서 정기구독 (페이지이동)과 (인증키+결제결과)를 DB에 저장합니다.
@@ -54,6 +48,7 @@ public class RecurringController {
 	// 결제
 	@RequestMapping("RecurringPayOrder.do")
 	public String payOrder() {
+		System.out.println("payOrder 안");
 		return "recurring_pay/sample/payx/order";
 	}////////////// RecurringPayOrder.do
 

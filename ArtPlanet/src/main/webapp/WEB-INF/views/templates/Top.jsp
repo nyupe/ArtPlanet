@@ -31,11 +31,12 @@
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/ArtClass'/>">Art Class</a></li>						
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Pay'/>">Pay</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li>
-						<li  class="nav-item"><a class="nav-link" href="<c:url value='/AdmUserInfo.ad'/>">Admin</a></li>
+						<li  class="nav-item"><a class="nav-link" id="go_admin" href="<c:url value='/AdmUserInfo.ad'/>">Admin</a></li>
+						<!-- <li  class="nav-item"><a class="nav-link" id="go_admin" href="http://localhost:7070/artplanet/AdmUserInfo.ad">Admin</a></li> -->
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/AuthStart.do'/>">Register</a></li>
 						
 						<sec:authorize access="isAnonymous()"> <!-- 로그인 안한 상태 -->
-							<li  class="nav-item"><a class="nav-link" href="<c:url value='/Login'/>">Login</a></li>
+							<li  class="nav-item"><a class="nav-link" id="go_login" href="<c:url value='/Login'/>">Login</a></li>
 				 		</sec:authorize>
 				 		<sec:authorize access="isAuthenticated()"> <!-- 로그인 한상태 -->
 				 			<li  class="nav-item"><a class="nav-link" href="javascript:logout()">LogOut</a></li>
