@@ -22,6 +22,7 @@
 	<!-- csrf 제외 Url 설정 -->
 	<security:http pattern="/AuthReq.do" security="none" />
 	<security:http pattern="/AuthRes.do" security="none" />
+	<security:http pattern="/Search/Project/Writes" security="none"/>
 	
 	
 	<security:http auto-config="true" use-expressions="true" >
@@ -32,9 +33,9 @@
 		</security:headers>
 		
 			
-		<security:intercept-url pattern="/**" access="permitAll"/> 
+		<security:intercept-url pattern="/AdmUserInfo.ad" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/MyPage" access="hasRole('ROLE_USER')"/>
-		
+		<security:intercept-url pattern="/**" access="permitAll"/> 
 	
 	
 	
@@ -54,7 +55,7 @@
 		
 	 	<security:form-login 
   		    login-page="/Login"
-            default-target-url="/MyPage"
+            default-target-url="/Search/Artwork"
             authentication-failure-url="/Login?error=wrong"
             login-processing-url="/LoginProcess"
             username-parameter="id"
@@ -63,12 +64,10 @@
             
          
         <!-- <security:logout/>요소로  로그아웃 설정 -->
-     	<!-- <security:logout
-     	  	logout-url="/logout"
-     	 	logout-success-url="/Search/Artwork"
+        <!-- invalidate-session : 로그아웃시 자동으로 세션 삭제 -->
+     	 <security:logout
      	 	invalidate-session="true"
-     	  	
-     	/> -->
+     	 />
 	
 		<!-- 공격을 방어하기 위한 설정 CSRF방어 설정시에는 사용자 정의 로그인 폼 사용시에 아래 hidden태그 필수 -->
 		<security:csrf disabled="false"/>

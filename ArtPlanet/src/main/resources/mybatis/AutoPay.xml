@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
+<!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
+
+<mapper namespace="mybatis.AutoPay">
+	
+	<!-- 구독테이블에서 정기구독결제를 해야하는 레코드 갯수를 찾는 쿼리-->
+	<!-- 시연용 정기결제 기준 : 현재날짜와  구독시작일의 시간차 >= 3분 -->
+	<select id="checkSubPayRecordCount" resultType="int">
+		SELECT COUNT(*) FROM SUBSCRIBE
+		WHERE (TRUNC(SYSDATE, 'MI') - TRUNC(SUBSCRIBESTARTDATE,'MI'))*1400 >= 3
+	</select>
+	
+	<!-- 구독테이블에서 정기구독결제 진행해야하는 레코드들을 통째로 반환하는 쿼리-->
+	<select id="checkSubPayRecordList" resultType="java.util.Map">
+		SELECT * FROM SUBSCRIBE
+		WHERE (TRUNC(SYSDATE, 'MI') - TRUNC(SUBSCRIBESTARTDATE,'MI'))*1400 >= 3
+	</select>
+	
+	<!-- 프로젝트 테이블과 프로젝트별 후원금액 누적 쿼리결과로 나온 테이블을 조인
+ 	 조인은 프로젝트 글번호를 통해 -->
+ 	<!--  마감일 = 현재날짜 & 모금액 >= 목표액 이상인 레코드 수 반환 -->
+	<select id="autoPayGetProjectRecords" resultType="int">
+		SELECT COUNT(*)
+		FROM PROJECT P JOIN
+		(SELECT DISTINCT PROJECTNO,
+                    SUM(PROJECTSUPPORTSUM) OVER (PARTITION BY PROJECTNO ORDER BY PROJECTSUPPORTDATE) TOTALSUPPORT
+                    FROM PROJECTSUPPORT) SUM 
+		ON P.PROJECTNO = SUM.PROJECTNO  
+		WHERE TO_DATE(SYSDATE,'YYYY-MM-DD') = TO_DATE(DEADLINE, 'YYYY-MM-DD') AND TOTALSUPPORT >= TARGETFIGURE
+	</select>
+	
+</mapper>

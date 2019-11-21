@@ -7,7 +7,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 
 <head>
-    <title>Art Planet - 취소</title>
+    <title>Art Planet - 회원정보</title>
     <meta http-equiv="X-UA-Compatible" content="text/html;charset=utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
@@ -22,11 +22,6 @@
 <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
 	
 	
-	<!--
-		
-	  -->
-	
-	
 	<!-- 회원 테이블 데이터 가져오는 로직시작 -->
   	<script>	
   		
@@ -35,6 +30,10 @@
 			
 			//페이지 로드시 회원목록 뿌려주기 
 			showMembers();
+			//추가로 월별회원 가입자수 뿌려주기 chartJS용
+			showMemberTotal();
+			//누적 가입자수 뿌려주기 chartJS용
+			showAccumulated();
 		})
 		//진입점 끝
   		
@@ -64,13 +63,15 @@
 	   		
 			// data : 회원리스트  / index : 리스트 인덱스 번호(0부터 시작) / element : 리스트에서 꺼낸 값(Map) 
 	    	$.each(data,function(index,element){
-				tableString+="<tr>";		
-				//memberno
-				tableString+="<td>"+element['MEMBERNO']+"</td><td>"+element['ID']+"</td><td>"+element['NICKNAME']+"</td><td>"+element['NAME']+
-				"</td><td>"+element['ADDRESS']+"</td><td>"+element['PHONENUMBER']+"</td><td>"+element['BIRTH']+
-				"</td><td>"+element['MEMBERSHIPDATE']+"</td>"
-				tableString+="<td><button type='button' class='btn_Exile badge badge-pill badge-danger' title='"+element['ID']+"'  data-toggle='modal' data-target='#exampleModal'>추방</button></td>";
-				tableString+="</tr>";
+	    		if(element['ID']!='ADMIN'){
+					tableString+="<tr>";		
+					//memberno
+					tableString+="<td>"+element['MEMBERNO']+"</td><td>"+element['ID']+"</td><td>"+element['NICKNAME']+"</td><td>"+element['NAME']+
+					"</td><td>"+element['ADDRESS']+"</td><td>"+element['PHONENUMBER']+"</td><td>"+element['BIRTH']+
+					"</td><td>"+element['MEMBERSHIPDATE']+"</td>"
+					tableString+="<td><button type='button' class='btn_Exile badge badge-pill badge-danger' title='"+element['ID']+"'  data-toggle='modal' data-target='#exampleModal'>추방</button></td>";
+					tableString+="</tr>";
+	    		}
 			});
 	    		
 	    		tableString+="</tbody><tfooter></tfooter></table>";
@@ -98,11 +99,169 @@
 			
 	}/////displayMembers
 	    	
+	
+	var  showMemberTotal = function(){
+		$.ajax({
+			url:"<c:url value='/getMemberTotal'/>",
+			dataType:'json',
+			success:function(data){successAjax(data,'monthList');},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+		});			
+	}
+	var month1, month2, month3, month4, month5, month6, month7, month8, month9, month10, month11, month12;
+	var tot1, tot2, tot3, tot4, tot5, tot6, tot7, tot8, tot9, tot10, tot11, tot12;
+	
+	var successAjax = function(data,id){
+		console.log('월+가입회원수 데이타:',data);
+		  $.each(data,function(index,element){
+			  console.log('뭐야 왜 undefined야?',element['month'])
+			  switch(element['month']){
+			  	case 1:
+			  		 month1 = element['month'];
+			  		 tot1 = element['tot'];		
+			  		 break;
+			  	case 2:
+			  		 month2 = element['month'];
+			  		 tot2 = element['tot'];
+			  		 break;
+			  	case 3:
+			  		 month3 = element['month'];
+			  		 tot3 = element['tot'];
+			  		 break;
+			  	case 4:
+			  		 month4 = element['month'];
+			  		 tot4 = element['tot'];
+			  		 break;
+			  	case 5:
+			  		 month5 = element['month'];
+			  		 tot5 = element['tot'];
+			  		 break;
+			  	case 6:
+			  		 month6 = element['month'];
+			  		 tot6 = element['tot'];
+			  		 break;
+			  	case 7:
+			  		 month7 = element['month'];
+			  		 tot7 = element['tot'];
+			  		 break;
+			  	case 8:
+			  		 month8 = element['month'];
+			  		 tot8 = element['tot'];
+			  		 break;
+			  	case 9:
+			  		 month9 = element['month'];
+			  		 tot9 = element['tot'];
+			  		 break;
+			  	case 10:
+			  		 month10 = element['month'];
+			  		 tot10 = element['tot'];
+			  		 break;
+			  	case 11:
+					 month11 = 	element['month'];
+					 tot11 = element['tot'];
+					 break;
+			  	case 12:
+			  		 month12 = element['month'];
+			  	     tot12 = element['tot'];
+			  	     break;
+			  	
+			  }		
+		  });	
+		  
+		  console.log("너는도대체몇월달찍히냐",month11);
+		  console.log("너는도대체몇명찍히냐",tot11);
+		    var ctx = document.getElementById('myChart').getContext('2d');
+		    var myChart = new Chart(ctx, {
+		       type: 'line',
+		       data: {
+		           labels: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
+		           datasets: [{
+		               label: '#월별 신규회원수',
+		               
+		               data: [tot1,tot2,tot3,tot4,tot5,tot6,tot7,tot8,tot9,tot10,tot11,tot12], // 월별 신규가입회원수 조회
+		               backgroundColor: [
+		                   'rgba(255, 99, 132, 0.2)',
+		                   /* 'rgba(54, 162, 235, 0.2)',
+		                   'rgba(255, 206, 86, 0.2)',
+		                   'rgba(75, 192, 192, 0.2)',
+		                   'rgba(153, 102, 255, 0.2)',
+		                   'rgba(255, 159, 64, 0.2)' */
+		               ],
+		               borderColor: [
+		                   'rgba(255, 99, 132, 1)',
+		                   /* 'rgba(54, 162, 235, 1)',
+		                   'rgba(255, 206, 86, 1)',
+		                   'rgba(75, 192, 192, 1)',
+		                   'rgba(153, 102, 255, 1)',
+		                   'rgba(255, 159, 64, 1)' */
+		               ],
+		               borderWidth: 1,
+		               fill:false  
+		           }]
+		       },
+		       options: {
+		           scales: {
+		        	   yAxes: [{
+		                    ticks: {
+		                        beginAtZero: true,	suggestedMax: 30, 
+		                        callback: function (value) { if (Number.isInteger(value)) { return value; } },
+		                        stepSize: 1
+		                    }
+		                }]
+		           }
+		       }
+		    });
+		    
 		
 		
-		
-		
-		
+		  
+	};
+	
+	//도넛차트
+	 var ctx2 = document.getElementById('myDoughnutChart').getContext('2d');
+	// And for a doughnut chart
+	var myDoughnutChart = new Chart(ctx2, {
+	    type: 'doughnut',
+	    data:  {
+	        datasets: [{
+	            data: [10, 20, 30]
+	        }],
+
+	        // These labels appear in the legend and in the tooltips when hovering different arcs
+	        labels: [
+	            'Red',
+	            'Yellow',
+	            'Blue'
+	        ]
+	    },
+	    options: options
+	});
+
+	//누적 시작
+	var  showAccumulated = function(){
+		$.ajax({
+			url:"<c:url value='/getAccumulated'/>",
+			dataType:'json',
+			success:function(data){successAjax2(data,'accList');},
+			error:function(request,error){
+				console.log('상태코드:',request.status);
+				console.log('서버로부터 받은 HTML데이타:',request.responseText);
+				console.log('에러:',error);
+			}
+		});			
+	}
+	
+	var successAjax2 = function(data,id){
+		console.log('누적회원 데이타:',data);
+		  $.each(data,function(index,element){
+			  
+		  });
+	
+	};
 	</script>
 	<!-- 회원 테이블 데이터 가져오는 로직 끝 -->
 	
@@ -215,8 +374,9 @@
                   <!-- chart.js -->
                   <div  class="card-body" style="width:40%;margin:0 auto; ">
 					<%-- <canvas id="chart_canvas" class="chartjs" style="display: block; width: 100%; height: 100%;"></canvas> --%>
-					<!-- 차트테스트  -->
-					<canvas id="myChart" width="20%" height="20%"></canvas>
+					<!-- 차트테스트 -->
+					<canvas id="myChart" width="20%" height="20%"></canvas> 
+					<canvas id="myDoughnutChart" width="20%" height="20%"></canvas>
   				  </div>
 					
                      
@@ -255,62 +415,25 @@
      </div><!-- app-container gray -->   
 	
 	
-	<script>
-		//월별 회원수 조회
-		$(function(){//진입점 시작
-			$.ajax({
-				url : "<c:url value='/MonthlyMembership'/>",
-				type : "get",
-				success : function(data){
-					console.log(data);
-				}
-			})//$.ajax 
-		})// 진입점 끝
 	
-	</script>
 	
 	
 	                        
    
    	<script>
-			var ctx = document.getElementById('myChart').getContext('2d');
-			var myChart = new Chart(ctx, {
-			    type: 'line',
-			    data: {
-			        labels: ['1월', '2월', '3월', '4월', '5월', '6월','7월','8월','9월','10월','11월','12월'],
-			        datasets: [{
-			            label: '# 월별 회원수',
-			            data: [12, 19, 3, 5, 2, 3], // 월별 신규가입회원수 조회
-			            backgroundColor: [
-			                'rgba(255, 99, 132, 0.2)',
-			                /* 'rgba(54, 162, 235, 0.2)',
-			                'rgba(255, 206, 86, 0.2)',
-			                'rgba(75, 192, 192, 0.2)',
-			                'rgba(153, 102, 255, 0.2)',
-			                'rgba(255, 159, 64, 0.2)' */
-			            ],
-			            borderColor: [
-			                'rgba(255, 99, 132, 1)',
-			                /* 'rgba(54, 162, 235, 1)',
-			                'rgba(255, 206, 86, 1)',
-			                'rgba(75, 192, 192, 1)',
-			                'rgba(153, 102, 255, 1)',
-			                'rgba(255, 159, 64, 1)' */
-			            ],
-			            borderWidth: 1,
-			            fill:false  
-			        }]
-			    },
-			    options: {
-			        scales: {
-			            yAxes: [{
-			                ticks: {
-			                    beginAtZero: true
-			                }
-			            }]
-			        }
-			    }
-			});
+  
+    
+   /* 	
+   		왕수
+   	 	var  arr = [12, 19, 3, 5, 2, 3];
+   		var  arr2= [10,10,10]];
+   		$.each(arr, function(index, element) {
+   		arr2.push(arr[index]);
+	}); */
+
+			
+	
+			
 	</script>
     
     <!-- javascript -->

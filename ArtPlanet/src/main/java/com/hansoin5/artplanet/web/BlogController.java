@@ -1,55 +1,40 @@
 package com.hansoin5.artplanet.web;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Iterator;
-
-import com.google.appengine.tools.cloudstorage.GcsFileOptions;
-import com.google.appengine.tools.cloudstorage.GcsFilename;
-import com.google.appengine.tools.cloudstorage.GcsOutputChannel;
-import com.google.appengine.tools.cloudstorage.GcsService;
-import com.google.appengine.tools.cloudstorage.GcsServiceFactory;
-import com.google.appengine.tools.cloudstorage.RetryParams;
-import com.google.cloud.storage.Acl;
-import com.google.cloud.storage.Acl.Role;
-import com.google.cloud.storage.Acl.User;
-import com.google.cloud.storage.BlobInfo;
-import com.google.cloud.storage.Storage;
-import com.google.cloud.storage.StorageOptions;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.hansoin5.artplanet.service.impl.BlogPostDAO;
+import com.hansoin5.artplanet.service.impl.GcsDAO;
+import com.hansoin5.artplanet.service.impl.MemberDAO;
+import com.hansoin5.artplanet.service.impl.TagDAO;
+import com.hansoin5.artplanet.service.impl.TagRelationDAO;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.channels.Channels;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class BlogController
 {
 	@Resource(name="blogPostDAO")	
 	private BlogPostDAO dao;
+	@Resource(name="memberDAO")
+	private MemberDAO memberDAO;
+	@Resource(name="gcsDAO")	
+	private GcsDAO gcsDAO;
+	@Resource(name="tagDAO")
+	private TagDAO tagDAO;
+	@Resource(name="tagRelationDAO")
+	private TagRelationDAO tagRelationDAO;
 	
 	@RequestMapping("/Blog")
 	public String blog()
@@ -65,7 +50,7 @@ public class BlogController
 	
 	@RequestMapping("/WritePost")
 	public String writePost()
-	{
+	{	
 		return "contents/blog/WritePost.tiles";
 	}
 	
@@ -74,44 +59,69 @@ public class BlogController
 	{
 		return "contents/blog/EditPost.tiles";
 	}
+	/*
+	@RequestMapping("/getArtworkList")
+	public String editPost2()
+	{
+		return "contents/blog/EditPost.tiles";
+	}
+	*/
 	
-    @RequestMapping(value = "/FileUpload", method = RequestMethod.POST) //ajax에서 호출하는 부분
-    @ResponseBody
-    public String upload(MultipartHttpServletRequest multipartRequest) { //Multipart로 받는다.
-          
-        Iterator<String> itr =  multipartRequest.getFileNames();
-         
-        String filePath = "D:/fileupload-test"; //설정파일로 뺀다.
-        String originalFilename = "";
-        while (itr.hasNext()) { //받은 파일들을 모두 돌린다.
-             
-            /* 기존 주석처리
-            MultipartFile mpf = multipartRequest.getFile(itr.next());
-            String originFileName = mpf.getOriginalFilename();
-            System.out.println("FILE_INFO: "+originFileName); //받은 파일 리스트 출력'
-            */
-             
-            MultipartFile mpf = multipartRequest.getFile(itr.next());
-      
-            originalFilename = mpf.getOriginalFilename(); //파일명
-      
-            String fileFullPath = filePath+"/"+originalFilename; //파일 전체 경로
-      
-            try {
-                //파일 저장
-                mpf.transferTo(new File(fileFullPath)); //파일저장 실제로는 service에서 처리
-                 
-                System.out.println("originalFilename => "+originalFilename);
-                System.out.println("fileFullPath => "+fileFullPath);
-      
-            } catch (Exception e) {
-                System.out.println("postTempFile_ERROR======>"+fileFullPath);
-                e.printStackTrace();
-            }
-                          
-       }
-          System.out.println("업로드 성공");
-        return originalFilename;
-    }
-    
+	@RequestMapping("/UploadBlogPost")
+	public String UploadBlogPost(@RequestParam Map map) throws ParseException
+	{	
+		String memberNo = memberDAO.getMemberNo(map.get("id").toString());		
+		map.put("memberNo", memberNo);
+		
+		int affected = dao.uploadBlogPost(map);
+		//int blogNo = Integer.parseInt(map.get("blogNo").toString());
+		System.out.println(map.get("blogNo"));
+		if(affected > 0)
+		{
+			//JSON형태 문자열 자바객체로 변환하기
+			Map<String,List<Map<String,Object>>> gsonMap = new HashMap<String, List<Map<String,Object>>>();
+			Gson gson = new Gson();
+			JSONParser parser = new JSONParser();
+			//이미지
+			Object obj = parser.parse(map.get("imgs").toString());
+			JSONObject jsonObj = (JSONObject) obj;
+			gsonMap = gson.fromJson(JSONObject.toJSONString(jsonObj).replace("\\/", "/"),
+					new TypeToken<Map<String,List<Map<String,Object>>>>(){}.getType());
+			/////////////////////////////
+			for(int i = 0; i < gsonMap.get("images").size(); i++)
+			{
+				String fileNo = gcsDAO.getFileNoByURL(gsonMap.get("images").get(i).get("src").toString());
+				map.put("fileNo", fileNo);
+				gcsDAO.updateBlogNo(map);
+			}
+			
+			System.out.println("jsonObj:"+JSONObject.toJSONString(jsonObj).replace("\\/", "/"));
+			//태그
+			System.out.println("gettags:"+map.get("tags").toString());
+			obj = parser.parse(map.get("tags").toString());
+			jsonObj = (JSONObject) obj;
+			gsonMap = gson.fromJson(JSONObject.toJSONString(jsonObj).replace("\\/", "/"),
+					new TypeToken<Map<String,List<Map<String,Object>>>>(){}.getType());
+			for(int i = 0; i < gsonMap.get("tags").size(); i++)
+			{
+				System.out.println(gsonMap.get("tags").get(i).get("tag").toString());
+				String tagName = gsonMap.get("tags").get(i).get("tag").toString();
+				map.put("tagName", tagName);
+				tagDAO.insertTag(map);
+				
+				//중복된 태그일시 기존에 있던 태그번호 얻어오기 위해 서비스 한번 더 호출
+				String tagNo = tagDAO.getTagNo(map).toString();
+				map.put("tagNo", tagNo);
+				
+				System.out.println("tagNo:"+tagNo);
+				System.out.println("blogNo:"+map.get("blogNo"));
+				tagRelationDAO.insertBlogTagRelation(map);
+				
+			}
+			System.out.println("jsonObj2:"+JSONObject.toJSONString(jsonObj).replace("\\/", "/"));
+			
+		}
+		return "contents/blog/WritePost.tiles";
+	}
+	
 }

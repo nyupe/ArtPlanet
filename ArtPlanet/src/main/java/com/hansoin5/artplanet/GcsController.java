@@ -6,12 +6,10 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -76,13 +74,14 @@ public class GcsController
 			}
 			// throw new ServletException("이미지만 업로드 할 수 있습니다.");
 		}
-
+		System.out.println("return null");
 		return null;
 	}
 
 	@SuppressWarnings("deprecation")
 	public Map uploadFile(Part filePart, final String bucketName, String extension, String path) throws IOException
 	{
+		System.out.println("uploadFile");
 		// 파일 중복 막기 위한 네이밍 로직
 		DateTimeFormatter dtf = DateTimeFormat.forPattern("YYYY-MM-dd-HHmmssSSS");
 		DateTime dt = DateTime.now(DateTimeZone.UTC);
@@ -109,14 +108,16 @@ public class GcsController
 		urlArr[8] = "/";
 		urlArr[9] = urlArr[9].substring(0, urlArr[9].indexOf("?")).replace(path + "%2F", path + "/");
 		String fileUrl = "";
-		for (String str : urlArr)
-			fileUrl += str;
+		for (String str : urlArr) fileUrl += str;
+		String gcsPath = fileUrl.replace("https://storage.googleapis.com/", "gs://");
 		Map map = new HashMap();
 		map.put("fileName", filePart.getSubmittedFileName());
 		map.put("fileUrl", fileUrl);
 		map.put("downloadUrl", blobInfo.getMediaLink());
+		map.put("gcsPath", gcsPath);
 		map.put("fileSize", blobInfo.getSize());
-
+		System.out.println("fileName:"+fileName);
+		System.out.println("fileUrl:"+fileUrl);
 		return map;
 	}
 
@@ -124,6 +125,7 @@ public class GcsController
 	@ResponseBody
 	public String upload(HttpServletRequest req, HttpServletResponse resp) throws Exception
 	{
+		System.out.println("/FileUploadToCloud()");
 		Map map = uploadGcs(req, resp, BUCKET_NAME);
 		if (map == null)
 			return "{'error':'이미지만 업로드 할 수 있습니다.'}";
@@ -133,20 +135,11 @@ public class GcsController
 		case "editor":
 			dao.editorUploadImage(map);
 			break;
-		case "blog":
-			dao.blogUploadImage(map);
-			break;
 		case "project":
+			dao.projectUploadImage(map);
 			break;
-		case "artclass":
-			break;
-		case "profile":
-			break;
-		case "banner":
-			break;
-		
-
 		default:
+			dao.uploadImage(map);
 			break;
 		}
 		
