@@ -98,7 +98,14 @@ public class AutoPayment {
 				Thread.sleep(2000); // 2초 쉬고
 				
 				if(AutoKind == "subscribe") {// 정기 구독 결제인경우 
-					//버튼들 얻기
+					
+					// '[BLOG] 정기결제 - 배치키' 클릭
+					// 정기구독 페이지로 이동
+					webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[1]/ul/li[3]/ul/li[2]/a")));
+					webElement.click();
+					Thread.sleep(2000); // 2초 쉬고
+					
+					//정기구독결제 버튼들 얻기
 					List<WebElement> subPayButtons = driver.findElements(By.className("")/*클래스명 넣기*/);
 
 					//버튼들 1초시간 두면서 클릭
@@ -109,6 +116,14 @@ public class AutoPayment {
 					
 				}/////if
 				else if(AutoKind == "project") { // 프로젝트 후원결제인 경우
+					
+					// '[PROJECT] 후원 - 배치키(일회성)' 클릭
+					// 정기구독 페이지로 이동
+					webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[1]/ul/li[3]/ul/li[5]/a")));
+					webElement.click();
+					Thread.sleep(2000); // 2초 쉬고
+					
+					//프로젝트 모금 후원 결제 버튼들 얻기
 					List<WebElement> projcetPayButtons = driver.findElements(By.className("")/*클래스명 넣기*/);
 					
 					//버튼들 1초시간 두면서 클릭
@@ -125,7 +140,7 @@ public class AutoPayment {
 				webElement.click();
 				Thread.sleep(2000); // 2초 쉬고
 				
-				//관리자 로그아웃-> 다시 로그인 페이지 대기
+				//관리자 로그아웃-> 로그인 페이지 대기
 				webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li[10]/a")));
 				webElement.click();
 			
