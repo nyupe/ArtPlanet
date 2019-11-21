@@ -1,5 +1,7 @@
 package com.hansoin5.artplanet.service;
 
+import java.sql.Date;
+
 public class RecAuthDTO {
 	private String ordr_idxx;//주문번호
 	private String res_cd;// 응답코드
@@ -10,6 +12,10 @@ public class RecAuthDTO {
 	
 	//조인할때 쓰기위해 필요한 프로젝트 1회성후원 후원금액컬럼 
 	private String projectSupportSum; // PROJECTSUPPORTSUM
+	
+	//app_time용 컬럼
+	private Date app_time; //시간용_
+	
 	
 	//게터세터
 	public String getOrdr_idxx() {
@@ -55,6 +61,13 @@ public class RecAuthDTO {
 	}
 	public void setProjectSupportSum(String projectSupportSum) {
 		this.projectSupportSum = projectSupportSum;
+	}
+	//app_time
+	public Date getApp_time() {
+		return app_time;
+	}
+	public void setApp_time(Date app_time) {
+		this.app_time = app_time;
 	}
 	
 }

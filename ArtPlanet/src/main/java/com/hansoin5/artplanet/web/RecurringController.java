@@ -1,5 +1,7 @@
 package com.hansoin5.artplanet.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,9 +73,14 @@ public class RecurringController {
 
 		if (affected == 1) {
 			System.out.println("배치[결제] DB입력완료");
+			//결제시간을 인증테이블 app_time컬럼에 업데이트합니다
+			authDao.authAppTimeUpdate();
+			
 		}
-		return "recurring_pay/sample/payx/result";
-		//return "support/member/Login";
+		//return "recurring_pay/sample/payx/result"; 변경전
+		
+		return "admin/admBatchKey"; //변경후 
+		
 	}////////////// RecurringPayRes.do
 	
 

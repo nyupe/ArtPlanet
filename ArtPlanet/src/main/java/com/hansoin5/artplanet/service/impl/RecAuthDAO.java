@@ -34,7 +34,10 @@ public class RecAuthDAO {
 			return template.selectList("recAuthSelectlist", map);
 		}
 		
-		
+		//블로그 정기구독 결제시 인증테이블 app_time 덮어씌우기용 메서드
+		public int authAppTimeUpdate() {
+			return template.update("authAppTimeUpdate");
+		}
 		
 		/////////////////////////////////////////////////
 		//프로젝트용 1회용 배치키
