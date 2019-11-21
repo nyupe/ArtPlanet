@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper    
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mybatis.ClassOpeningDate">
+
+
+<!-- 입력폼 -->
+
+ <insert id="openingDateInsert" parameterType="java.util.Map"  >
+  	INSERT INTO ClassOpeningDate(DateNo,openingDate,classNo,openingTime)
+  	VALUES(SEQ_ClassOpeningDate_DateNo.NEXTVAL,#{openingDate},#{classNo},#{openingTime}) 
+  </insert>
+  
+  <select id="OpeningDateSelectList">
+  	SELECT * FROM classOpeningDate WHERE classNo = #{classNo}
+  </select>
+
+
+
+<!-- 
+ <select id="classUpdate" parameterType="java.util.Map">
+  	UPDATE artclass SET openingDate=#{openingDate},classNo=#{classNo},openingTime=#{openingTime} WHERE classNo=#{classNo}
+  </select>
+  
+  <delete id="classDelete" parameterType="java.util.Map">
+  	DELETE artclass WHERE ClassNo=#{ClassNo}
+  </delete>
+
+ -->
+</mapper>

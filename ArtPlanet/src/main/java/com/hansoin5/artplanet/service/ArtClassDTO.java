@@ -1,82 +1,130 @@
 package com.hansoin5.artplanet.service;
 
-public class ArtClassDTO {
+public class ArtClassDTO
+{
+  private String classNo;
+  private String title;
+  private String content;
+  private String classLevel;
+  private String timeRequired;
+  private String numberOfPeople;
+  private String tuitionFee;
+  private String classAddress;
+  private String detailedAddr;
+  private String categorie;
+  private String memberNo;
+ 
+  
+  public String getClassNo()
+  {
+    return this.classNo;
+  }
+  
+  public void setClassNo(String classNo)
+  {
+    this.classNo = classNo;
+  }
+  
+  public String getTitle()
+  {
+    return this.title;
+  }
+  
+  public void setTitle(String title)
+  {
+    this.title = title;
+  }
+  
+  public String getContent()
+  {
+    return this.content;
+  }
+  
+  public void setContent(String content)
+  {
+    this.content = content;
+  }
+  
+  public String getClassLevel()
+  {
+    return this.classLevel;
+  }
+  
+  public void setClassLevel(String classLevel)
+  {
+    this.classLevel = classLevel;
+  }
+  
+  public String getTimeRequired()
+  {
+    return this.timeRequired;
+  }
+  
+  public void setTimeRequired(String timeRequired)
+  {
+    this.timeRequired = timeRequired;
+  }
+  
+  public String getNumberOfPeople()
+  {
+    return this.numberOfPeople;
+  }
+  
+  public void setNumberOfPeople(String numberOfPeople)
+  {
+    this.numberOfPeople = numberOfPeople;
+  }
+  
+  public String getTuitionFee()
+  {
+    return this.tuitionFee;
+  }
+  
+  public void setTuitionFee(String tuitionFee)
+  {
+    this.tuitionFee = tuitionFee;
+  }
+  
+  
+  
+  public String getClassAddress()
+  {
+    return this.classAddress;
+  }
+  
+  public void setClassAddress(String classAddress)
+  {
+    this.classAddress = classAddress;
+  }
+  
+  public String getDetailedAddr()
+  {
+    return this.detailedAddr;
+  }
+  
+  public void setDetailedAddr(String detailedAddr)
+  {
+    this.detailedAddr = detailedAddr;
+  }
+  
+  public String getMemberNo()
+  {
+    return this.memberNo;
+  }
+  
+  public void setMemberNo(String memberNo)
+  {
+    this.memberNo = memberNo;
+  }
 
-	
-	private String img;
-	private String title;
-	private String contents;
-	private String level;
-	private String timeRequired;
-	private String peopleNumber;
-	private String price;
-	private String dateAndtime;
-	private String addr;
-	private String detailedAddr;
-	
-	
-	public String getImg() {
-		return img;
-	}
-	public void setImg(String img) {
-		this.img = img;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public String getContents() {
-		return contents;
-	}
-	public void setContents(String contents) {
-		this.contents = contents;
-	}
-	public String getLevel() {
-		return level;
-	}
-	public void setLevel(String level) {
-		this.level = level;
-	}
-	public String getTimeRequired() {
-		return timeRequired;
-	}
-	public void setTimeRequired(String timeRequired) {
-		this.timeRequired = timeRequired;
-	}
-	public String getPeopleNumber() {
-		return peopleNumber;
-	}
-	public void setPeopleNumber(String peopleNumber) {
-		this.peopleNumber = peopleNumber;
-	}
-	public String getPrice() {
-		return price;
-	}
-	public void setPrice(String price) {
-		this.price = price;
-	}
-	public String getDateAndtime() {
-		return dateAndtime;
-	}
-	public void setDateAndtime(String dateAndtime) {
-		this.dateAndtime = dateAndtime;
-	}
-	public String getAddr() {
-		return addr;
-	}
-	public void setAddr(String addr) {
-		this.addr = addr;
-	}
-	public String getDetailedAddr() {
-		return detailedAddr;
-	}
-	public void setDetailedAddr(String detailedAddr) {
-		this.detailedAddr = detailedAddr;
-	}
-	
-	
-	
-	
+public String getCategorie() {
+	return categorie;
+}
+
+public void setCategorie(String categorie) {
+	this.categorie = categorie;
+}
+  
+ 
+  
 }

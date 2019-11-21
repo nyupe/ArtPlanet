@@ -15,7 +15,7 @@ public class AutoController {
 	
 	
 	//셀레니움 적용한 서비스(AutoPayment.class) 주입
-	@Resource(name="seleniumTest")
+	@Resource(name="autoPayment")
 	private AutoPayment autoPayment;
 	
 	//member 테이블 접근 객체 주입

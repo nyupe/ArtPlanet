@@ -1,7 +1,9 @@
 package com.hansoin5.artplanet;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.annotation.Resource;
 
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hansoin5.artplanet.service.MonthTotDTO;
+import com.hansoin5.artplanet.service.RecPayDTO;
 import com.hansoin5.artplanet.service.impl.AuthorityDAO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
 
@@ -28,6 +32,42 @@ public class SupportController {
 	@Resource(name="authorityDAO")
 	private AuthorityDAO authorityDao;
 	
+	//회원 chartJS용
+	@RequestMapping(value="/getMemberTotal",produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String getMemberTotal() {
+		List<MonthTotDTO> list=memberDao.getMemberTotal();
+		System.out.println("찍혀라");
+		List<Map> collections = new Vector<Map>();
+		for(MonthTotDTO dto :list) {
+			Map record = new HashMap();
+			System.out.println(dto.getMonth());
+			record.put("month", dto.getMonth());
+			System.out.println(dto.getTot());
+			record.put("tot", dto.getTot());
+			
+			collections.add(record);
+		}
+		return JSONArray.toJSONString(collections);
+	}/////
+	//회원 chartJS용
+		@RequestMapping(value="/getAccumulated",produces = "text/html; charset=UTF-8")
+		@ResponseBody
+		public String getAccumulated() {
+			List<MonthTotDTO> list=memberDao.getAccumulated();
+			System.out.println("찍혀라");
+			List<Map> collections = new Vector<Map>();
+			for(MonthTotDTO dto :list) {
+				Map record = new HashMap();
+				System.out.println(dto.getMonth());
+				record.put("month", dto.getMonth());
+				System.out.println(dto.getTot());
+				record.put("tot", dto.getTot());
+				
+				collections.add(record);
+			}
+			return JSONArray.toJSONString(collections);
+		}/////
 	
 	
 	// 회원 테이블 모든 레코드 반환

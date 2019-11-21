@@ -6,12 +6,10 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -109,12 +107,13 @@ public class GcsController
 		urlArr[8] = "/";
 		urlArr[9] = urlArr[9].substring(0, urlArr[9].indexOf("?")).replace(path + "%2F", path + "/");
 		String fileUrl = "";
-		for (String str : urlArr)
-			fileUrl += str;
+		for (String str : urlArr) fileUrl += str;
+		String gcsPath = fileUrl.replace("https://storage.googleapis.com/", "gs://");
 		Map map = new HashMap();
 		map.put("fileName", filePart.getSubmittedFileName());
 		map.put("fileUrl", fileUrl);
 		map.put("downloadUrl", blobInfo.getMediaLink());
+		map.put("gcsPath", gcsPath);
 		map.put("fileSize", blobInfo.getSize());
 
 		return map;
@@ -133,20 +132,9 @@ public class GcsController
 		case "editor":
 			dao.editorUploadImage(map);
 			break;
-		case "blog":
-			dao.blogUploadImage(map);
-			break;
-		case "project":
-			break;
-		case "artclass":
-			break;
-		case "profile":
-			break;
-		case "banner":
-			break;
-		
-
+			
 		default:
+			dao.uploadImage(map);
 			break;
 		}
 		

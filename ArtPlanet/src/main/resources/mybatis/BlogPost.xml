@@ -11,10 +11,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	private String memberNo; //(작성자)회원번호
  -->
 <mapper namespace="mybatis.BlogPost">
-
+	<!-- 처음 넘겨주는 map에는  blogNo라는 키값은 없지만 아래 selectKey구문에서 map에 blogNo라는 키값으로 데이터를 넣어준다. 따라서 아래에서 #{blogNo}와 같이 사용가능 -->
+	<!-- 반환할때 역시 map.get("blogNo")로 방금 입력된 데이터를 받을 수 있다 -->
 	<insert id="uploadBlogPost" parameterType="java.util.Map">
-		INSERT INTO blogPost(blogNo, title, content, postDate, viewCount, memberNo)
-			VALUES(SEQ_BLOGPOST_blogNo.NEXTVAL, #{title}, #{content}, SYSDATE, 0, #{memberNo})
+		<selectKey keyProperty="blogNo" resultType="int" order="BEFORE">
+			SELECT SEQ_BLOGPOST_blogNo.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO blogPost(blogNo, title, content, postDate, viewCount, accessRight, memberNo)
+			VALUES(#{blogNo}, #{title}, #{content}, SYSDATE, 0, #{accessRight}, #{memberNo})
 	</insert>
-
 </mapper>
