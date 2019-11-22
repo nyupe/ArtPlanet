@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="recAuthSelectlist" parameterType="java.util.Map" resultType="RecAuthDTO">
-		SELECT * FROM recAuth ORDER BY app_time DESC
+		SELECT * FROM recAuth ORDER BY ordr_idxx DESC
 	</select>
 	
 	<!-- 배치키로 결제시 인증테이블의 app_time업데이트하기      memberNo맞춰야함-->

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
+<sec:authentication property="principal.username" var="id" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" >
 
@@ -14,8 +19,6 @@
     <script type="text/javascript">
    
     //결제관련
-    
-        console.log("들어가긴하냐");
         function  jsf__pay( form )
         {
             if ( jsf__chk( form ) == true )
@@ -81,12 +84,12 @@
             tableString += "<tbody>";
             $.each(data,function(index,element){
 					tableString+="<tr>";					
-					tableString+="<td>"+(index+1)+"</td><td>"+element['memberNo']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['res_cd']+
+					tableString+="<td>"+(index+1)+"</td><td>"+element['id']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['res_cd']+
 					"</td><td>"+element['card_cd']+"</td><td>"+element['buyr_name']+"</td><td>"+element['batch_key']+"</td><td>"+20000+"</td>";			
 					if(element['res_cd']!=0000)
 						tableString+="<td><button type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-danger' data-toggle='modal' data-target='#exampleModal'>배치키재발급요망</button></td>";
-					else if(element['app_time'].substr(6,2)=='11')
-						tableString+="<td><button type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-info' data-toggle='modal' data-target='#exampleModal'>"+element['app_time'].substr(6,2)+"월 정기결제완료</button></td>";
+					else if(element['app_time'].substr(4,2)==new Date().getMonth()+ 1)
+						tableString+="<td><button type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-info' data-toggle='modal' data-target='#exampleModal'>"+element['app_time'].substr(4,2)+"월 정기결제완료</button></td>";
 					else 	
 						tableString+="<td><button type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-success' data-toggle='modal' data-target='#exampleModal' onclick='payTrigger(this)'>결제대기</button></td>";
 					tableString+="<td>"+element['app_time']+"</td></tr>";
@@ -145,7 +148,7 @@
 		
 		}	
 		
-	
+		
 	</script>
 </head>
 <body onload="init_orderid()" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
@@ -361,6 +364,8 @@
 							        
 							        <!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+                                		 <!-- 스프링시큐리티에서 내려주는 아이디사용 -->
+       							    <input type="hidden" name="id"              value="<c:out value='${id}'/>"/>
                                  </form>
                                  </div>
                                  <!-- 폼끝 -->
