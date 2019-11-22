@@ -90,8 +90,9 @@
     $('#mc_embed_signup').find('form').ajaxChimp();
 }
 mailChimp();
-/*
+
    //-------- Counter js --------//
+/* 중요!!!! 모든 데이터 가져온 후 호출해야 grid 안깨짐
    $(window).on("load", function() {
 
 
@@ -115,9 +116,6 @@ mailChimp();
         });
     }
 });
-
 */
-   
-
 
 })(jQuery)

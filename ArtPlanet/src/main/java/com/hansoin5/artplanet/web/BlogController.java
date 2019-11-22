@@ -229,7 +229,7 @@ public class BlogController
 		System.out.println(JSONArray.toJSONString(collections));
 		return JSONArray.toJSONString(collections);
 	}
-	
+	*/
 	
 	@RequestMapping("/UploadBlogPost")
 	public String UploadBlogPost(@RequestParam Map map) throws ParseException

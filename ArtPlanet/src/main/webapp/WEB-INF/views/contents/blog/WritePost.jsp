@@ -145,6 +145,7 @@ $(document).ready(function(){
      
     function blogFileUpload(files,obj)
     {
+    	console.log("blogFileupload()");
        for (var i = 0; i < files.length; i++) 
        {
             var fd = new FormData();
@@ -208,6 +209,7 @@ $(document).ready(function(){
     */
     function sendFileToServer(formData,status)
     {
+    	console.log("sebdFileToServer()");
         var uploadURL = "<c:url value='/FileUploadToCloud'/>"; //Upload URL
         var extraData ={}; //Extra Data.
         //var token = $("meta[name='_csrf']").attr("content");
@@ -259,6 +261,7 @@ $(document).ready(function(){
 //VisionAI에 이미지분석 요청
 function sendImgToVision(gcsPath)
 {
+	console.log("sendImgToVision()");
 	$.ajax({
   		type: "GET",
     	url: "http://localhost:7070/vision/extractLabels?gcsPath="+gcsPath,
