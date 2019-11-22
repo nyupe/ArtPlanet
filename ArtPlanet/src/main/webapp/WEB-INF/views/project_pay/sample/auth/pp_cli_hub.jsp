@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+<!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
+<sec:authentication property="principal.username" var="id" />
+
 <%
     /* ============================================================================== */
     /* =   PAGE : 인증 요청 및 결과 처리 PAGE                                       = */
@@ -118,8 +123,14 @@
         <input type="hidden" name="buyr_name"   value="<%=buyr_name%>">         <!-- 요청자 이름 -->
         <input type="hidden" name="card_cd"     value="<%=card_cd%>">           <!-- 카드 코드 -->
         <input type="hidden" name="batch_key"   value="<%=batch_key%>">         <!-- 배치 인증키 -->
+    	 
+    	 <!-- app_time넘기자 -->
+		<input type="hidden" name="app_time"    /> 
     	 <!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		 <!-- 스프링시큐리티에서 내려주는 아이디사용 -->
+        <input type="hidden" name="id"              value="<c:out value='${id}'/>"/>
+         
     </form>
     </body>
     </html>

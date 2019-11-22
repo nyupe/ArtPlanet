@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8"%> <!-- 바꾼부분 -->
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
+<sec:authentication property="principal.username" var="id" />
 
 
 <%
@@ -505,7 +509,8 @@
         <input type="hidden" name="cash_tr_code"    value="<%= cash_tr_code     %>">    <!-- 현금 영수증 발행 구분 -->
         <input type="hidden" name="cash_id_info"    value="<%= cash_id_info     %>">    <!-- 현금 영수증 등록 번호 -->
         <input type="hidden" name="cash_no"         value="<%= cash_no          %>">    <!-- 현금 영수증 거래 번호 -->        
-        
+        <!-- 스프링시큐리티에서 내려주는 아이디사용 -->
+        <input type="hidden" name="id"              value="<c:out value='${id}'/>"/>
     </form>
     </body>
 </html>

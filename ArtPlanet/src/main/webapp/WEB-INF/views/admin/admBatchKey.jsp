@@ -107,9 +107,7 @@
 				 });
 			};  */
 			
-			var abc = $("#number").val()
-			console.log('니가언디파인드냐',abc);
-	
+		
 		
 			
 		
@@ -120,6 +118,8 @@
 		        var year  = today.getFullYear();
 		        var month = today.getMonth()+ 1;
 		        var date  = today.getDate();
+		        var hours = today.getHours();
+		        var second = today.getSeconds();
 		        var time  = today.getTime();
 
 		        if(parseInt(month) < 10)
@@ -127,7 +127,7 @@
 		            month = "0" + month;
 		        }
 
-		        var vOrderID = year + "" + month + "" + date + "" + time;
+		        var vOrderID = year + "" + month + "" + date + "" + hours + "" + second + "" + time;
 
 		        document.forms[0].ordr_idxx.value = vOrderID;
 		    

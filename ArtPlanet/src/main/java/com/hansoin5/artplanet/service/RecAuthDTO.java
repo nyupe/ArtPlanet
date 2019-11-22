@@ -14,7 +14,7 @@ public class RecAuthDTO {
 	private String projectSupportSum; // PROJECTSUPPORTSUM
 	
 	//app_time용 컬럼
-	private Date app_time; //시간용_
+	private String app_time; //시간용_
 	
 	
 	//게터세터
@@ -63,11 +63,11 @@ public class RecAuthDTO {
 		this.projectSupportSum = projectSupportSum;
 	}
 	//app_time
-	public Date getApp_time() {
+	public String getApp_time() {
 		return app_time;
 	}
-	public void setApp_time(Date app_time) {
+	public void setApp_time(String app_time) {
 		this.app_time = app_time;
 	}
-	
+	/////////캐시아니라고
 }

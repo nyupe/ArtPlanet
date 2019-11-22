@@ -8,11 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hansoin5.artplanet.service.impl.MemberDAO;
 import com.hansoin5.artplanet.service.impl.PayDAO;
 
 @Controller
 public class PayController {
-	
+	// member 테이블에 접근하는 객체를 주입받습니다.
+	@Resource(name = "memberDAO")
+	private MemberDAO memberDao;
+		
 	@Resource(name="payInfo")
 	private PayDAO dao;
 	
@@ -38,6 +42,9 @@ public class PayController {
 	public String result(@RequestParam Map map) {
 		//return "pay/sample/result.tiles"; //수정1차
 		System.out.println(map.get("tno"));
+		System.out.println("시부럴:"+map.get("id"));
+		System.out.println("멤버넘버가 왜 널이냐 시부럴: "+memberDao.getMemberNo(map.get("id").toString()));
+		map.put("memberNo", memberDao.getMemberNo(map.get("id").toString()));
 		int affected = dao.payInsert(map);
 		if(affected == 1) {
 			System.out.println("입력완료");

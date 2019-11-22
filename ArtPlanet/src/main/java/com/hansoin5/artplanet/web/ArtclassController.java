@@ -1,6 +1,8 @@
 package com.hansoin5.artplanet.web;
 
 import com.google.appengine.repackaged.com.google.gson.JsonObject;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import com.hansoin5.artplanet.service.ArtClassDTO;
 import com.hansoin5.artplanet.service.ClassOpeningDateDTO;
 import com.hansoin5.artplanet.service.GcsDTO;
@@ -23,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,24 +42,35 @@ public class ArtclassController {
 	private ClassOpeningDateDAO classOpeningDateDAO;
 	@Resource(name = "gcsDAO")
 	private GcsDAO gcsDAO;
-
+	
+	
+	
+	
 	@RequestMapping("/View")
-	public String view() {
+	public String view(@RequestParam String classNo,Model model, Map map) {
+		
+		//맵에 클래스 고유번호 담기
+		map.put("classNo",classNo);
+		
+		//서비스 호출
+		ArtClassDTO record=artClassDAO.selectOne(map); //데이터 저장 //줄바꿈 처리
+		System.out.println("dao에서 데이터 컨트롤러로 가져옴 성공");
+		//record.setContent(record.getContent().replace("\r\n", "<br/>"));
+		model.addAttribute("record",record);
+			 
+		
 		return "sub/art_class/View.tiles";
-	}
+	}/////
 
-	@RequestMapping("/Test1")
-	public String test1() {
-		return "sub/art_class/Test1.tiles";
-	}
-
+	//입력
 	@RequestMapping(value = "/View_Input", method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	public String moveViewinput() {
 		return "sub/art_class/View_Input.tiles";
 	}
-
+	
+	//artclass(list)페이지
 	@RequestMapping(value = "/View_Input", method = { org.springframework.web.bind.annotation.RequestMethod.POST })
-	public String viewinputOK(@RequestParam Map map, HttpServletRequest req) {
+	public String viewinputOK(@RequestParam Map map, HttpServletRequest req) throws ParseException {
 		/*
 		 * Map<String, String> arrMap = new TreeMap();
 		 * 
@@ -70,6 +85,25 @@ public class ArtclassController {
 				map.put("openingTime", scheduleStrArr[1]);
 				this.classOpeningDateDAO.insert(map);
 			}
+			//JSON형태 문자열 자바객체로 변환하기
+			Map<String,List<Map<String,Object>>> gsonMap = new HashMap<String, List<Map<String,Object>>>();
+			Gson gson = new Gson();
+			JSONParser parser = new JSONParser();
+			System.out.println("map.get.img:"+map.get("imgs").toString());
+			Object obj = parser.parse(map.get("imgs").toString());
+			JSONObject jsonObj = (JSONObject) obj;
+			
+			gsonMap = gson.fromJson(JSONObject.toJSONString(jsonObj).replace("\\/", "/"),
+					new TypeToken<Map<String,List<Map<String,Object>>>>(){}.getType());
+			/////////////////////////////
+			for(int i = 0; i < gsonMap.get("images").size(); i++)
+			{
+				String fileNo = gcsDAO.getFileNoByURL(gsonMap.get("images").get(i).get("src").toString());
+				map.put("fileNo", fileNo);
+				gcsDAO.updateClassNo(map);
+			}
+			System.out.println("jsonObj:"+JSONObject.toJSONString(jsonObj).replace("\\/", "/"));
+			
 		}
 		return "sub/art_class/View_Input.tiles";
 	}
@@ -91,7 +125,10 @@ public class ArtclassController {
 			 
 			  Map record = new HashMap(); 
 			  
-			  record.put("classNo", dto.getClassNo()); 
+			  List<GcsDTO> gcsList = gcsDAO.getListByClassNo(dto.getClassNo());
+			  System.out.println("dto.getClassNo():"+dto.getClassNo());
+			  //아트클래스 고유번호
+			  record.put("classNo", dto.getClassNo());
 			  record.put("title",dto.getTitle());
 			  record.put("content",dto.getContent());
 			  record.put("classLevel",dto.getClassLevel());
@@ -101,8 +138,10 @@ public class ArtclassController {
 			  //record.put("dateAndTime",dto.getDateAndTime());
 			  record.put("classAddress",dto.getClassAddress());
 			  record.put("detailedAddr",dto.getDetailedAddr());
+			  record.put("categorie",dto.getCategorie());
 			  record.put("memberNo",dto.getMemberNo());
-			  record.put("kategorieNo",dto.getKategorieNo());
+			  record.put("imageUrl",gcsList.get(0).getFileUrl());
+			  
 			  
 			  
 			  
@@ -118,6 +157,7 @@ public class ArtclassController {
 		  collections.add(record); 
 		  */
 			  collections.add(record);
+			  
 		  }
 		  
 		 

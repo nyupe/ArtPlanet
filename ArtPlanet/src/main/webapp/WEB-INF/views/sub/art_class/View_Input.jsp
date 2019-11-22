@@ -486,32 +486,32 @@ $(el).remove();
 
 //submit 이전에 호출됨
 function postForm() {
-var content = $('textarea[name="content"]').val($('#summernote').summernote('code'));
-$('#post-title').val($('#text-title').val());
+	var content = $('textarea[name="content"]').val($('#summernote').summernote('code'));
+	$('#post-title').val($('#text-title').val());
 
-/*
-var imgObject = new Object();
-var imgArr = new Array();
+	/*
+	var imgObject = new Object();
+	var imgArr = new Array();
+	
+	$('.previewImg').each(function(index,item) {    	
+		imgArr.push($(item).attr('src'));
+	}
+	imgObject.value = imgArr;
+	
+	// json 포맷으로 변환
+	var values = JSON.stringify(myObject);
+	*/
 
-$('.previewImg').each(function(index,item) {    	
-	imgArr.push($(item).attr('src'));
-}
-imgObject.value = imgArr;
-
-// json 포맷으로 변환
-var values = JSON.stringify(myObject);
-*/
-
-var imagesJson = "{\"images\":[";
-$('.previewImg').each(function(index,item) {
-	console.log($(item).attr('src'));
-	imagesJson += "{\"src\":\"" + $(item).attr('src') +"\"}";
-	if(index < $('.previewImg').length -1)
-		imagesJson += ",";
-	else
-		imagesJson += "]}";
-});
-$('#post-imgs').val(imagesJson);
+	var imagesJson = "{\"images\":[";
+	$('.previewImg').each(function(index,item) {
+		console.log($(item).attr('src'));
+		imagesJson += "{\"src\":\"" + $(item).attr('src') +"\"}";
+		if(index < $('.previewImg').length -1)
+			imagesJson += ",";
+		else
+			imagesJson += "]}";
+	});
+	$('#post-imgs').val(imagesJson);
 
 }
 
@@ -522,11 +522,11 @@ $('#post-imgs').val(imagesJson);
 			<div class="main-card mb-3 card">
 				<!--================Blog Area =================-->
 
-				<div class="dropdown d-inline-block col-md-4">
+				<div class="dropdown d-inline-block col-md-4"><button type="button" onclick="postForm()">테스트</button>
 					<h5 class="card-title" style="margin: 20px;">카테고리 선택해주세요</h5>
 
 
-					<select class="form-control" id="" name="chcategory"
+					<select class="form-control" name="categorie"
 						style="margin: 20px; position: relative; left: 200%;">
 
 						<option>일러스트레이션</option>
@@ -865,6 +865,7 @@ $('#post-imgs').val(imagesJson);
 					<!-- 맵 끝 -->
 					<input type="hidden" class="form-control" name="title" id="post-title">
 					<input type="hidden" class="form-control" name="imgs" id="post-imgs">
+					<textarea name="content" style="display: none"></textarea>
 					<!-- 등록 버튼  -->
 					<div class="card-body">
 						<!-- <button type="button" onclick="addScheduleInput()">테스트</button>-->

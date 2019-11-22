@@ -15,16 +15,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <typeAlias alias="CancelDTO" type="com.hansoin5.artplanet.service.CancelDTO"/>		 
 		 <typeAlias alias="RecAuthDTO" type="com.hansoin5.artplanet.service.RecAuthDTO"/>
 		 <typeAlias alias="RecPayDTO" type="com.hansoin5.artplanet.service.RecPayDTO"/>
-
 		 <typeAlias alias="MonthTotDTO" type="com.hansoin5.artplanet.service.MonthTotDTO"/>
-
-		 
-		 <typeAlias type="com.hansoin5.artplanet.service.ArtClassDTO" alias="ArtClassDTO"/>
-
-<typeAlias type="com.hansoin5.artplanet.service.ClassOpeningDateDTO" alias="ClassOpeningDateDTO"/>
-		 
-		 
-
+		 <typeAlias alias="ArtClassDTO" type="com.hansoin5.artplanet.service.ArtClassDTO"/>
+		 <typeAlias alias="ClassOpeningDateDTO" type="com.hansoin5.artplanet.service.ClassOpeningDateDTO"/>
+		 <typeAlias alias="TagDTO" type="com.hansoin5.artplanet.service.TagDTO"/>
+		 <typeAlias alias="TagRelationDTO" type="com.hansoin5.artplanet.service.TagRelationDTO"/>
 		 
 	</typeAliases>
 
@@ -40,24 +35,24 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/PayInfo.xml" />
 		<!-- 권한정보  -->
 		<mapper resource="mybatis/Authority.xml" />
-		
 		<!-- 결제정보 -->
 		<mapper resource="mybatis/PayInfo.xml" />
 		<!-- 일반결제  취소 -->
 		<mapper resource="mybatis/Cancel.xml"/>
-		
 		<!-- 정기인증+프로젝트1회성인증 정보 -->
 		<mapper resource="mybatis/RecAndProjAuth.xml" />	
 		<!-- 정기결제+프로젝트1회성결제 정보 -->
 		<mapper resource="mybatis/RecAndProjPay.xml"/>
-		
+		<!-- 자동결제 -->
+		<mapper resource="mybatis/AutoPay.xml"/>
+		<!-- 아트 클래스 -->
 		<mapper resource="mybatis/ArtClass.xml"/>
-
-<!--아트 클래스 날짜 및 시간 -->
-
-
-<mapper resource="mybatis/ClassOpeningDate.xml"/>
-		
+		<!-- 아트 클래스 날짜 및 시간 -->
+		<mapper resource="mybatis/ClassOpeningDate.xml"/>
+		<!-- 태그 -->
+		<mapper resource="mybatis/Tag.xml"/>
+		<!-- 태그 관계 -->
+		<mapper resource="mybatis/TagRelation.xml"/>
 		
 	</mappers>
 </configuration>

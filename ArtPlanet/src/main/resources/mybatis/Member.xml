@@ -93,7 +93,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="memoTotal" parameterType="java.util.Map" resultType="int">
 			SELECT COUNT(*) FROM ONEMEMO
-			<if test="searchColumn != null">
+			
+			
+			
+			  <if test="searchColumn != null">
 				WHERE ${searchColumn} LIKE '%' || #{searchWord} || '%'
 			</if> 
 	</select>

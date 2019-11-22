@@ -13,6 +13,10 @@ import com.hansoin5.artplanet.service.RecAuthDTO;
 @Repository("recAuth")
 public class RecAuthDAO {
 	
+	// member 테이블에 접근하는 객체를 주입받습니다.
+		@Resource(name = "memberDAO")
+		private MemberDAO memberDao;
+	
 	//sqlSessionTemplate주입 받는다
 		@Resource(name="template")
 		private SqlSessionTemplate template;
@@ -33,10 +37,12 @@ public class RecAuthDAO {
 		public List<RecAuthDTO> recAuthSelectlist(Map map){
 			return template.selectList("recAuthSelectlist", map);
 		}
-		
+		public List<RecAuthDTO> getDaoByBatch(Map map) {
+			return template.selectList("getDaoByBatch", map);
+		}
 		//블로그 정기구독 결제시 인증테이블 app_time 덮어씌우기용 메서드
-		public int authAppTimeUpdate() {
-			return template.update("authAppTimeUpdate");
+		public int updateApptime(Map map) {
+			return template.update("updateApptime", map);
 		}
 		
 		/////////////////////////////////////////////////
@@ -59,6 +65,11 @@ public class RecAuthDAO {
 			return template.selectList("projAuthSelectlist", map);
 		}
 		
+		//블로그 정기구독 결제시 인증테이블 app_time 덮어씌우기용 메서드
+		public int projAuthAppTimeUpdate() {
+			return template.update("projAuthAppTimeUpdate");
+		}
+					
 		// PROJECTSUPPORT테이블과 조인해서 PROJECTSUPPORTSUM컬럼만 셀렉트해오는 
 		public List<RecAuthDTO> recAuthSelectProjectSupportSum(){
 			return template.selectList("recAuthSelectProjectSupportSum");

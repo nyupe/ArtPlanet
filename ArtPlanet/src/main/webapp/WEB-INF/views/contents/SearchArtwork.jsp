@@ -35,7 +35,15 @@
 </style>
 <script>
 	$(function() {
-		
+		//글 리스트 요청
+		$.ajax({
+			url:"<c:url value='/getArtworkList'/>",
+			type:'get',
+			dataType:'json',
+			success:function(data){
+				
+			},
+		});		
 	});
 </script>
 
@@ -62,7 +70,6 @@
 			<ul>
 				<li class="active" data-filter="*">all</li>
 				<li data-filter=".illustration">일러스트레이션</li>
-				<!-- <li data-filter=".painting">회화</li> -->
 				<li data-filter=".animation">애니메이션</li>
 				<li data-filter=".design">디자인</li>
 				<li data-filter=".calligraphy">캘리그라피</li>
@@ -71,30 +78,31 @@
 		</div>
 
 		<div class="filters-content">
-			<div class="row portfolio-grid">
+			<div class="row portfolio-grid"> <!-- 여기에 append -->
 				<div class="grid-sizer col-md-4 col-lg-3"></div>
 <!-- 일러스트레이션 그림 시작 -->	
 			
-					<div class="col-lg-3 col-md-4 all illustration painting">
-				<a href="<c:url value='/Blog'/>"><div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
+				<div class="col-lg-3 col-md-4 all illustration painting">
+					<a href="<c:url value='/Blog'/>">
+						<div class="single_portfolio">
+							<img class="img-fluid w-100" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt="">
+							<div class="short_info">
+								<span class="post-type">일러스트</span>
+			        			<span class="post-date">13분 전</span>
+				        		<h3><span class="post-title">그림그린그림</span></h3>
+				        		<div class="avatar-icon-wrapper avatar-icon-sm">
+				        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+				        		</div>
+			        			<span class="post-artist">작가이름</span>
+			        			<div class="clear"> </div>
+			        			<div class="font-icon-wrapper font-icon-sm">
+			        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
+			        			</div>
+			        			<div class="font-icon-wrapper font-icon-sm">
+			        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
+			        			</div>
+							</div>
 						</div>
-					</div>
 					</a>
 				</div>
 					
