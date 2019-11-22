@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.hansoin5.artplanet.service.MemberDTO;
 import com.hansoin5.artplanet.service.ProjectDTO;
 
 
@@ -27,7 +26,6 @@ public class ProjectDAO {
 	
 	// 프로젝트 목록 
 	public List<ProjectDTO> selectlist(Map map) {
-		
 		return template.selectList("Projectselectlist",map);
 	}
 	
@@ -62,6 +60,12 @@ public class ProjectDAO {
 		return template.selectOne("projectSelectOneFundInfo",map);
 	}
 	
+	//프로젝트 태그 가져오기
+	public List<Map> selectTagslist(Map map) {
+		return template.selectList("projectSelectTagsList",map);
+	}
+	
+	// 프로젝트 코멘트 숫자 구하기
 	public int getCommentCount(Map map) {
 		return template.selectOne("projectCommentCount", map);
 	}
@@ -70,10 +74,18 @@ public class ProjectDAO {
 	public List<Map> selectsupport(Map map){
 		return template.selectList("ProjectSelectListSupport",map);
 	}
+	public int insertsupport(Map map) {
+		return template.insert("InsertSupport",map);
+	}
+	public List<Map> selectTags(Map map){
+		return template.selectList("SelectTags", map);
+	}
 	
-	
-	
-
-	
+	//  크라우드 펀딩 프로젝트 결제관련
+	// 현재날짜와 마감일이 일치하는 동시에 ( 모금액 - 목표액 )이 0이상인 레코드수 반환  - 용주
+	// AutoPay.xml과 연관된 메소드
+	public int autoPayGetProjectRecords() {
+		return template.selectOne("autoPayGetProjectRecords");
+	}/////autoPayGetProjectRecords
 	
 }/////class

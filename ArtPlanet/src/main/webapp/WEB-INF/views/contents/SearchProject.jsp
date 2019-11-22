@@ -101,17 +101,15 @@ margin: 10px 0px;}
 			
 			<ul style="margin:auto 0px;">
 				<li class="active" data-filter="*">all</li>
-				<li data-filter=".illustration">일러스트레이션</li>
-				<li data-filter=".animation">애니메이션</li>
-				<li data-filter=".design">디자인</li>
-				<li data-filter=".calligraphy">캘리그라피</li>
-				<li data-filter=".crafts">조소/공예</li>
-
+				<c:forEach items="${tags }" var="item" >
+				<li data-filter=".${item.TAGNAME }">${item.TAGNAME }</li>
+				
+				</c:forEach>
 			</ul>
 			
 		
 			<form action="<c:url value='/Search/Project/ProjectWrite'/>" style="width: 100%;">
-				<button class="bb primary-bg w-100" type="submit" style="background:white;border: none;border-radius: 2px;font-weight: bold;cursor: pointer;color: #00c4c4">글쓰기${id }</button>
+				<button class="bb primary-bg w-100" type="submit" style="background:white;border: none;border-radius: 2px;font-weight: bold;cursor: pointer;color: #00c4c4">글쓰기</button>
 			</form>
 			
 		</div>
@@ -123,25 +121,22 @@ margin: 10px 0px;}
 				<c:if test="${not empty list }" var="isEmpth">
 				<c:forEach var="item" items="${list }" varStatus="loop">
 				
-				<div class="col-xl-3 col-lg-4 col-md-6 all illustration painting">
+				
+				<div class="col-xl-3 col-lg-4 col-md-6 all painting <c:forEach var="list2" items="${list2[loop.index] }">${list2 } </c:forEach>">
 				
 					<div class="single_portfolio">
 						<a href="<c:url value='/Search/Project/ProjectView?projectNo=${item.projectNo }'/>"><img class="img-fluid w-100" src=${item.fileurl } alt=""></a>
 						<div class="project-info">
 						<div class="avatar-icon-wrapper avatar-icon-sm" style="padding: 0px;">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+			        			<div class="avatar-icon"><img src="https://storage.googleapis.com/art-planet-storage/profile/%ED%94%84%EB%A1%9C%ED%95%84_%EA%B8%B0%EB%B3%B8.jpg"/></div>
 			        		</div>
 		        			<span class="post-artist">${item.id}</span><br/>		
 		        			<ul class="prolist"style="height:40px; "> 
 		        			
-							<li><a href="#">${item.tagName }</a></li>
-							<!-- <li><a href="#">#love</a></li>
-							<li><a href="#">#technology</a></li>
-							<li><a href="#">#travel</a></li>
-							<li><a href="#">#restaurant</a></li>
-							<li><a href="#">#design</a></li>
-							<li><a href="#">#illustration</a></li>
-						 -->
+							<c:forEach var="list2" items="${list2[loop.index] }">
+							<li>#${list2 }</li>
+							</c:forEach>
+							
 							</ul>
 							
 							<fmt:parseNumber value="${item.postDate.time / (1000*60*60*24)}" integerOnly="true" var="nowdate"></fmt:parseNumber>

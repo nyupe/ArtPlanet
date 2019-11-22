@@ -49,6 +49,7 @@ public class ProjectController{
 		System.out.println("프로젝트 뷰 컨트롤 들어옴");
 		ProjectDTO record = projectDao.selectOne(map);
 		ProjectDTO fundInfo = projectDao.selectFundInfo(map);
+		List<Map> tagList = projectDao.selectTagslist(map);
 		
 		int commentCount = projectDao.getCommentCount(map);
 		
@@ -62,7 +63,9 @@ public class ProjectController{
 		model.addAttribute("supportcount",supportcount);
 		model.addAttribute("fundInfo",fundInfo);
 		model.addAttribute("commentCount",commentCount);
+		model.addAttribute("tagList",tagList);
 		System.out.println(commentCount);
+		
 		
 		
 		return "contents/project/SearchProjectView.tiles";
@@ -168,6 +171,31 @@ public class ProjectController{
 		
 		System.out.println(JSONArray.toJSONString(list).toString());
 		return JSONArray.toJSONString(list);	
+	}
+	
+	
+	@RequestMapping("/Search/Project/projectSupport")
+	public String projectSupport(@RequestParam Map map) {
+		System.out.println("프로젝트 후원 컨트롤러");
+		
+		System.out.println("쿼리 시작");
+		String projectSupportSum = map.get("projectSupportSum").toString().replace(",", "");
+		System.out.println(projectSupportSum);
+		map.put("projectSupportSum", projectSupportSum);
+		String memberNo = memberDAO.getMemberNo(map.get("id").toString());
+		map.put("memberNo", memberNo);
+		projectDao.insertsupport(map);
+		System.out.println("쿼리 적용 됨");
+		//http://localhost:8080/artplanet/Search/Project/ProjectView?projectNo=61
+		/*
+		String url = "forward:/WEB-INF/views/contents/project/SearchProjectView/?"+map.get("projectNo").toString();
+		url += ".jsp";
+		*/
+		
+		String url = "forward:/Search/Project/ProjectView";
+		return url;
+		
+		
 	}
 	
 	/*public String project()

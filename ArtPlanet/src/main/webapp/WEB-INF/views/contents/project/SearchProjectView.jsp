@@ -77,6 +77,7 @@ scroll-behavior: smooth;
 .pro-container {
   width: 100%;
   background-color: #ddd;
+  height: 25px;
  
 }
 
@@ -94,7 +95,7 @@ border: 1px solid #eeeeee;
 color:#888888;
 float: left;
 font-size: 13px;
-padding: 5px;
+padding: 5px 10px;
 margin: 5px;
  
 }
@@ -126,6 +127,88 @@ vertical-align: middle;
 .supportdesc{
 margin: auto;}
 
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin: -1rem -1rem -1rem -1rem;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-header {
+    color: #da624a;
+  text-align: center;
+}
+
+.modal-body {
+
+padding: 2rem;
+text-align: left;
+
+
+}
+
+.input-mask-trigger{
+width: 40%;
+display: inline;
+}
+
+
+
+
 </style>
 
 <script>
@@ -138,7 +221,6 @@ $(document).ready(function(){
 		
 		var action="<c:url value='/Search/Project/Comments'/>";
 		
-			
 		//ajax로 요청]
 		$.ajax({
 			url:action,
@@ -161,12 +243,14 @@ $(document).ready(function(){
 		
 	});//#submit
 	
+	
+	
 });
 	
 	//현재 글번호에 대한 코멘트 목록을 가져오는 함수-Ajax로 처리
 	var showComment= function(){
 		console.log('쇼코멘트')
-				$.ajax({
+			$.ajax({
 			url:"<c:url value='/Search/Project/CommentsList'/>",
 			data:{projectNo:${record.projectNo},'_csrf':'${_csrf.token}'},
 			dataType:'json',
@@ -232,14 +316,9 @@ $(document).ready(function(){
 	<aside class="single_sidebar_widget tag_cloud_widget" >
 						<h4 class="widget_title" style="margin: 5px;">Tag Clouds</h4>
 						<ul class="prolist">
-							<li><a href="#">project</a></li>
-							<li><a href="#">love</a></li>
-							<li><a href="#">technology</a></li>
-							<li><a href="#">travel</a></li>
-							<li><a href="#">restaurant</a></li>
-							<li><a href="#">life style</a></li>
-							<li><a href="#">design</a></li>
-							<li><a href="#">illustration</a></li>
+							<c:forEach items="${tagList}" var="item">
+							<li>${item.TAGNAME}</li>
+							</c:forEach>
 						</ul>
 					</aside>
 	<div style="text-align: center;clear: both;"></div>
@@ -275,6 +354,7 @@ $(document).ready(function(){
 						
 					</ul>
 					
+					
 						
 					</div>
 					
@@ -307,6 +387,7 @@ $(document).ready(function(){
 						</ul>
 						
 						
+						
 					</div>
 					<div id="proupdate">&nbsp;&nbsp;</div>
 					<div >&nbsp;</div>
@@ -328,10 +409,8 @@ $(document).ready(function(){
 					
 					<div id="prosupporter">&nbsp;&nbsp;</div>
 					<div >&nbsp;</div>
-					
+					<!-- 서포터 리스트 시작 -->
 					<div class="blog_details">
-						
-					
 						<h2 style="float: left;">현재 이 프로젝트에 <span style="color:#00c4c4 ">${supportcount }명</span>의 참여가 이루어졌습니다</h2>&nbsp;
 						
 							<c:forEach var="item" items="${list }" varStatus="loops">
@@ -367,11 +446,9 @@ $(document).ready(function(){
 								</div>
 							</div>
 							</c:forEach> 
-						
 							
-						
-						
 					</div>
+					<!-- 서포터 리스트 끝 -->
 					
 					
 				
@@ -452,16 +529,22 @@ $(document).ready(function(){
 					
 				</div>
 			</div>
+			<div class="mb-3 progress-bar-animated-alt progress">
+								<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+								style="width: 30%;"></div>
+							</div>
 			<div class="col-lg-4">
 				<div class="blog_right_sidebar">
 					<aside class="single_sidebar_widget search_widget" style="padding: 0px 30px 30px 30px;">
 						<div class="menu-header-content" style="text-align: center; ">
 							<div class="row" >
 							<fmt:parseNumber value="${fundInfo.projectsupportsum / fundInfo.targetFigure * 100 }" integerOnly="true" var="per" type="number"></fmt:parseNumber>
+							
 								<div class="col-100" style="width: 100%; text-align: left; font-weight: bold; font-size: xx-large;margin-bottom: 20px;">진행중인 펀딩</div>
-								<div class="pro-container" >
-									<div class="pro-skills pro-html" style="width: ${per}%">&nbsp;</div>
+								<div class="pro-container progress-bar-animated-alt progress" >
+									<div class="pro-skills pro-html progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: ${per}%;max-width:100%;">&nbsp;</div>
 								</div>
+								
 								
 								<div class="col-50" style="width:1000%; text-align: left; font-size:small; margin-bottom: 20px;"><span>${per}</span>% 달성</div>
 								<div class="col-70" style="width:100%; text-align: left; font-size:large; margin-bottom: 20px;"><span style="font-weight: bold;">${fundInfo.projectsupportsum }</span>원  모집</div>
@@ -472,7 +555,7 @@ $(document).ready(function(){
 								<p style="text-align: left; font-size:small;float: :left;" >목표 금액</p><span>300000</span> -->
 							</div>
 							<div class="row" style="padding:5px;margin-bottom: 20px; ">
-								<div style="width:50%;text-align: left;font-weight: bold;">목표금액</div><span style="font-weight: bold;">${fundInfo.targetFigure }</span>
+								<div style="width:50%;text-align: left;font-weight: bold;">목표금액</div><span style="font-weight: bold;">${fundInfo.targetFigure }원</span>
 							<fmt:parseNumber value="${fundInfo.postDate.time / (1000*60*60*24)}" integerOnly="true" var="now"></fmt:parseNumber>
 							<fmt:parseNumber value="${fundInfo.deadline.time / (1000*60*60*24)}" integerOnly="true" var="target"></fmt:parseNumber>
 								<div style="width:50%;text-align: left;font-weight: bold;">남은기간</div><span style="font-weight: bold;">${target - now }일</span>
@@ -481,9 +564,76 @@ $(document).ready(function(){
 							
 							<div class="row" style="margin-bottom: 20px;" >
 								
-								<form action="#" style="width: 100%;margin: 10px 0px;">
-									<button class="bb primary-bg text-white w-100" type="submit" style="background: #00c4c4;border: none;height: 50px;border-radius: 2px;font-weight: bold;cursor: pointer;margin-bottom: 20px;">후원하기</button>
-								</form>
+								
+								<!-- 모달창 시작 -->
+								<div id="myModal" class="modal">
+								
+								  <!-- Modal content -->
+								  <div class="modal-content">
+								    <div class="modal-header">
+								      
+								      <h2 style="margin: auto;">아티스트들을 위한 "크라우드 펀딩"</h2>
+								      <span class="close">&times;</span>
+								    </div>
+								    <div class="modal-body">
+								    	<div>
+								        	<div class="media post_item">
+												<form role="form" method="post" action="<c:url value='/Search/Project/projectSupport'/>" style="width: 100%">
+													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+													
+													
+													<input type="hidden" name="id" value="${id }" />
+													<input type="hidden" name="projectNo" value="${record.projectNo}"/>
+													
+													
+													<h3 id="cheon">1000원 이상 후원하시는 분께</h3>
+													<input type="text" class="form-control input-mask-trigger" id="projectSupportSum" name="projectSupportSum" 
+													data-inputmask="'alias': 'numeric','groupSeparator': ',', 'autoGroup': true," placeholder="후원액을 설정해주세요" 
+													style="clear:both;margin: 10px 0px;text-align: left;"/>원 후원하기
+													<ul class="reward" style="padding-bottom: 20px;margin-bottom: 20px;">
+														<li>선물을 선택하지 않고 후원만 합니다</li>
+														
+													</ul>
+													<button type="submit" class="bb" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">후원만 하기</button>
+												</form>
+											</div>
+								        </div>
+								    	<h3 class="widget_title" style="margin-bottom: 20px;border: none;"></h3>
+								        <div>
+								        	<div class="media post_item">
+												<form style="width: 100%">
+													<h3 style="margin-bottom: 20px;">39,000 <span style="font-size: 16px;"> 원 후원하기</span></h3>
+													<ul class="reward" style="padding-bottom: 20px;margin-bottom: 20px;">
+														<li>뮤직비디오 크레딧 등록 (×1)</li>
+														<li>패키지 메일 제공-[옴니버스]EP 음원, 뮤직비디오, 프로필 사진, 뮤비 스냅 사진 (×1)</li>
+														<li>스페셜 음감회(뮤비 GV 포함)티켓 (×1)</li>
+													</ul>
+													<button type="button" class="bb" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">선물 선택하고 후원하기</button>
+												</form>
+											</div>
+								        </div>
+								        <h3 class="widget_title" style="margin-bottom: 20px;border: none;"></h3>
+								         <div>
+								        	<div class="media post_item">
+												<form style="width: 100%">
+													<h3 style="margin-bottom: 20px;">49,000 <span style="font-size: 16px;"> 원 후원하기</span></h3>
+													<ul class="reward" style="padding-bottom: 20px;margin-bottom: 20px;">
+														<li>뮤직비디오 크레딧 등록 (×1)</li>
+														<li>패키지 메일 제공-[옴니버스]EP 음원, 뮤직비디오, 프로필 사진, 뮤비 스냅 사진 (×1)</li>
+														<li>스페셜 음감회(뮤비 GV 포함)티켓 (×1)</li>
+													</ul>
+													<button type="button" class="bb" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">선물 선택하고 후원하기</button>
+												</form>
+											</div>
+								        </div>
+								    </div>
+								    
+								  </div>
+								
+								</div>
+								<!-- 모달창 끝 -->
+								<button class="bb primary-bg text-white w-100" id="myBtn" type="submit" style="background: #00c4c4;border: none;height: 50px;border-radius: 2px;font-weight: bold;cursor: pointer;margin-bottom: 20px;">후원하기</button>
+								
 								
 								<form action="<c:url value='#'/>" style="width: 32%;">
 									<button class="bb  w-100" type="submit" style="border: 1px solid #dadce0;background:#fff ;height: 50px;border-radius: 2px;font-weight: bold;color: black;">SHARE</button>
@@ -552,7 +702,12 @@ $(document).ready(function(){
 	</div>
 </section>
 
+
 <script>
+
+
+
+
 // Get the modal
 var modal = document.getElementById("promyModal");
 
@@ -572,4 +727,33 @@ var span = document.getElementsByClassName("promodal-content")[0];
 span.onclick = function() { 
   modal.style.display = "none";
 }
+
+//Get the modal
+var supportmodal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var supportbtn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var supportspan = document.getElementsByClassName("close")[0];
+
+
+
+// When the user clicks the button, open the modal 
+supportbtn.onclick = function() {
+	supportmodal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+supportspan.onclick = function() {
+	supportmodal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == supportmodal) {
+	  supportmodal.style.display = "none";
+  }
+}
+
 </script>

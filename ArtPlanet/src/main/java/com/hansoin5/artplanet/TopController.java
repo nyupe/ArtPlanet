@@ -2,8 +2,10 @@ package com.hansoin5.artplanet;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import com.hansoin5.artplanet.service.ProjectDTO;
 import com.hansoin5.artplanet.service.impl.AuthorityDAO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
 import com.hansoin5.artplanet.service.impl.ProjectDAO;
+import com.hansoin5.artplanet.service.impl.TagRelationDAO;
 import com.hansoin5.artplanet.utils.FileUpDownUtils;
 
 @Controller
@@ -34,6 +37,8 @@ public class TopController
 	// PROJECT 테이블에 접근하는 객체 주입
 	@Resource(name = "projectDAO")
 	private ProjectDAO projectDao;
+	@Resource(name ="tagRelationDAO")
+	private TagRelationDAO tagRelationDao;
 
 	
 	//핸드폰 인증 모듈에서 받은 데이터를 가지고 회원가입 페이지로 이동(post방식)
@@ -66,7 +71,7 @@ public class TopController
 	public String registerOk(@RequestParam Map map, ModelMap modelmap,
 			 @RequestParam MultipartFile upload,  HttpServletRequest req) throws IllegalStateException, IOException{
 			
-		System.out.println("컨트롤러에서 찍어보기 : "+map.get("auth_name"));
+		//System.out.println("컨트롤러에서 찍어보기 : "+map.get("auth_name"));
 		
 		if (!upload.isEmpty()) { // 회원가입시 프로필 사진 첨부했을 경우 
 			//1]서버의 물리적 경로 얻기 String
@@ -118,8 +123,35 @@ public class TopController
 	@RequestMapping("/Search/Project")
 	public String searchProject(@RequestParam Map map,Model model)
 	{	
+		System.out.println("탑컨트롤러");
 		List<ProjectDTO> list = projectDao.selectlist(map);
+		List<Map> tags  = projectDao.selectTags(map);
+		System.out.println(list.size());
+		/* tagRelationDao. */
+		List<String[]> list2 = new Vector<String[]>();
+		for(int i =0; i<list.size();i++) {
+			String[] strarr = list.get(i).getTagName().split(",");
+			list2.add(strarr);
+		}
+		
+		
+		/*
+		 * for(int j=0;j<list.size();j++) { System.out.println("시작"); for(int
+		 * i=0;i<list2.get(j).length;i++) {
+		 * 
+		 * System.out.println(list2.get(j)[i].toString());
+		 * 
+		 * } System.out.println("끝"); }
+		 */
+		
+		
+		
+		
+		
+		
 		model.addAttribute("list",list);
+		model.addAttribute("tags",tags);
+		model.addAttribute("list2",list2);
 		
 		return "contents/SearchProject.tiles";
 	}
@@ -149,6 +181,15 @@ public class TopController
 		return "support/member/Login.tiles";
 	}/////login()
 	
+
+	//리액트 페이지로 이동
+	@RequestMapping(value = "/React.bbs")
+	public String React()
+	{
+		return "react/index.tiles";
+	}/////login()
+	
+
 	/*
 	 * //회원가입 페이지으로 이동
 	 * 
@@ -164,5 +205,6 @@ public class TopController
 	 * 
 	 * return "support/member/Register.tiles"; }/////register()
 	 */
+
 
 }/////class

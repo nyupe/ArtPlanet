@@ -1,4 +1,6 @@
 package com.hansoin5.artplanet.utils;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -6,7 +8,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.stereotype.Service;
 
 //셀레니움 라이브러리 사용해보기 
 //@Service
@@ -19,8 +20,6 @@ public class AutoPayment {
 	public static final String WEB_DRIVER_ID = "webdriver.chrome.driver";
 	//chromedriver.exe 드라이버 설치시 반드시 자신의 크롬브라우저 버전을 확인 후 해당 브라우저에 대응하는 드라이버를 설치할것
 	public static final String WEB_DRIVER_PATH = "D:\\chromeDriver\\chromedriver.exe";
-	
-	
 	
 	//셀리니움 타겟 URL
 	private String tartgetUrl;
@@ -56,14 +55,12 @@ public class AutoPayment {
 	}/////
 	
 	
-	// 관리자 계정으로 로그인 및 구독정기결제 자동화 메소드
+	// 결제 자동화 메소드
 	public void autoPayment(String AutoKind) {
 		try {
-			if(AutoKind == "subscribe") { 
 				//get page(= 브라우저에서 url을 주소창에 넣은 후 request 한것과 같다)
 				//로그인 화면으로 이동
 				driver.get(tartgetUrl);
-				
 				//타겟 URL("http://localhost:7070/artplanet/Login")에서 DOM의 id속성이 id인 DOM을 객체를 반환
 				webElement = driver.findElement(By.id("id"));
 				// 관리자 아이디
@@ -72,7 +69,6 @@ public class AutoPayment {
 				webElement.sendKeys(adminId);
 				Thread.sleep(2000); // 2초 쉬고
 				
-				
 				//타겟 URL("http://localhost:7070/artplanet/Login")에서 DOM의 id속성이 password인 DOM을 객체를 반환
 				webElement = driver.findElement(By.id("password"));
 				// 관리자 비밀번호
@@ -80,8 +76,6 @@ public class AutoPayment {
 				// 관리자 비밀번호 입력
 				webElement.sendKeys(adminPassword);
 				Thread.sleep(2000); // 2초 쉬고
-				
-				
 				
 				//로그인화면의 로그인 버튼 클릭
 				webElement = driver.findElement(By.id("btnLogin"));
@@ -95,20 +89,50 @@ public class AutoPayment {
 				
 				
 				
-				
-				//presenceOfElementLocated : 화면과 관계없이 셀리니움이 찾는다
 				//visibilityOfElementLocated = 해당 엘리먼트가 보여질떄까지 대기한다. 
 				//해당 엘리먼트를가 있는 부분을 화면에 안 띄울 시 코드는 더이상 진행되지않고 무한정 대기
-				//TOP의  ADMIN 클릭
 				
+				//TOP의  ADMIN 클릭
 				webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"go_admin\"]")));
 				webElement.click();
 				Thread.sleep(2000); // 2초 쉬고
 				
-				// 여기에 버튼 처리 과정넣기
-				// 사이드 슬라이드 버튼중에 자동으로 결제되야하는 요소가 있는 페이지로 들어가는 버튼 클릭
-				// 페이지 이동시 눌러야하는 버튼 다 누른다 
-				
+				if(AutoKind == "subscribe") {// 정기 구독 결제인경우 
+					
+					// '[BLOG] 정기결제 - 배치키' 클릭
+					// 정기구독 페이지로 이동
+					webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[1]/ul/li[3]/ul/li[2]/a")));
+					webElement.click();
+					Thread.sleep(2000); // 2초 쉬고
+					
+					//정기구독결제 버튼들 얻기
+					List<WebElement> subPayButtons = driver.findElements(By.className("")/*클래스명 넣기*/);
+
+					//버튼들 1초시간 두면서 클릭
+					for(WebElement subPayButton : subPayButtons) {
+						subPayButton.click();
+						Thread.sleep(1000); 
+					}//for
+					
+				}/////if
+				else if(AutoKind == "project") { // 프로젝트 후원결제인 경우
+					
+					// '[PROJECT] 후원 - 배치키(일회성)' 클릭
+					// 정기구독 페이지로 이동
+					webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[1]/ul/li[3]/ul/li[5]/a")));
+					webElement.click();
+					Thread.sleep(2000); // 2초 쉬고
+					
+					//프로젝트 모금 후원 결제 버튼들 얻기
+					List<WebElement> projcetPayButtons = driver.findElements(By.className("")/*클래스명 넣기*/);
+					
+					//버튼들 1초시간 두면서 클릭
+					for(WebElement projcetPayButton : projcetPayButtons) {
+						projcetPayButton.click();
+						Thread.sleep(1000); 
+					}//for
+					
+				}/////else if
 				
 				
 				//관리자 페이지에 있는 로고 누르기:(TOP)이 보이는 페이지로 이동 
@@ -116,10 +140,9 @@ public class AutoPayment {
 				webElement.click();
 				Thread.sleep(2000); // 2초 쉬고
 				
-				//관리자 로그아웃-> 다시 로그인 페이지 대기
+				//관리자 로그아웃-> 로그인 페이지 대기
 				webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li[10]/a")));
 				webElement.click();
-			}/////if
 			
 		}/////try
 		catch(Exception e) {
@@ -131,9 +154,4 @@ public class AutoPayment {
 			
 		}
 	}/////autoSubPayment()
-	
-	
-	
-	
-	
 }/////class

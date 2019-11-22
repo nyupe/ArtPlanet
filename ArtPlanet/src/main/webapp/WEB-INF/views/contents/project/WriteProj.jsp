@@ -393,18 +393,7 @@ var removeTagdiv = function(e) {
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 								<div>								
 								</div>
-								<div class="radio" style="padding-left: 20px; padding-top:10px;">
-									<label style="font-size: 20px;">
-										<input type="radio" name="authRadio" id="authRadioPublic" value="0"
-										style="width:20px;height:20px;border:1px;" checked/>모두
-									</label>
-								</div>
-								<div class="radio" style="padding-left: 20px;">
-									<label style="font-size: 20px;">
-										<input type="radio" name="authRadio" id="authRadioPrivate" value="1"
-										style="width:20px;height:20px;border:1px;"/>구독자만
-									</label>
-								</div>
+								
 								<input type="hidden" class="form-control" name="title" id="post-title">
 								<input type="hidden" class="form-control" name="imgs" id="post-imgs">
 								<input type="hidden" class="form-control" name="tags" id="post-tags">
