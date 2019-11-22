@@ -47,14 +47,16 @@ public class ProjectController{
 	public String searchProjectview(@RequestParam Map map, Model model)
 	{
 		System.out.println("프로젝트 뷰 컨트롤 들어옴");
+		System.out.println(map.get("projectNo"));
 		ProjectDTO record = projectDao.selectOne(map);
 		ProjectDTO fundInfo = projectDao.selectFundInfo(map);
 		List<Map> tagList = projectDao.selectTagslist(map);
+		List<Map> rewardList = projectDao.selectRewardList(map);
+		/* int commentCount = projectDao.getCommentCount(map); 필요 없어짐 */
 		
-		int commentCount = projectDao.getCommentCount(map);
 		
 		
-		record.setContent(record.getContent().replace("<p>", "").replace("</p>", ""));
+		record.setContent(record.getContent());
 		List<Map> list = projectDao.selectsupport(map);
 		int supportcount = list.size();
 		
@@ -62,14 +64,15 @@ public class ProjectController{
 		model.addAttribute("record",record);
 		model.addAttribute("supportcount",supportcount);
 		model.addAttribute("fundInfo",fundInfo);
-		model.addAttribute("commentCount",commentCount);
+		model.addAttribute("rewardList",rewardList);
 		model.addAttribute("tagList",tagList);
-		System.out.println(commentCount);
+		
 		
 		
 		
 		return "contents/project/SearchProjectView.tiles";
 	}
+	
 	
 	@RequestMapping("/Search/Project/ProjectWrite")
 	public String searchProjectwrite()
@@ -151,11 +154,12 @@ public class ProjectController{
 	
 	@ResponseBody
 	@RequestMapping(value="/Search/Project/CommentsList",produces = "text/html; charset=UTF-8")
-	public String commentlist(@RequestParam Map map) {
+	public String commentlist(@RequestParam Map map,Model model) {
 		System.out.println("코멘트리스트 컨트롤러 ");
 		System.out.println("projectno:"+map.get("projectNo"));
 		//서비스호출
 		List<Map> list = projectDao.selectcomment(map);
+		
 		
 		System.out.println("쿼리 작동");
 		
@@ -186,16 +190,25 @@ public class ProjectController{
 		map.put("memberNo", memberNo);
 		projectDao.insertsupport(map);
 		System.out.println("쿼리 적용 됨");
-		//http://localhost:8080/artplanet/Search/Project/ProjectView?projectNo=61
-		/*
-		String url = "forward:/WEB-INF/views/contents/project/SearchProjectView/?"+map.get("projectNo").toString();
-		url += ".jsp";
-		*/
+
 		
 		String url = "forward:/Search/Project/ProjectView";
 		return url;
 		
 		
+	}
+	
+	@RequestMapping("/Search/Project/projectreward")
+	public String projectreward(@RequestParam Map map) {
+		System.out.println("프로젝트 리워드 등록 컨트롤러");
+		String supportStep = map.get("supportStep").toString().replace(",", "");
+		System.out.println(supportStep);
+		System.out.println(map.get("projectNo"));
+		System.out.println(map.get("rewardContent"));
+		map.put("supportStep", supportStep);
+		projectDao.insertReward(map);
+		System.out.println("쿼리 적용 됨");
+		return "forward:/Search/Project/ProjectView";
 	}
 	
 	/*public String project()

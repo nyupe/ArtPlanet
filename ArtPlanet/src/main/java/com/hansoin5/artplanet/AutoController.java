@@ -15,8 +15,10 @@ public class AutoController {
 	
 	//셀레니움 적용한 서비스(AutoPayment.class) 주입
 	//@Resource(name="autoPayment")
+
+
 	//private AutoPayment autoPayment;
-	//private AutoPayment autoPaymentObj;
+
 	
 	//member 테이블 접근 객체 주입
 	@Resource(name="memberDAO")
@@ -30,6 +32,7 @@ public class AutoController {
 	@Resource(name="projectDAO")
 	private ProjectDAO projectDAO;
 	
+
 	
 	// 자동 DB 조회 및 조건에 따른 서비스 호출
 	//@Scheduled(cron = "0/30 * * * * ?") // 30초마다 조회

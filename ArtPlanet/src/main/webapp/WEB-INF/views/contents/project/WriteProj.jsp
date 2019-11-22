@@ -308,13 +308,17 @@ function postForm() {
 	
 }
 var makeTagdiv = function(tagName) {
+	
 	if($.trim(tagName) == '') return false;
+	console.log('메이크함수')
 	var isExistTag = false;
 	$('.tag-button').each(function(i) {
+		console.log('이건 뭐냐')
 		if($(this).html() == $.trim(tagName))
 			isExistTag = true;
 	});
 	if(!isExistTag) {
+		console.log('생성')
 		$('#post-tag').before('<button type="button" onclick="removeTagdiv(this);" class="tag-button mb-2 mr-2 btn btn-dashed btn-outline-primary btn-sm">'+$.trim(tagName)+'</button>');
 		$('#post-tag').val('');
 	}
@@ -378,7 +382,7 @@ var removeTagdiv = function(e) {
 					<div style="font-size:22px; border-bottom: 1px solid #ced4da; margin:10px -10px 10px -10px; padding-left: 10px; padding-bottom: 5px;">
 					<i class="fa fa-fw" aria-hidden="true" title="Copy to use tags"></i> 태그
 					<div class="clear"></div>
-						<input type="text" class="form-control" id="post-tag" onkeypress="if( event.keyCode==13 ){makeTagdiv();}" placeholder="태그 추가.." >
+						<input type="text" class="form-control" id="post-tag" onkeypress="if( event.keyCode==13 ){makeTagdiv(this.value);}" placeholder="태그 추가.." >
 					</div>
 					
 						

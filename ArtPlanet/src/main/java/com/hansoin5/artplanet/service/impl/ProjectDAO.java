@@ -64,6 +64,10 @@ public class ProjectDAO {
 	public List<Map> selectTagslist(Map map) {
 		return template.selectList("projectSelectTagsList",map);
 	}
+	//프로젝트 리워드 가져오기
+	public List<Map> selectRewardList(Map map){
+		return template.selectList("projectSelectRewardList", map);
+	}
 	
 	// 프로젝트 코멘트 숫자 구하기
 	public int getCommentCount(Map map) {
@@ -74,9 +78,15 @@ public class ProjectDAO {
 	public List<Map> selectsupport(Map map){
 		return template.selectList("ProjectSelectListSupport",map);
 	}
+	// 프로젝트 후원하기
 	public int insertsupport(Map map) {
 		return template.insert("InsertSupport",map);
 	}
+	//프로젝트 리워드 등록하기
+	public int insertReward(Map map) {
+		return template.insert("InsertReward",map);
+	}
+	
 	public List<Map> selectTags(Map map){
 		return template.selectList("SelectTags", map);
 	}

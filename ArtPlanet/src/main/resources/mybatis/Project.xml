@@ -21,8 +21,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO REPLY(replyNo,replyContent,memberNo,projectNo) 
 			VALUES(SEQ_REPLY_replyNo.Nextval,#{replyContent},#{memberNo},#{projectNo})
 	</insert>
+	<!-- 후원하기 -->
 	<insert id="InsertSupport" parameterType="java.util.Map">
 		INSERT INTO PROJECTSUPPORT VALUES(SEQ_SUP.NEXTVAL,#{projectSupportSum},sysdate,#{memberNo},#{projectNo})
+	</insert>
+	<!-- 리워드 등록하기 -->
+	<insert id="InsertReward" parameterType="java.util.Map">
+		INSERT INTO PROJECTREWARD VALUES(SEQ_PROJECTREWARD_rewardNo.NEXTVAL,#{projectNo},#{rewardContent},#{supportStep})
 	</insert>
 	<!-- 목록리스트 뿌리기 -->	
 	<select id="Projectselectlist" parameterType="java.util.Map" resultType="ProjectDTO">
@@ -37,6 +42,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="ProjectSelectListComment" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT r.*,id FROM REPLY r JOIN MEMBER m on r.memberNo = m.memberNo WHERE r.projectNo = #{projectNo}
 	</select>
+	<!-- 리워드 뿌리기 -->
+	<select id="projectSelectRewardList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM PROJECTREWARD WHERE PROJECTNO = 77
+	</select>
+	
 	<!-- 서포터 리스트 뿌리기 -->
 	<select id="ProjectSelectListSupport" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT * FROM 
@@ -65,7 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="SelectTags" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT q.*,t.tagname 
     		FROM (SELECT p.*,ROWNUM r FROM (SELECT tagno,COUNT(*) FROM TAGRELATION GROUP BY tagno ORDER BY COUNT(*) DESC ) p ) q 
-        		JOIN TAG t ON q.tagno = t.tagno
+        		JOIN TAG t ON q.tagno = t.tagno WHERE r BETWEEN 1 AND 5
 	</select>
 	
 	

@@ -91,25 +91,26 @@ margin: 10px 0px;}
 		</div>
 		<div class="card-header card-header-tab-animation" style="font-size: 1.8em; margin-bottom: 30px; padding: 0;">
 			<ul class="nav nav-justified">
-				<li class="nav-item"><a href="<c:url value='/Search/Project'/>" class="nav-link">최신글</a></li>
-				<li class="nav-item"><a href="<c:url value='/Search/Project'/>" class="nav-link">마감임박</a></li>
-				<li class="nav-item"><a href="<c:url value='/Search/Project'/>" class="nav-link active">인기글</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project/'/>" class="nav-link active">최신글</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project/'/>" class="nav-link">마감임박</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project/'/>" class="nav-link">인기글</a></li>
 			</ul>
 		</div>
 
-		<div class="filters portfolio-filter">
+		<div class="filters portfolio-filter" style="display: flex; margin-bottom: 20px;">
 			
 			<ul style="margin:auto 0px;">
 				<li class="active" data-filter="*">all</li>
 				<c:forEach items="${tags }" var="item" >
-				<li data-filter=".${item.TAGNAME }">${item.TAGNAME }</li>
-				
+					<li data-filter=".${item.TAGNAME }">${item.TAGNAME }</li>
 				</c:forEach>
+				
 			</ul>
 			
 		
-			<form action="<c:url value='/Search/Project/ProjectWrite'/>" style="width: 100%;">
-				<button class="bb primary-bg w-100" type="submit" style="background:white;border: none;border-radius: 2px;font-weight: bold;cursor: pointer;color: #00c4c4">글쓰기</button>
+			<form action="<c:url value='/Search/Project/ProjectWrite'/>">
+				<button class="bb primary-bg w-100" type="submit" 
+				style="background:white;border: none;border-radius: 2px;font-weight: bold;cursor: pointer;color: #00c4c4;">글쓰기</button>
 			</form>
 			
 		</div>
@@ -131,7 +132,7 @@ margin: 10px 0px;}
 			        			<div class="avatar-icon"><img src="https://storage.googleapis.com/art-planet-storage/profile/%ED%94%84%EB%A1%9C%ED%95%84_%EA%B8%B0%EB%B3%B8.jpg"/></div>
 			        		</div>
 		        			<span class="post-artist">${item.id}</span><br/>		
-		        			<ul class="prolist"style="height:40px; "> 
+		        			<ul class="prolist"style="max-height:60px;contain:paint; height: 60px;margin-bottom: 0px;"> 
 		        			
 							<c:forEach var="list2" items="${list2[loop.index] }">
 							<li>#${list2 }</li>
@@ -150,7 +151,7 @@ margin: 10px 0px;}
 							
 							
 						
-			        		<h4 style="clear: both;" ><a href=""><span class="project-title" style="display: inline-block;">${item.title}</span></a></h4>
+			        		<h4 style="clear: both;max-height: 35px;contain:paint;" ><span class="project-title" style="display: inline-block;">${item.title}</span></h4>
 			        		
 		        			
        						<div class="mb-3 progress-bar-animated-alt progress">
@@ -168,14 +169,6 @@ margin: 10px 0px;}
 				</c:forEach>
 				</c:if>
 				<!-- 프로젝트 게시글 끝 -->
-				
-				
-				
-				
-				
-				
-				
-				
 				
 			</div>
 		</div>

@@ -266,6 +266,7 @@ $(document).ready(function(){
 	
 	var displayComments=function(data){
 		console.log('코메느 목록:',data)
+		var commentcounts = 0;
 		var	comments="<h4 style='float: left;'>Comments</h4>&nbsp;<span class='badge badge-primary'>${commentcount}</span>"
 			$.each(data,function(index,element){
 				comments+="<div class='comment-list' style='clear: both;'>"
@@ -289,13 +290,12 @@ $(document).ready(function(){
 				comments+="</div>"
 				comments+="</div>"
 				comments+="</div>"
-				
+				commentcounts++;
 			})
-			
+			console.log(commentcounts);
 			comments+="</div>"
+			$('.badgecomment').html(commentcounts)
 			$('#projectcomments').html(comments);
-		
-		
 	}
 	
 
@@ -330,8 +330,11 @@ $(document).ready(function(){
 							<img id="promyImg" class="card-img rounded-0" style="width: 80%;height: auto;"
 								src="${record.fileurl}" alt=""> <a href="#"
 								class="blog_item_date">
-								<h3>15</h3>
-								<p>Jan</p>
+								
+								<fmt:formatDate value="${record.postDate }" var="prodate" pattern="dd"/>
+								<fmt:formatDate value="${record.postDate }" type="date" var="promonth" pattern="MMM"/>
+								<h3>${prodate}</h3>
+								<p>${promonth}</p>
 							</a>
 						</div>
 						<div id="promyModal" class="promodal">
@@ -350,7 +353,7 @@ $(document).ready(function(){
 						<li class="nav-item"><a class="nav-link bb" href="#proinfo">Refund-Info</a></li>
 						<li class="nav-item"><a class="nav-link bb" href="#proupdate">Update&nbsp;</a></li>
 						<li class="nav-item"><a class="nav-link bb" href="#prosupporter">Supporter&nbsp;<span class="badge badge-primary" style="">${supportcount }</span></a></li>
-						<li class="nav-item"><a class="nav-link bb" href="#commentlist">Comments&nbsp;<span class="badge badge-primary" style="">${commentCount }</span></a></li>
+						<li class="nav-item"><a class="nav-link bb" href="#commentlist">Comments&nbsp;<span class="badge badge-primary badgecomment" style=""></span></a></li>
 						
 					</ul>
 					
@@ -378,7 +381,7 @@ $(document).ready(function(){
 						
 					
 						<h2>프로젝트의 환불 및 교환 정책</h2>
-						<ul>
+						<ul style="list-style: inside;">
 						<li>마감일 후에는 즉시 제작에 착수하는 프로젝트 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.</li>
 						<li>리워드 수령 10일 내 동일 증상으로 3번 이상 수리 시, 환불 가능합니다.</li>
 						<li>리워드 수령 10일 이내 제품 하자로 인한 교환/수리 문의는 example@artplanet.com 로 신청 가능합니다.</li>
@@ -397,11 +400,7 @@ $(document).ready(function(){
 					
 						<h2 style="float: left;">업데이트 소식</h2>&nbsp;<span class="badge badge-primary" style="">4</span>
 						<ul style="clear: both;">
-						<li>프로젝트 공통 -마감일 후에는 즉시 제작에 착수하는 프로젝트 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.</li>
-						<li>프로젝트 공통 -마감일 후에는 즉시 제작에 착수하는 프로젝트 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.</li>
-						<li>프로젝트 공통 -마감일 후에는 즉시 제작에 착수하는 프로젝트 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.</li>
-						<li>프로젝트 공통 -마감일 후에는 즉시 제작에 착수하는 프로젝트 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.</li>
-						<li>프로젝트 공통 -마감일 후에는 즉시 제작에 착수하는 프로젝트 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.</li>
+							<li>프로젝트 공통 -마감일 후에는 즉시 제작에 착수하는 프로젝트 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.</li>
 						</ul>
 						
 						
@@ -459,38 +458,7 @@ $(document).ready(function(){
 					<!-- 코멘트 목록 시작 -->
 					
 					<div class="comments-area" id="projectcomments">
-						<%-- <h4 style="float: left;">Comments</h4>&nbsp;<span class="badge badge-primary">4</span>
 						
-						<div class="comment-list" style="clear: both;">
-							<div class="single-comment justify-content-between d-flex">
-								<div class="user justify-content-between d-flex">
-									<div class="thumb">
-										<img src="<c:url value='/resources/img/blog/c1.png'/>" alt="">
-									</div>
-									<div class="desc">
-										<p class="comment">Multiply sea night grass fourth day sea
-											lesser rule open subdue female fill which them Blessed, give
-											fill lesser bearing multiply sea night grass fourth day sea
-											lesser</p>
-	
-										<div class="d-flex justify-content-between">
-											<div class="d-flex align-items-center">
-												<h5>
-													<a href="#">Emilly Blunt</a>
-												</h5>
-												<p class="date">December 4, 2017 at 3:12 pm</p>
-											</div>
-	
-											<div class="reply-btn">
-												<a href="#" class="btn-reply text-uppercase">reply</a>
-											</div>
-										</div>
-	
-									</div>
-								</div>
-							</div>
-						</div> 
-						--%>
 						
 					</div>
 				
@@ -564,10 +532,8 @@ $(document).ready(function(){
 							
 							<div class="row" style="margin-bottom: 20px;" >
 								
-								
-								<!-- 모달창 시작 -->
+								<!-- 후원 모달창 시작 -->
 								<div id="myModal" class="modal">
-								
 								  <!-- Modal content -->
 								  <div class="modal-content">
 								    <div class="modal-header">
@@ -598,42 +564,66 @@ $(document).ready(function(){
 												</form>
 											</div>
 								        </div>
+								        <c:forEach items="${rewardList }" var="item">
 								    	<h3 class="widget_title" style="margin-bottom: 20px;border: none;"></h3>
 								        <div>
 								        	<div class="media post_item">
 												<form style="width: 100%">
-													<h3 style="margin-bottom: 20px;">39,000 <span style="font-size: 16px;"> 원 후원하기</span></h3>
+													<h3 style="margin-bottom: 20px;">${item.SUPPORTSTEP }  <span style="font-size: 16px;"> 원 후원하기</span></h3>
 													<ul class="reward" style="padding-bottom: 20px;margin-bottom: 20px;">
-														<li>뮤직비디오 크레딧 등록 (×1)</li>
-														<li>패키지 메일 제공-[옴니버스]EP 음원, 뮤직비디오, 프로필 사진, 뮤비 스냅 사진 (×1)</li>
-														<li>스페셜 음감회(뮤비 GV 포함)티켓 (×1)</li>
+														<li>${item.REWARDCONTENT }</li>
 													</ul>
 													<button type="button" class="bb" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">선물 선택하고 후원하기</button>
 												</form>
 											</div>
 								        </div>
-								        <h3 class="widget_title" style="margin-bottom: 20px;border: none;"></h3>
-								         <div>
-								        	<div class="media post_item">
-												<form style="width: 100%">
-													<h3 style="margin-bottom: 20px;">49,000 <span style="font-size: 16px;"> 원 후원하기</span></h3>
-													<ul class="reward" style="padding-bottom: 20px;margin-bottom: 20px;">
-														<li>뮤직비디오 크레딧 등록 (×1)</li>
-														<li>패키지 메일 제공-[옴니버스]EP 음원, 뮤직비디오, 프로필 사진, 뮤비 스냅 사진 (×1)</li>
-														<li>스페셜 음감회(뮤비 GV 포함)티켓 (×1)</li>
-													</ul>
-													<button type="button" class="bb" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">선물 선택하고 후원하기</button>
-												</form>
-											</div>
-								        </div>
+								        </c:forEach>
 								    </div>
-								    
 								  </div>
-								
 								</div>
-								<!-- 모달창 끝 -->
-								<button class="bb primary-bg text-white w-100" id="myBtn" type="submit" style="background: #00c4c4;border: none;height: 50px;border-radius: 2px;font-weight: bold;cursor: pointer;margin-bottom: 20px;">후원하기</button>
+								<!-- 후원 모달창 끝 -->
 								
+								<!-- 리워드 등록 시작  -->
+								<div id="rewardModal" class="modal">
+								  <!-- Modal content -->
+								  <div class="modal-content">
+								    <div class="modal-header">
+								      
+								      <h2 style="margin: auto;"></h2>
+								      <span class="close">&times;</span>
+								    </div>
+								    <div class="modal-body">
+								   		<h3 class="widget_title" style="margin-bottom: 20px;border: none;">리워드 등록하기</h3>
+								    	<div>
+								        	<div class="media post_item">
+												<form role="form" method="post" action="<c:url value='/Search/Project/projectreward'/>" style="width: 100%">
+													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+													<input type="hidden" name="projectNo" value="${record.projectNo}"/>
+													
+													<input type="text" class="form-control input-mask-trigger" id="supportStep" name="supportStep" 
+													data-inputmask="'alias': 'numeric','groupSeparator': ',', 'autoGroup': true," placeholder="후원 금액을 입력해주세요" 
+													style="clear:both;margin: 10px 0px;text-align: left;"/>원으로 설정하기
+													
+													<textarea class="form-control w-100" name="rewardContent"
+													id="rewardContent" cols="30" rows="9" placeholder="리워드 보상을 입력해주세요"></textarea>
+													<div style="text-align: center;margin-top: 15px;">
+													<button type="submit" class="bb" style="width: 15%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">리워드 등록</button>
+													</div>
+												</form>
+											</div>
+								        </div>								         
+								    </div>
+								  </div>
+								</div>
+								<!-- 리워드 등록 끝  -->
+								
+								
+								<c:if test="${record.id == id }" var="writercheck">
+									<button class="bb primary-bg text-white w-100" id="myBtn" type="submit" style="background: #00c4c4;border: none;height: 50px;border-radius: 2px;font-weight: bold;cursor: pointer;margin-bottom: 20px;">리워드 등록하기</button>
+								</c:if>
+								<c:if test="${not writercheck }">
+									<button class="bb primary-bg text-white w-100" id="myBtn" type="submit" style="background: #00c4c4;border: none;height: 50px;border-radius: 2px;font-weight: bold;cursor: pointer;margin-bottom: 20px;">후원하기</button>
+								</c:if>
 								
 								<form action="<c:url value='#'/>" style="width: 32%;">
 									<button class="bb  w-100" type="submit" style="border: 1px solid #dadce0;background:#fff ;height: 50px;border-radius: 2px;font-weight: bold;color: black;">SHARE</button>
@@ -657,45 +647,25 @@ $(document).ready(function(){
 
 					<aside class="single_sidebar_widget popular_post_widget" style="border: 1px solid #dadce0; margin: 10px;">
 						<h3 class="widget_title" style="margin-bottom: 20px;border: none;">리워드 선택</h3>
+						<c:forEach items="${rewardList }" var="item">
 						<div class="media post_item">
-							<form>
-								<h3 style="margin-bottom: 20px;">39,000 <span style="font-size: 16px;"> 원 펀딩</span></h3>
+							<form style="width: 100%">
+								<h3 style="margin-bottom: 20px;">${item.SUPPORTSTEP } <span style="font-size: 16px;"> 원 펀딩</span></h3>
 								<ul class="reward" style="padding-bottom: 20px;margin-bottom: 20px;">
-									<li>뮤직비디오 크레딧 등록 (×1)</li>
-									<li>패키지 메일 제공-[옴니버스]EP 음원, 뮤직비디오, 프로필 사진, 뮤비 스냅 사진 (×1)</li>
-									<li>스페셜 음감회(뮤비 GV 포함)티켓 (×1)</li>
+									<li>${item.REWARDCONTENT }</li>
 								</ul>
-								<button type="button" class="bb" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">선물 선택하고 후원하기</button>
+								<c:if test="${record.id == id }" var="deletecheck">
+									<button type="button" class="bb" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">리워드 삭제하기</button>
+								</c:if>
+								<c:if test="${not deletecheck}">
+									<button type="button" class="bb" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">선물 선택하고 후원하기</button>
+								</c:if>
 							</form>
 						</div>
-						
-						<div class="media post_item" >
-							<form>
-								<h3 style="margin-bottom: 20px;">49,000 <span style="font-size: 16px;"> 원 펀딩</span></h3>
-								<ul class="reward" style="padding-bottom: 20px;margin-bottom: 20px;">
-									<li>뮤직비디오 크레딧 등록 (×1)</li>
-									<li>패키지 메일 제공-[옴니버스]EP 음원, 뮤직비디오, 프로필 사진, 뮤비 스냅 사진 (×1)</li>
-									<li>스페셜 음감회(뮤비 GV 포함)티켓 (×1)</li>
-								</ul>
-								<button type="button" class="bb "style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">선물 선택하고 후원하기</button>
-							</form>
-						</div>
-						
+						</c:forEach>
 						
 					</aside>
-					<!-- <aside class="single_sidebar_widget tag_cloud_widget">
-						<h4 class="widget_title">Tag Clouds</h4>
-						<ul class="list">
-							<li><a href="#">project</a></li>
-							<li><a href="#">love</a></li>
-							<li><a href="#">technology</a></li>
-							<li><a href="#">travel</a></li>
-							<li><a href="#">restaurant</a></li>
-							<li><a href="#">life style</a></li>
-							<li><a href="#">design</a></li>
-							<li><a href="#">illustration</a></li>
-						</ul>
-					</aside> -->
+					
 				</div>
 			</div>
 		</div>
@@ -707,10 +677,9 @@ $(document).ready(function(){
 
 
 
-
+//이미지 확대 모달창
 // Get the modal
 var modal = document.getElementById("promyModal");
-
 // Get the image and insert it inside the modal - use its "alt" text as a caption
 var img = document.getElementById("promyImg");
 var modalImg = document.getElementById("proimg01");
@@ -719,41 +688,69 @@ img.onclick = function(){
   modal.style.display = "block";
   modalImg.src = this.src;
 }
-
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("promodal-content")[0];
-
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() { 
   modal.style.display = "none";
-}
+};
 
+
+//후원 모달창
 //Get the modal
 var supportmodal = document.getElementById("myModal");
-
 // Get the button that opens the modal
 var supportbtn = document.getElementById("myBtn");
-
 // Get the <span> element that closes the modal
 var supportspan = document.getElementsByClassName("close")[0];
-
-
-
 // When the user clicks the button, open the modal 
 supportbtn.onclick = function() {
-	supportmodal.style.display = "block";
+	if($('#myBtn').html() == '후원하기')
+	supportmodal.style.display = "block";	
+	else
+	rewardmodal.style.display = "block";
 }
-
 // When the user clicks on <span> (x), close the modal
 supportspan.onclick = function() {
 	supportmodal.style.display = "none";
 }
 
+var rewardmodal = document.getElementById("rewardModal");
+var rewardspan = document.getElementsByClassName("close")[0];
+
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-  if (event.target == supportmodal) {
-	  supportmodal.style.display = "none";
+  if (event.target == supportmodal || event.target == rewardmodal) {
+	  if($('#myBtn').html() == '후원하기'){
+	  	supportmodal.style.display = "none";
+	  }
+	  else{
+		rewardmodal.style.display = "none";
+	  }
   }
+  
+};
+
+//리워드 등록
+//Get the modal
+
+//Get the button that opens the modal
+
+//Get the <span> element that closes the modal
+
+//When the user clicks the button, open the modal 
+
+//When the user clicks on <span> (x), close the modal
+/* rewardspan.onclick = function() {
+	rewardmodal.style.display = "none";
+} */
+//When the user clicks anywhere outside of the modal, close it
+/* window.onclick = function(event) {
+if (event.target == rewardmodal) {
+	rewardmodal.style.display = "none";
 }
+}; */
+
+
 
 </script>
