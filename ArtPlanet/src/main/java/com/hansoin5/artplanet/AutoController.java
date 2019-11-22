@@ -31,7 +31,6 @@ public class AutoController {
 	@Resource(name="projectDAO")
 	private ProjectDAO projectDAO;
 	
-	
 	// 자동 DB 조회 및 조건에 따른 서비스 호출
 	//@Scheduled(cron = "0/30 * * * * ?") // 30초마다 조회
 	public void autoPay() {

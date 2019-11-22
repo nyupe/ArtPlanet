@@ -42,8 +42,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE gcs SET classNo=#{classNo} WHERE fileNo=#{fileNo}
 	</update>
 	
-	<select id="getListByClassNo" parameterType="java.lang.String" resultType="java.util.Map">
+	<update id="updateMemberNo" parameterType="java.util.Map">
+		UPDATE gcs SET memberNo=#{memberNo} WHERE fileNo=#{fileNo}
+	</update>
+	
+	<select id="getListByClassNo" parameterType="java.lang.String" resultType="GcsDTO">
 		SELECT * FROM gcs WHERE classNo=#{classNo}
+	</select>
+	
+	<select id="getListByBlogNo" parameterType="java.lang.String" resultType="GcsDTO">
+		SELECT * FROM gcs WHERE blogNo=#{blogNo}
 	</select>
 
 </mapper>

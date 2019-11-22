@@ -41,4 +41,12 @@ public class GcsDAO
 	{
 		return template.update("updateClassNo", map);
 	}
+	public int updateMemberNo(Map map)
+	{
+		return template.update("updateMemberNo", map);
+	}
+	public List<GcsDTO> getListByBlogNo(String blogNo)
+	{
+		return template.selectList("getListByBlogNo",blogNo);
+	}
 }

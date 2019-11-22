@@ -52,12 +52,6 @@
 		<!-- 푸터 부분 끝 -->
 	</div>
 	
-	
-	
-
-	
-	
-	
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 	<script src="<c:url value='/resources/js/jquery-3.3.1.min.js'/>"></script>
