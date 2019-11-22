@@ -1,6 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+
+<script>
+	$(function() {
+		//조회수 증가
+		$.ajax({
+			url:"<c:url value='/updateViewCount'/>",
+			type:'post',
+			data:{"blogNo":"<c:out value="${blogNo}"/>"},
+			dataType:'json',
+			success:function(data){
+				console.log(data);
+			}
+		});
+	});
+</script>
 
 <!--================Hero Banner Area Start =================-->
 <section class="hero-banner">
@@ -19,45 +36,13 @@
 							alt="">
 					</div>
 					<div class="blog_details">
-						<h2>Second divided from form fish beast made every of seas
-							all gathered us saying he our</h2>
+						<h2>${title}</h2>
 						<ul class="blog-info-link mt-3 mb-4">
-							<li><a href="#"><i class="far fa-user"></i> Travel,
-									Lifestyle</a></li>
+							<li><a href="#"><i class="far fa-user"></i>${categorie}</a></li>
 							<li><a href="#"><i class="far fa-comments"></i> 03
 									Comments</a></li>
 						</ul>
-						<p class="excert">MCSE boot camps have its supporters and its
-							detractors. Some people do not understand why you should have to
-							spend money on boot camp when you can get the MCSE study
-							materials yourself at a fraction of the camp price. However, who
-							has the willpower</p>
-						<p>MCSE boot camps have its supporters and its detractors.
-							Some people do not understand why you should have to spend money
-							on boot camp when you can get the MCSE study materials yourself
-							at a fraction of the camp price. However, who has the willpower
-							to actually sit through a self-imposed MCSE training. who has the
-							willpower to actually</p>
-						<div class="quote-wrapper">
-							<div class="quotes">MCSE boot camps have its supporters and
-								its detractors. Some people do not understand why you should
-								have to spend money on boot camp when you can get the MCSE study
-								materials yourself at a fraction of the camp price. However, who
-								has the willpower to actually sit through a self-imposed MCSE
-								training.</div>
-						</div>
-
-
-						<p>MCSE boot camps have its supporters and its detractors.
-							Some people do not understand why you should have to spend money
-							on boot camp when you can get the MCSE study materials yourself
-							at a fraction of the camp price. However, who has the willpower</p>
-						<p>MCSE boot camps have its supporters and its detractors.
-							Some people do not understand why you should have to spend money
-							on boot camp when you can get the MCSE study materials yourself
-							at a fraction of the camp price. However, who has the willpower
-							to actually sit through a self-imposed MCSE training. who has the
-							willpower to actually</p>
+						${content}
 					</div>
 				</div>
 				<div class="navigation-top">
@@ -269,28 +254,46 @@
 						<div class="menu-header-content" style="text-align: center;">
 							<div class="avatar-icon-wrapper mb-3 avatar-icon-xxl">
 								<div class="avatar-icon">
-									<img
-										src="<c:url value='/resources/img/blog/cat-post/cat-post-3.jpg'/>"
-										alt="Avatar 5">
+									<img src="${profilePicture}" alt="Avatar">
 								</div>
 							</div>
-							<h3>작가이름</h3>
-							<h6>일러스트레이션 애니메이션</h6>
+							<h3>${nickname}</h3>
+							<h6>${introContent}</h6>
 							<div style="text-align: center;">
 								<div style="display: inline-block; margin-right: 10px;">
 									<h4>3</h4>
 									<h6>구독자</h6>
 								</div>
 								<div style="display: inline-block; margin-left: 10px;">
-									<h4>￦ 1,000</h4>
+									<h4>￦ ${fee}</h4>
 									<h6>구독료</h6>
 								</div>
 							</div>
 						</div>
-						<form action="<c:url value='/WritePost'/>">
-							<button class="button rounded-0 primary-bg text-white w-100"
-								type="submit">포스트 등록</button>
-						</form>
+						<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal.username" var="loginedId"/>
+							<c:choose>
+								<c:when test="${id eq loginedId}">
+								<form action="<c:url value='/WritePost'/>">
+									<button class="button rounded-0 primary-bg text-white w-100" type="submit">포스트 등록</button>
+								</form>
+								<p>블로그 주인</p>
+								</c:when>
+								<c:when test="${id ne loginedId}">
+								<form action="<c:url value='/WritePost'/>">
+									<button class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
+								</form>
+								<p>로그인상태, 방문자</p>
+								</c:when>
+							</c:choose>
+						</sec:authorize>
+						<sec:authorize access="isAnonymous()">
+							<form action="<c:url value='/WritePost'/>">
+								<button class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
+							</form>
+							<p>비로그인상태</p>
+						</sec:authorize>
+						
 					</aside>
 
 					<aside class="single_sidebar_widget popular_post_widget">

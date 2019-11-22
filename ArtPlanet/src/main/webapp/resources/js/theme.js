@@ -90,7 +90,7 @@
     $('#mc_embed_signup').find('form').ajaxChimp();
 }
 mailChimp();
-
+/*
    //-------- Counter js --------//
    $(window).on("load", function() {
 
@@ -116,7 +116,7 @@ mailChimp();
     }
 });
 
-
+*/
    
 
 
