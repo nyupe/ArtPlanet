@@ -323,7 +323,7 @@
 											<!-- 이름 입력태그  -->
 											<input name="name" placeholder="" oninput="nameCheck()"
 												id="name" value="<c:out value='${auth_name}'/>"  
-												type="text" readonly="readonly"
+												type="text" 
 												class="form-control"/>
 											<span id="nameError"></span>
 										</div>
@@ -352,7 +352,7 @@
 												class="text-danger">*</span> Birth</label>
 											<!-- 이름 입력태그  -->
 											<input name="birth" value="<c:out value='${auth_birth}'/>" oninput="birthCheck()"
-												id="birth" placeholder="ex)19911115" type="text" readonly="readonly"
+												id="birth" placeholder="ex)19911115" type="text" 
 												class="form-control">
 											<span id="birthError"></span>
 										</div>
@@ -395,7 +395,7 @@
 												class="text-danger">*</span> Phone</label>
 											<!-- 핸드폰 번호 입력태그 -->
 											<input name="phoneNumber" value="<c:out value='${auth_phone}'/>" oninput="phoneNumberCheck()"
-												id="phoneNumber" placeholder="ex)01011111111" type="text" readonly="readonly"
+												id="phoneNumber" placeholder="ex)01011111111" type="text" 
 												class="form-control">
 											<span id="phoneNumberError"></span>
 										</div>
@@ -456,6 +456,8 @@
 														프로필 사진 등록하기
 													</label>
 													<input style="display: none" name="upload" id="profilePicture" accept=".gif, .jpg, .png" type="file" class="form-control-file">
+													<!-- gsc에 있는 파일 url value로 넘김 -->
+													<input type="hidden" name="profileImg" id="profileImg"/>
 													<script>
 														
 													</script>
@@ -475,6 +477,7 @@
 									<!-- 이미지 미리보기 로직 시작 -->
 									<script>
 										// 미리보기 로직
+										/* 기존
 										function readInputFile(input){
 											if(input.files && input.files[0]){
 												var reader = new FileReader();
@@ -484,23 +487,30 @@
 												reader.readAsDataURL(input.files[0]);
 											}
 										}
+										*/
 										// id가 profilePicture인 태그의 change 이벤트 발생시  호출될 readInputFile 메소드 
 										$("#profilePicture").on('change', function(){
-											readInputFile(this);
-										})
+											//기존
+											//readInputFile(this);
+											
+											//gcs 파일 업로드
+											profileFileUpload(this.files);
+											
+										});
 										
 										
-										//등록 이미지 삭제 로직 
+										//등록 이미지 삭제 로직
+										
 										function resetInputFile($input, $preview){
 											var agent = navigator.userAgent.toLowerCase();
 											if((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident')!=-1)
 													||(agent.indexOf("mise")!=-1)){ //브라우저 IE인 경우
-												$input.replaceWith($.input.clone(true))
-												$preview.empty();		
+												$input.replaceWith($.input.clone(true));
+												//$preview.empty();		
 											}
 											else{ // 다른 브라우저
-												$input.val("")
-												$preview.empty()
+												$input.val("");
+												//$preview.empty();
 											}
 										}
 										
@@ -508,8 +518,11 @@
 										$("#btn-delete").click(function(event){
 											var $input = $("#profilePicture");
 											var $preview = $('#preview');
-											resetInputFile($input, $preview)
-										})
+											resetInputFile($input, $preview);
+											//gcs업로드
+											$('#preview').empty();
+											$('#previewImg').val('');
+										});
 										
 									</script>
 									<!-- 이미지 미리보기 로직 끝 -->
@@ -545,7 +558,54 @@
        				</div>
       		 </div>
        </div>
-	
+<script>
+	//gcs관련
+	function profileFileUpload(files)
+    {
+       for (var i = 0; i < files.length; i++) 
+       {
+            var fd = new FormData();
+            fd.append('file', files[i]);
+            fd.append('role','profile'); //role 설정해서 보내주자
+      
+            sendFileToServer(fd,status);
+       }
+    }	
+	function sendFileToServer(formData,status)
+    {
+        var uploadURL = "<c:url value='/FileUploadToCloud'/>"; //Upload URL
+        var extraData ={};
+        var jqXHR=$.ajax({
+            beforeSend : function(xhr)
+            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+            },
+            url: uploadURL,
+            enctype:"multipart/form-data",
+            type:"POST",
+            contentType:false,
+            processData:false,
+            cache:false,
+            data:formData,
+            dataType:"json",
+            success: function(data)
+            {
+                console.log(data);
+                previewImage(data.fileUrl);
+                $('#profileImg').val(data.fileUrl);
+                
+            }
+        }); 
+      
+    }
+	function previewImage(src) {
+		$('#preview').html('<img src="'+src+'" style="width:auto; height:auto;  max-height: 200px; max-width: 300px">');
+	}
+	function removeImage(el) {
+		$(el).prev().remove();
+		$(el).remove();
+	}
+</script>
 
 <!-- Daum 우편번호 서비스 CDN -->
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

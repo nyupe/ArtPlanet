@@ -118,7 +118,4 @@ mailChimp();
 });
 */
 
-   
-
-
 })(jQuery)

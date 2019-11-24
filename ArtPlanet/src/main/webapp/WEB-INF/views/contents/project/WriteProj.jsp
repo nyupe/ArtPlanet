@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<sec:authentication property="principal.username" var="id"/>
 <style>
 .previewImg {
 	max-height:300px;
@@ -156,86 +158,16 @@ $(document).ready(function(){
 	            fd.append('file', files[i]);
 	            fd.append('role','project'); //role 설정해서 보내주자
 	      
-	            //var status = new createStatusbar(obj); //Using this we can set progress.
-	            //status.setFileNameSize(files[i].name,files[i].size);
 	            sendFileToServer(fd,status);
 	      
 	       }
 	    }
      
-    /* var rowCount=0;
-    function createStatusbar(obj){
-             
-        rowCount++;
-        var row="odd";
-        if(rowCount %2 ==0) row ="even";
-        this.statusbar = $("<div class='statusbar "+row+"'></div>");
-        this.filename = $("<div class='filename'></div>").appendTo(this.statusbar);
-        this.size = $("<div class='filesize'></div>").appendTo(this.statusbar);
-        this.progressBar = $("<div class='progressBar'><div></div></div>").appendTo(this.statusbar);
-        this.abort = $("<div class='abort'>중지</div>").appendTo(this.statusbar);
-         
-        obj.after(this.statusbar);
-      
-        this.setFileNameSize = function(name,size){
-            var sizeStr="";
-            var sizeKB = size/1024;
-            if(parseInt(sizeKB) > 1024){
-                var sizeMB = sizeKB/1024;
-                sizeStr = sizeMB.toFixed(2)+" MB";
-            }else{
-                sizeStr = sizeKB.toFixed(2)+" KB";
-            }
-      
-            this.filename.html(name);
-            this.size.html(sizeStr);
-        }
-         
-        this.setProgress = function(progress){       
-            var progressBarWidth =progress*this.progressBar.width()/ 100;  
-            this.progressBar.find('div').animate({ width: progressBarWidth }, 10).html(progress + "% ");
-            if(parseInt(progress) >= 100)
-            {
-                this.abort.hide();
-            }
-        }
-         
-        this.setAbort = function(jqxhr){
-            var sb = this.statusbar;
-            this.abort.click(function()
-            {
-                jqxhr.abort();
-                sb.hide();
-            });
-        }
-    } */
-     
 	    function sendFileToServer(formData,status)
 	    {
 	        var uploadURL = "<c:url value='/FileUploadToCloud'/>"; //Upload URL
-	        var extraData ={}; //Extra Data.
-	        //var token = $("meta[name='_csrf']").attr("content");
-	        //var header = $("meta[name='_csrf_header']").attr("content");
+	        var extraData ={};
 	        var jqXHR=$.ajax({
-	        	/*
-	                xhr: function() {
-	                var xhrobj = $.ajaxSettings.xhr();
-	                if (xhrobj.upload) {
-	                        xhrobj.upload.addEventListener('progress', function(event) {
-	                            var percent = 0;
-	                            var position = event.loaded || event.position;
-	                            var total = event.total;
-	                            if (event.lengthComputable) {
-	                                percent = Math.ceil(position / total * 100);
-	                            }
-	                            //Set progress
-	                            status.setProgress(percent);
-	                            console.log('status.setProgress(percent)');
-	                        }, false);
-	                    }
-	                return xhrobj;
-	            },
-	            */
 	            beforeSend : function(xhr)
 	            {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
 	                xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
@@ -250,16 +182,40 @@ $(document).ready(function(){
 	            dataType:"json",
 	            success: function(data)
 	            {
-	                //status.setProgress(100);
 	                console.log(data);
 	                previewImage(data.fileUrl);
+	                sendImgToVision(data.gcsPath);
+	            },
+	            error:function(data)
+	            {
+	            	console.log("error~~~");
+	            	console.log(data);
 	            }
-	        }); 
+	        });//jqXHR=$.ajax
 	      
 	        //status.setAbort(jqXHR);
-	    }
+	    }//sendFileToServer
 	     
-	});
+	});//ready
+	
+
+//VisionAI에 이미지 분석 요청
+function sendImgToVision(gcsPath)
+{
+	console.log("sendImgToVision()");
+	$.ajax({
+  		type: "GET",
+    	url: "http://localhost:7070/vision/extractLabels?gcsPath="+gcsPath,
+    	dataType:"json",
+    	success: function(data)
+    	{
+    		console.log(data);
+    		$.each(data.vision,function(key,value) {
+    			makeTagdiv(value.label);
+    		});
+    	}
+  	});
+}
 	
 //summernote 이미지 업로드 요청
 function projectEditorUpload(file, editor)
@@ -289,8 +245,17 @@ function projectEditorUpload(file, editor)
   	});
 }
 
+//업로드한 이미지 미리보기
 function previewImage(src) {
-	$('.previewDiv').append('<img class="previewImg" src="'+src+'" />');
+	console.log("previmg");
+	$('.previewDiv').append('<img class="previewImg" src="'+src+'" />'
+	+ '<div onclick="removeImage(this)" class="removeDiv font-icon-wrapper"><i class="fa fa-fw" aria-hidden="true" title="Remove"></i></div>');
+}
+
+//업로드한 이미지 삭제
+function removeImage(el){
+	$(el).prev().remove();
+	$(el).remove();
 }
 
 
@@ -318,44 +283,43 @@ function postForm() {
 	$('#post-deadline').val(date);
 	/* 날짜 변환 코드 끝 */
 	
-	/* 작성 에이작스 시작 */
-	$.ajax({
-	 
-     url: "<c:url value='/Search/Project/Writes'/>",
-     type: 'post',
-     data: $('#projectform').serialize(),
-     dataType:'json',  
-     success: function(data) {
-    	 if(data['empty'] == "0"){
-    		 alert('입력안됨')
-    		 return false;
-    	 }
-    	 else if(data['empty'] == "1"){
-    		 alert('입력성공')
-    	 }
-         
-     },
-	 error:function(request,status,error){
-		 console.log('응답코드:%s,에러메시지:%s,error:%s,status:%s',
-					request.status,request.responseText,error,status);					
-	}
- 	});
+	var imagesJson = "{\"images\":[";
+	$('.previewImg').each(function(index,item) {
+		console.log($(item).attr('src'));
+		imagesJson += "{\"src\":\"" + $(item).attr('src') +"\"}";
+		if(index < $('.previewImg').length -1)
+			imagesJson += ",";
+		else
+			imagesJson += "]}";
+	});
+	$('#post-imgs').val(imagesJson);
 	
-	/* 작성 에이작스 끝 */
+	var tagsJson = "{\"tags\":[";
+	$('.tag-button').each(function(index,item) {
+		console.log($(item).html());
+		tagsJson += "{\"tag\":\"" + $(item).html() +"\"}";
+		if(index < $('.tag-button').length -1)
+			tagsJson += ",";
+		else
+			tagsJson += "]}";
+	});
+	$('#post-tags').val(tagsJson);
 	
 	
-	
-   
 }
-var makeTagdiv = function() {
-	if($('#post-tag').val().trim() == '') return false;
+var makeTagdiv = function(tagName) {
+	
+	if($.trim(tagName) == '') return false;
+	console.log('메이크함수')
 	var isExistTag = false;
 	$('.tag-button').each(function(i) {
-		if($(this).html() == $('#post-tag').val().trim())
+		console.log('이건 뭐냐')
+		if($(this).html() == $.trim(tagName))
 			isExistTag = true;
 	});
 	if(!isExistTag) {
-		$('#post-tag').before('<button type="button" onclick="removeTagdiv(this);" class="tag-button mb-2 mr-2 btn btn-dashed btn-outline-primary btn-sm">'+$('#post-tag').val().trim()+'</button>');
+		console.log('생성')
+		$('#post-tag').before('<button type="button" onclick="removeTagdiv(this);" class="tag-button mb-2 mr-2 btn btn-dashed btn-outline-primary btn-sm">'+$.trim(tagName)+'</button>');
 		$('#post-tag').val('');
 	}
 };
@@ -387,6 +351,7 @@ var removeTagdiv = function(e) {
 					<div style="font-size:22px; border-bottom: 1px solid #ced4da; margin:0 -10px 10px -10px; padding-left: 10px; padding-bottom: 5px;">
 						<i class="fa fa-fw" aria-hidden="true" title="Copy to use camera"></i> 이미지
 					</div>
+					<div class="previewDiv" style="text-align: center;"></div>
 					<div id="fileUpload" class="dragAndDropDiv"><span class="upload-span">여기에 파일을 드래그하세요</span></div>
 					
 					<div class="form-group" style="margin-top:10px;text-align: left;clear: both;">
@@ -417,7 +382,7 @@ var removeTagdiv = function(e) {
 					<div style="font-size:22px; border-bottom: 1px solid #ced4da; margin:10px -10px 10px -10px; padding-left: 10px; padding-bottom: 5px;">
 					<i class="fa fa-fw" aria-hidden="true" title="Copy to use tags"></i> 태그
 					<div class="clear"></div>
-						<input type="text" class="form-control" id="post-tag" onkeypress="if( event.keyCode==13 ){makeTagdiv();}" placeholder="태그 추가.." >
+						<input type="text" class="form-control" id="post-tag" onkeypress="if( event.keyCode==13 ){makeTagdiv(this.value);}" placeholder="태그 추가.." >
 					</div>
 					
 						
@@ -430,25 +395,15 @@ var removeTagdiv = function(e) {
 							<h4 style="font-weight: bold;">누가 이 그림을 볼 수 있나요?</h4>
 							<form role="form" id="projectform" method="post" onsubmit="postForm()" action="<c:url value='/Search/Project/Write'/>">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-								<div>
-								<input type="text" id="memberNo" name="memberNo" > 회원번호(히든처리 예정)
+								<div>								
+								</div>
 								
-								</div>
-								<div class="radio" style="padding-left: 20px; padding-top:10px;">
-									<label style="font-size: 20px;">
-										<input type="radio" name="authRadio" id="authRadioPublic" value="0"
-										style="width:20px;height:20px;border:1px;" checked/>모두
-									</label>
-								</div>
-								<div class="radio" style="padding-left: 20px;">
-									<label style="font-size: 20px;">
-										<input type="radio" name="authRadio" id="authRadioPrivate" value="1"
-										style="width:20px;height:20px;border:1px;"/>구독자만
-									</label>
-								</div>
 								<input type="hidden" class="form-control" name="title" id="post-title">
+								<input type="hidden" class="form-control" name="imgs" id="post-imgs">
+								<input type="hidden" class="form-control" name="tags" id="post-tags">
 								<input type="hidden" id="post-targetFigure" name="targetFigure">
-								<input type="text" id="post-deadline" name="deadline" >
+								<input type="hidden" class="form-control" name="id" id="post-id" value="${id}"/>
+								<input type="hidden" id="post-deadline" name="deadline" >
 								<textarea name="content" style="display: none"></textarea>
 								<button id="btnSubmit" class="button rounded-0 primary-bg text-white w-100"
 								 style="border-radius: 5px !important;" type="submit">작성 완료</button>

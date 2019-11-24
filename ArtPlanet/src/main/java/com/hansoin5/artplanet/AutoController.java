@@ -2,11 +2,13 @@ package com.hansoin5.artplanet;
 
 import javax.annotation.Resource;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 
 import com.hansoin5.artplanet.service.impl.MemberDAO;
 import com.hansoin5.artplanet.service.impl.ProjectDAO;
 import com.hansoin5.artplanet.service.impl.SubscribeDAO;
+import com.hansoin5.artplanet.utils.AutoPayment;
 
 
 @Controller
@@ -14,10 +16,16 @@ public class AutoController {
 	
 	
 	//셀레니움 적용한 서비스(AutoPayment.class) 주입
+<<<<<<< HEAD
 	//@Resource(name="autoPayment")
 	//private AutoPayment autoPayment;
 	//private AutoPayment autoPaymentObj;
 	
+=======
+
+	//@Resource(name="autoPayment")
+	//private AutoPayment autoPaymentObj;	
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	//member 테이블 접근 객체 주입
 	@Resource(name="memberDAO")
 	private MemberDAO memberDao;
@@ -29,10 +37,15 @@ public class AutoController {
 	//Project 테이블 접근 객체 주입
 	@Resource(name="projectDAO")
 	private ProjectDAO projectDAO;
+<<<<<<< HEAD
 	
 	// 자동 DB 조회 
 	
 	// 자동 DB 조회 및 조건에 따른 서비스 호출
+=======
+	
+	// 자동 DB 조회 및 조건에 따른 서비스 호출
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	//@Scheduled(cron = "0/30 * * * * ?") // 30초마다 조회
 	public void autoPay() {
 		System.out.println("정해진 시간마다 계속 메소드 호출");
@@ -42,11 +55,11 @@ public class AutoController {
 		                                                      
 		
 		  // 정기구독 결제해야하는 레코드가 1개이상 반환될 경우	
-		  if(subscribeDAO.checkSubPayRecordCount() >= 1) {// 정기구독결제 자동화 서비스 호출
-			  System.out.println("정기구독결제 조회 쿼리 성공");
+		  //if(subscribeDAO.checkSubPayRecordCount() >= 1) {// 정기구독결제 자동화 서비스 호출
+			 // System.out.println("정기구독결제 조회 쿼리 성공");
 			  // 셀리니움 적용한 정기구독 결제 메소드 실행 
 			  //autoPaymentObj.autoPayment("subscribe"); 
-		  }/////
+		  //}/////
 		  
 		  // 자동 결제 조건에 맞는 크라우드 펀딩 프로젝트를 1개 이상 찾을시 
 		  //if(projectDAO.autoPayGetProjectRecords() >=1 ) { // 프로젝트 모금액 자동결제 서비스 호출
@@ -54,7 +67,11 @@ public class AutoController {
 			  // 셀리니움 적용한 크라우드 펀딩 프로젝트 결제 메소드 실행
 			  //autoPaymentObj.autoPayment("project");
 		  //}/////
+<<<<<<< HEAD
 	 		
+=======
+			  
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	}///// autoPay()
 	 
 }/////class

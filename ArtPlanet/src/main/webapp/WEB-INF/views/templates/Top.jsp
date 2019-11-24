@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 스프링 써큐리티 적용에 필요한 태그라이브러리 -->
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
-
 <header class="header_area" >
 	<div class="main_menu">
 		<nav class="navbar navbar-expand-lg navbar-light">
@@ -30,14 +28,45 @@
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Project'/>">Projects</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/ArtClass'/>">Art Class</a></li>						
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Pay'/>">Pay</a></li>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li> --%>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/React.bbs'/>">React</a></li>
+<<<<<<< HEAD
+=======
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/AdmUserInfo.ad'/>">Admin</a></li>
+
+
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/React.bbs'/>">React</a></li>
+
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li>
 						<li  class="nav-item"><a class="nav-link" id="go_admin" href="<c:url value='/AdmUserInfo.ad'/>">Admin</a></li>
+<<<<<<< HEAD
 						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/AuthStartPage'/>">Register</a></li> --%>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Register'/>">Register</a></li>
+=======
+						<!-- <li  class="nav-item"><a class="nav-link" id="go_admin" href="http://localhost:7070/artplanet/AdmUserInfo.ad">Admin</a></li> -->
+
+
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/AuthStart.do'/>">Register</a></li>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 						
+<<<<<<< HEAD
 						<!-- 스프링 시큐리티 적용 -->
+=======
+
+						<!-- 인증모듈 적용 회원가입 막힘  : 2019.11.22 17시 기준 -->
+						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/AuthStart.do'/>">Register</a></li> --%>
+						<!-- 인증 모듈 없이 회원가입 페이지로 이동 -->
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Register'/>">Register</a></li>
+						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/AuthStart.do'/>">Register</a></li> --%>
+						
+
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 						<sec:authorize access="isAnonymous()"> <!-- 로그인 안한 상태 -->
 							<li  class="nav-item"><a class="nav-link" id="go_login" href="<c:url value='/Login'/>">Login</a></li>
 				 		</sec:authorize>

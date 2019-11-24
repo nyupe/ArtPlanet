@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
+<sec:authentication property="principal.username" var="id" />
 <%
     /* ============================================================================== */
     /* =   PAGE : 결과 처리 PAGE                                                    = */
@@ -215,7 +219,8 @@
               
         
  </div><!-- 메인카드 -->
-          <button type="button"  onclick="location.href='http://localhost:8080/artplanet/Search/Artwork';"
+          <button type="button"  onclick="location.href='<c:url value='/Search/Artwork'/>';"
+        	  
                                class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary" >
                                              홈으로
 		 					  </button>

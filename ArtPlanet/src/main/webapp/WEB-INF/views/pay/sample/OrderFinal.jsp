@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html;charset=euc-kr"
    pageEncoding="utf-8"%>
 <%@ include file="../cfg/site_conf_inc.jsp"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+
+<!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
+<sec:authentication property="principal.username" var="id" />
+
 <%request.setCharacterEncoding("utf-8");%>
 <%response.setContentType("text/html;charset=utf-8");%>
 
@@ -34,7 +40,7 @@
       GetField(frm, FormOrJson);
 
       if (frm.res_cd.value == "0000") {
-         alert("결제 승인 요청 전,\n\n반드시 결제창에서 고객님이 결제 인증 완료 후\n\n리턴 받은 ordr_chk 와 업체 측 주문정보를\n\n다시 한번 검증 후 결제 승인 요청하시기 바랍니다.");
+      
          frm.submit();
       } else {
          alert("[" + frm.res_cd.value + "] " + frm.res_msg.value);
@@ -75,10 +81,13 @@
       
       $('#paynumber').val(order_idxx);
    }
+   $(function(){
+	    init_orderid();
+   });
 </script>
 
 <!-- PG사 결제창호출함수 끝-->
-<!-- Daum 우편번호 서비스 CDN -->
+<!-- Daum 우편번호 서비스 CDN 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <script>
@@ -152,66 +161,19 @@
 
             <div id="smartwizard">
                <ul class="forms-wizard">
+<<<<<<< HEAD
                	  <h1>가격 잘나오나 ${fee }</h1>
                   <li><a href="#step-1"> <em>1</em><span>주소 정보</span>
+=======
+                  <li><a href="#step-2"> <em>1</em><span>결제 정보</span>
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
                   </a></li>
-                  <li><a href="#step-2"> <em>2</em><span>결제 정보</span>
-                  </a></li>
-                  <li><a href="#step-3"> <em>3</em><span>완료</span>
+                  <li><a href="#step-3"> <em>2</em><span>완료</span>
                   </a></li>
                </ul>
                <!-- 위자드폼 시작 -->
                <div class="form-wizard-content">
-                  <div id="step-1">
-                     <div class="form-row">
-                        <div class="col-md-6"></div>
-                        <div class="col-md-6"></div>
-                     </div>
-                     	<!-- 주소 입력 필드 시작 -->
-                     <div class="position-relative form-group">
-                        <label for="exampleAddress"><span class="text-danger">*</span>주소</label> 
-                        <input type="button" class="mb-2 mr-2 btn btn-primary btn-sm" onclick="sample6_execDaumPostcode()" value="주소 검색">                     
-                        <input name="Address" id="sample6_address" placeholder="예) 서울특별시 금천구 가산로11" type="text" class="form-control">
-                        <!-- 
-                        <input name="address"
-                           id="exampleAddress" placeholder="예) 서울특별시 금천구 가산로11"
-                           type="text" class="form-control"> 
-                           -->
-                         <!-- 주소 입력 필드 끝 -->
-                     </div>
-                     <div class="position-relative form-group">
-                        <label for="exampleAddress2">상세주소</label>                 
-                        <input name="DetailAddress" id="sample6_detailAddress" placeholder="예) 4층 한국소프트인재개발원"" type="text" class="form-control">
-                     </div>
-                     <div class="form-row">
-                        <div class="col-md-6">
-                           <div class="position-relative form-group">
-                              <label for="exampleCity">우편번호</label><input name="city"
-                                 id="sample6_postcode" type="text" class="form-control">
-                           </div>
-                        </div>
-                        <div class="col-md-4">
-                           <div class="position-relative form-group">
-                              <label for="exampleState">여분용1</label><input name="state"
-                                 id="exampleState" type="text" class="form-control">
-                           </div>
-                        </div>
-                        <div class="col-md-2">
-                           <div class="position-relative form-group">
-                              <label for="exampleZip">여분용2</label><input name="zip"
-                                 id="exampleZip" type="text" class="form-control">
-                           </div>
-                        </div>
-                        	<!-- 주소 입력 필드 시작 -->
-                           
-							<!-- 주소 입력 필드 끝 -->
-                     </div>
-                     <div class="position-relative form-check">
-                        <input name="check" id="exampleCheck" type="checkbox"
-                           class="form-check-input"><label for="exampleCheck"
-                           class="form-check-label">Check me out</label>
-                     </div>
-                  </div>
+                  
                   <div id="step-2">
                      <div id="accordion" class="accordion-wrapper mb-3">
                         <div class="card">

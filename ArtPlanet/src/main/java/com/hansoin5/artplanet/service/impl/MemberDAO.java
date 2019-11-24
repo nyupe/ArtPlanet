@@ -31,6 +31,10 @@ public class MemberDAO {
 		return template.selectOne("getMemberNo", id);
 	}/////getMemberNo()
 	
+	//회원번호로 아이디 가져오기 11/24추가
+	public String getMemberId(String memberNo) {
+		return template.selectOne("getMemberId", memberNo);
+	}
 	
 	//회원정보 조회
 	public MemberDTO getMemberDTO(Map map) {
@@ -70,7 +74,25 @@ public class MemberDAO {
 		return template.delete("MemberDelete",map);
 	}/////delete()
 	
-	
+	//회원번호로 DTO반환
+	public List<MemberDTO> getMemberByMemberNo(String memberNo)
+	{
+		return template.selectList("getMemberByMemberNo", memberNo);
+	}
+	//id로 DTO반환
+	public List<MemberDTO> getMemberById(String id)
+	{
+		return template.selectList("getMemberById", id);
+	}
+	//페이징해서 DTO반환
+	public List<MemberDTO> getArtistList(Map map)
+	{
+		return template.selectList("getArtistList", map);
+	}
+	public int getMemberCount(Map map)
+	{
+		return template.selectOne("getMemberCount", map);
+	}
 	
 	//미구현 ======================================================================================
 	

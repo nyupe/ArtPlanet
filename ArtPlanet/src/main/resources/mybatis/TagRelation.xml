@@ -16,4 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO tagRelation(tagNo, projectNo)
 			VALUES(#{tagNo}, #{projectNo})
 	</insert>
+	<select id="project-getTagRelation" parameterType="java.util.Map" resultType="TagRelationDTO">
+		SELECT * FROM tagRelation WHERE projectNo=#{projectNo}
+	</select>
 </mapper>

@@ -24,12 +24,16 @@ public class GcsDAO
 	public int uploadImage(Map map)
 	{
 		return template.insert("uploadImage",map);
+<<<<<<< HEAD
 	}
 	/* 프로젝트 작성폼 업로드 이미지 등록 */
 	public int projectUploadImage(Map map) {
 		return template.insert("project-uploadImage",map);
 	}/////
 	
+=======
+	}
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	public List<GcsDTO> getListByClassNo(String classNo)
 	{
 		return template.selectList("getListByClassNo",classNo);
@@ -42,9 +46,23 @@ public class GcsDAO
 	{
 		return template.update("updateBlogNo", map);
 	}
+<<<<<<< HEAD
 	
+=======
+	public int updateProjectNo(Map map) {
+		return template.update("updateProjectNo",map);
+	}
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	public int updateClassNo(Map map)
 	{
 		return template.update("updateClassNo", map);
+	}
+	public int updateMemberNo(Map map)
+	{
+		return template.update("updateMemberNo", map);
+	}
+	public List<GcsDTO> getListByBlogNo(String blogNo)
+	{
+		return template.selectList("getListByBlogNo",blogNo);
 	}
 }

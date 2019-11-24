@@ -22,4 +22,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO blogPost(blogNo, title, content, postDate, viewCount, categorie, accessRight, memberNo)
 			VALUES(#{blogNo}, #{title}, #{content}, SYSDATE, 0, #{categorie}, #{accessRight}, #{memberNo})
 	</insert>
+	
+	<select id="selectArtworkList" parameterType="java.util.Map" resultType="BlogPostDTO">
+		SELECT * FROM (
+			SELECT tb.*, ROWNUM AS r FROM (
+				SELECT * FROM blogPost ORDER BY blogNo DESC) tb)
+			WHERE r BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="getTotalCount" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM blogPost
+	</select>
+	
+	<select id="getDtoByBlogNo" parameterType="java.util.Map" resultType="BlogPostDTO">
+		SELECT * FROM blogPost WHERE blogNo=#{blogNo}
+	</select>
+	
+	<update id="updateViewCount" parameterType="java.util.Map">
+		UPDATE blogPost SET viewCount = viewCount+1 WHERE blogNo=#{blogNo}
+	</update>
+	
+	<select id="getDtoByMemberNo" parameterType="java.util.Map" resultType="BlogPostDTO">
+		SELECT * FROM blogPost WHERE memberNo=#{memberNo}
+	</select>
+	
+	<select id="getPublicByMemberNo" parameterType="java.lang.String" resultType="BlogPostDTO">
+		SELECT * FROM blogPost WHERE memberNo=#{memberNo} AND accessRight = 0
+	</select>
 </mapper>
+<!-- 캐시아니라고 -->

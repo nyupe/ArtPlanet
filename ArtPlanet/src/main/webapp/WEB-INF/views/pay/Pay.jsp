@@ -34,8 +34,10 @@
 					</ul>
 					<div class="priceTable-footer">
 						<a class="main_btn" href="Order.do">일반결제(ArtClass)</a>
-						<a class="main_btn" href="RecurringAuthReq.do">정기인증(Project)</a>	
+						<a class="main_btn" href="RecurringAuthReq.do">정기인증(Blog)</a>	
 						<a class="main_btn" href="<c:url value='/AuthStart.do'/> ">본인인증(신모듈)</a>
+						<a class="main_btn" href="<c:url value='/ProjectAuthReq.do'/> ">일회성(Project)</a>
+						
 					</div>
 					  <button type="button"  onclick="location.href='http://localhost:8080/artplanet/Search/Artwork';"
                                class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary" >

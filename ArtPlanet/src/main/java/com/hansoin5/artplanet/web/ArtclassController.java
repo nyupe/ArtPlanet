@@ -139,6 +139,7 @@ public class ArtclassController {
 		int memberNo = Integer.parseInt(memberDAO.getMemberNo(map.get("id").toString()));
 		System.out.println("--아이디로 가져온 회원번호:"+memberNo);
 		
+<<<<<<< HEAD
 		// 서비스 호출전 회원번호를 쿼리문 인자로 넣어줄 map에 넣어주기 
 		map.put("memberNo", memberNo);
 		
@@ -182,6 +183,24 @@ public class ArtclassController {
 	  	// -> Gson 형태로 변환 이때 위에선언한 타입(맵안에 리스트 , 리스트안에 맵)으로 변환
 		gsonMap = gson.fromJson(JSONObject.toJSONString(jsonObj).replace("\\/", "/") 
 				  , new TypeToken<Map<String, List<Map<String, Object>>>>(){}.getType()); 
+=======
+		if (this.artClassDAO.insert(map) == 1) {
+			for (int i = 0; i < gsonMap2.get("schedules").size(); i++) {
+				String[] scheduleStrArr = gsonMap2.get("schedules").get(i).get("schedule").toString().split(" ");
+				map.put("openingDate", scheduleStrArr[0]);
+				map.put("openingTime", scheduleStrArr[1]);
+				System.out.println("classNo:"+map.get("classNo"));
+				this.classOpeningDateDAO.insert(map);
+			}
+			//JSON형태 문자열 자바객체로 변환하기
+			Map<String,List<Map<String,Object>>> gsonMap = new HashMap<String, List<Map<String,Object>>>();
+			
+			Gson gson = new Gson();
+			JSONParser parser = new JSONParser();
+			System.out.println("map.get.img:"+map.get("imgs").toString());
+			Object obj = parser.parse(map.get("imgs").toString());
+			JSONObject jsonObj = (JSONObject) obj;
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			
 		//gson 구조 파악 예시 찍어보기
 		System.out.println("gson 구조 파악 예시 찍어보기:"+gsonMap.get("schedules").get(0).get("schedule"));
