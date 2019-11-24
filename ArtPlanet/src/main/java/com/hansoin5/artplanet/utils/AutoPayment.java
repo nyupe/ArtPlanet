@@ -8,6 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.stereotype.Service;
 
 //셀레니움 라이브러리 사용해보기 
 //@Service
@@ -106,13 +107,20 @@ public class AutoPayment {
 					Thread.sleep(2000); // 2초 쉬고
 					
 					//정기구독결제 버튼들 얻기
-					List<WebElement> subPayButtons = driver.findElements(By.className("")/*클래스명 넣기*/);
-
-					//버튼들 1초시간 두면서 클릭
-					for(WebElement subPayButton : subPayButtons) {
-						subPayButton.click();
-						Thread.sleep(1000); 
-					}//for
+				/*
+				 * Boolean list = wait.until(ExpectedConditions.invisibilityOfElementLocated(By.
+				 * className("mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-success"
+				 * )));
+				 */
+					//List<WebElement> subPayButtons = driver.findElements(By.className("mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-success")/*클래스명 넣기*/);
+					
+					//버튼 한번은 클릭되야함
+					webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"example\"]/tbody/tr[1]/td[9]/button")));
+					webElement.click();
+				/*
+				 * //버튼들 사이여유시간 3초시간 두면서 클릭 for(WebElement subPayButton : subPayButtons) {
+				 * Thread.sleep(3000); subPayButton.click(); Thread.sleep(3000); }//for
+				 */
 					
 				}/////if
 				else if(AutoKind == "project") { // 프로젝트 후원결제인 경우

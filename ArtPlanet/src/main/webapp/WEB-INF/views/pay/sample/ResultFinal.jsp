@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html;charset=euc-kr" pageEncoding="utf-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
+<sec:authentication property="principal.username" var="id" />
  
 <%!
     /* ============================================================================== */
@@ -134,7 +138,7 @@
         /* 테스트시 : "https://testadmin8.kcp.co.kr/assist/bill.BillActionNew.do?cmd=card_bill&tno=" */ 
          function receiptView( tno, ordr_idxx, amount ) 
         {
-            receiptWin = "https://admin8.kcp.co.kr/assist/bill.BillActionNew.do?cmd=card_bill&tno=";
+            receiptWin = "https://testadmin8.kcp.co.kr/assist/bill.BillActionNew.do?cmd=card_bill&tno=";
             receiptWin += tno + "&";
             receiptWin += "order_no=" + ordr_idxx + "&"; 
             receiptWin += "trade_mony=" + amount ;
@@ -184,18 +188,14 @@
          <div class="card-body">
 
             <div id="smartwizard">
-               <ul class="forms-wizard">
-                  <li><a href="#step-1"> <em>1</em><span>주소 정보</span>
+               <ul class="forms-wizard">               
+                  <li><a href="#step-2"> <em>1</em><span>결제 정보</span>
                   </a></li>
-                  <li><a href="#step-2"> <em>2</em><span>결제 정보</span>
-                  </a></li>
-                  <li><a href="#step-3"> <em>3</em><span>완료</span>
+                  <li><a href="#step-3"> <em>2</em><span>완료</span>
                   </a></li>
                </ul>
                <!-- 위자드폼 시작 -->
                <div class="form-wizard-content">
-                  <div id="step-1">                 
-                  </div>
                   <div id="step-2">           
                   </div>
                   <div id="step-3">
@@ -706,7 +706,7 @@
 %>
                     <!-- 매입 요청/처음으로 이미지 버튼 -->
                
-              <button type="button"  onclick="location.href='Home.tiles';"
+              <button type="button"  onclick="location.href='http://localhost:8080/artplanet/Search/Artwork';"
                                class="btn-shadow float-right btn-wide btn-pill mr-3 btn btn-outline-secondary" >
                                              홈으로
 		 					  </button>

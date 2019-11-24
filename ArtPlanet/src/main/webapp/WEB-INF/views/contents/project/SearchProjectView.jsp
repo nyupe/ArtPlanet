@@ -5,8 +5,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<sec:authentication property="principal.username" var="id"/>
+<%-- <sec:authentication property="principal.username" var="id"/> --%>
 
+<sec:authorize access="hasRole('ROLE_USER')">
+	<sec:authentication property="principal.username" var="id"/>
+</sec:authorize>
 
 <style>
 
@@ -206,6 +209,10 @@ width: 40%;
 display: inline;
 }
 
+.project-refund li{
+margin-bottom: 10px;
+}
+
 
 
 
@@ -219,6 +226,10 @@ $(document).ready(function(){
 	//코멘트 입력및 수정처리]
 	$('#commentsubmit').click(function(){
 		
+		if($('.idComment').val() == ""){
+			alert('로그인 해주세요');
+			return;
+		}
 		var action="<c:url value='/Search/Project/Comments'/>";
 		
 		//ajax로 요청]
@@ -243,9 +254,7 @@ $(document).ready(function(){
 		
 	});//#submit
 	
-	
-	
-});
+});//$(document).ready
 	
 	//현재 글번호에 대한 코멘트 목록을 가져오는 함수-Ajax로 처리
 	var showComment= function(){
@@ -282,9 +291,14 @@ $(document).ready(function(){
 				comments+="<h5><a href='#'>"+element['ID']+"</a></h5>"
 				comments+="<p class='date'>"+element['REPLYPOSTDATE']+"</p>"
 				comments+="</div>"
-				comments+="<div class='reply-btn'>"
-				comments+="<a href='#' class='btn-reply text-uppercase'>reply</a>"
+				if('${id}' == element['ID']){
+				comments+="<div class='update-btn' style='cursor:pointer;margin:0px 10px;'>"
+				comments+="<a class='btn-update text-uppercase' name='"+element['REPLYNO']+"'>수정</a>"
 				comments+="</div>"
+				comments+="<div class='delete-btn' style='cursor:pointer'>"
+				comments+="<a class='btn-delete text-uppercase'  name='"+element['REPLYNO']+"'>삭제</a>"
+				comments+="</div>"
+				}
 				comments+="</div>"
 				comments+="</div>"
 				comments+="</div>"
@@ -292,10 +306,29 @@ $(document).ready(function(){
 				comments+="</div>"
 				commentcounts++;
 			})
-			console.log(commentcounts);
+			
 			comments+="</div>"
 			$('.badgecomment').html(commentcounts)
 			$('#projectcomments').html(comments);
+			
+			
+			$('.btn-delete').click(function(){
+				$.ajax({
+					url:'<c:url value="/Search/Project/CommentsDelete"/>',
+					data:{replyNo:$(this).attr('name'),'_csrf':'${_csrf.token}'},
+					type:'post',
+					success:function(){showComment();}
+				})
+			})
+			
+			$('.btn-update').click(function(){
+				$.ajax({
+					url:'<c:url value="/Search/Project/CommentsUpdate"/>',
+					data:{replyNo:$(this).attr('name'),'_csrf':'${_csrf.token}'},
+					type:'post',
+					success:function(){showComment();}
+				})
+			})
 	}
 	
 
@@ -340,8 +373,6 @@ $(document).ready(function(){
 						<div id="promyModal" class="promodal">
 						  <img class="promodal-content" id="proimg01">
 						</div>
-						
-						
 					</article>
 		
 					
@@ -354,7 +385,6 @@ $(document).ready(function(){
 						<li class="nav-item"><a class="nav-link bb" href="#proupdate">Update&nbsp;</a></li>
 						<li class="nav-item"><a class="nav-link bb" href="#prosupporter">Supporter&nbsp;<span class="badge badge-primary" style="">${supportcount }</span></a></li>
 						<li class="nav-item"><a class="nav-link bb" href="#commentlist">Comments&nbsp;<span class="badge badge-primary badgecomment" style=""></span></a></li>
-						
 					</ul>
 					
 					
@@ -365,13 +395,8 @@ $(document).ready(function(){
 					<div >&nbsp;</div>
 					
 					<div class="blog_details" id="campaign">
-						
-					
 						<h2>${record.title }</h2>
-						
 						<p class="excert">${record.content }</p>
-						
-						
 					</div>
 					
 					<div id="proinfo">&nbsp;</div>
@@ -381,12 +406,12 @@ $(document).ready(function(){
 						
 					
 						<h2>프로젝트의 환불 및 교환 정책</h2>
-						<ul style="list-style: inside;">
-						<li>마감일 후에는 즉시 제작에 착수하는 프로젝트 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.</li>
-						<li>리워드 수령 10일 내 동일 증상으로 3번 이상 수리 시, 환불 가능합니다.</li>
-						<li>리워드 수령 10일 이내 제품 하자로 인한 교환/수리 문의는 example@artplanet.com 로 신청 가능합니다.</li>
-						<li>제품 하자가 아닌 서포터님 부주의로 인한 제품 손상은 유상수리해 드립니다.</li>
-						<li>교환/환불/AS 요청자 정보와 서포터 정보의 일치 여부 확인 후, 진행됩니다.</li>
+						<ul class="project-refund" style="list-style: inside;">
+							<li>마감일 후에는 즉시 제작에 착수하는 프로젝트 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.</li>
+							<li>리워드 수령 10일 내 동일 증상으로 3번 이상 수리 시, 환불 가능합니다.</li>
+							<li>리워드 수령 10일 이내 제품 하자로 인한 교환/수리 문의는 example@artplanet.com 로 신청 가능합니다.</li>
+							<li>제품 하자가 아닌 서포터님 부주의로 인한 제품 손상은 유상수리해 드립니다.</li>
+							<li>교환/환불/AS 요청자 정보와 서포터 정보의 일치 여부 확인 후, 진행됩니다.</li>
 						</ul>
 						
 						
@@ -396,14 +421,10 @@ $(document).ready(function(){
 					<div >&nbsp;</div>
 					
 					<div class="blog_details">
-						
-					
 						<h2 style="float: left;">업데이트 소식</h2>&nbsp;<span class="badge badge-primary" style="">4</span>
 						<ul style="clear: both;">
 							<li>프로젝트 공통 -마감일 후에는 즉시 제작에 착수하는 프로젝트 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.</li>
 						</ul>
-						
-						
 					</div>
 					
 					<div id="prosupporter">&nbsp;&nbsp;</div>
@@ -456,14 +477,11 @@ $(document).ready(function(){
 					<div >&nbsp;</div>
 					
 					<!-- 코멘트 목록 시작 -->
-					
 					<div class="comments-area" id="projectcomments">
 						
 						
 					</div>
-				
-				
-				<!-- 코멘트 목록 끝 -->
+					<!-- 코멘트 목록 끝 -->
 				
 				<!-- 댓글 입력 폼  시작-->
 				<div class="comment-form">
@@ -481,19 +499,17 @@ $(document).ready(function(){
 						<input type="hidden" name="projectNo" value="${record.projectNo}" />
 						<input type="hidden" name="replyNo" />
 						<input type="hidden" name="replyPostDate" />
-						<input type="hidden" name="id" value="${id }" /> 
-						<!-- 로그인 연결 안해서 memberNo는 임시로 글등록한 memberNo로 가져와서 등록 중 -->
+						<input type="hidden" class="idComment" name="id" value="${id }" /> 
 						<div class="form-group">
 							<button id="commentsubmit" type="submit" class="button button-contactForm">등록</button>
 						</div>
+						<c:if test="${record.id == id }">
+							<button>수정</button>
+							<button>삭제</button>
+						</c:if>
 					</form>
 				</div>
 				<!-- 댓글 입력 폼  끝-->
-
-					
-
-
-
 					
 				</div>
 			</div>
@@ -548,7 +564,7 @@ $(document).ready(function(){
 													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 													
 													
-													<input type="hidden" name="id" value="${id }" />
+													<input type="hidden" class="idSupport" name="id" value="${id }" />
 													<input type="hidden" name="projectNo" value="${record.projectNo}"/>
 													
 													
@@ -599,8 +615,7 @@ $(document).ready(function(){
 												<form role="form" method="post" action="<c:url value='/Search/Project/projectreward'/>" style="width: 100%">
 													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 													<input type="hidden" name="projectNo" value="${record.projectNo}"/>
-													
-													<input type="text" class="form-control input-mask-trigger" id="supportStep" name="supportStep" 
+													<input type="hidden" class="form-control input-mask-trigger" id="supportStep" name="supportStep" 
 													data-inputmask="'alias': 'numeric','groupSeparator': ',', 'autoGroup': true," placeholder="후원 금액을 입력해주세요" 
 													style="clear:both;margin: 10px 0px;text-align: left;"/>원으로 설정하기
 													
@@ -644,21 +659,21 @@ $(document).ready(function(){
 						</div>
 						
 					</aside>
-
+					
 					<aside class="single_sidebar_widget popular_post_widget" style="border: 1px solid #dadce0; margin: 10px;">
 						<h3 class="widget_title" style="margin-bottom: 20px;border: none;">리워드 선택</h3>
-						<c:forEach items="${rewardList }" var="item">
+						<c:forEach items="${rewardList }" var="item" varStatus="loop">
 						<div class="media post_item">
-							<form style="width: 100%">
+							<form style="width: 100%" >
 								<h3 style="margin-bottom: 20px;">${item.SUPPORTSTEP } <span style="font-size: 16px;"> 원 펀딩</span></h3>
 								<ul class="reward" style="padding-bottom: 20px;margin-bottom: 20px;">
 									<li>${item.REWARDCONTENT }</li>
 								</ul>
 								<c:if test="${record.id == id }" var="deletecheck">
-									<button type="button" class="bb" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">리워드 삭제하기</button>
+									<button type="button"  class="bb rewardDelete${loop.index }" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">리워드 삭제하기</button>
 								</c:if>
 								<c:if test="${not deletecheck}">
-									<button type="button" class="bb" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">선물 선택하고 후원하기</button>
+									<button type="button" class="bb rewardFund" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">선물 선택하고 후원하기</button>
 								</c:if>
 							</form>
 						</div>
@@ -674,6 +689,12 @@ $(document).ready(function(){
 
 
 <script>
+
+$('.rewardDelete').click(function(){
+	if(confirm("삭제하겠습니까?")){
+		
+	}
+})
 
 
 
@@ -696,6 +717,8 @@ span.onclick = function() {
 };
 
 
+
+
 //후원 모달창
 //Get the modal
 var supportmodal = document.getElementById("myModal");
@@ -704,12 +727,24 @@ var supportbtn = document.getElementById("myBtn");
 // Get the <span> element that closes the modal
 var supportspan = document.getElementsByClassName("close")[0];
 // When the user clicks the button, open the modal 
-supportbtn.onclick = function() {
-	if($('#myBtn').html() == '후원하기')
-	supportmodal.style.display = "block";	
-	else
-	rewardmodal.style.display = "block";
-}
+
+
+$('#myBtn').click(function(e){
+	if($('.idSupport').val() == ""){
+		console.log('후원')
+		alert('로그인 해주세요');
+	}
+	else{
+	
+		if($('#myBtn').html() == '후원하기')
+		supportmodal.style.display = "block";	
+		else
+		rewardmodal.style.display = "block";
+		
+	}
+})
+
+	
 // When the user clicks on <span> (x), close the modal
 supportspan.onclick = function() {
 	supportmodal.style.display = "none";
@@ -730,26 +765,6 @@ window.onclick = function(event) {
   }
   
 };
-
-//리워드 등록
-//Get the modal
-
-//Get the button that opens the modal
-
-//Get the <span> element that closes the modal
-
-//When the user clicks the button, open the modal 
-
-//When the user clicks on <span> (x), close the modal
-/* rewardspan.onclick = function() {
-	rewardmodal.style.display = "none";
-} */
-//When the user clicks anywhere outside of the modal, close it
-/* window.onclick = function(event) {
-if (event.target == rewardmodal) {
-	rewardmodal.style.display = "none";
-}
-}; */
 
 
 

@@ -45,6 +45,13 @@ public class ProjectDAO {
 		template.insert("ProjectInsertComment",map);
 	}
 	
+	//프로젝트 코멘트 삭제
+	public void commentDelete(Map map) {
+		template.delete("ProjectDeleteComment",map);
+	}
+	
+	 
+	
 	// 프로젝트 코멘트 리스트
 	public List<Map> selectcomment(Map map){
 		return template.selectList("ProjectSelectListComment",map);

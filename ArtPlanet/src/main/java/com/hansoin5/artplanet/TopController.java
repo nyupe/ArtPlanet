@@ -10,6 +10,8 @@ import java.util.Vector;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -20,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hansoin5.artplanet.service.ProjectDTO;
 import com.hansoin5.artplanet.service.impl.AuthorityDAO;
+import com.hansoin5.artplanet.service.impl.GcsDAO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
 import com.hansoin5.artplanet.service.impl.ProjectDAO;
 import com.hansoin5.artplanet.service.impl.TagRelationDAO;
@@ -28,6 +31,7 @@ import com.hansoin5.artplanet.utils.FileUpDownUtils;
 @Controller
 public class TopController
 {
+
 	// MEMBER 테이블에 접근하는 객체주입
 	@Resource(name="memberDAO")
 	private MemberDAO memberDao;
@@ -39,6 +43,8 @@ public class TopController
 	private ProjectDAO projectDao;
 	@Resource(name ="tagRelationDAO")
 	private TagRelationDAO tagRelationDao;
+
+
 
 	
 	//핸드폰 인증 모듈에서 받은 데이터를 가지고 회원가입 페이지로 이동(post방식)
@@ -126,29 +132,13 @@ public class TopController
 		System.out.println("탑컨트롤러");
 		List<ProjectDTO> list = projectDao.selectlist(map);
 		List<Map> tags  = projectDao.selectTags(map);
-		System.out.println(list.size());
+			
 		/* tagRelationDao. */
 		List<String[]> list2 = new Vector<String[]>();
 		for(int i =0; i<list.size();i++) {
 			String[] strarr = list.get(i).getTagName().split(",");
 			list2.add(strarr);
 		}
-		
-		
-		/*
-		 * for(int j=0;j<list.size();j++) { System.out.println("시작"); for(int
-		 * i=0;i<list2.get(j).length;i++) {
-		 * 
-		 * System.out.println(list2.get(j)[i].toString());
-		 * 
-		 * } System.out.println("끝"); }
-		 */
-		
-		
-		
-		
-		
-		
 		model.addAttribute("list",list);
 		model.addAttribute("tags",tags);
 		model.addAttribute("list2",list2);
@@ -206,5 +196,57 @@ public class TopController
 	 * return "support/member/Register.tiles"; }/////register()
 	 */
 
+/* 2019.11.22 17시 기준 인증모듈 회원가입 요청  막힘
+* //핸드폰 인증 모듈에서 받은 데이터를 가지고 회원가입 페이지로 이동(post방식)
+*
+* @RequestMapping(value ="/AuthRegister", method = RequestMethod.POST, produces
+* = "text/plain; charset:UTF-8") public String authRegister(@RequestParam Map
+* map, Model model ) {
+*
+*
+* System.out.println("컨트롤러에서 찍어보기 : " +map.get("auth_name"));
+* System.out.println("컨트롤러에서 찍어보기 : " +map.get("auth_birth"));
+* System.out.println("컨트롤러에서 찍어보기 : " +map.get("auth_phone"));
+*
+*
+*
+* //Reqeust 영역에 모듈에서 넘어온값 저장 model.addAttribute("auth_name",
+* map.get("auth_name")); model.addAttribute("auth_birth",
+* map.get("auth_birth")); model.addAttribute("auth_phone",
+* map.get("auth_phone"));
+*
+* //회원가입 페이지(Register.jsp)로 이동 return "support/member/Register.tiles";
+* }/////authRegister()
+*/
 
-}/////class
+
+
+// 인증모듈 없이 회원가입 페이지으로 이동
+@RequestMapping(value = "/Register", method = RequestMethod.GET, produces = "text/plain; charset:UTF-8")
+public String register(@RequestParam Map map, Model model)
+{
+
+return "support/member/Register.tiles";
+}///// register()
+
+
+
+
+/*
+* //회원가입 페이지으로 이동
+*
+* @RequestMapping(value = "/Register" , method=RequestMethod.GET, produces =
+* "text/plain; charset:UTF-8") public String register(@RequestParam Map map,
+* Model model ){
+*
+* //찍어보기 //System.out.println("컨트롤러에서 찍어보기 : "+map.get("name"));
+* //System.out.println("컨트롤러에서 찍어보기 : "+map.get("auth_name"));
+*
+* //리퀘스트 영역에 이름 저장 model.addAttribute("name", map.get("name"));
+* model.addAttribute("auth_name", map.get("auth_name"));
+*
+* return "support/member/Register.tiles"; }/////register()
+*/
+
+
+}///// class

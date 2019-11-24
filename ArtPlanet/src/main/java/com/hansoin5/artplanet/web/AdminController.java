@@ -67,7 +67,7 @@ public class AdminController {
 	//메뉴 프로젝트후원-배치키(일회성)
 	@RequestMapping("/AdmUserProjBatch.ad")
 	public String admProjBatch() {
-		return "admin/admBatchKeyForProj";
+		return "admin/admBatchKeyForProj2";
 	}/// /AdmUserProjBatch.ad
 	
 	//메뉴 프로젝트후원-결제내역
@@ -109,7 +109,8 @@ public class AdminController {
 				record.put("card_name",dto.getCard_name());
 				record.put("app_time",dto.getApp_time());
 				record.put("app_no",dto.getApp_no());
-				record.put("memberno",dto.getMemberno());
+				record.put("memberNo",dto.getMemberno());
+				//취소테이블에서 해당레코드 확인용 구분자 리턴 0 아니면 1
 				record.put("isCanceled",cancelDao.cancelButtonShowCount(dto.getTno()));
 				
 				
@@ -135,6 +136,7 @@ public class AdminController {
 		@RequestMapping(value="AdmBatchKeyList.ad",produces = "text/html; charset=UTF-8")
 		@ResponseBody
 		public String admBatchKeyList() {
+			System.out.println("1");
 			//비지니스 로직 호출]
 				Map map = new HashMap();
 				map.put("start",1);
@@ -150,15 +152,18 @@ public class AdminController {
 				*/
 				List<Map> collections = new Vector<Map>();
 				for(RecAuthDTO dto:list) {
+					System.out.println("2");
 					Map record = new HashMap();
 					record.put("ordr_idxx",dto.getOrdr_idxx());
 					record.put("res_cd",dto.getRes_cd());
 					record.put("batch_key",dto.getBatch_key()==null? "인증실패" :dto.getBatch_key());
 					record.put("card_cd",dto.getCard_cd()==null? "인증실패" :dto.getCard_cd());					
 					record.put("buyr_name",dto.getBuyr_name());					
-					record.put("memberno",dto.getMemberNo());
-	
+					record.put("memberNo",dto.getMemberNo());
+					//app_time추가
+					record.put("app_time",dto.getApp_time()==null?"이번달미결제":"\""+dto.getApp_time()+"\"");
 					collections.add(record);
+					
 				}
 				/*
 				 * ※아래 형태로 반환됨
@@ -166,11 +171,32 @@ public class AdminController {
 				 * 
 				 * 
 				 */	
+				System.out.println("3");
 				System.out.println(JSONArray.toJSONString(collections));
-				
 				return JSONArray.toJSONString(collections);
 			}////////////////////AdmUserPayList.ad
 	
+		//정기결제 배치키 데이터에서 결제된건 app_time  AJAX뿌려주기   안씀
+		@RequestMapping(value="AdmAppTimeList.ad",produces = "text/html; charset=UTF-8")
+		@ResponseBody
+		public String admAppTimeList() {
+			Map map = new HashMap();
+			map.put("start",1);
+			map.put("end",10);
+			List<RecAuthDTO> list=recAuthDao.recAuthSelectlist(map);
+			List<Map> collections = new Vector<Map>();
+			for(RecAuthDTO dto:list) {
+				Map record = new HashMap();
+				record.put("app_time",dto.getApp_time()==null?"이번달미결제":"\""+dto.getApp_time()+"\"");
+				collections.add(record);
+				//캐시아님
+				System.out.println("캐시아님");
+			}
+			System.out.println(JSONArray.toJSONString(collections));		
+			return JSONArray.toJSONString(collections);
+		}
+		
+		
 		//정기결제 /AdmBatchPayList.ad 나중에 Recurring Controller에서 여기로 옮길것(완료하였음)
 		//정기결제 데이터 AJAX뿌려주기
 		@RequestMapping(value="/AdmBatchPayList.ad",produces = "text/html; charset=UTF-8")
@@ -204,7 +230,7 @@ public class AdminController {
 					record.put("app_time",dto.getApp_time()==null?"결제실패":dto.getApp_time());
 					record.put("app_no",dto.getApp_no()==null? "결제실패":dto.getApp_no());
 					record.put("res_cd", dto.getRes_cd());
-					record.put("memberno",dto.getMemberNo());
+					record.put("memberNo",dto.getMemberNo());
 
 					collections.add(record);
 				}
@@ -245,8 +271,9 @@ public class AdminController {
 					record.put("batch_key",dto.getBatch_key()==null? "인증실패" :dto.getBatch_key());
 					record.put("card_cd",dto.getCard_cd()==null? "인증실패" :dto.getCard_cd());					
 					record.put("buyr_name",dto.getBuyr_name());					
-					record.put("memberno",dto.getMemberNo());
-	
+					record.put("memberNo",dto.getMemberNo());
+					//app_time추가
+					record.put("app_time",dto.getApp_time()==null?"프로젝트 미결제":"\""+dto.getApp_time()+"\"");
 					collections.add(record);
 				}
 				/*
@@ -292,7 +319,7 @@ public class AdminController {
 					record.put("app_time",dto.getApp_time()==null? "결제실패" :dto.getApp_time());
 					record.put("app_no",dto.getApp_no()==null? "결제실패" :dto.getApp_no());
 					record.put("res_cd", dto.getRes_cd());
-					record.put("memberno",dto.getMemberNo());
+					record.put("memberNo",dto.getMemberNo());
 
 					collections.add(record);
 				}

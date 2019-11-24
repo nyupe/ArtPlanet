@@ -71,12 +71,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM 
 			TAGRELATION tr JOIN TAG t ON tr.tagno = t.tagno WHERE projectNO = #{projectNo} 
 	</select>
-	
+	<!-- 목록에서 카운트 많은 태그 뿌리기 -->
 	<select id="SelectTags" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT q.*,t.tagname 
     		FROM (SELECT p.*,ROWNUM r FROM (SELECT tagno,COUNT(*) FROM TAGRELATION GROUP BY tagno ORDER BY COUNT(*) DESC ) p ) q 
         		JOIN TAG t ON q.tagno = t.tagno WHERE r BETWEEN 1 AND 5
 	</select>
+	<!-- 댓글 삭제 -->
+	<delete id="ProjectDeleteComment" parameterType="java.util.Map">
+		DELETE REPLY WHERE REPLYNO = #{replyNo}
+	</delete>
 	
 	
 	

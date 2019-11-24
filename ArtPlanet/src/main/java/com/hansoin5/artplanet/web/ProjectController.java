@@ -10,6 +10,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -85,7 +86,8 @@ public class ProjectController{
 	public String commentajax(@RequestParam Map map,Authentication auth) {
 		System.out.println("코멘트입력폼 컨트롤러 들어옴");
 		
-		/* map.put("id", ((UserDetails)auth.getPrincipal()).getUsername()); */
+		//스프링 시큐리티 이용할 때 아이디 값 가져오는 코드
+		map.put("id", ((UserDetails)auth.getPrincipal()).getUsername());
 		System.out.println("쿼리 시작");
 		String memberNo = memberDAO.getMemberNo(map.get("id").toString());
 		map.put("memberNo", memberNo);
@@ -93,6 +95,23 @@ public class ProjectController{
 		System.out.println("쿼리 적용 됨");
 		return map.get("projectNo").toString();
 	}
+	
+	//댓글 삭제
+	@ResponseBody
+	@RequestMapping(value = "/Search/Project/CommentsDelete",produces ="text/html; charset=UTF-8")
+	public String commentajaxDelete(@RequestParam Map map) {
+		projectDao.commentDelete(map);
+		return null;
+	}
+	
+	//댓글 수정
+	@ResponseBody
+	@RequestMapping(value = "/Search/Project/CommentsUpdate",produces ="text/html; charset=UTF-8")
+	public String commentajaxUpdate(@RequestParam Map map) {
+		
+		return null;
+	}
+	
 	
 	
 	//프로젝트 작성

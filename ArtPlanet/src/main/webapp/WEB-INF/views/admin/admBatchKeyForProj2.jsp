@@ -9,16 +9,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 
 <head>
-    <title>Art Planet - 관리자 </title>
+    <title>Art Planet - 관리자</title>
     <meta http-equiv="X-UA-Compatible" content="text/html;charset=utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
   <link
    href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
-    <script type="text/javascript">
+      <script type="text/javascript">
    
     //결제관련
+    
+        console.log("들어가긴하냐");
         function  jsf__pay( form )
         {
             if ( jsf__chk( form ) == true )
@@ -45,24 +47,12 @@
             }
         }
         //결제관련끝
-        
-        
+    
+    //배치키 전체리스트
     $(function(){
-    	//app_time 하나만 따로 받는 Ajax 
-		/* $.ajax({
-			url:"<c:url value='AdmAppTimeList.ad'/>",
-			dataType:'json',
-			success:function(data){successAjax2(data,'list2');},
-			error:function(request,error){
-				console.log('app_time 상태코드:',request.status);
-				console.log('서버로부터 받은 HTML app_time 데이타:',request.responseText);
-				console.log('app_time 에러:',error);
-			}
-		});	  */
-    	
-    	//배치키 전체리스트
+		
 		$.ajax({
-			url:"<c:url value='AdmBatchKeyList.ad'/>",
+			url:"<c:url value='/AdmBatchKeyForProjList.ad'/>",
 			dataType:'json',
 			success:function(data){successAjax(data,'list');},
 			error:function(request,error){
@@ -71,51 +61,32 @@
 				console.log('에러:',error);
 			}
 		});	
-	
+		
 		//주문번호 생성 진입점에 넣음
 		init_orderid();
 		
     });	///////////////
 		
-		var successAjax = function(data,id){
-			console.log('서버로 부터 받은 배치키 데이타:',data);
-			var tableString="<table style='width: 100%;' id='example' class='table table-hover table-striped table-bordered'>";
-            tableString += "<thead><tr><th>번호</th><th>아이디</th><th>주문번호</th><th>응답코드</th><th>카드코드</th><th>주문자명</th><th>배치키</th><th>금액</th><th>결제하기</th><th>최근결제일자</th></tr></thead>";
-            tableString += "<tbody>";
-            $.each(data,function(index,element){
-					tableString+="<tr>";					
-					tableString+="<td>"+(index+1)+"</td><td>"+element['id']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['res_cd']+
-					"</td><td>"+element['card_cd']+"</td><td>"+element['buyr_name']+"</td><td>"+element['batch_key']+"</td><td>"+20000+"</td>";			
-					if(element['res_cd']!=0000)
-						tableString+="<td><button type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-danger' data-toggle='modal' data-target='#exampleModal'>배치키재발급요망</button></td>";
-					else if(element['app_time'].substr(4,2)==new Date().getMonth()+ 1)
-						tableString+="<td><button type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-info' data-toggle='modal' data-target='#exampleModal'>"+element['app_time'].substr(4,2)+"월 정기결제완료</button></td>";
-					else 	
-						tableString+="<td><button type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-success' data-toggle='modal' data-target='#exampleModal' onclick='payTrigger(this)'>결제대기</button></td>";
-					tableString+="<td>"+element['app_time']+"</td></tr>";
-				});
-            tableString+="</tbody><tfoot><tr></th></tr></tfoot></table>";		    
-			    $('#'+id).html(tableString);
-			};
+    var successAjax = function(data,id){
+		console.log('서버로 부터 받은 배치키 데이타:',data);
+		var tableString="<table style='width: 100%;' id='example' class='table table-hover table-striped table-bordered'>";
+        tableString += "<thead><tr><th>번호</th><th>아이디</th><th>주문번호</th><th>응답코드</th><th>카드코드</th><th>주문자명</th><th>배치키</th><th>금액</th><th>결제하기</th><th>최근결제일자</th></tr></thead>";
+        tableString += "<tbody>";
+        $.each(data,function(index,element){
+				tableString+="<tr>";					
+				tableString+="<td>"+(index+1)+"</td><td>"+element['memberNo']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['res_cd']+
+				"</td><td>"+element['card_cd']+"</td><td>"+element['buyr_name']+"</td><td>"+element['batch_key']+"</td><td>"+20000+"</td>";			
+				if(element['res_cd']!=0000)
+					tableString+="<td><button type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-danger' data-toggle='modal' data-target='#exampleModal'>배치키재발급요망</button></td>";
+				else 	
+					tableString+="<td><button type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-success' data-toggle='modal' data-target='#exampleModal' onclick='payTrigger(this)'>결제대기</button></td>";
+				tableString+="<td>"+element['app_time']+"</td></tr>";
+			});
+        tableString+="</tbody><tfoot><tr></th></tr></tfoot></table>";		    
+		    $('#'+id).html(tableString);
+		};
 	
-			//성공시 Ajax2 
-		 	/* var appTimeArray = new Array(); //승인시간 담을 배열 선언
-		 	
-			var successAjax2 = function(data,id){
-				 $.each(data,function(index,element){
-					 for(var i=0; i<appTimeArray.length ; i++){
-						 appTimeArray[i] = element['app_time'];
-					 c	onsole.log('재한이에이작스', appTimeArray[i]);
-					 }
-				 });
-			};  */
-			
-		
-		
-			
-		
-			
-			 // 주문번호 생성 예제
+		 // 주문번호 생성 예제
 		 var init_orderid =   function(){
 		        var today = new Date();
 		        var year  = today.getFullYear();
@@ -131,27 +102,25 @@
 		        }
 
 		        var vOrderID = year + "" + month + "" + date + "" + hours + "" + second + "" + time;
-
+		        
 		        document.forms[0].ordr_idxx.value = vOrderID;
 		    
 		    }
-
+		 
 		//결제 트리거
-		function payTrigger(el)
-		{
-			console.log('페이트리거 안입니다')
-			$('#good_mny').val($(el).parent().prev().html());
-			$('#batch_key').val($(el).parent().prev().prev().html());
-			$('#pay').trigger('click');
-	
-			//document.form_order.submit();
+			function payTrigger(el)
+			{
+				console.log('페이트리거 안입니다')
+				$('#good_mny').val($(el).parent().prev().html());
+				$('#batch_key').val($(el).parent().prev().prev().html());
+				$('#pay').trigger('click');
 		
-		}	
-		
-		
+				//document.form_order.submit();
+			
+			}	
 	</script>
 </head>
-<body onload="init_orderid()" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+<body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
 	<!-- 케로 관리자UI -->
    	<div class="app-container app-theme-gray">
 		  <div class="app-main">
@@ -201,7 +170,7 @@
                                     </a>
                                     
                                     <ul>          
-                                     	<li><a href="<c:url value='/AdmUserPay.ad'/>">[ARTCLASS]일반결제</a></li>
+                                		<li><a href="<c:url value='/AdmUserPay.ad'/>">[ARTCLASS]일반결제</a></li>
                                      	<hr style="background-color:gray;height:1px; width:220px" />
                                      	<li><a href="<c:url value='/AdmUserBatch.ad'/>">[BLOG]정기결제-배치키</a></li>
                                         <li><a href="<c:url value='/RecurringPayOrder.do'/>">[BLOG]정기결제-관리자결제</a></li>
@@ -243,9 +212,9 @@
                <div class="app-main__outer">
                 	<div class="app-header">
                         <div class="page-title-heading">
-                            정기과금 관리
+                            프로젝트 (1회성) 관리
                             <div class="page-title-subheading">
-                                정기과금관리 페이지입니다.
+                                프로젝트 (1회성)관리 페이지입니다.
                             </div>
                         </div>
              
@@ -266,10 +235,10 @@
                                                     <div class="card-body">
                                                     
                                                     	 <div id=list></div>
-                          
-                          <!-- 폼 시작  -->
+                                                    
+                                                       <!-- 폼 시작  -->
                           <div style="display: none">
-                          <form name="form_order" method="post" action="RecurringPayHub.do">          
+                          <form name="form_order" method="post" action="<c:url value='/ProjectPayHub.do'/>">          
                                    <!-- PG사로 폼값 포스트로 전송하기 -->
                                     <div class="form-row">
                                        <div class="col-md-6">
@@ -364,12 +333,10 @@
 							        
 							        <!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
-                                		 <!-- 스프링시큐리티에서 내려주는 아이디사용 -->
-       							    <input type="hidden" name="id"              value="<c:out value='${id}'/>"/>
                                  </form>
                                  </div>
                                  <!-- 폼끝 -->
-                                                    	
+                                                    
                                                     </div><!-- 카드바디 -->
                                                 </div>
                                             </div><!-- 다이브12 -->
@@ -391,7 +358,6 @@
     
     <!-- javascript -->
  	<script type="text/javascript" src="<c:url value='/resources/kero/assets/scripts/main.07a59de7b920cd76b874.js'/>"></script>
- 
  	
 	
 </body>

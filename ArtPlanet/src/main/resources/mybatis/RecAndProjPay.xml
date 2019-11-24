@@ -15,11 +15,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			INSERT INTO RECPAY(TNO, ORDR_IDXX, GOOD_MNY, GOOD_NAME, BUYR_NAME, BUYR_TEL1, BUYR_TEL2, BUYR_MAIL, 
 			CARD_NAME, APP_TIME, APP_NO, RES_CD, MEMBERNO)
 			VALUES(#{tno}, #{ordr_idxx}, #{good_mny}, #{good_name}, #{buyr_name}, #{buyr_tel1}, #{buyr_tel2}, 
-			#{buyr_mail}, #{card_name}, #{app_time}, #{app_no}, #{res_cd}, SEQ_MEMBER.NEXTVAL)
+			#{buyr_mail}, #{card_name}, #{app_time}, #{app_no}, #{res_cd}, #{memberNo})
 	</insert>
 	
 	<select id="recPaySelectlist" parameterType="java.util.Map" resultType="RecPayDTO">
-		SELECT * FROM RECPAY
+		SELECT * FROM RECPAY ORDER BY APP_TIME DESC
 	</select>
 	
 	<!-- 프로젝트1회성 결제정보 CRUD 쿼리문  -->
@@ -29,11 +29,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			INSERT INTO PROJPAY(TNO, ORDR_IDXX, GOOD_MNY, GOOD_NAME, BUYR_NAME, BUYR_TEL1, BUYR_TEL2, BUYR_MAIL, 
 			CARD_NAME, APP_TIME, APP_NO, RES_CD, MEMBERNO)
 			VALUES(#{tno}, #{ordr_idxx}, #{good_mny}, #{good_name}, #{buyr_name}, #{buyr_tel1}, #{buyr_tel2}, 
-			#{buyr_mail}, #{card_name}, #{app_time}, #{app_no}, #{res_cd}, SEQ_MEMBER.NEXTVAL)
+			#{buyr_mail}, #{card_name}, #{app_time}, #{app_no}, #{res_cd}, #{memberNo})
 	</insert>
 	
 	<select id="projPaySelectlist" parameterType="java.util.Map" resultType="RecPayDTO">
-		SELECT * FROM PROJPAY
+		SELECT * FROM PROJPAY ORDER BY APP_TIME ASC
 	</select>
 	
 	

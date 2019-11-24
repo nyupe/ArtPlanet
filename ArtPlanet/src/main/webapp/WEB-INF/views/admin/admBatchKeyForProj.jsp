@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
+<sec:authentication property="principal.username" var="id" />
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -163,54 +167,7 @@
                                                     <div class="card-body">
                                                     
                                                     	 <div id=list></div>
-                                                    	 <!-- 
-                                                        <table style="width: 100%;" id="example"
-                                                               class="table table-hover table-striped table-bordered">
-                                                            <thead>
-                                                            <tr>
-                                                            	<th>번호</th>
-                                                                <th>아이디</th>
-                                                                <th>주문번호</th>
-                                                                <th>주문자명</th>
-                                                                <th>카드코드</th>
-                                                                <th>배치키</th>
-                                                                <th>결제시도일</th>
-                                                                <th>카드사응답</th>
-                            
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                            	<td>1</td>
-                                                            	<td>KIM</td>
-                                                                <td>20191010</td>
-                                                                <td>김길동</td>
-                                                                <td>CCLG</td>
-                                                                <td>19102911457819EA</td>                                            
-                                                                <td>2019/04/25</td>
-                                                                <td>
-                                                   					<button type="button" class="badge badge-pill badge-success" data-toggle="modal" data-target="#exampleModal">
-                                                          			 성공
-                                                    			    </button>
-                                                    			</td>
-                                                            </tr>
-                                                   
-                                                            </tbody>
-                                                            <tfoot>
-                                                            <tr>
-                                                            	<th>No</th>
-                                                            	<th>ID</th>
-                                                            	<th>ordr_idxx</th>
-                                                                <th>buyr_name</th>
-                                                                <th>card_cd</th>
-                                                                <th>batch_key</th>
-                                                                <th>date</th>
-                                                                <th>sucFail</th>
-                                                              
-                                                            </tr>
-                                                            </tfoot>
-                                                        </table>
-                                                         -->
+                                                    	
                                                     </div><!-- 카드바디 -->
                                                 </div>
                                             </div><!-- 다이브12 -->

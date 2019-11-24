@@ -105,6 +105,7 @@ public class ArtclassController {
 			}
 			//JSON형태 문자열 자바객체로 변환하기
 			Map<String,List<Map<String,Object>>> gsonMap = new HashMap<String, List<Map<String,Object>>>();
+			
 			Gson gson = new Gson();
 			JSONParser parser = new JSONParser();
 			System.out.println("map.get.img:"+map.get("imgs").toString());
