@@ -28,7 +28,8 @@ public class GcsDAO
 	/* 프로젝트 작성폼 업로드 이미지 등록 */
 	public int projectUploadImage(Map map) {
 		return template.insert("project-uploadImage",map);
-	}
+	}/////
+	
 	public List<GcsDTO> getListByClassNo(String classNo)
 	{
 		return template.selectList("getListByClassNo",classNo);
@@ -41,6 +42,7 @@ public class GcsDAO
 	{
 		return template.update("updateBlogNo", map);
 	}
+	
 	public int updateClassNo(Map map)
 	{
 		return template.update("updateClassNo", map);

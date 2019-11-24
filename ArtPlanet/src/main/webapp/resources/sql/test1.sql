@@ -3,18 +3,15 @@
 
 DROP TABLE CLASSOPENINGDATE CASCADE CONSTRAINTS;
 DROP TABLE CLASSRESERVATION CASCADE CONSTRAINTS;
+DROP TABLE GCS CASCADE CONSTRAINTS;
 DROP TABLE ARTCLASS CASCADE CONSTRAINTS;
-DROP TABLE ATTACHFILE CASCADE CONSTRAINTS;
-DROP TABLE ATTACHIMAGE CASCADE CONSTRAINTS;
 DROP TABLE AUTH_SECURITY CASCADE CONSTRAINTS;
-DROP TABLE KATEGORIE_RELATION CASCADE CONSTRAINTS;
+DROP TABLE REPLY CASCADE CONSTRAINTS;
 DROP TABLE TAGRELATION CASCADE CONSTRAINTS;
 DROP TABLE BLOGPOST CASCADE CONSTRAINTS;
 DROP TABLE CANCEL CASCADE CONSTRAINTS;
-DROP TABLE COMMENT CASCADE CONSTRAINTS;
-DROP TABLE HASHTAG CASCADE CONSTRAINTS;
-DROP TABLE KATEGORIE CASCADE CONSTRAINTS;
 DROP TABLE Pay CASCADE CONSTRAINTS;
+DROP TABLE PROJAUTH CASCADE CONSTRAINTS;
 DROP TABLE PROJECTREWARD CASCADE CONSTRAINTS;
 DROP TABLE PROJECTSUPPORT CASCADE CONSTRAINTS;
 DROP TABLE PROJECT CASCADE CONSTRAINTS;
@@ -23,23 +20,62 @@ DROP TABLE RECAUTH CASCADE CONSTRAINTS;
 DROP TABLE RECPAY CASCADE CONSTRAINTS;
 DROP TABLE SUBSCRIBE CASCADE CONSTRAINTS;
 DROP TABLE MEMBER CASCADE CONSTRAINTS;
+DROP TABLE TAG CASCADE CONSTRAINTS;
 
 
 
 /* Drop Sequences */
 
+DROP SEQUENCE SEQ_ARTCLASS_classNo;
+DROP SEQUENCE SEQ_ATTACHFILE_attachfileNo;
+DROP SEQUENCE SEQ_ATTACHIMAGE_imageNo;
 DROP SEQUENCE SEQ_AUTH_SECURITY_authorityNo;
+DROP SEQUENCE SEQ_BLOGPOST_blogNo;
+DROP SEQUENCE SEQ_CATEGORIE_categorieNo;
+DROP SEQUENCE SEQ_CLASSOPENINGDATE_DateNo;
+DROP SEQUENCE SEQ_CLASSRESERVATION_classReservationNo;
+DROP SEQUENCE SEQ_GCS_fileNo;
+DROP SEQUENCE SEQ_HASHTAG_tagNo;
 DROP SEQUENCE SEQ_MEMBER_memberNo;
-DROP SEQUENCE SEQ_QNA_QNANO;
+DROP SEQUENCE SEQ_PROJECTREWARD_projectRewardNo;
+DROP SEQUENCE SEQ_PROJECTSUPPORT_projectSupportNo;
+DROP SEQUENCE SEQ_PROJECT_projectNo;
+DROP SEQUENCE SEQ_QNA_qnaNo;
+DROP SEQUENCE SEQ_REPLY_replyNo;
+DROP SEQUENCE SEQ_STORAGE_fileNo;
+DROP SEQUENCE SEQ_SUBSCRIBE_subscribeNo;
+DROP SEQUENCE SEQ_TAG_tagNo;
 
 
 
 
 /* Create Sequences */
 
-CREATE SEQUENCE SEQ_AUTH_SECURITY_authorityNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_MEMBER_memberNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_QNA_QNANO INCREMENT BY 1 START WITH 1;
+ -- 아트 클래스 테이블 PK 
+CREATE SEQUENCE SEQ_ARTCLASS_classNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_ATTACHFILE_attachfileNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_ATTACHIMAGE_imageNo INCREMENT BY 1 START WITH 1;
+-- 권한테이블 PK
+CREATE SEQUENCE SEQ_AUTH_SECURITY_authorityNo INCREMENT BY 1 START WITH 1; 
+CREATE SEQUENCE SEQ_BLOGPOST_blogNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_CATEGORIE_categorieNo INCREMENT BY 1 START WITH 1; 
+-- 아트클래스 개설날짜정보 테이블  PK
+CREATE SEQUENCE SEQ_CLASSOPENINGDATE_DateNo INCREMENT BY 1 START WITH 1; 
+-- 아트클래스예약정보 테이블 PK
+CREATE SEQUENCE SEQ_CLASSRESERVATION_classReservationNo INCREMENT BY 1 START WITH 1; 
+-- 구글 클라우드 스토리지 테이블 PK
+CREATE SEQUENCE SEQ_GCS_fileNo INCREMENT BY 1 START WITH 1; 
+CREATE SEQUENCE SEQ_HASHTAG_tagNo INCREMENT BY 1 START WITH 1;
+-- 회원 테이블 PK
+CREATE SEQUENCE SEQ_MEMBER_memberNo INCREMENT BY 1 START WITH 1; 
+CREATE SEQUENCE SEQ_PROJECTREWARD_projectRewardNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_PROJECTSUPPORT_projectSupportNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_PROJECT_projectNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_QNA_qnaNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_REPLY_replyNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_STORAGE_fileNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_SUBSCRIBE_subscribeNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_TAG_tagNo INCREMENT BY 1 START WITH 1;
 
 
 
@@ -51,54 +87,26 @@ CREATE TABLE ARTCLASS
 	-- 클래스 글번호
 	classNo number NOT NULL,
 	-- 글제목
-	title nvarchar2(30) NOT NULL,
+	title nvarchar2(30),
 	-- 글내용
-	content nvarchar2(2000) NOT NULL,
-	-- 작성일
-	QNAPOSTDATE date DEFAULT SYSDATE,
+	content nvarchar2(2000),
 	-- 인원수
-	numberOfPeople number NOT NULL,
+	numberOfPeople number,
 	-- 수강료
-	tuitionFee number NOT NULL,
+	tuitionFee number,
 	-- 주소
-	classAddress nvarchar2(50) NOT NULL,
+	classAddress nvarchar2(50),
+	-- 상세주소
+	detailedAddr nvarchar2(100),
+	-- 난이도
+	classLevel nvarchar2(10),
+	-- 소요시간
+	timeRequired nvarchar2(20),
+	-- 카테고리
+	categorie nvarchar2(30),
 	-- 회원번호
 	memberNo number NOT NULL,
-	-- 카테고리번호
-	kategorieNo number NOT NULL,
 	PRIMARY KEY (classNo)
-);
-
-
--- 첨부파일
-CREATE TABLE ATTACHFILE
-(
-	-- 첨부파일번호
-	attachfileNo number NOT NULL,
-	-- 오리지날 파일명
-	originalFileName nvarchar2(30) NOT NULL,
-	-- 서버 파일명
-	serverFileName nvarchar2(30) NOT NULL,
-	-- 파일크기
-	fileSize number NOT NULL,
-	-- 글번호
-	QNANO number NOT NULL,
-	PRIMARY KEY (attachfileNo)
-);
-
-
--- 내용첨부이미지
-CREATE TABLE ATTACHIMAGE
-(
-	-- 이미지번호
-	imageNo number NOT NULL,
-	-- 이미지 오리지날 파일명
-	imageOriginalFileName nvarchar2(30) NOT NULL,
-	-- 이미지 서버 파일명
-	imageServerFileName nvarchar2(30) NOT NULL,
-	-- 글번호
-	QNANO number NOT NULL,
-	PRIMARY KEY (imageNo)
 );
 
 
@@ -108,11 +116,11 @@ CREATE TABLE AUTH_SECURITY
 	-- 권한번호
 	authorityNo number NOT NULL,
 	-- 권한명
-	authority nvarchar2(20) DEFAULT 'ROLE_USER' NOT NULL,
+	authority nvarchar2(20) DEFAULT 'ROLE_USER',
 	-- 회원번호
 	memberNo number NOT NULL,
 	-- 회원 활동승인여부
-	enabled number DEFAULT 1 NOT NULL,
+	enabled number DEFAULT 1,
 	-- 아이디
 	id nvarchar2(50) NOT NULL UNIQUE,
 	PRIMARY KEY (authorityNo)
@@ -123,18 +131,22 @@ CREATE TABLE AUTH_SECURITY
 CREATE TABLE BLOGPOST
 (
 	-- 글번호
-	QNANO number NOT NULL,
+	blogNo number NOT NULL,
 	-- 글제목
-	title nvarchar2(30) NOT NULL,
+	title nvarchar2(30),
 	-- 글내용
-	content nvarchar2(2000) NOT NULL,
+	content nvarchar2(2000),
 	-- 작성일
 	postDate date DEFAULT SYSDATE,
 	-- 조회수
 	viewCount number DEFAULT 0,
+	-- 카테고리
+	Categorie nvarchar2(30),
+	-- 열람권한
+	accessRight number(5),
 	-- 회원번호
 	memberNo number NOT NULL,
-	PRIMARY KEY (QNANO)
+	PRIMARY KEY (blogNo)
 );
 
 
@@ -157,28 +169,26 @@ CREATE TABLE CANCEL
 CREATE TABLE CLASSOPENINGDATE
 (
 	-- 날짜정보 번호
-	classOpeningDateNo number NOT NULL,
+	DateNo number NOT NULL,
 	-- 개설날짜
-	openingDate date NOT NULL,
-	-- 클래스 글번호
-	classNo number NOT NULL,
+	openingDate date,
 	-- 개설시각
 	openingTime date,
-	-- 종료시각
-	closingTime date,
-	PRIMARY KEY (classOpeningDateNo)
+	-- 클래스 글번호
+	classNo number NOT NULL,
+	PRIMARY KEY (DateNo)
 );
 
 
--- 클래스예약정보
+-- 아트 클래스예약정보
 CREATE TABLE CLASSRESERVATION
 (
 	-- 예약정보번호
 	classReservationNo number NOT NULL,
 	-- 수강날짜
-	signupDate date NOT NULL,
+	signupDate date,
 	-- 수강시간
-	signupTime date NOT NULL,
+	signupTime date,
 	-- 회원번호
 	memberNo number NOT NULL,
 	-- 클래스 글번호
@@ -187,52 +197,28 @@ CREATE TABLE CLASSRESERVATION
 );
 
 
--- 댓글
-CREATE TABLE COMMENT
+-- 구글 클라우드 스토리지
+CREATE TABLE GCS
 (
-	-- 댓글번호
-	CommentNo number NOT NULL,
-	-- 댓글내용
-	commentContent nvarchar2(200) NOT NULL,
-	-- 댓글 작성일
-	commentPostDate date DEFAULT SYSDATE,
-	-- 회원번호
-	memberNo number NOT NULL,
-	PRIMARY KEY (CommentNo)
-);
-
-
--- 해시태그
-CREATE TABLE HASHTAG
-(
-	-- 태그번호
-	tagNo number NOT NULL,
-	-- 태그명
-	tagName nvarchar2(20) NOT NULL,
-	PRIMARY KEY (tagNo)
-);
-
-
--- 카테고리
-CREATE TABLE KATEGORIE
-(
-	-- 카테고리번호
-	kategorieNo number NOT NULL,
-	-- 카테고리명
-	kategorieName nvarchar2(15) NOT NULL,
-	PRIMARY KEY (kategorieNo)
-);
-
-
--- 카테고리 관계
-CREATE TABLE KATEGORIE_RELATION
-(
-	-- 회원번호
-	memberNo number NOT NULL,
-	-- 카테고리번호
-	kategorieNo number NOT NULL,
+	-- 파일번호
+	fileNo number NOT NULL,
+	-- 오리지날 파일명
+	fileName nvarchar2(200) NOT NULL,
+	-- 스토리지 파일주소
+	fileUrl nvarchar2(500) NOT NULL,
+	-- 파일 다운로드 주소
+	downloadUrl nvarchar2(500) NOT NULL,
+	-- 파일크기
+	fileSize number NOT NULL,
 	-- 글번호
-	QNANO number NOT NULL
+	blogNo number,
+	-- 프로젝트 글번호
+	projectNo number,
+	-- 클래스 글번호
+	classNo number,
+	-- 회원번호
+	memberNo number,
+	PRIMARY KEY (fileNo)
 );
 
 
@@ -242,25 +228,25 @@ CREATE TABLE MEMBER
 	-- 회원번호
 	memberNo number NOT NULL,
 	-- 아이디
-	id nvarchar2(50) NOT NULL UNIQUE,
+	id nvarchar2(50) UNIQUE,
 	-- 비밀번호
-	password nvarchar2(15) NOT NULL,
+	password nvarchar2(15),
 	-- 별명
-	nickName nvarchar2(10) NOT NULL,
+	nickName nvarchar2(10),
 	-- 이름
-	name nvarchar2(10) NOT NULL,
+	name nvarchar2(10),
 	-- 핸드폰번호
-	phoneNumber nvarchar2(13) NOT NULL,
+	phoneNumber nvarchar2(13),
 	-- 주소
-	address nvarchar2(30) NOT NULL,
+	address nvarchar2(30),
 	-- 가입일
-	membershipDate date DEFAULT SYSDATE NOT NULL,
+	membershipDate date DEFAULT SYSDATE,
 	-- 생년월일
 	birth nvarchar2(11),
 	-- 프로필사진_서버파일명
 	profilePicture varchar2(500),
 	-- 대문사진_서버파일명
-	mainPicture varchar2(50),
+	mainPicture varchar2(500),
 	-- 소개글
 	introContent nvarchar2(100),
 	-- 구독료
@@ -277,7 +263,7 @@ CREATE TABLE Pay
 	-- 주문번호
 	ordr_idxx nvarchar2(40) NOT NULL,
 	-- 결제금액
-	amount number,
+	good_mny number,
 	-- 상품명
 	good_name nvarchar2(20),
 	-- 주문자명
@@ -300,21 +286,40 @@ CREATE TABLE Pay
 );
 
 
+-- 프로젝트인증 테이블
+CREATE TABLE PROJAUTH
+(
+	-- 주문번호
+	ordr_idxx nvarchar2(50) NOT NULL,
+	-- 인증응답코드
+	res_cd nvarchar2(20),
+	-- 배치키
+	batch_key nvarchar2(20),
+	-- 카드코드
+	card_cd nvarchar2(10),
+	-- 주문자명
+	buyr_name nvarchar2(30),
+	-- 회원번호
+	memberNo number NOT NULL,
+	PRIMARY KEY (ordr_idxx)
+);
+
+
 -- 프로젝트
 CREATE TABLE PROJECT
 (
 	-- 프로젝트 글번호
 	projectNo number NOT NULL,
 	-- 글제목
-	QNATITLE nvarchar2(100) NOT NULL,
+	title nvarchar2(30),
 	-- 글내용
-	QNACONTENT nvarchar2(2000) NOT NULL,
+	content nvarchar2(2000),
 	-- 작성일
 	postDate date DEFAULT SYSDATE,
 	-- 마감일
-	deadline date NOT NULL,
+	deadline date,
 	-- 목표액수
-	targetFigure number NOT NULL,
+	targetFigure number,
 	-- 회원번호
 	memberNo number NOT NULL,
 	PRIMARY KEY (projectNo)
@@ -326,12 +331,12 @@ CREATE TABLE PROJECTREWARD
 (
 	-- 프로젝트보상정보 번호
 	projectRewardNo number NOT NULL,
-	-- 프로젝트 글번호
-	projectNo number NOT NULL,
 	-- 보상내용
-	rewardContent nvarchar2(2000) NOT NULL,
+	rewardContent nvarchar2(2000),
 	-- 후원액수단계
-	supportStep number NOT NULL,
+	supportStep number,
+	-- 프로젝트 글번호
+	projectNo number,
 	PRIMARY KEY (projectRewardNo)
 );
 
@@ -339,12 +344,12 @@ CREATE TABLE PROJECTREWARD
 -- 프로젝트후원정보
 CREATE TABLE PROJECTSUPPORT
 (
-	-- 프로젝트후원정보
+	-- 프로젝트후원번호
 	projectSupportNo number NOT NULL,
 	-- 후원액수
-	projectSupportSum number NOT NULL,
+	projectSupportSum number,
 	-- 후원일
-	projectSupportDate date NOT NULL,
+	projectSupportDate date,
 	-- 회원번호
 	memberNo number NOT NULL,
 	-- 프로젝트 글번호
@@ -353,24 +358,24 @@ CREATE TABLE PROJECTSUPPORT
 );
 
 
--- QNA게시판
+-- QNA 게시판
 CREATE TABLE QNA
 (
 	-- 글번호
-	QNANO number NOT NULL,
+	qnaNo number NOT NULL,
 	-- 글제목
-	QNATITLE nvarchar2(100) NOT NULL,
+	qnaTitle nvarchar2(100) NOT NULL,
 	-- 글내용
-	QNACONTENT nvarchar2(2000) NOT NULL,
+	qnaContent nvarchar2(2000) NOT NULL,
 	-- 작성일
-	QNAPOSTDATE date DEFAULT SYSDATE,
+	qnaPostdate date DEFAULT SYSDATE,
 	-- 답변여부
-	QNACHECKED number DEFAULT 0 NOT NULL,
+	qnaChecked number(10) DEFAULT 0 NOT NULL,
 	-- 카테고리
-	QNACATEGORY nvarchar2(50) NOT NULL,
+	qnaCategory nvarchar2(50) NOT NULL,
 	-- 회원번호
 	memberNo number NOT NULL,
-	PRIMARY KEY (QNANO)
+	PRIMARY KEY (qnaNo)
 );
 
 
@@ -401,7 +406,7 @@ CREATE TABLE RECPAY
 	-- 주문번호
 	ordr_idxx nvarchar2(40) NOT NULL,
 	-- 결제금액
-	amount number,
+	good_mny number,
 	-- 상품명
 	good_name nvarchar2(20),
 	-- 주문자명
@@ -422,9 +427,26 @@ CREATE TABLE RECPAY
 	res_cd nvarchar2(10),
 	-- 회원번호
 	memberNo number NOT NULL,
-	-- 배치키
-	batch_key nvarchar2(20),
 	PRIMARY KEY (ordr_idxx)
+);
+
+
+-- 댓글
+CREATE TABLE REPLY
+(
+	-- 댓글번호
+	replyNo number NOT NULL,
+	-- 댓글내용
+	replyContent nvarchar2(200),
+	-- 댓글 작성일
+	replyPostDate date DEFAULT SYSDATE,
+	-- 회원번호
+	memberNo number NOT NULL,
+	-- 글번호
+	blogNo number,
+	-- 프로젝트 글번호
+	projectNo number,
+	PRIMARY KEY (replyNo)
 );
 
 
@@ -443,13 +465,26 @@ CREATE TABLE SUBSCRIBE
 );
 
 
+-- 태그
+CREATE TABLE TAG
+(
+	-- 태그번호
+	tagNo number NOT NULL,
+	-- 태그명
+	tagName varchar2(20),
+	PRIMARY KEY (tagNo)
+);
+
+
 -- 태그 관계
 CREATE TABLE TAGRELATION
 (
 	-- 태그번호
-	tagNo number NOT NULL,
+	tagNo number,
 	-- 글번호
-	QNANO number NOT NULL
+	blogNo number,
+	-- 프로젝트 글번호
+	projectNo number
 );
 
 
@@ -468,45 +503,27 @@ ALTER TABLE CLASSRESERVATION
 ;
 
 
-ALTER TABLE ATTACHFILE
-	ADD FOREIGN KEY (QNANO)
-	REFERENCES BLOGPOST (QNANO)
+ALTER TABLE GCS
+	ADD FOREIGN KEY (classNo)
+	REFERENCES ARTCLASS (classNo)
 ;
 
 
-ALTER TABLE ATTACHIMAGE
-	ADD FOREIGN KEY (QNANO)
-	REFERENCES BLOGPOST (QNANO)
+ALTER TABLE GCS
+	ADD FOREIGN KEY (blogNo)
+	REFERENCES BLOGPOST (blogNo)
 ;
 
 
-ALTER TABLE KATEGORIE_RELATION
-	ADD FOREIGN KEY (QNANO)
-	REFERENCES BLOGPOST (QNANO)
-;
-
-
-ALTER TABLE TAGRELATION
-	ADD FOREIGN KEY (QNANO)
-	REFERENCES BLOGPOST (QNANO)
+ALTER TABLE REPLY
+	ADD FOREIGN KEY (blogNo)
+	REFERENCES BLOGPOST (blogNo)
 ;
 
 
 ALTER TABLE TAGRELATION
-	ADD FOREIGN KEY (tagNo)
-	REFERENCES HASHTAG (tagNo)
-;
-
-
-ALTER TABLE ARTCLASS
-	ADD FOREIGN KEY (kategorieNo)
-	REFERENCES KATEGORIE (kategorieNo)
-;
-
-
-ALTER TABLE KATEGORIE_RELATION
-	ADD FOREIGN KEY (kategorieNo)
-	REFERENCES KATEGORIE (kategorieNo)
+	ADD FOREIGN KEY (blogNo)
+	REFERENCES BLOGPOST (blogNo)
 ;
 
 
@@ -546,19 +563,19 @@ ALTER TABLE CLASSRESERVATION
 ;
 
 
-ALTER TABLE COMMENT
-	ADD FOREIGN KEY (memberNo)
-	REFERENCES MEMBER (memberNo)
-;
-
-
-ALTER TABLE KATEGORIE_RELATION
+ALTER TABLE GCS
 	ADD FOREIGN KEY (memberNo)
 	REFERENCES MEMBER (memberNo)
 ;
 
 
 ALTER TABLE Pay
+	ADD FOREIGN KEY (memberNo)
+	REFERENCES MEMBER (memberNo)
+;
+
+
+ALTER TABLE PROJAUTH
 	ADD FOREIGN KEY (memberNo)
 	REFERENCES MEMBER (memberNo)
 ;
@@ -594,6 +611,12 @@ ALTER TABLE RECPAY
 ;
 
 
+ALTER TABLE REPLY
+	ADD FOREIGN KEY (memberNo)
+	REFERENCES MEMBER (memberNo)
+;
+
+
 ALTER TABLE SUBSCRIBE
 	ADD FOREIGN KEY (targetedMemberNo)
 	REFERENCES MEMBER (memberNo)
@@ -603,6 +626,12 @@ ALTER TABLE SUBSCRIBE
 ALTER TABLE SUBSCRIBE
 	ADD FOREIGN KEY (memberNo)
 	REFERENCES MEMBER (memberNo)
+;
+
+
+ALTER TABLE GCS
+	ADD FOREIGN KEY (projectNo)
+	REFERENCES PROJECT (projectNo)
 ;
 
 
@@ -618,6 +647,24 @@ ALTER TABLE PROJECTSUPPORT
 ;
 
 
+ALTER TABLE REPLY
+	ADD FOREIGN KEY (projectNo)
+	REFERENCES PROJECT (projectNo)
+;
+
+
+ALTER TABLE TAGRELATION
+	ADD FOREIGN KEY (projectNo)
+	REFERENCES PROJECT (projectNo)
+;
+
+
+ALTER TABLE TAGRELATION
+	ADD FOREIGN KEY (tagNo)
+	REFERENCES TAG (tagNo)
+;
+
+
 
 /* Comments */
 
@@ -625,23 +672,14 @@ COMMENT ON TABLE ARTCLASS IS '아트클래스';
 COMMENT ON COLUMN ARTCLASS.classNo IS '클래스 글번호';
 COMMENT ON COLUMN ARTCLASS.title IS '글제목';
 COMMENT ON COLUMN ARTCLASS.content IS '글내용';
-COMMENT ON COLUMN ARTCLASS.QNAPOSTDATE IS '작성일';
 COMMENT ON COLUMN ARTCLASS.numberOfPeople IS '인원수';
 COMMENT ON COLUMN ARTCLASS.tuitionFee IS '수강료';
 COMMENT ON COLUMN ARTCLASS.classAddress IS '주소';
+COMMENT ON COLUMN ARTCLASS.detailedAddr IS '상세주소';
+COMMENT ON COLUMN ARTCLASS.classLevel IS '난이도';
+COMMENT ON COLUMN ARTCLASS.timeRequired IS '소요시간';
+COMMENT ON COLUMN ARTCLASS.categorie IS '카테고리';
 COMMENT ON COLUMN ARTCLASS.memberNo IS '회원번호';
-COMMENT ON COLUMN ARTCLASS.kategorieNo IS '카테고리번호';
-COMMENT ON TABLE ATTACHFILE IS '첨부파일';
-COMMENT ON COLUMN ATTACHFILE.attachfileNo IS '첨부파일번호';
-COMMENT ON COLUMN ATTACHFILE.originalFileName IS '오리지날 파일명';
-COMMENT ON COLUMN ATTACHFILE.serverFileName IS '서버 파일명';
-COMMENT ON COLUMN ATTACHFILE.fileSize IS '파일크기';
-COMMENT ON COLUMN ATTACHFILE.QNANO IS '글번호';
-COMMENT ON TABLE ATTACHIMAGE IS '내용첨부이미지';
-COMMENT ON COLUMN ATTACHIMAGE.imageNo IS '이미지번호';
-COMMENT ON COLUMN ATTACHIMAGE.imageOriginalFileName IS '이미지 오리지날 파일명';
-COMMENT ON COLUMN ATTACHIMAGE.imageServerFileName IS '이미지 서버 파일명';
-COMMENT ON COLUMN ATTACHIMAGE.QNANO IS '글번호';
 COMMENT ON TABLE AUTH_SECURITY IS '권한 테이블';
 COMMENT ON COLUMN AUTH_SECURITY.authorityNo IS '권한번호';
 COMMENT ON COLUMN AUTH_SECURITY.authority IS '권한명';
@@ -649,11 +687,13 @@ COMMENT ON COLUMN AUTH_SECURITY.memberNo IS '회원번호';
 COMMENT ON COLUMN AUTH_SECURITY.enabled IS '회원 활동승인여부';
 COMMENT ON COLUMN AUTH_SECURITY.id IS '아이디';
 COMMENT ON TABLE BLOGPOST IS '블로그총합게시판';
-COMMENT ON COLUMN BLOGPOST.QNANO IS '글번호';
+COMMENT ON COLUMN BLOGPOST.blogNo IS '글번호';
 COMMENT ON COLUMN BLOGPOST.title IS '글제목';
 COMMENT ON COLUMN BLOGPOST.content IS '글내용';
 COMMENT ON COLUMN BLOGPOST.postDate IS '작성일';
 COMMENT ON COLUMN BLOGPOST.viewCount IS '조회수';
+COMMENT ON COLUMN BLOGPOST.Categorie IS '카테고리';
+COMMENT ON COLUMN BLOGPOST.accessRight IS '열람권한';
 COMMENT ON COLUMN BLOGPOST.memberNo IS '회원번호';
 COMMENT ON TABLE CANCEL IS '결제취소 테이블';
 COMMENT ON COLUMN CANCEL.tno IS '거래번호';
@@ -661,32 +701,26 @@ COMMENT ON COLUMN CANCEL.res_cd IS '취소응답코드';
 COMMENT ON COLUMN CANCEL.res_msg IS '취소메시지';
 COMMENT ON COLUMN CANCEL.memberNo IS '회원번호';
 COMMENT ON TABLE CLASSOPENINGDATE IS '클래스개설날짜정보';
-COMMENT ON COLUMN CLASSOPENINGDATE.classOpeningDateNo IS '날짜정보 번호';
+COMMENT ON COLUMN CLASSOPENINGDATE.DateNo IS '날짜정보 번호';
 COMMENT ON COLUMN CLASSOPENINGDATE.openingDate IS '개설날짜';
-COMMENT ON COLUMN CLASSOPENINGDATE.classNo IS '클래스 글번호';
 COMMENT ON COLUMN CLASSOPENINGDATE.openingTime IS '개설시각';
-COMMENT ON COLUMN CLASSOPENINGDATE.closingTime IS '종료시각';
+COMMENT ON COLUMN CLASSOPENINGDATE.classNo IS '클래스 글번호';
 COMMENT ON TABLE CLASSRESERVATION IS '클래스예약정보';
 COMMENT ON COLUMN CLASSRESERVATION.classReservationNo IS '예약정보번호';
 COMMENT ON COLUMN CLASSRESERVATION.signupDate IS '수강날짜';
 COMMENT ON COLUMN CLASSRESERVATION.signupTime IS '수강시간';
 COMMENT ON COLUMN CLASSRESERVATION.memberNo IS '회원번호';
 COMMENT ON COLUMN CLASSRESERVATION.classNo IS '클래스 글번호';
-COMMENT ON TABLE COMMENT IS '댓글';
-COMMENT ON COLUMN COMMENT.CommentNo IS '댓글번호';
-COMMENT ON COLUMN COMMENT.commentContent IS '댓글내용';
-COMMENT ON COLUMN COMMENT.commentPostDate IS '댓글 작성일';
-COMMENT ON COLUMN COMMENT.memberNo IS '회원번호';
-COMMENT ON TABLE HASHTAG IS '해시태그';
-COMMENT ON COLUMN HASHTAG.tagNo IS '태그번호';
-COMMENT ON COLUMN HASHTAG.tagName IS '태그명';
-COMMENT ON TABLE KATEGORIE IS '카테고리';
-COMMENT ON COLUMN KATEGORIE.kategorieNo IS '카테고리번호';
-COMMENT ON COLUMN KATEGORIE.kategorieName IS '카테고리명';
-COMMENT ON TABLE KATEGORIE_RELATION IS '카테고리 관계';
-COMMENT ON COLUMN KATEGORIE_RELATION.memberNo IS '회원번호';
-COMMENT ON COLUMN KATEGORIE_RELATION.kategorieNo IS '카테고리번호';
-COMMENT ON COLUMN KATEGORIE_RELATION.QNANO IS '글번호';
+COMMENT ON TABLE GCS IS '구글 클라우드 스토리지';
+COMMENT ON COLUMN GCS.fileNo IS '파일번호';
+COMMENT ON COLUMN GCS.fileName IS '오리지날 파일명';
+COMMENT ON COLUMN GCS.fileUrl IS '스토리지 파일주소';
+COMMENT ON COLUMN GCS.downloadUrl IS '파일 다운로드 주소';
+COMMENT ON COLUMN GCS.fileSize IS '파일크기';
+COMMENT ON COLUMN GCS.blogNo IS '글번호';
+COMMENT ON COLUMN GCS.projectNo IS '프로젝트 글번호';
+COMMENT ON COLUMN GCS.classNo IS '클래스 글번호';
+COMMENT ON COLUMN GCS.memberNo IS '회원번호';
 COMMENT ON TABLE MEMBER IS '회원';
 COMMENT ON COLUMN MEMBER.memberNo IS '회원번호';
 COMMENT ON COLUMN MEMBER.id IS '아이디';
@@ -704,7 +738,7 @@ COMMENT ON COLUMN MEMBER.SubscriptionFee IS '구독료';
 COMMENT ON TABLE Pay IS '결제테이블';
 COMMENT ON COLUMN Pay.tno IS '거래번호';
 COMMENT ON COLUMN Pay.ordr_idxx IS '주문번호';
-COMMENT ON COLUMN Pay.amount IS '결제금액';
+COMMENT ON COLUMN Pay.good_mny IS '결제금액';
 COMMENT ON COLUMN Pay.good_name IS '상품명';
 COMMENT ON COLUMN Pay.buyr_name IS '주문자명';
 COMMENT ON COLUMN Pay.buyr_tel1 IS '전화번호';
@@ -714,32 +748,39 @@ COMMENT ON COLUMN Pay.card_name IS '카드명';
 COMMENT ON COLUMN Pay.app_time IS '승인시간';
 COMMENT ON COLUMN Pay.app_no IS '승인번호';
 COMMENT ON COLUMN Pay.memberNo IS '회원번호';
+COMMENT ON TABLE PROJAUTH IS '프로젝트인증 테이블';
+COMMENT ON COLUMN PROJAUTH.ordr_idxx IS '주문번호';
+COMMENT ON COLUMN PROJAUTH.res_cd IS '인증응답코드';
+COMMENT ON COLUMN PROJAUTH.batch_key IS '배치키';
+COMMENT ON COLUMN PROJAUTH.card_cd IS '카드코드';
+COMMENT ON COLUMN PROJAUTH.buyr_name IS '주문자명';
+COMMENT ON COLUMN PROJAUTH.memberNo IS '회원번호';
 COMMENT ON TABLE PROJECT IS '프로젝트';
 COMMENT ON COLUMN PROJECT.projectNo IS '프로젝트 글번호';
-COMMENT ON COLUMN PROJECT.QNATITLE IS '글제목';
-COMMENT ON COLUMN PROJECT.QNACONTENT IS '글내용';
+COMMENT ON COLUMN PROJECT.title IS '글제목';
+COMMENT ON COLUMN PROJECT.content IS '글내용';
 COMMENT ON COLUMN PROJECT.postDate IS '작성일';
 COMMENT ON COLUMN PROJECT.deadline IS '마감일';
 COMMENT ON COLUMN PROJECT.targetFigure IS '목표액수';
 COMMENT ON COLUMN PROJECT.memberNo IS '회원번호';
 COMMENT ON TABLE PROJECTREWARD IS '프로젝트보상정보';
 COMMENT ON COLUMN PROJECTREWARD.projectRewardNo IS '프로젝트보상정보 번호';
-COMMENT ON COLUMN PROJECTREWARD.projectNo IS '프로젝트 글번호';
 COMMENT ON COLUMN PROJECTREWARD.rewardContent IS '보상내용';
 COMMENT ON COLUMN PROJECTREWARD.supportStep IS '후원액수단계';
+COMMENT ON COLUMN PROJECTREWARD.projectNo IS '프로젝트 글번호';
 COMMENT ON TABLE PROJECTSUPPORT IS '프로젝트후원정보';
-COMMENT ON COLUMN PROJECTSUPPORT.projectSupportNo IS '프로젝트후원정보';
+COMMENT ON COLUMN PROJECTSUPPORT.projectSupportNo IS '프로젝트후원번호';
 COMMENT ON COLUMN PROJECTSUPPORT.projectSupportSum IS '후원액수';
 COMMENT ON COLUMN PROJECTSUPPORT.projectSupportDate IS '후원일';
 COMMENT ON COLUMN PROJECTSUPPORT.memberNo IS '회원번호';
 COMMENT ON COLUMN PROJECTSUPPORT.projectNo IS '프로젝트 글번호';
-COMMENT ON TABLE QNA IS 'QNA게시판';
-COMMENT ON COLUMN QNA.QNANO IS '글번호';
-COMMENT ON COLUMN QNA.QNATITLE IS '글제목';
-COMMENT ON COLUMN QNA.QNACONTENT IS '글내용';
-COMMENT ON COLUMN QNA.QNAPOSTDATE IS '작성일';
-COMMENT ON COLUMN QNA.QNACHECKED IS '답변여부';
-COMMENT ON COLUMN QNA.QNACATEGORY IS '카테고리';
+COMMENT ON TABLE QNA IS 'QNA 게시판';
+COMMENT ON COLUMN QNA.qnaNo IS '글번호';
+COMMENT ON COLUMN QNA.qnaTitle IS '글제목';
+COMMENT ON COLUMN QNA.qnaContent IS '글내용';
+COMMENT ON COLUMN QNA.qnaPostdate IS '작성일';
+COMMENT ON COLUMN QNA.qnaChecked IS '답변여부';
+COMMENT ON COLUMN QNA.qnaCategory IS '카테고리';
 COMMENT ON COLUMN QNA.memberNo IS '회원번호';
 COMMENT ON TABLE RECAUTH IS '정기인증 테이블';
 COMMENT ON COLUMN RECAUTH.ordr_idxx IS '주문번호';
@@ -751,7 +792,7 @@ COMMENT ON COLUMN RECAUTH.memberNo IS '회원번호';
 COMMENT ON TABLE RECPAY IS '정기결제 테이블';
 COMMENT ON COLUMN RECPAY.tno IS '거래번호';
 COMMENT ON COLUMN RECPAY.ordr_idxx IS '주문번호';
-COMMENT ON COLUMN RECPAY.amount IS '결제금액';
+COMMENT ON COLUMN RECPAY.good_mny IS '결제금액';
 COMMENT ON COLUMN RECPAY.good_name IS '상품명';
 COMMENT ON COLUMN RECPAY.buyr_name IS '주문자명';
 COMMENT ON COLUMN RECPAY.buyr_tel1 IS '전화번호';
@@ -762,15 +803,25 @@ COMMENT ON COLUMN RECPAY.app_time IS '승인시간';
 COMMENT ON COLUMN RECPAY.app_no IS '승인번호';
 COMMENT ON COLUMN RECPAY.res_cd IS '응답코드';
 COMMENT ON COLUMN RECPAY.memberNo IS '회원번호';
-COMMENT ON COLUMN RECPAY.batch_key IS '배치키';
+COMMENT ON TABLE REPLY IS '댓글';
+COMMENT ON COLUMN REPLY.replyNo IS '댓글번호';
+COMMENT ON COLUMN REPLY.replyContent IS '댓글내용';
+COMMENT ON COLUMN REPLY.replyPostDate IS '댓글 작성일';
+COMMENT ON COLUMN REPLY.memberNo IS '회원번호';
+COMMENT ON COLUMN REPLY.blogNo IS '글번호';
+COMMENT ON COLUMN REPLY.projectNo IS '프로젝트 글번호';
 COMMENT ON TABLE SUBSCRIBE IS '구독';
 COMMENT ON COLUMN SUBSCRIBE.subscribeNo IS '구독일련번호';
 COMMENT ON COLUMN SUBSCRIBE.subscribeStartDate IS '구독시작날짜';
 COMMENT ON COLUMN SUBSCRIBE.targetedMemberNo IS '피구독회원번호';
 COMMENT ON COLUMN SUBSCRIBE.memberNo IS '구독회원번호';
+COMMENT ON TABLE TAG IS '태그';
+COMMENT ON COLUMN TAG.tagNo IS '태그번호';
+COMMENT ON COLUMN TAG.tagName IS '태그명';
 COMMENT ON TABLE TAGRELATION IS '태그 관계';
 COMMENT ON COLUMN TAGRELATION.tagNo IS '태그번호';
-COMMENT ON COLUMN TAGRELATION.QNANO IS '글번호';
+COMMENT ON COLUMN TAGRELATION.blogNo IS '글번호';
+COMMENT ON COLUMN TAGRELATION.projectNo IS '프로젝트 글번호';
 
 
 

@@ -34,7 +34,7 @@
 		
 			
 		<security:intercept-url pattern="/AdmUserInfo.ad" access="hasRole('ROLE_ADMIN')"/>
-		<security:intercept-url pattern="/MyPage" access="hasRole('ROLE_USER')"/>
+		<security:intercept-url pattern="/MyPage" access="hasRole('ROLE_USER','ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="permitAll"/> 
 	
 	
@@ -69,7 +69,9 @@
      	 	invalidate-session="true"
      	 />
 	
-		<!-- 공격을 방어하기 위한 설정 CSRF방어 설정시에는 사용자 정의 로그인 폼 사용시에 아래 hidden태그 필수 -->
+		<!-- 공격을 방어하기 위한 설정 CSRF방어 설정 -->
+		<!-- 이에 따라 Post 요청시에는 사용자 정의 로그인 폼 사용시에 
+		 spring securiy에서 제공하는 token을 hidden으로 반드시 넘겨줄것 -->
 		<security:csrf disabled="false"/>
 		
 		

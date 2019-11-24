@@ -15,11 +15,8 @@ public class AutoController {
 	
 	//셀레니움 적용한 서비스(AutoPayment.class) 주입
 	//@Resource(name="autoPayment")
-<<<<<<< HEAD
 	//private AutoPayment autoPayment;
-=======
 	//private AutoPayment autoPaymentObj;
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	
 	//member 테이블 접근 객체 주입
 	@Resource(name="memberDAO")
@@ -33,12 +30,9 @@ public class AutoController {
 	@Resource(name="projectDAO")
 	private ProjectDAO projectDAO;
 	
-<<<<<<< HEAD
 	// 자동 DB 조회 
-=======
 	
 	// 자동 DB 조회 및 조건에 따른 서비스 호출
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 	//@Scheduled(cron = "0/30 * * * * ?") // 30초마다 조회
 	public void autoPay() {
 		System.out.println("정해진 시간마다 계속 메소드 호출");

@@ -1,41 +1,45 @@
 package com.hansoin5.artplanet.service.impl;
 
-import com.hansoin5.artplanet.service.ArtClassDTO;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import com.hansoin5.artplanet.service.ArtClassDTO;
 
 @Repository
 public class ArtClassDAO
 {
-  @Resource(name="template")
-  private SqlSessionTemplate template;
+	// template 객체주입
+	@Resource(name="template")
+	private SqlSessionTemplate template;
+
+	  
+	public List<ArtClassDTO> selectList(){
+		return this.template.selectList("ClassSelectList");
+	}
+	
+	//아트클래스 고유번호로 아트클래스 한개의 대한 모든 정보 얻어오기
+	public ArtClassDTO selectOne(Map map) {
+		return template.selectOne("getClassOne", map);
+	}/////selectOne()
   
-  public List<ArtClassDTO> selectList()
-  {
-    return this.template.selectList("ClassSelectList");
-  }
+	public int delete(Map map)
+	{
+	  return this.template.delete("classDelete", map);
+	}
+	  
+	// 아트클래스 레코드 생성하기
+	public int insert(Map map)
+	{
+	  return this.template.insert("classInsert", map);
+	}/////insert
   
-  public ArtClassDTO selectOne(Map map) {
-	  System.out.println("DAO 접근성공");
-	  return template.selectOne("getClassOne", map);
-  }
-  
-  public int delete(Map map)
-  {
-    this.template.delete("classInfoDelete", map);
-    return this.template.delete("classDelete", map);
-  }
-  
-  public int insert(Map map)
-  {
-    return this.template.insert("classInsert", map);
-  }
-  
-  public int update(Map map)
-  {
-    return this.template.update("classUpdate", map);
-  }
-}
+	public int update(Map map)
+	{
+	  return this.template.update("classUpdate", map);
+	}
+}/////class

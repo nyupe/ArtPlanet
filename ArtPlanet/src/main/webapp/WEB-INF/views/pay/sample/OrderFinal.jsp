@@ -152,6 +152,7 @@
 
             <div id="smartwizard">
                <ul class="forms-wizard">
+               	  <h1>가격 잘나오나 ${fee }</h1>
                   <li><a href="#step-1"> <em>1</em><span>주소 정보</span>
                   </a></li>
                   <li><a href="#step-2"> <em>2</em><span>결제 정보</span>
