@@ -16,9 +16,9 @@ public class AutoController {
 	
 	
 	//셀레니움 적용한 서비스(AutoPayment.class) 주입
+
 	//@Resource(name="autoPayment")
-	//private AutoPayment autoPaymentObj;
-	
+	//private AutoPayment autoPaymentObj;	
 	//member 테이블 접근 객체 주입
 	@Resource(name="memberDAO")
 	private MemberDAO memberDao;
@@ -44,7 +44,7 @@ public class AutoController {
 		  //if(subscribeDAO.checkSubPayRecordCount() >= 1) {// 정기구독결제 자동화 서비스 호출
 			 // System.out.println("정기구독결제 조회 쿼리 성공");
 			  // 셀리니움 적용한 정기구독 결제 메소드 실행 
-			  autoPaymentObj.autoPayment("subscribe"); 
+			  //autoPaymentObj.autoPayment("subscribe"); 
 		  //}/////
 		  
 		  // 자동 결제 조건에 맞는 크라우드 펀딩 프로젝트를 1개 이상 찾을시 

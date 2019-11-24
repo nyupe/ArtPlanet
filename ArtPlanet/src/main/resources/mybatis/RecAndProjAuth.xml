@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="recAuthSelectlist" parameterType="java.util.Map" resultType="RecAuthDTO">
-		SELECT * FROM recAuth ORDER BY ordr_idxx DESC
+		SELECT * FROM recAuth ORDER BY app_time DESC, ordr_idxx DESC
 	</select>
 	
 	<!-- 배치키로 결제시 인증테이블의 app_time업데이트하기      memberNo맞춰야함-->
@@ -38,10 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="projAuthDelete" parameterType="java.util.Map" >
 			DELETE PROJAUTH WHERE BATCH_KEY = #{batch_key}
 	</delete> 
-	<!-- 배치키로 결제시 인증테이블의 app_time업데이트하기      memberNo맞춰야함-->
-	<update id="projAuthAppTimeUpdate" parameterType="java.util.Map">
-			UPDATE PROJAUTH SET APP_TIME = SYSDATE WHERE MEMBERNO = #{memberNo}
-	</update>
+	
 	<!-- PROJECTSUPPORT테이블과 조인해서 PROJECTSUPPORTSUM컬럼만 셀렉트해오는 쿼리문 -->
 	<select id="recAuthSelectProjectSupportSum" parameterType="java.util.Map" resultType="RecAuthDTO">
 		SELECT PROJECTSUPPORTSUM FROM PROJAUTH R INNER JOIN PROJECTSUPPORT P ON R.MEMBERNO = P.MEMBERNO
@@ -51,6 +48,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT BATCH_KEY FROM PROJAUTH R INNER JOIN PROJECTSUPPORT P ON R.MEMBERNO = P.MEMBERNO
 	</select>
 	
+	<!-- 배치키로 결제시 인증테이블의 app_time업데이트하기      memberNo맞춰야함-->
+	<update id="updateApptimeForProj" parameterType="java.util.Map" >
+			UPDATE projAuth SET app_time = #{currentTime} WHERE batch_key = #{paied_batch}
+	</update>
 	
 	<!-- 수업예제 쿼리문  -->
 	<!-- <select id="memoIsLogin" parameterType="java.util.Map" resultType="int">

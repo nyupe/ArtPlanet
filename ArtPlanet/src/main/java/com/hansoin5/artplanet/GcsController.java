@@ -145,7 +145,6 @@ public class GcsController
 			map.put("fee", req.getParameter("fee").replace(",", ""));
 			map.put("memberNo", req.getParameter("memberNo"));
 			memberDao.updateBlog(map);
-			break;
 		default:
 			dao.uploadImage(map);
 			break;

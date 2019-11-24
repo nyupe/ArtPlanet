@@ -48,6 +48,10 @@ public class RecurringController {
 	public String authRes(@RequestParam Map map) {
 		System.out.println(map.get("batch_key"));
 		map.put("memberNo", memberDao.getMemberNo(map.get("id").toString()));
+		System.out.println("====================================================");
+		//아이디 넘기기
+		map.put("id",map.get("id").toString());
+		System.out.println("id : "+map.get("id").toString());
 		map.put("app_time", "");
 		//낫널이라 오류남 (Cause: java.sql.SQLIntegrityConstraintViolationException: ORA-01400: NULL을)
 		//map.put("subscribeNo", "");
@@ -76,9 +80,11 @@ public class RecurringController {
 
 	@RequestMapping(value = "/RecurringPayRes2", method = RequestMethod.POST)
 	public String payRes2(@RequestParam Map map) {
-		System.out.println("====================================================");
 		System.out.println("왜 정기구독 결제할때 멤버노가 널인거? "+memberDao.getMemberNo(map.get("id").toString()));
 		map.put("memberNo", memberDao.getMemberNo(map.get("id").toString()));
+		//아이디 넘기기
+		map.put("id",map.get("id").toString());
+		System.out.println("id : "+map.get("id").toString());
 		
 		int affected = payDao.recPayInsert(map);
 

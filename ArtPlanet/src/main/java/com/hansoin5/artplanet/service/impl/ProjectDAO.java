@@ -26,7 +26,6 @@ public class ProjectDAO {
 	
 	// 프로젝트 목록 
 	public List<ProjectDTO> selectlist(Map map) {
-		
 		return template.selectList("Projectselectlist",map);
 	}
 	
@@ -37,7 +36,7 @@ public class ProjectDAO {
 	}
 	
 	// 프로젝트 등록
-	public int insert(Map map) {
+	public int projectinsert(Map map) {
 		return template.insert("ProjectInsert",map);
 	}
 	
@@ -45,6 +44,13 @@ public class ProjectDAO {
 	public void insertcomment(Map map) {
 		template.insert("ProjectInsertComment",map);
 	}
+	
+	//프로젝트 코멘트 삭제
+	public void commentDelete(Map map) {
+		template.delete("ProjectDeleteComment",map);
+	}
+	
+	 
 	
 	// 프로젝트 코멘트 리스트
 	public List<Map> selectcomment(Map map){
@@ -61,9 +67,35 @@ public class ProjectDAO {
 		return template.selectOne("projectSelectOneFundInfo",map);
 	}
 	
+	//프로젝트 태그 가져오기
+	public List<Map> selectTagslist(Map map) {
+		return template.selectList("projectSelectTagsList",map);
+	}
+	//프로젝트 리워드 가져오기
+	public List<Map> selectRewardList(Map map){
+		return template.selectList("projectSelectRewardList", map);
+	}
+	
+	// 프로젝트 코멘트 숫자 구하기
+	public int getCommentCount(Map map) {
+		return template.selectOne("projectCommentCount", map);
+	}
+	
 	// 프로젝트에 서포터 리스트
 	public List<Map> selectsupport(Map map){
 		return template.selectList("ProjectSelectListSupport",map);
+	}
+	// 프로젝트 후원하기
+	public int insertsupport(Map map) {
+		return template.insert("InsertSupport",map);
+	}
+	//프로젝트 리워드 등록하기
+	public int insertReward(Map map) {
+		return template.insert("InsertReward",map);
+	}
+	
+	public List<Map> selectTags(Map map){
+		return template.selectList("SelectTags", map);
 	}
 	
 	//  크라우드 펀딩 프로젝트 결제관련
