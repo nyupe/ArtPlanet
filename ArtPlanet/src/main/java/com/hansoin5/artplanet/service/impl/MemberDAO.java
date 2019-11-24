@@ -31,6 +31,10 @@ public class MemberDAO {
 		return template.selectOne("getMemberNo", id);
 	}/////getMemberNo()
 	
+	//회원번호로 아이디 가져오기 11/24추가
+	public String getMemberId(String memberNo) {
+		return template.selectOne("getMemberId", memberNo);
+	}
 	
 	//회원정보 조회
 	public MemberDTO getMemberDTO(Map map) {

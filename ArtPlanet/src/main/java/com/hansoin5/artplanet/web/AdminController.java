@@ -16,6 +16,7 @@ import com.hansoin5.artplanet.service.PayDTO;
 import com.hansoin5.artplanet.service.RecAuthDTO;
 import com.hansoin5.artplanet.service.RecPayDTO;
 import com.hansoin5.artplanet.service.impl.CancelDAO;
+import com.hansoin5.artplanet.service.impl.MemberDAO;
 import com.hansoin5.artplanet.service.impl.PayDAO;
 import com.hansoin5.artplanet.service.impl.RecAuthDAO;
 import com.hansoin5.artplanet.service.impl.RecPayDAO;
@@ -23,7 +24,9 @@ import com.hansoin5.artplanet.service.impl.RecPayDAO;
 //(AdminController)에서는 (Admin)메뉴에서  (페이지이동)과 DB에 저장된 내용을 출력합니다.
 @Controller
 public class AdminController {
-	
+	// member 테이블에 접근하는 객체를 주입받습니다.
+	@Resource(name = "memberDAO")
+	private MemberDAO memberDao;
 	
 	//일반결제주입
 	@Resource(name="payInfo")	
@@ -67,7 +70,7 @@ public class AdminController {
 	//메뉴 프로젝트후원-배치키(일회성)
 	@RequestMapping("/AdmUserProjBatch.ad")
 	public String admProjBatch() {
-		return "admin/admBatchKeyForProj2";
+		return "admin/admBatchKeyForProj3";
 	}/// /AdmUserProjBatch.ad
 	
 	//메뉴 프로젝트후원-결제내역
@@ -161,7 +164,9 @@ public class AdminController {
 					record.put("buyr_name",dto.getBuyr_name());					
 					record.put("memberNo",dto.getMemberNo());
 					//app_time추가
-					record.put("app_time",dto.getApp_time()==null?"이번달미결제":"\""+dto.getApp_time()+"\"");
+					record.put("app_time",dto.getApp_time()==null?" 미결제":"\""+dto.getApp_time()+"\"");
+					//관리자에서 아이디 출력용
+					record.put("id", memberDao.getMemberId(dto.getMemberNo()));
 					collections.add(record);
 					
 				}
@@ -273,7 +278,9 @@ public class AdminController {
 					record.put("buyr_name",dto.getBuyr_name());					
 					record.put("memberNo",dto.getMemberNo());
 					//app_time추가
-					record.put("app_time",dto.getApp_time()==null?"프로젝트 미결제":"\""+dto.getApp_time()+"\"");
+					record.put("app_time",dto.getApp_time()==null?" 프로젝트 미결제":"\""+dto.getApp_time()+"\"");
+					//관리자에서 아이디 출력용
+					record.put("id", memberDao.getMemberId(dto.getMemberNo()));
 					collections.add(record);
 				}
 				/*

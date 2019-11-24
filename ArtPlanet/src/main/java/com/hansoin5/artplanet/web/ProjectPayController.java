@@ -1,5 +1,7 @@
 package com.hansoin5.artplanet.web;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -74,16 +76,25 @@ public class ProjectPayController {
 
 	@RequestMapping(value = "/ProjectPayRes", method = RequestMethod.POST)
 	public String payRes2(@RequestParam Map map) {
+		System.out.println("왜 정기구독 결제할때 멤버노가 널인거? "+memberDao.getMemberNo(map.get("id").toString()));
 		map.put("memberNo", memberDao.getMemberNo(map.get("id").toString()));
+		//아이디 넘기기
+		map.put("id",map.get("id").toString());
+		System.out.println("id : "+map.get("id").toString());
+		
 		int affected = payDao.projPayInsert(map);
 
 		if (affected == 1) {
 			System.out.println("프로젝트 후원[결제] DB입력완료");
 			//결제시간을 인증테이블 app_time컬럼에 업데이트합니다
-			//authDao.authAppTimeUpdate(map);
-			System.out.println("앱타임업데이트는 되고있냐");
-			//엉뚱한 맵인뎅...
-			//authDao.projAuthDelete(map);
+			System.out.println("paied_batch:"+map.get("paied_batch"));
+			SimpleDateFormat format = new SimpleDateFormat("YY/MM/dd");
+			String time = format.format(new Date(System.currentTimeMillis()));
+			System.out.println("★☆★☆★☆"+time+"★☆★☆★☆");
+			map.put("currentTime", time);
+			int updated =authDao.updateApptimeForProj(map);
+			if (updated == 1)
+				System.out.println("○○○○○○배치키로 [앱타임] 갱신완료○○○○○○");
 		}
 		
 		

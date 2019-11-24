@@ -46,9 +46,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT * FROM MEMBER WHERE ID = #{id}
 	</select>
 	
-	<!-- 아이디로 회원번호 조회 -->
+	<!-- 아이디로 회원번호 조회 --> 
 	<select id="getMemberNo" parameterType="java.lang.String" resultType="String">
 			SELECT MEMBERNO FROM MEMBER WHERE ID = #{id}
+	</select>
+	
+	<!-- 회원번호로 아이디 조회11/24추가 -->
+	<select id="getMemberId" parameterType="java.lang.String" resultType="String">
+			SELECT ID FROM MEMBER WHERE MEMBERNO = #{MEMBERNO}
 	</select>
 	
 	<!-- 회원 탈퇴처리  -->

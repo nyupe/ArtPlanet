@@ -64,16 +64,15 @@ public class RecAuthDAO {
 		public List<RecAuthDTO> projAuthSelectlist(Map map){
 			return template.selectList("projAuthSelectlist", map);
 		}
-		
-		//블로그 정기구독 결제시 인증테이블 app_time 덮어씌우기용 메서드
-		public int projAuthAppTimeUpdate() {
-			return template.update("projAuthAppTimeUpdate");
-		}
 					
 		// PROJECTSUPPORT테이블과 조인해서 PROJECTSUPPORTSUM컬럼만 셀렉트해오는 
 		public List<RecAuthDTO> recAuthSelectProjectSupportSum(){
 			return template.selectList("recAuthSelectProjectSupportSum");
 		}
-				
+		
+		//프로젝트 결제시 인증테이블 app_time 덮어씌우기용 메서드
+		public int updateApptimeForProj(Map map) {
+			return template.update("updateApptimeForProj", map);
+		}
 				
 }/////
