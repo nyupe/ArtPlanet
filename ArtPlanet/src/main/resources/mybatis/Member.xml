@@ -94,6 +94,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getMemberCount" parameterType="java.util.Map" resultType="int">
 		SELECT COUNT(*) FROM member 
 	</select>
+	<update id="updateBlog" parameterType="java.util.Map">
+		UPDATE member SET mainPicture=#{fileUrl}, introContent=#{intro}, subscriptionFee=#{fee} WHERE memberNo=#{memberNo}
+	</update>
 	<!-- 수업예제 쿼리문  -->
 	<!-- <select id="memoIsLogin" parameterType="java.util.Map" resultType="int">
 			SELECT COUNT(*) FROM MEMBER WHERE ID = #{id} and PWD = #{pwd}

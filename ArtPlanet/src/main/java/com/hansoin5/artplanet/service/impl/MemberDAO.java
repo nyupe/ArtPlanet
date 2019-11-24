@@ -89,6 +89,11 @@ public class MemberDAO {
 	{
 		return template.selectOne("getMemberCount", map);
 	}
+	//블로그관련 정보 업데이트
+	public int updateBlog(Map map)
+	{
+		return template.update("updateBlog", map);
+	}
 	
 	//미구현 ======================================================================================
 	

@@ -2,11 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 
 <script>
 	$(function() {
 		//조회수 증가
+		/*
 		$.ajax({
 			url:"<c:url value='/updateViewCount'/>",
 			type:'post',
@@ -16,6 +18,7 @@
 				console.log(data);
 			}
 		});
+		*/
 	});
 </script>
 
@@ -25,22 +28,22 @@
 </section>
 <!--================Hero Banner Area End =================-->
 <!--================Blog Area =================-->
+
 <section class="blog_area single-post-area area-padding">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-8 posts-list">
 				<div class="single-post">
 					<div class="feature-img">
-						<img class="img-fluid"
-							src="<c:url value='/resources/img/project/illustration/1.jpg'/>"
-							alt="">
+						<c:forEach var="image" items="${images}">
+						<img style="width:100%;" class="img-fluid" src="${image.src}" alt="">
+						</c:forEach>
 					</div>
 					<div class="blog_details">
 						<h2>${title}</h2>
 						<ul class="blog-info-link mt-3 mb-4">
 							<li><a href="#"><i class="far fa-user"></i>${categorie}</a></li>
-							<li><a href="#"><i class="far fa-comments"></i> 03
-									Comments</a></li>
+							<li><a href="#"><i class="far fa-comments"></i> 03 Comments</a></li>
 						</ul>
 						${content}
 					</div>
