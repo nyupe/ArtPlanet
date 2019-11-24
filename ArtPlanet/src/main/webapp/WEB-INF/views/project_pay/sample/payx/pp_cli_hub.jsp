@@ -71,7 +71,9 @@
     String    app_time        = "";                                                       // 승인시간
     String    app_no          = "";                                                       // 승인번호
     String    noinf           = "";                                                       // 무이자여부
-    String    quota           = "";                                                       // 할부개월
+    String    quota           = "";          
+    String paied_batch = "";
+    // 할부개월
     /* ============================================================================== */
 
 
@@ -139,6 +141,8 @@
                     c_PayPlus.mf_set_us( card_data_set, "quota",          request.getParameter("quotaopt") );
                     c_PayPlus.mf_set_us( card_data_set, "bt_group_id",    request.getParameter("bt_group_id") );
                     c_PayPlus.mf_set_us( card_data_set, "bt_batch_key",   request.getParameter("bt_batch_key") );
+                    //배치키 가져가기
+                    paied_batch = request.getParameter("bt_batch_key");
                 }
                 c_PayPlus.mf_add_rs( payx_data_set, card_data_set );
             }
@@ -321,6 +325,9 @@
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 			 <!-- 스프링시큐리티에서 내려주는 아이디사용 -->
         <input type="hidden" name="id"              value="<c:out value='${id}'/>"/> 
+         <!-- 배치키 가져가기 -->
+       	    <input type="hidden" name="paied_batch" value="<%=paied_batch%>" />
+       	    
         </form>
     </body>
     </html>
