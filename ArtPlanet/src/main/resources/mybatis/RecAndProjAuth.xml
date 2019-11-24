@@ -41,7 +41,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- PROJECTSUPPORT테이블과 조인해서 PROJECTSUPPORTSUM컬럼만 셀렉트해오는 쿼리문 -->
 	<select id="recAuthSelectProjectSupportSum" parameterType="java.util.Map" resultType="RecAuthDTO">
-		SELECT PROJECTSUPPORTSUM FROM PROJAUTH R INNER JOIN PROJECTSUPPORT P ON R.MEMBERNO = P.MEMBERNO
+		SELECT p.projectsupportsum FROM PROJAUTH R INNER JOIN PROJECTSUPPORT P ON R.MEMBERNO = P.MEMBERNO 
+		where R.memberNo=#{memberNo}
 	</select>
 	<!-- 프로젝트(1회성)배치키 테이블에서 프로젝트서포트테이블의 멤버넘버와 같은 컬럼의 배치키만 뽑아오는 쿼리문  -->
 	<select id="recAuthSelectBatchKey" parameterType="java.util.Map" resultType="RecAuthDTO">
