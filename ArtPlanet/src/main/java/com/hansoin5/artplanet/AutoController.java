@@ -12,7 +12,6 @@ import com.hansoin5.artplanet.service.impl.SubscribeDAO;
 @Controller
 public class AutoController {
 	
-	
 	//셀레니움 적용한 서비스(AutoPayment.class) 주입
 	//@Resource(name="autoPayment")
 	//private AutoPayment autoPaymentObj;
