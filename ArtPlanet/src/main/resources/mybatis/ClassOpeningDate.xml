@@ -9,17 +9,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 <!-- 입력폼 -->
-
- <insert id="openingDateInsert" parameterType="java.util.Map"  >
+   
+  <!-- 아트클래스 개설날짜정보 테이블 레코드 생성하기 -->
+  <insert id="openingDateInsert" parameterType="java.util.Map"  >
   	INSERT INTO ClassOpeningDate(DateNo,openingDate,classNo,openingTime)
-  	VALUES(SEQ_ClassOpeningDate_DateNo.NEXTVAL,#{openingDate},#{classNo},#{openingTime}) 
+  	VALUES(SEQ_ClassOpeningDate_DateNo.NEXTVAL, #{openingDate}, #{classNo}, #{openingTime}) 
   </insert>
   
-  <select id="OpeningDateSelectList">
+  <!-- 아트클래스 일련번호로 아트클래스 개설날짜정보 테이블 조회하기  -->
+  <select id="openingDateSelectList" parameterType="java.util.Map" resultType="ClassOpeningDateDTO">
   	SELECT * FROM classOpeningDate WHERE classNo = #{classNo}
   </select>
 
-
+  
+  <!-- 아트클래스 개설날짜정보 일련번호로 해당 레코드 가져오기 -->
+  <select id="getClassOpeningDateDTO" parameterType="java.util.Map" resultType="ClassOpeningDateDTO">
+  	SELECT * FROM CLASSOPENINGDATE WHERE DATENO = #{dateNo}
+  </select>
+	
 
 <!-- 
  <select id="classUpdate" parameterType="java.util.Map">

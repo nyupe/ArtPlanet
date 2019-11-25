@@ -231,7 +231,7 @@
                                     </div>
                                     <div class="position-relative form-group">
                                        <label>결제금액</label> <input class="form-control" type="text"
-                                          name="good_mny" value="30000" maxlength="9" />원(숫자만 입력)
+                                          name="good_mny" value="${fee }" maxlength="9" />원(숫자만 입력)
                                     </div>
 
                                     <div class="form-group">

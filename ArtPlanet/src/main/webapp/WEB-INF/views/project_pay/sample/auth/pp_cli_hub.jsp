@@ -43,6 +43,7 @@
     String pay_method  = f_get_parm( request.getParameter( "pay_method"  ) ); // 결제 방법
     String ordr_idxx   = f_get_parm( request.getParameter( "ordr_idxx"   ) ); // 쇼핑몰 주문번호
     String buyr_name   = f_get_parm( request.getParameter( "buyr_name"   ) ); // 요청자 이름
+    
     /* = -------------------------------------------------------------------------- = */
     String res_cd      = "";                                                  // 결과 코드
     String res_msg     = "";                                                  // 결과 메시지
@@ -113,6 +114,7 @@
         {
             document.pay_info.submit();
         }
+        
     </script>
     </head>
     <body onload="goResult()">
@@ -123,7 +125,9 @@
         <input type="hidden" name="buyr_name"   value="<%=buyr_name%>">         <!-- 요청자 이름 -->
         <input type="hidden" name="card_cd"     value="<%=card_cd%>">           <!-- 카드 코드 -->
         <input type="hidden" name="batch_key"   value="<%=batch_key%>">         <!-- 배치 인증키 -->
-    	 
+    	<input type="hidden" name="projectNo"   value="${ projectNo}">         <!-- 프로젝트번호 -->
+    	<input type="hidden" name="projectSupportSum"   value="${projectSupportSum }">         <!-- 후원액 -->
+    	<input type="hidden" name="memberNo"   value="${memberNo }">         <!-- 멤버번호-->
     	 <!-- app_time넘기자 -->
 		<input type="hidden" name="app_time"    /> 
     	 <!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->

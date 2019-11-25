@@ -40,9 +40,11 @@
     String g_conf_web_siteid   = "";
 
     String g_conf_ENC_KEY      = "E66DCEB95BFBD45DF9DFAEEBCB092B5DC2EB3BF0";
-
+    
     /*start페이지에 있던 Ret_url*/
-    String g_conf_Ret_URL      = "http://localhost:8080/artplanet/AuthReq.do";
+    String g_conf_Ret_URL      = "http://localhost:7070/artplanet/AuthProcess";
+
+    
 
     
    

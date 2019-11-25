@@ -1,19 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
+<sec:authentication property="principal.username" var="id" />
+
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote.js"></script>
 <!-- 날짜 및 시간 -->
 <script>
-	$(function() {
+	$(function() { //진입점 시작
 		var totalcnt = 0;
-		$('#btnAddSchedule')
-				.click(
-						function() {
+		$('#btnAddSchedule').click(function() {
 							//console.log($('#datepicker').val());
 							//console.log($('#timepicker').val());
 
-							$('#scheduleList')
+								$('#scheduleList')
 									.append(
 											"<button id='scheduleButton' onclick='cancelSchedule(this)' class='btnSchedule mb-2 mr-2 btn btn-link'><span  class='scheduleSpan'>"
 													+ $('#datepicker').val()
@@ -117,7 +120,7 @@
 							totalcnt++;
 							 */
 							/* ----------------------------------------*/
-						});
+							});
 
 		//드래그앤드랍 다이브
 		var objDragAndDrop = $(".dragAndDropDiv");
@@ -154,7 +157,7 @@
 			e.preventDefault();
 		});
 
-	});
+	}); // 진입점 끝
 
 	var cancelSchedule = function(btn) {
 		btn.remove();
@@ -406,6 +409,17 @@ function valueCheck(eleForm){
 	font-size: 16px;
 }
 </style>
+
+
+<script>
+	// 서머노트 실제 생성
+	$(document).ready(function() { //진입점 시작
+		$('#summernote').summernote({
+			height : 400
+		});
+	}); // 진입점 끝
+</script>
+
 <script>
 	function classFileUpload(files, obj) {
 		for (var i = 0; i < files.length; i++) {
@@ -477,24 +491,15 @@ function valueCheck(eleForm){
 		$(el).remove();
 	}
 
+	
 	//submit 이전에 호출됨
 	function postForm() {
+		
+		// 아트클래스 내용 입력필드에 값 설정
 		var content = $('textarea[name="content"]').val($('#summernote').summernote('code'));
-		$('#post-title').val($('#text-title').val());
-
-		/*
-		var imgObject = new Object();
-		var imgArr = new Array();
 		
-		$('.previewImg').each(function(index,item) {    	
-			imgArr.push($(item).attr('src'));
-		}
-		imgObject.value = imgArr;
-		
-		// json 포맷으로 변환
-		var values = JSON.stringify(myObject);
-		 */
-
+		// 아트클래스 이미지 입력필드에 값을 넣어주기위한 작업
+		// Json객체배열 형태의 문자열로 변환 
 		var imagesJson = "{\"images\":[";
 		$('.previewImg').each(function(index, item) {
 			console.log($(item).attr('src'));
@@ -504,9 +509,12 @@ function valueCheck(eleForm){
 			else
 				imagesJson += "]}";
 		});
+		
+		// 아트클래스 이미지 입력필드(히든으로 감춰져 있음)에 값 설정
 		$('#post-imgs').val(imagesJson);
 		
 		var schedulesJson = "{\"schedules\":[";
+		
 		$('.btnSchedule').each(function(index, item) {
 			console.log($(item).text());
 			schedulesJson += "{\"schedule\":\"" + $(item).text().substring(0,$(item).text().length -2) + "\"}";
@@ -515,26 +523,16 @@ function valueCheck(eleForm){
 			else
 				schedulesJson += "]}";
 		});
+		// 아트클래스 개설날짜정보 입력필드(히든으로 감춰져 있음)에 값 설정
 		$('#post-schedules').val(schedulesJson);
-		/*
-		$('.btnSchedule')
-				.each(
-						function(index, value) {
-							$('#scheduleList').after(
-									'<input type="text" name="schedule'
-											+ index
-											+ '" value="'
-											+ $(this).text().substring(0,
-													$(this).text().length - 2)
-											+ '"/>');
-
-							console.log($(this).text());
-						});
-		$('#total').val($('.btnSchedule').length);
-		*/
+		
+		//서버로 데이터 전송 (submit) - 요청URL : WriteClass / 전송방식 : POST
 		$('#class-form').submit();
-	}
+	}/////postForm()
+	
 </script>
+
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-12" style="padding: 200px;">
@@ -542,87 +540,87 @@ function valueCheck(eleForm){
 				<!--================Blog Area =================-->
 
 				<div class="dropdown d-inline-block col-md-4">
-					<!--  <button type="button" onclick="postForm()">테스트</button> -->
-					<h5 class="card-title" style="margin: 20px;">카테고리 선택해주세요</h5>
-					<form action="<c:url value='WriteClass'/>" method="post"
-						id="class-form">
-
+					<h5 class="card-title" style="margin: 20px;">클래스 종류 선택</h5>
+				
+				<!------------------------------------ 폼 시작  -------------------------------------------->
+					<form action="<c:url value='WriteClass'/>" method="post" id="class-form">
+						
+						<!-- 스프링 시큐리티 적용 : post 요청시 반드시 토큰 추가 CSRF 공격예방  -->
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+						
+						<!-- ID 히든으로 넘기기 -->
+						<input type="hidden" name="id" value="${id }" />
+						
+						<!-- 카테고리 선택 필드  -->
 						<select class="form-control" name="categorie"
 							style="margin: 20px; position: relative; left: 200%;">
-
 							<option>일러스트레이션</option>
 							<option>회화</option>
 							<option>애니메이션</option>
 							<option>디자인</option>
 							<option>캘리그라피</option>
 							<option>조소/공예</option>
-
-
 						</select>
 				</div>
-
-
-				<!-- onsubmit="searchPlaces(); return false;" -->
-
-
-				<input type="hidden" name="${_csrf.parameterName}"
-					value="${_csrf.token}" />
+				
 				<div class="main-card mb-3 card">
 					<div class="card-body">
-						<h5 class="card-title">클래스 대해 소개해주세요</h5>
+						<h5 class="card-title">클래스 소개</h5>
 						<section class="blog_area single-post-area area-padding"
 							style="padding: 5px;">
 							<div class="container">
 								<div class="row">
 									<div class="col-lg-12 posts-list">
 										<div class="write-form">
+											
+											<div class="form-group" style="margin-top: 10px;">
+												<!-- 아트클래스 이름 입력 필드 시작 -->
+												<input type="text" name="title" class="form-control"
+													id="text-title" placeholder="클래스 이름을 입력하세요">
+												<!-- 아트클래스 이름 입력 필드 끝 -->
+											</div>
+												
+										
 											<div
 												style="font-size: 22px; border-bottom: 1px solid #ced4da; margin: 0 -10px 10px -10px; padding-left: 10px; padding-bottom: 5px;">
 												<i class="fa fa-fw" aria-hidden="true"
 													title="Copy to use camera"></i> 이미지
 											</div>
-											<div class="previewDiv" style="text-align: center;"></div>
-											<div id="fileUpload" class="dragAndDropDiv">
-												<span class="upload-span">여기에 파일을 드래그하세요</span>
-											</div>
-
-											<div class="form-group" style="margin-top: 10px;">
-												<input type="text" name="title" class="form-control"
-													id="text-title" placeholder="글제목(필수)">
-											</div>
-											<div id="summernote"></div>
-											<script>
-												$(document)
-														.ready(
-																function() {
-																	$(
-																			'#summernote')
-																			.summernote(
-																					{
-																						height : 400
-																					});
-																});
-											</script>
 											
-
-
+											<div class="card-body">
+												<div class="previewDiv" style="text-align: center;"></div>
+												<!-- 아트클래스 관련 이미지 업로드 필드 시작 -->
+												<div id="fileUpload" class="dragAndDropDiv">
+													<span class="upload-span">여기에 파일을 드래그하세요</span>
+												</div>
+												<!-- 아트클래스 관련 이미지 업로드 필드 끝 -->
+											</div>
+											
+											
+											
+											<div class="card-body">
+												<!-- 섬머노트 시작  -->
+												<div id="summernote"></div>
+												<!-- 섬머노트 끝 -->
+											</div>
+											
+											
 										</div>
 									</div>
-
 								</div>
 							</div>
 						</section>
-
 					</div>
 				</div>
-				<!--================Blog Area end =================-->
 
 
-				<!-- 난이도  -->
+		
 				<div class="card-body">
+				
+					<!-- 아트클래스 난이도 입력 필드 시작  -->
 					<div class="form-group row" style="position: relative; left: 20px;">
 						<label for="inputPassword"
-							class="col-sm-3 text-right col-form-label">난이도를 선택하세요</label>
+							class="col-sm-3 text-right col-form-label">클래스 난이도 설정</label>
 						<div class="col-sm-6">
 							<div class="form-check">
 								<input name="classLevel" type="radio" name="toasts"
@@ -641,14 +639,15 @@ function valueCheck(eleForm){
 							</div>
 						</div>
 					</div>
-					<!-- 난이도 끝 -->
+					<!-- 아트클래스 난이도 입력 필드 끝 -->
 
-					<div class="card-body">
+					
+					<div class="card-body"> 
 
-						<!-- 시간 입력 -->
+						<!-- 아트 클래스 소요시간 입력필드 시작 -->
 						<div class="form-group row">
 							<label for="inputPassword"
-								class="col-sm-3 text-right col-form-label">소요시간을 입력하세요</label>
+								class="col-sm-3 text-right col-form-label">클래스 소요시간</label>
 							<div class="col-sm-6">
 								<div class="input-group">
 									<div class="input-group-prepend">
@@ -668,12 +667,12 @@ function valueCheck(eleForm){
 
 							</div>
 						</div>
-						<!-- 시간 입력  끝-->
+						<!-- 아트클래스 수강시간 입력  끝-->
 
-						<!-- 인원 입력 -->
+						<!-- 아트 클래스 수강인원 입력 필드 시작 -->
 						<div class="form-group row">
 							<label for="inputPassword"
-								class="col-sm-3 text-right col-form-label">최대 인원수를 입력하세요</label>
+								class="col-sm-3 text-right col-form-label">클래스 수강인원 수</label>
 							<div class="col-sm-6">
 								<div class="input-group">
 									<div class="input-group-prepend">
@@ -686,19 +685,19 @@ function valueCheck(eleForm){
 										class="form-control input-mask-trigger" im-insert="true"
 										style="text-align: right;"
 										onkeydown='return onlyNumber(event)'
-										onkeyup='removeChar(event)' style='ime-mode:disabled;'><span
-										style="padding: 8px;">명</span>
+										onkeyup='removeChar(event)' style='ime-mode:disabled;'>
+										<span style="padding: 8px;">명</span>
 
 								</div>
 
 							</div>
 						</div>
-						<!-- 인원 입력  끝-->
+						<!-- 아트클래스 수강인원 입력필드  끝-->
 
-						<!-- 금액 입력 -->
+						<!-- 아트클래스 수강비용 입력필드 시작-->
 						<div class="form-group row">
 							<label for="inputPassword"
-								class="col-sm-3 text-right col-form-label">가격을 입력하세요</label>
+								class="col-sm-3 text-right col-form-label">수강비용</label>
 							<div class="col-sm-6">
 								<div class="input-group">
 									<div class="input-group-prepend">
@@ -713,22 +712,21 @@ function valueCheck(eleForm){
 										im-insert="true" style="text-align: right;">
 
 								</div>
-
 							</div>
 						</div>
-						<!-- 금액 입력  끝-->
-
+						<!-- 아트클래스 수강비용 입력필드 끝-->
+					
 					</div>
-					<!-- 끝 -->
+					
+					
+					<!-- 아트클래스 개설시각날짜 테이블 관련 입력필드 시작  -->
 					<div class="main-card mb-3 card">
 						<div class="card-body">
 							<h5 class="card-title">시작 날짜 및 시간 설정</h5>
 							<div id="scheduleList" class="col-sm-6"
 								style="margin: 25px; left: 25%;"></div>
 
-							<!-- 시간 입력 -->
-							<input id="post-schedules" name="schedules" type="hidden"
-								style="display: none;" value="" />
+								
 							<div class="form-group row">
 								<label for="inputPassword"
 									class="col-sm-3 text-right col-form-label">날짜를 입력하세요</label>
@@ -744,9 +742,7 @@ function valueCheck(eleForm){
 									</div>
 								</div>
 							</div>
-							<!-- 시간 입력  끝-->
 
-							<!-- 인원 입력 -->
 							<div class="form-group row">
 								<label for="inputPassword"
 									class="col-sm-3 text-right col-form-label">시작시간을 선택하세요</label>
@@ -816,17 +812,15 @@ function valueCheck(eleForm){
 									class="mb-2 mr-2 btn btn-success">추가</button>
 
 							</div>
-
-							<!-- 날짜 입력 끝  -->
-							<!-- 인원 입력  끝-->
+							<!-- 아트클래스 개설시각날짜 테이블 관련 입력필드 끝  -->
 						</div>
 					</div>
 				</div>
-
-				<!-- 맵  -->
+				
+				
 				<div class="main-card mb-3 card">
 					<div class="card-body">
-						<h5 class="card-title">클래스 위치 입력해주세요</h5>
+						<h5 class="card-title">클래스 진행 위치 설정</h5>
 
 						<div class="map_wrap">
 							<div id="map"
@@ -834,8 +828,8 @@ function valueCheck(eleForm){
 							<div id="menu_wrap" class="bg_white">
 								<div class="option">
 									<div>
-
-										키워드 : <input type="text" value="클래스 위치" id="keyword" size="15">
+									
+										<input type="text" placeholder="주소를 입력하세요" id="keyword" size="15">
 										<button onclick="searchPlaces(); return false;">검색하기</button>
 
 									</div>
@@ -845,68 +839,61 @@ function valueCheck(eleForm){
 								<div id="pagination"></div>
 							</div>
 						</div>
-
-						<!-- 주소 입력 -->
-						<div class="main-card mb-6 card">
-							<div class="card-body">
-								<div class="col-sm-8">
-									<h5 class="card-title">클래스 주소</h5>
-
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<button class="btn btn-secondary" disabled>클래스 주소</button>
-										</div>
-										<input name="classAddress" id="classAddr" type="text"
-											class="form-control" readonly>
-									</div>
-									<br>
-
-									<div class="input-group">
-										<div class="input-group-prepend">
-											<button id="secondadd" class="btn btn-secondary" disabled>상세주소
-											</button>
-										</div>
-										<input id="detailAddr" name="detailedAddr" type="text"
-											class="form-control">
-									</div>
+					</div>
+					
+					<div class="card-body">
+						<div class="col-sm-8">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<button class="btn btn-secondary" disabled>주소</button>
 								</div>
+								<input name="classAddress" id="classAddr" type="text"
+									class="form-control" readonly>
+							</div>
+							<br>
+
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<button id="secondadd" class="btn btn-secondary" disabled>상세주소
+									</button>
+								</div>
+								<input id="detailAddr" name="detailedAddr" type="text"
+									class="form-control">
 							</div>
 						</div>
 					</div>
+					
 				</div>
 
 				<!-- 맵 끝 -->
-				<input type="hidden" class="form-control" name="title"
-					id="post-title"> <input type="hidden" class="form-control"
-					name="imgs" id="post-imgs">
+				
+				
+				
+				<!-- 실제 서버로 전송되는 필드들 (시작) -->
+				<!-- 아트클래스 이미지 -->
+				<input type="hidden" class="form-control" name="imgs" id="post-imgs">
+				<!-- 아트클래스 내용(서머노트에 작성된 글) -->
 				<textarea name="content" style="display: none"></textarea>
+				<!-- 실제 시간이 입력되는 필드 - JQuery로 처리 -->
+				<input id="post-schedules" name="schedules" type="hidden" style="display: none;" value="" />
+				<!-- 실제 서버로 전송되는 필드들 (끝) -->
+				
 				<!-- 등록 버튼  -->
 				<div class="card-body">
-					<!-- <button type="button" onclick="addScheduleInput()">테스트</button> -->
 					<button type="button" onclick="postForm()"
-						class="mb-2 mr-2 btn btn-outline-primary btn-lg btn-block">
-						<!--     <input type="submit"  value="등록하기" >-->
-						등록하기
+						class="mb-2 mr-2 btn btn-danger btn-lg btn-block">
+						클래스 등록하기
 					</button>
-					<button class="mb-2 mr-2 btn btn-outline-primary btn-block">
-						나가기</button>
-
-
 				</div>
 				<!-- 등록 버튼 끝 -->
 
 				</form>
-				<!-- 폼끝  -->
-
+				<!---------------------------------- 폼 끝  ----------------------------------------->
+			
 			</div>
-
 		</div>
-
 	</div>
 </div>
-
-
-
 
 
 
@@ -918,8 +905,9 @@ function valueCheck(eleForm){
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
+<!-- 카카오맵  --> <!-- API 키입력  -->
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=507d9a5016712739e50d9d8c9ef33fd9&libraries=services"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29cf6db2d1dca112820c1f0483f5b61&libraries=services"></script>
 
 
 
@@ -1115,10 +1103,10 @@ function valueCheck(eleForm){
 
 
 
-<!-- 카카오맵  -->
+<!-- 카카오맵  --> <!-- API 키입력  -->
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=507d9a5016712739e50d9d8c9ef33fd9&libraries=services"></script>
-
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29cf6db2d1dca112820c1f0483f5b61&libraries=services">
+</script>
 
 <script>
 	// 마커를 담을 배열입니다
@@ -1151,7 +1139,7 @@ function valueCheck(eleForm){
 		var keyword = document.getElementById('keyword').value;
 
 		if (!keyword.replace(/^\s+|\s+$/g, '')) {
-			alert('키워드를 입력해주세요!');
+			//alert('키워드를 입력해주세요!'); -> 이 경고창은 왜 있는거죠??
 			return false;
 		}
 

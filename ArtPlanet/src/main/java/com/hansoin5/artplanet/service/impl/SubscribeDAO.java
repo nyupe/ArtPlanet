@@ -8,13 +8,14 @@ import javax.annotation.Resource;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.hansoin5.artplanet.service.SubscribeDTO;
+
 @Repository
 public class SubscribeDAO {
 	
-	
 	@Resource(name="template")
 	SqlSessionTemplate template;
-	
+	//Autopay////////////
 	//구독테이블에서 '현재시각 - 구독시간'이 3분이상인 레코드 수를 조회하는 메소드
 	public int checkSubPayRecordCount() {
 		//정기구독결제해야 하는 레코드 찾을시 컨트롤러에게 true 반환
@@ -25,7 +26,17 @@ public class SubscribeDAO {
 	public List<Map> checkSubPayRecordList(){
 		return template.selectList("checkSubPayRecordList");
 	}/////checkSubPayList()
+	//Autopay///////////
 	
-	
+	//구독신청
+	public int doSubscribe(Map map)
+	{
+		return template.insert("doSubscribe", map);
+	}
+	//구독정보 조회
+		public List<SubscribeDTO> getSubscribe(Map map)
+		{
+			return template.selectList("getSubscribe", map);
+		}
 	
 }/////class

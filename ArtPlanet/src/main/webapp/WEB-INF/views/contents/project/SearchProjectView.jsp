@@ -6,6 +6,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%-- <sec:authentication property="principal.username" var="id"/> --%>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <sec:authorize access="hasRole('ROLE_USER')">
 	<sec:authentication property="principal.username" var="id"/>
@@ -226,6 +227,9 @@ $(document).ready(function(){
 	//페이지 로드시 코멘트 목록 뿌려주기]
 	showComment();
 	
+	var newURL = "https:"+window.location.protocol + "//" + window.location.host +  window.location.pathname +"?" + "projectNo=${record.projectNo}"
+	
+	console.log(newURL);
 	//코멘트 입력및 수정처리]
 	$('#commentsubmit').click(function(){
 		
@@ -264,7 +268,11 @@ $(document).ready(function(){
 		console.log('쇼코멘트')
 			$.ajax({
 			url:"<c:url value='/Search/Project/CommentsList'/>",
-			data:{projectNo:${record.projectNo},'_csrf':'${_csrf.token}'},
+<<<<<<< HEAD
+			data:{projectNo:'${record.projectNo}','_csrf':'${_csrf.token}'},
+=======
+			data:{projectNo:'${record.projectNo}','_csrf':'${_csrf.token}'},//////////////////////
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			dataType:'json',
 			type:'post',
 			success:displayComments,
@@ -353,12 +361,12 @@ $(document).ready(function(){
 						<h4 class="widget_title" style="margin: 5px;">Tag Clouds</h4>
 						<ul class="prolist">
 							<c:forEach items="${tagList}" var="item">
-							<li>${item.TAGNAME}</li>
+								<li>${item.TAGNAME}</li>
 							</c:forEach>
 						</ul>
 					</aside>
 	<div style="text-align: center;clear: both;"></div>
-		<div class="row">
+		<div class="row" style="margin-top: 10px;">
 			<div class="col-lg-8 mb-5 mb-lg-0">
 				<div class="blog_left_sidebar">
 					<article class="blog_item">
@@ -458,7 +466,8 @@ $(document).ready(function(){
 													<p class="date">${targetdate - nowdate}시간 전</p>
 												</c:if>
 												<c:if test="${not hour }">
-													<p class="date">${(targetdate - nowdate)/24 }일 전</p>
+													<fmt:parseNumber value="${(targetdate - nowdate)/24}" integerOnly="true" var="goneDate"></fmt:parseNumber>
+													<p class="date">${goneDate }일 전</p>
 												</c:if>
 												
 												</div>
@@ -533,7 +542,7 @@ $(document).ready(function(){
 								</div>
 								
 								
-								<div class="col-50" style="width:1000%; text-align: left; font-size:small; margin-bottom: 20px;"><span>${per}</span>% 달성</div>
+								<div class="col-50" style="width:100%; text-align: left; font-size:small; margin-bottom: 20px;"><span>${per}</span>% 달성</div>
 								<div class="col-70" style="width:100%; text-align: left; font-size:large; margin-bottom: 20px;"><span style="font-weight: bold;">${fundInfo.projectsupportsum }</span>원  모집</div>
 								<div class="col-70" style="width:100%; text-align: left; font-size:large; margin-bottom: 20px;white-space: pre;"><span style="font-weight: bold;">${supportcount }</span>명 후원</div>
 								
@@ -563,7 +572,7 @@ $(document).ready(function(){
 								    <div class="modal-body">
 								    	<div>
 								        	<div class="media post_item">
-												<form role="form" method="post" action="<c:url value='/Search/Project/projectSupport'/>" style="width: 100%">
+												<form role="form" method="post" action="<c:url value='/ProjectAuthReq.do'/>" style="width: 100%">
 													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 													
 													
@@ -625,7 +634,7 @@ $(document).ready(function(){
 													<textarea class="form-control w-100" name="rewardContent"
 													id="rewardContent" cols="30" rows="9" placeholder="리워드 보상을 입력해주세요"></textarea>
 													<div style="text-align: center;margin-top: 15px;">
-													<button type="submit" class="bb" style="width: 15%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">리워드 등록</button>
+														<button type="submit" class="bb" style="width: 15%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">리워드 등록</button>
 													</div>
 												</form>
 											</div>
@@ -633,6 +642,7 @@ $(document).ready(function(){
 								    </div>
 								  </div>
 								</div>
+								
 								<!-- 리워드 등록 끝  -->
 								
 								
@@ -642,8 +652,28 @@ $(document).ready(function(){
 								<c:if test="${not writercheck }">
 									<button class="bb primary-bg text-white w-100" id="myBtn" type="submit" style="background: #00c4c4;border: none;height: 50px;border-radius: 2px;font-weight: bold;cursor: pointer;margin-bottom: 20px;">후원하기</button>
 								</c:if>
+								<c:if test="${writercheck }">
+								<div class="row" style="width: 100%;margin: auto;">
+									<form class="col-6" method="post" action="<c:url value='/Search/Project/projectUpdate'/>">
+										<div style="text-align: center;margin-top: 15px;">
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+											<input type="hidden" name="projectNo" value="${record.projectNo}" />
+											<button type="submit" class="bb" 
+											style="width: 100%;border-radius:2px;border: #00c4c4 1px solid ;height: 50px;cursor: pointer;background: white;color: #00c4c4;">프로젝트 수정</button>
+										</div>
+									</form>
+									<form class="col-6" role="form" action="<c:url value='/Search/Project/projectDelete'/>">
+										<div style="text-align: center;margin-top: 15px;">
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+											<input type="hidden" name="projectNo" value="${record.projectNo}" />
+											<button type="submit" class="bb" 
+											style="width: 100%;border-radius:2px;border: #00c4c4 1px solid ;height: 50px;cursor: pointer;background: white;color: #00c4c4;">프로젝트 삭제</button>
+										</div>
+									</form>
+								</div>
+								</c:if>
 								
-								<form action="<c:url value='#'/>" style="width: 32%;">
+								<%-- <form action="<c:url value='#'/>" style="width: 32%;">
 									<button class="bb  w-100" type="submit" style="border: 1px solid #dadce0;background:#fff ;height: 50px;border-radius: 2px;font-weight: bold;color: black;">SHARE</button>
 								</form>
 								
@@ -652,7 +682,70 @@ $(document).ready(function(){
 								</form>
 								<form action="<c:url value='#'/>" style="width: 32%;">
 									<button class="bb w-100" type="submit" style="border: 1px solid #dadce0;background:#fff ;height: 50px;border-radius: 2px;font-weight: bold;color: black;">LIKE</button>
-								</form>
+								</form> --%>
+								<div class="row" style="display: flex;margin-top: 20px;justify-content: center;">
+									<!-- 카카오톡 공유  시작 -->
+									<c:set var="URL" value="http://localhost:8080/artplanet/Search/Project/ProjectView?projectNo=${record.projectNo} " />
+									<span class="sociallink ml-1 col-2">
+									    <a href="javascript:sendLinkKakao()" id="kakao-link-btn" title="카카오톡으로 공유">
+									        <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" alt="Kakaotalk">
+									    </a>
+									</span>
+									<span class="sociallink ml-1 col-2">
+									<a>
+									<img src="<c:url value='/resources/img/project/facebook.png'/>" /></a>
+									</span>
+									<span class="sociallink ml-1 col-2">
+									<img src="<c:url value='/resources/img/project/twitter.png'/>" />
+									</span>
+									<span class="sociallink ml-1 col-2">
+									<img src="<c:url value='/resources/img/project/Copy.png'/>" />
+									</span>
+								</div>
+								<script>
+								
+								Kakao.init('e48160c4b97a640dbc60d607fb8fcb59');
+								
+								function sendLinkKakao(){
+								
+								    Kakao.Link.sendDefault({
+								      objectType: 'feed',
+								      content: {
+								          title: '${record.title}', //프로젝트 제목
+								          description: '${tags}', //프로젝트 태그
+								          imageUrl: '${record.fileurl}', //프로젝트 이미지
+								          link: {
+								            mobileWebUrl: 'https://developers.kakao.com', //이미지 클릭시 이동할 url
+								            webUrl: 'https://www.naver.com' //클릭시 이동할 url
+								          }
+								      },
+								      social: {
+								          likeCount: 0, //프로젝트 좋아요 수
+								          commentCount: 20, //프로젝트 댓글 수
+								          sharedCount: 0 //프로젝트 공유 수
+								        },
+								        buttons: [
+								            {
+								              title: '웹으로 보기', //공유 할때 하단에 보여줄 버튼
+								              link: {
+								                mobileWebUrl: 'https://developers.kakao.com', //버튼 클릭시 이동할 url
+								                webUrl: '${URL}' //버튼 클릭시 이동할 url
+								              }
+								            },
+								            {
+								              title: '앱으로 보기', //공유 할때 하단에 보여줄 버튼
+								              link: {
+								                mobileWebUrl: 'https://developers.kakao.com', //버튼 클릭시 이동할 url
+								                webUrl: 'https://developers.kakao.com' //버튼 클릭시 이동할 url
+								              }
+								            }
+								          ]
+								    });
+									
+								}
+								
+								
+								</script>
 								
 								
 							</div>
@@ -695,7 +788,7 @@ $(document).ready(function(){
 
 $('.rewardDelete').click(function(){
 	if(confirm("삭제하겠습니까?")){
-		
+		alert('아직 구현 안함')
 	}
 })
 

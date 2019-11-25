@@ -38,6 +38,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        			ON p.projectNo = sup.projectno 
 							JOIN member m on p.memberNo = m.memberno join gcs g on p.projectNo = g.projectno ORDER BY p.postdate DESC
 	</select>
+	
+	<!-- 프로젝트 마감임박 리스트 -->
+	<select id="ProjectselectlistClosing" parameterType="java.util.Map" resultType="ProjectDTO">
+		select p.*,tagname,sup.projectsupportsum,fileUrl,id
+	       	From (select projectno, WM_CONCAT(tagname) tagname from tag h join tagrelation tl  on h.tagno = tl.tagno group by projectNO) 
+	        	q join project p on q.projectNo=p.projectNo left outer 
+	        		JOIN (select projectNO, sum(projectsupportsum) projectsupportsum from projectsupport  group by projectno) sup 
+	        			ON p.projectNo = sup.projectno 
+							JOIN member m on p.memberNo = m.memberno join gcs g on p.projectNo = g.projectno ORDER BY (p.deadline - p.postdate) ASC
+	</select>
 	<!-- 코멘트 리스트 뿌리기 -->
 	<select id="ProjectSelectListComment" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT r.*,id FROM REPLY r JOIN MEMBER m on r.memberNo = m.memberNo WHERE r.projectNo = #{projectNo}
@@ -46,7 +56,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="projectSelectRewardList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT * FROM PROJECTREWARD WHERE PROJECTNO = 77
 	</select>
-	
 	<!-- 서포터 리스트 뿌리기 -->
 	<select id="ProjectSelectListSupport" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT * FROM 
@@ -67,6 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="projectCommentCount" parameterType="java.util.Map" resultType="int">
 		SELECT COUNT(*) FROM REPLY WHERE projectNo = #{projectNo}
 	</select>
+	<!-- 프로젝트별 태그리스트 뿌리기 -->
 	<select id="projectSelectTagsList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT * FROM 
 			TAGRELATION tr JOIN TAG t ON tr.tagno = t.tagno WHERE projectNO = #{projectNo} 
@@ -81,6 +91,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="ProjectDeleteComment" parameterType="java.util.Map">
 		DELETE REPLY WHERE REPLYNO = #{replyNo}
 	</delete>
+	<!-- 프로젝트 삭제 -->
+	<delete id="projectDelete" parameterType="java.util.Map">
+		DELETE PROJECT WHERE PROJECTNO = #{projectNo}
+	</delete>
+	<!-- 프로젝트에 해당하는 댓글 전부 삭제 -->
+	<!-- <delete id="projectDeleteCommentAll" parameterType="java.util.Map">
+		DELETE REPLY WHERE PROJECTNO = #{projectNo}
+	</delete> -->
+	
 	
 	
 	

@@ -185,6 +185,10 @@
     
     <!-- 결제 방법 : 인증키 요청(AUTH:CARD) -->
     <input type='hidden' name='pay_method'     value='AUTH:CARD'>
+    
+    <input type="hidden" name="projectNo"   value="${ projectNo}">         <!-- 프로젝트번호 -->
+   	<input type="hidden" name="projectSupportSum"   value="${projectSupportSum }">         <!-- 후원액 -->
+   	<input type="hidden" name="memberNo"   value="${memberNo }">         <!-- 멤버번호-->
  
     <!-- 인증 방식 : 공인인증(BCERT) -->
     <input type='hidden' name='card_cert_type' value='BATCH'>
