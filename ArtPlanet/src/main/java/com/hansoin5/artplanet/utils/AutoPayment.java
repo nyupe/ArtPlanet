@@ -51,7 +51,7 @@ public class AutoPayment {
 		wait = new WebDriverWait(driver,5);
 		
 		// ArtPlanet 로그인 화면 = targetUrl
-		tartgetUrl = "http://localhost:7070/artplanet/Login";
+		tartgetUrl = "http://localhost:8080/artplanet/Login";
 		
 	}/////
 	
@@ -115,8 +115,11 @@ public class AutoPayment {
 					//List<WebElement> subPayButtons = driver.findElements(By.className("mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-success")/*클래스명 넣기*/);
 					
 					//버튼 한번은 클릭되야함
-					webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"example\"]/tbody/tr[1]/td[9]/button")));
-					webElement.click();
+					while(true) {
+						Thread.sleep(5000); // 5초 쉬고
+						webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"example\"]/tbody/tr[1]/td[9]/button")));
+						webElement.click();
+					}
 				/*
 				 * //버튼들 사이여유시간 3초시간 두면서 클릭 for(WebElement subPayButton : subPayButtons) {
 				 * Thread.sleep(3000); subPayButton.click(); Thread.sleep(3000); }//for

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <style>
 
 .card-header>.nav .nav-link:hover {
@@ -88,22 +89,28 @@ margin: 10px 0px;}
 		</div>
 		<div class="card-header card-header-tab-animation" style="font-size: 1.8em; margin-bottom: 30px; padding: 0;">
 			<ul class="nav nav-justified">
-				<li class="nav-item"><a href="<c:url value='/Search/Project'/>" class="nav-link">최신글</a></li>
-				<li class="nav-item"><a href="<c:url value='/Search/Project'/>" class="nav-link">마감임박</a></li>
-				<li class="nav-item"><a href="<c:url value='/Search/Project'/>" class="nav-link active">인기글</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project/'/>" class="nav-link active">최신글</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project/'/>" class="nav-link">마감임박</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project/'/>" class="nav-link">인기글</a></li>
 			</ul>
 		</div>
 
-		<div class="filters portfolio-filter">
-			<ul>
+		<div class="filters portfolio-filter" style="display: flex; margin-bottom: 20px;">
+			
+			<ul style="margin:auto 0px;">
 				<li class="active" data-filter="*">all</li>
-				<li data-filter=".illustration">일러스트레이션</li>
-				<li data-filter=".animation">애니메이션</li>
-				<li data-filter=".design">디자인</li>
-				<li data-filter=".calligraphy">캘리그라피</li>
-				<li data-filter=".crafts">조소/공예</li>
-
+				<c:forEach items="${tags }" var="item" >
+					<li data-filter=".${item.TAGNAME }">${item.TAGNAME }</li>
+				</c:forEach>
+				
 			</ul>
+			
+		
+			<form action="<c:url value='/Search/Project/ProjectWrite'/>">
+				<button class="bb primary-bg w-100" type="submit" 
+				style="background:white;border: none;border-radius: 2px;font-weight: bold;cursor: pointer;color: #00c4c4;">글쓰기</button>
+			</form>
+			
 		</div>
 
 		<div class="filters-content">
@@ -113,35 +120,36 @@ margin: 10px 0px;}
 				<c:if test="${not empty list }" var="isEmpth">
 				<c:forEach var="item" items="${list }" varStatus="loop">
 				
-				<div class="col-xl-3 col-lg-4 col-md-6 all illustration painting">
+				
+				<div class="col-xl-3 col-lg-4 col-md-6 all painting <c:forEach var="list2" items="${list2[loop.index] }">${list2 } </c:forEach>">
 				
 					<div class="single_portfolio">
 						<a href="<c:url value='/Search/Project/ProjectView?projectNo=${item.projectNo }'/>"><img class="img-fluid w-100" src=${item.fileurl } alt=""></a>
 						<div class="project-info">
 						<div class="avatar-icon-wrapper avatar-icon-sm" style="padding: 0px;">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
+			        			<div class="avatar-icon"><img src="https://storage.googleapis.com/art-planet-storage/profile/%ED%94%84%EB%A1%9C%ED%95%84_%EA%B8%B0%EB%B3%B8.jpg"/></div>
 			        		</div>
 		        			<span class="post-artist">${item.id}</span><br/>		
-		        			<ul class="prolist"style="height:40px; "> 
+		        			<ul class="prolist"style="max-height:60px;contain:paint; height: 60px;margin-bottom: 0px;"> 
 		        			
-							<li><a href="#">${item.tagName }</a></li>
-							<!-- <li><a href="#">#love</a></li>
-							<li><a href="#">#technology</a></li>
-							<li><a href="#">#travel</a></li>
-							<li><a href="#">#restaurant</a></li>
-							<li><a href="#">#design</a></li>
-							<li><a href="#">#illustration</a></li>
-						 -->
+							<c:forEach var="list2" items="${list2[loop.index] }">
+							<li>#${list2 }</li>
+							</c:forEach>
+							
 							</ul>
 							
 							<fmt:parseNumber value="${item.postDate.time / (1000*60*60*24)}" integerOnly="true" var="nowdate"></fmt:parseNumber>
 							<fmt:parseNumber value="${item.deadline.time / (1000*60*60*24)}" integerOnly="true" var="targetdate"></fmt:parseNumber>
+							<c:if test="${item.projectsupportsum != null }" var="total">
 							<fmt:parseNumber value="${item.projectsupportsum / item.targetFigure * 100 }" integerOnly="true" var="per" type="number"></fmt:parseNumber>
-							
+							</c:if>
+							<c:if test="${not total }">
+							<fmt:parseNumber value="0" integerOnly="true" var="per" type="number"></fmt:parseNumber>
+							</c:if>
 							
 							
 						
-			        		<h4 style="clear: both;" ><a href=""><span class="project-title" style="display: inline-block;">${item.title}</span></a></h4>
+			        		<h4 style="clear: both;max-height: 35px;contain:paint;" ><span class="project-title" style="display: inline-block;">${item.title}</span></h4>
 			        		
 		        			
        						<div class="mb-3 progress-bar-animated-alt progress">
@@ -159,14 +167,6 @@ margin: 10px 0px;}
 				</c:forEach>
 				</c:if>
 				<!-- 프로젝트 게시글 끝 -->
-				
-				
-				
-				
-				
-				
-				
-				
 				
 			</div>
 		</div>

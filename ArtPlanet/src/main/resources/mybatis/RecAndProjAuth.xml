@@ -25,31 +25,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			UPDATE recAuth SET app_time = #{currentTime} WHERE batch_key = #{paied_batch}
 	</update>
 <!-- 	SEQ_MEMBER.NEXTVAL -->
-	<!-- 블로그후원(일회성)정기인증정보 배치키 CRUD 쿼리문  memberNo맞춰야함 -->
+	<!-- 블로그후원(일회성)정기인증정보 배치키 CRUD 쿼리문 -->
+	
+	<!-- 아래서 쓸 프로젝트서포트넘버 -->
+	<select id="projGetProjSupNo" parameterType="java.util.Map" resultType="RecAuthDTO">
+	select ps.projectsupportno from projectsupport ps join 
+	projauth pa on ps.projectsupportno = pa.projectsupportno where pa.memberno =#{memberNo}
+	</select>
 	<!-- 인증 배치키 디비입력 처리 -->
 	<insert id="projAuthInsert" parameterType="java.util.Map" >
 			INSERT INTO PROJAUTH(ORDR_IDXX, RES_CD, BATCH_KEY, CARD_CD, BUYR_NAME, MEMBERNO,APP_TIME, PROJECTSUPPORTNO)
-			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, #{memberNo}, #{app_time}, SEQ_MEMBER.NEXTVAL)
+			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, #{memberNo}, #{app_time}, #{projectSupportNo})
 	</insert>
-	<select id="projAuthSelectlist" parameterType="java.util.Map" resultType="RecAuthDTO">
-		 SELECT * FROM projAuth ORDER BY res_cd ASC, ordr_idxx ASC
+	
+	<!-- 11/25 아래 배치키 리스트에 전달할 인트형 카운터  프로젝트 총  -->
+	<select id="projGetCount" parameterType="java.util.Map" resultType="int">
+			SELECT COUNT(*) FROM project
 	</select>
+	
+	<!-- 11/25 프로젝트 배치키는 100퍼센트 달성한 리스트만 뽑아줍니다 -->
+	<select id="projAuthSelectlist" parameterType="java.util.Map" resultType="RecAuthDTO">
+	<![CDATA[
+		SELECT * FROM (SELECT * FROM projectSupport WHERE projectno = 
+		(SELECT projectno FROM project WHERE targetfigure <= (SELECT SUM(projectSupportSum) FROM projectSupport 
+		WHERE projectno = ${projGetCount}) AND projectno = ${projGetCount})) p JOIN projAuth pa ON p.projectsupportno = pa.projectsupportno 
+		WHERE p.projectsupportno = pa.projectsupportno
+		 ]]>	
+	</select>
+	
+	
 	<!--반드시 삭제쿼리문 집어넣을것  -->
 	<delete id="projAuthDelete" parameterType="java.util.Map" >
-			DELETE PROJAUTH WHERE BATCH_KEY = #{batch_key}
+			DELETE PROJAUTH WHERE BATCH_KEY = #{paied_batch}
 	</delete> 
 	
-	<!-- PROJECTSUPPORT테이블과 조인해서 PROJECTSUPPORTSUM컬럼만 셀렉트해오는 쿼리문 -->
-	<select id="recAuthSelectProjectSupportSum" parameterType="java.util.Map" resultType="RecAuthDTO">
-		SELECT p.projectsupportsum FROM PROJAUTH R INNER JOIN PROJECTSUPPORT P ON R.MEMBERNO = P.MEMBERNO 
-		where R.memberNo=#{memberNo}
-	</select>
-	<!-- 프로젝트(1회성)배치키 테이블에서 프로젝트서포트테이블의 멤버넘버와 같은 컬럼의 배치키만 뽑아오는 쿼리문  -->
-	<select id="recAuthSelectBatchKey" parameterType="java.util.Map" resultType="RecAuthDTO">
-		SELECT BATCH_KEY FROM PROJAUTH R INNER JOIN PROJECTSUPPORT P ON R.MEMBERNO = P.MEMBERNO
-	</select>
 	
-	<!-- 배치키로 결제시 인증테이블의 app_time업데이트하기      memberNo맞춰야함-->
+	
+	<!--  11/24  -->
+	<!-- 배치키로 결제시 인증테이블의 app_time업데이트하기  -->
 	<update id="updateApptimeForProj" parameterType="java.util.Map" >
 			UPDATE projAuth SET app_time = #{currentTime} WHERE batch_key = #{paied_batch}
 	</update>

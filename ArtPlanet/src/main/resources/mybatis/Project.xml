@@ -10,27 +10,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 프로젝트 글 작성 -->
 	<insert id="ProjectInsert" parameterType="java.util.Map">
+		<selectKey keyProperty="projectNo" resultType="int" order="BEFORE">
+			SELECT SEQ_PRO.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO project(projectNo, title, content, deadline, targetFigure, memberNo) 
-			VALUES(SEQ_PRO.NEXTVAL, #{title}, #{content}, #{deadline}, #{targetFigure}, #{memberNo})
+			VALUES(#{projectNo}, #{title}, #{content}, #{deadline}, #{targetFigure}, #{memberNo})
 	</insert>
 	<!-- 코멘트 입력하기 -->
 	<insert id="ProjectInsertComment" parameterType="java.util.Map">
 		INSERT INTO REPLY(replyNo,replyContent,memberNo,projectNo) 
 			VALUES(SEQ_REPLY_replyNo.Nextval,#{replyContent},#{memberNo},#{projectNo})
 	</insert>
+	<!-- 후원하기 -->
+	<insert id="InsertSupport" parameterType="java.util.Map">
+		INSERT INTO PROJECTSUPPORT VALUES(SEQ_SUP.NEXTVAL,#{projectSupportSum},sysdate,#{memberNo},#{projectNo})
+	</insert>
+	<!-- 리워드 등록하기 -->
+	<insert id="InsertReward" parameterType="java.util.Map">
+		INSERT INTO PROJECTREWARD VALUES(SEQ_PROJECTREWARD_rewardNo.NEXTVAL,#{projectNo},#{rewardContent},#{supportStep})
+	</insert>
 	<!-- 목록리스트 뿌리기 -->	
 	<select id="Projectselectlist" parameterType="java.util.Map" resultType="ProjectDTO">
-		select p.*,tagname,projectsupportsum,id, fileurl 
-			from (select projectno, WM_CONCAT(tagname) tagname 
-    			from hashtag h join tagrelation tl  on h.tagno = tl.tagno 
-    				group by projectNO) q join project p on q.projectNo=p.projectNo JOIN (select projectNO, sum(projectsupportsum) projectsupportsum 
-	        			from projectsupport 
-	        				group by projectno) sup on p.projectNo = sup.projectno join member m on p.memberNo = m.memberno join gcs g on p.projectNo = g.projectno
+		select p.*,tagname,sup.projectsupportsum,fileUrl,id
+        	From (select projectno, WM_CONCAT(tagname) tagname from tag h join tagrelation tl  on h.tagno = tl.tagno group by projectNO) 
+	        	q join project p on q.projectNo=p.projectNo left outer 
+	        		JOIN (select projectNO, sum(projectsupportsum) projectsupportsum from projectsupport  group by projectno) sup 
+	        			ON p.projectNo = sup.projectno 
+							JOIN member m on p.memberNo = m.memberno join gcs g on p.projectNo = g.projectno ORDER BY p.postdate DESC
 	</select>
 	<!-- 코멘트 리스트 뿌리기 -->
 	<select id="ProjectSelectListComment" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT r.*,id FROM REPLY r JOIN MEMBER m on r.memberNo = m.memberNo WHERE r.projectNo = #{projectNo}
 	</select>
+	<!-- 리워드 뿌리기 -->
+	<select id="projectSelectRewardList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM PROJECTREWARD WHERE PROJECTNO = 77
+	</select>
+	
 	<!-- 서포터 리스트 뿌리기 -->
 	<select id="ProjectSelectListSupport" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT * FROM 
@@ -43,10 +59,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 프로젝트 투자 내용 뿌리기 -->
 	<select id="projectSelectOneFundInfo" parameterType="java.util.Map" resultType="ProjectDTO">
-		select q.*,p.projectsupportsum from 
-    		(select sum(projectsupportsum) projectsupportsum,p.projectno from project p join projectsupport ps on p.projectNo = ps.projectNo group by p.projectNo) p 
-        		join (select targetfigure,deadline,postdate,projectno from project) q on p.projectNo = q.projectNo where p.projectno = #{projectNo} ORDER BY postdate DESC
+		Select q.*,p.projectsupportsum from 
+   			(select sum(projectsupportsum) projectsupportsum,p.projectno from project p join projectsupport ps on p.projectNo = ps.projectNo group by p.projectNo) p 
+   				right outer join (select targetfigure,deadline,postdate,projectno from project) q on p.projectNo = q.projectNo where q.projectno = #{projectNo} ORDER BY postdate DESC
 	</select>
+	<!-- 프로젝트별 코멘트카운트 -->
+	<select id="projectCommentCount" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM REPLY WHERE projectNo = #{projectNo}
+	</select>
+	<select id="projectSelectTagsList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM 
+			TAGRELATION tr JOIN TAG t ON tr.tagno = t.tagno WHERE projectNO = #{projectNo} 
+	</select>
+	<!-- 목록에서 카운트 많은 태그 뿌리기 -->
+	<select id="SelectTags" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT q.*,t.tagname 
+    		FROM (SELECT p.*,ROWNUM r FROM (SELECT tagno,COUNT(*) FROM TAGRELATION GROUP BY tagno ORDER BY COUNT(*) DESC ) p ) q 
+        		JOIN TAG t ON q.tagno = t.tagno WHERE r BETWEEN 1 AND 5
+	</select>
+	<!-- 댓글 삭제 -->
+	<delete id="ProjectDeleteComment" parameterType="java.util.Map">
+		DELETE REPLY WHERE REPLYNO = #{replyNo}
+	</delete>
+	
 	
 	
 	

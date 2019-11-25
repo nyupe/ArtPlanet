@@ -41,6 +41,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateClassNo" parameterType="java.util.Map">
 		UPDATE gcs SET classNo=#{classNo} WHERE fileNo=#{fileNo}
 	</update>
+	<update id="updateProjectNo" parameterType="java.util.Map">
+		UPDATE gcs SET projectNo=#{projectNo} WHERE fileNo=#{fileNo}
+	</update>
 	
 	<update id="updateMemberNo" parameterType="java.util.Map">
 		UPDATE gcs SET memberNo=#{memberNo} WHERE fileNo=#{fileNo}

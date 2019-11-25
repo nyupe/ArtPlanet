@@ -76,7 +76,7 @@ public class ProjectPayController {
 
 	@RequestMapping(value = "/ProjectPayRes", method = RequestMethod.POST)
 	public String payRes2(@RequestParam Map map) {
-		System.out.println("왜 정기구독 결제할때 멤버노가 널인거? "+memberDao.getMemberNo(map.get("id").toString()));
+		System.out.println("프로젝트 멤버노? "+memberDao.getMemberNo(map.get("id").toString()));
 		map.put("memberNo", memberDao.getMemberNo(map.get("id").toString()));
 		//아이디 넘기기
 		map.put("id",map.get("id").toString());
@@ -95,6 +95,8 @@ public class ProjectPayController {
 			int updated =authDao.updateApptimeForProj(map);
 			if (updated == 1)
 				System.out.println("○○○○○○배치키로 [앱타임] 갱신완료○○○○○○");
+				//정상적으로 앱타임이 수정된경우 해당 레코드를 삭제하여 배치키 정보도 같이 삭제합니다
+				authDao.projAuthDelete(map);
 		}
 		
 		
