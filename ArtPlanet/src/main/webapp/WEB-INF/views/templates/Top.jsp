@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- 스프링 써큐리티 적용에 필요한 태그라이브러리 -->
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+
 <header class="header_area" >
 	<div class="main_menu">
 		<nav class="navbar navbar-expand-lg navbar-light">
@@ -24,17 +26,16 @@
 						<%-- <li class="nav-item active"><a class="nav-link" href="<c:url value='/Home'/>">Home</a></li> --%>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/About'/>">About</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artwork'/>">Artworks</a></li>
-						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artist'/>">Artists</a></li>
+						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artist'/>">Artists</a></li> --%>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Project'/>">Projects</a></li>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/ArtClass'/>">Art Class</a></li>						
-						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Pay'/>">Pay</a></li>
+						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/Pay'/>">Pay</a></li> --%>
 						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li> --%>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/React.bbs'/>">React</a></li>
 
 
 
-						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li>
-						<li  class="nav-item"><a class="nav-link" id="go_admin" href="<c:url value='/AdmUserInfo.ad'/>">Admin</a></li>
+						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li> --%>
 						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/AuthStartPage'/>">Register</a></li> --%>
 						<!-- <li  class="nav-item"><a class="nav-link" id="go_admin" href="http://localhost:7070/artplanet/AdmUserInfo.ad">Admin</a></li> -->
 
@@ -54,6 +55,13 @@
 				 			<li  class="nav-item"><a class="nav-link" href="javascript:logout()">LogOut</a></li>
 				 			<li  class="nav-item"><a class="nav-link" href="<c:url value='/MyPage'/>">MyPage</a></li>
 			 			</sec:authorize>
+			 			<!-- ADMIN으로 접속한 상태  -->
+			 			<sec:authorize access="isAuthenticated()"> 
+			 				<sec:authentication property="principal.username" var="id" />
+			 				<c:if test="${id =='ADMIN'}">
+								<li  class="nav-item"><a class="nav-link" id="go_admin" href="<c:url value='/AdmUserInfo.ad'/>">Admin</a></li>
+							</c:if>
+						</sec:authorize>
 						<!-- 드랍다운메뉴
 						<li class="nav-item submenu dropdown"><a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Blog</a>
 							<ul class="dropdown-menu">

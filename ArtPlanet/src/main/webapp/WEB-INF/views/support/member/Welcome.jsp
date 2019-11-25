@@ -46,8 +46,8 @@
                                         <h5 class="modal-title">
                                             <h4 class="mt-2">
                                                 <div style="margin-top: 150px"align="center" class="display-4">환영합니다!</div>
-                                                <div align="center" style="color:black; margin-top: 20px"><span>${param.name }님, 회원가입을 축하합니다. </br> 
-                                                ArtPlanet의 아이디는 
+                                                <div align="center" style="color:black; margin-top: 20px"><span>회원가입을 축하합니다. </br> 
+                                                                                           회원님의 아이디는 
                                                 <span class="text-success" style="text-decoration: underline;"/> ${param.id }</span>입니다</span></div>
                                         </h5>
                                          

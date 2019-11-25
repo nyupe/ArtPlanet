@@ -26,11 +26,11 @@ public class ArtClassDAO
 	public ArtClassDTO selectOne(Map map) {
 		return template.selectOne("getClassOne", map);
 	}/////selectOne()
-  
-	public int delete(Map map)
-	{
+	
+	//아트클래스 일련번호 맵에 담음 -> 삭제 쿼리 호출 
+	public int delete(Map map){
 	  return this.template.delete("classDelete", map);
-	}
+	}/////delete()
 	  
 	// 아트클래스 레코드 생성하기
 	public int insert(Map map)
