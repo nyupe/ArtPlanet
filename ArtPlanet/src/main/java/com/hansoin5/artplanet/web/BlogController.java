@@ -6,9 +6,11 @@ import com.hansoin5.artplanet.service.BlogPostDTO;
 import com.hansoin5.artplanet.service.GcsDTO;
 import com.hansoin5.artplanet.service.MemberDTO;
 import com.hansoin5.artplanet.service.PayDTO;
+import com.hansoin5.artplanet.service.SubscribeDTO;
 import com.hansoin5.artplanet.service.impl.BlogPostDAO;
 import com.hansoin5.artplanet.service.impl.GcsDAO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
+import com.hansoin5.artplanet.service.impl.SubscribeDAO;
 import com.hansoin5.artplanet.service.impl.TagDAO;
 import com.hansoin5.artplanet.service.impl.TagRelationDAO;
 
@@ -55,6 +57,9 @@ public class BlogController
 	private TagDAO tagDAO;
 	@Resource(name="tagRelationDAO")
 	private TagRelationDAO tagRelationDAO;
+	@Resource(name="subscribeDAO")
+	private SubscribeDAO subscribeDAO;
+	
 	
 	@RequestMapping("/Blog")
 	public String blog()
@@ -63,8 +68,8 @@ public class BlogController
 	}
 	
 	@RequestMapping(value="/Blog/{id}", produces = "text/html; charset=UTF-8")
-	public String blog(@PathVariable("id") String id, Map map)
-	{
+	public String blog(@PathVariable("id") String id, Map map, Authentication auth)
+	{	
 		MemberDTO memberDto = memberDAO.getMemberById(id).get(0);
 		map.put("memberNo", memberDto.getMemberNo());
 		List<BlogPostDTO> list = dao.getDtoByMemberNo(map);
@@ -100,8 +105,18 @@ public class BlogController
 		map.put("introContent", memberDto.getIntroContent());
 		map.put("fee", memberDto.getSubscriptionFee());
 		map.put("id",id);
+		map.put("subscribe",0);
+		//스프링 시큐리티 이용할 때 아이디 값 가져오는 코드
+		if(auth != null)
+		{
+			map.put("loginedId", ((UserDetails)auth.getPrincipal()).getUsername());
+			System.out.println("loginedId:"+map.get("loginedId"));
 		
-		//
+			List<SubscribeDTO> subList = subscribeDAO.getSubscribe(map);
+			if(subList.size() > 0)
+				map.put("subscribe", 1);
+		}
+			
 		System.out.println("blog::::::"+JSONObject.toJSONString(map).replace("\\/", "/"));
 		return "contents/blog/Blog.tiles";
 	}
@@ -444,5 +459,19 @@ public class BlogController
 		
 		System.out.println(JSONArray.toJSONString(list).toString());
 		return JSONArray.toJSONString(list).replace("\\/", "/");	
+	}
+	
+	//구독
+	@RequestMapping("/Subscribe")
+	public String subscribe(@RequestParam Map map)
+	{
+		String id = map.get("id").toString();
+		String loginedId = map.get("loginedId").toString();
+		System.out.println("id:"+id);
+		System.out.println("loginedId:"+loginedId);
+		int affected = subscribeDAO.doSubscribe(map);
+		System.out.println(affected);
+		
+		return "forward:/Blog/"+id;
 	}
 }

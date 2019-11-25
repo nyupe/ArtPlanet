@@ -59,6 +59,44 @@
 		    }); 
 		});
 		
+		var files;
+		$("#input-banner").on('change', function(){
+			files = this.files;
+		});
+		$("#changeSetting").click(function ()
+		{
+			 for (var i = 0; i < files.length; i++) 
+		     {
+				 var formData = new FormData();
+				formData.append('file',files[i]);
+				formData.append('role','banner'); //role 설정해서 보내주자
+				formData.append('intro',$('#input-intro').val());
+				formData.append('fee',$('#input-fee').val());
+				formData.append('memberNo',memberNo);
+		     }
+			
+			var uploadURL = "<c:url value='/FileUploadToCloud'/>"; //Upload URL
+		    var jqXHR=$.ajax({
+		        beforeSend : function(xhr)
+		        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+		            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		        },
+		        url: uploadURL,
+		        enctype:"multipart/form-data",
+		        type:"POST",
+		        contentType:false,
+		        processData:false,
+		        cache:false,
+		        data:formData,
+		        dataType:"json",
+		        success: function(data)
+		        {
+		            console.log(data);
+		            location.reload();
+		        }
+		    }); 
+		});
+		
 /*       댓글 관련 코드 시작                      */		
 		//페이지 로드시 코멘트 목록 뿌려주기]
 		showComment();
@@ -148,7 +186,8 @@
 			})
 			
 			comments+="</div>"
-			//$('.badgecomment').html(commentcounts); /////////////카운트
+			$('.fa-comments').after(commentcounts);
+			$('.align-middle').after(commentcounts);
 			$('.comments-area').html(comments);
 			
 			/*
@@ -195,29 +234,32 @@
 						<h2>${title}</h2>
 						<ul class="blog-info-link mt-3 mb-4">
 							<li><a href="#"><i class="far fa-user"></i>${categorie}</a></li>
-							<li><a href="#"><i class="far fa-comments"></i> 03 Comments</a></li>
+							<li><a href="#"><i class="far fa-comments"></i> Comments</a></li>
 						</ul>
 						${content}
 					</div>
 				</div>
 				<div class="navigation-top">
 					<div class="d-sm-flex justify-content-between text-center">
+						<p class="comment-count">
+							<span class="align-middle"><i class="far fa-comment"></i></span>
+							 Comments
+						</p>
+						<!-- 
+						<div class="col-sm-4 text-center my-2 my-sm-0">
 						<p class="like-info">
 							<span class="align-middle"><i class="far fa-heart"></i></span>
 							Lily and 4 people like this
 						</p>
-						<div class="col-sm-4 text-center my-2 my-sm-0">
-							<p class="comment-count">
-								<span class="align-middle"><i class="far fa-comment"></i></span>
-								06 Comments
-							</p>
 						</div>
+						
 						<ul class="social-icons">
 							<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
 							<li><a href="#"><i class="fab fa-twitter"></i></a></li>
 							<li><a href="#"><i class="fab fa-dribbble"></i></a></li>
 							<li><a href="#"><i class="fab fa-behance"></i></a></li>
 						</ul>
+						 -->
 					</div>
 
 					<div class="navigation-area">
@@ -314,7 +356,13 @@
 				<div class="blog_right_sidebar">
 					<aside class="single_sidebar_widget search_widget">
 						<div class="menu-header-content" style="text-align: center;">
-							<div class="avatar-icon-wrapper mb-3 avatar-icon-xxl">
+						<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal.username" var="loginedId"/>
+							<c:if test="${id eq loginedId}">
+								<button type="button" style="float:right; border:white; background-color:white; cursor:pointer;" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw" aria-hidden="true"></i></button>
+							</c:if>
+						</sec:authorize>
+							<div style="margin-right:-30px;" class="avatar-icon-wrapper mb-3 avatar-icon-xxl">
 								<div class="avatar-icon">
 									<img src="${profilePicture}" alt="Avatar">
 								</div>
@@ -333,7 +381,6 @@
 							</div>
 						</div>
 						<sec:authorize access="isAuthenticated()">
-							<sec:authentication property="principal.username" var="loginedId"/>
 							<c:choose>
 								<c:when test="${id eq loginedId}">
 								<form action="<c:url value='/WritePost'/>">
