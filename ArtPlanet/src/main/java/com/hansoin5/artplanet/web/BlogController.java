@@ -64,8 +64,8 @@ public class BlogController
 		MemberDTO memberDto = memberDAO.getMemberById(id).get(0);
 		map.put("memberNo", memberDto.getMemberNo());
 		List<BlogPostDTO> list = dao.getDtoByMemberNo(map);
-		List<Map> collections = new Vector<Map>();
-		
+		List<Map> posts = new Vector<Map>();
+		Map post = new HashMap();
 		for(BlogPostDTO dto : list) {
 			List<GcsDTO> gcsList = gcsDAO.getListByBlogNo(dto.getBlogNo());
 			List<Map> images = new Vector<Map>();
@@ -75,29 +75,63 @@ public class BlogController
 				image.put("src", gd.getFileUrl());
 				images.add(image);
 			}
-			map.put("images", images);
-			map.put("blogNo", dto.getBlogNo());
-			map.put("title",dto.getTitle());
-			map.put("content",dto.getContent());
-			map.put("postDate",dto.getPostDate());
+			post.put("images", images);
+			post.put("blogNo", dto.getBlogNo());
+			post.put("title",dto.getTitle());
+			post.put("content",dto.getContent());
+			post.put("postDate",dto.getPostDate());
 			System.out.println("dto.getPostDate():"+dto.getPostDate());
-			map.put("categorie",dto.getCategorie());
-			map.put("viewCount",dto.getViewCount());
-			map.put("accessRight",dto.getAccessRight());
+			post.put("categorie",dto.getCategorie());
+			post.put("viewCount",dto.getViewCount());
+			post.put("accessRight",dto.getAccessRight());
 			
-			map.put("memberNo",dto.getMemberNo());
-			map.put("profile",memberDto.getProfilePicture());
-			map.put("nickname",memberDto.getNickName());
-			map.put("memberId", memberDto.getId());
-			map.put("banner", memberDto.getMainPicture());
-			map.put("introContent", memberDto.getIntroContent());
-			map.put("fee", memberDto.getSubscriptionFee());
-			map.put("id",id);
-			collections.add(map);
+			posts.add(post);
 		}
-		//json 배열 반환
-		System.out.println(JSONArray.toJSONString(collections).replace("\\/", "/"));
+		map.put("posts",posts);
+		map.put("memberNo",memberDto.getMemberNo());
+		map.put("profilePicture",memberDto.getProfilePicture());
+		map.put("nickname",memberDto.getNickName());
+		map.put("memberId", memberDto.getId());
+		map.put("banner", memberDto.getMainPicture());
+		map.put("introContent", memberDto.getIntroContent());
+		map.put("fee", memberDto.getSubscriptionFee());
+		map.put("id",id);
+		
+		//
+		System.out.println("blog::::::"+JSONObject.toJSONString(map).replace("\\/", "/"));
 		return "contents/blog/Blog.tiles";
+	}
+	
+	@RequestMapping(value="/getPosts", produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String getPosts(@RequestParam Map map)
+	{
+		List<BlogPostDTO> list = dao.getDtoByMemberNo(map);
+		List<Map> posts = new Vector<Map>();
+		Map post = new HashMap();
+		for(BlogPostDTO dto : list) {
+			List<GcsDTO> gcsList = gcsDAO.getListByBlogNo(dto.getBlogNo());
+			List<Map> images = new Vector<Map>();
+			Map image = new HashMap();
+			for(GcsDTO gd : gcsList)
+			{
+				image.put("src", gd.getFileUrl());
+				images.add(image);
+			}
+			post.put("images", images);
+			post.put("blogNo", dto.getBlogNo());
+			post.put("title",dto.getTitle());
+			post.put("content",dto.getContent());
+			post.put("postDate","'"+dto.getPostDate()+"'");
+			System.out.println("dto.getPostDate():"+dto.getPostDate());
+			post.put("categorie",dto.getCategorie());
+			post.put("viewCount","'"+dto.getViewCount()+"'");
+			post.put("accessRight",dto.getAccessRight());
+			
+			posts.add(post);
+		}
+		System.out.println("posts::::"+JSONArray.toJSONString(posts).replace("\\/", "/"));
+		return JSONArray.toJSONString(posts).replace("\\/", "/");
 	}
 	
 	@RequestMapping("/Blog/{id}/{blogNo}")
@@ -108,9 +142,17 @@ public class BlogController
 	{
 		map.put("memberId", id);
 		map.put("blogNo", blogNo);
+		List<GcsDTO> gcsList = gcsDAO.getListByBlogNo(blogNo);
+		List<Map> images = new Vector<Map>();
+		Map image = new HashMap();
+		for(GcsDTO gd : gcsList)
+		{
+			image.put("src", gd.getFileUrl());
+			images.add(image);
+		}
+		map.put("images", images);
 		
 		BlogPostDTO dto = dao.getDtoByBlogNo(map).get(0);
-
 		map.put("title", dto.getTitle());
 		map.put("content",dto.getContent());
 		map.put("memberNo",dto.getMemberNo());
