@@ -21,7 +21,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>Certification(미완성)</title>
+<title>ArtPlanet</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
 <meta name="description"
@@ -111,70 +111,6 @@
 										<div style="text-align: center; margin-bottom: 30px;">인증이
 											필요합니다</div>
 									</h5>
-									<%-- <!-- 입력 폼 시작 -->
-									<form name="form_auth" method="post">
-
-										<!-- 스프링 시큐리티 사용시 모든 POST 요청에 반드시 넣어줘야함  -->
-										<input type="hidden" name="${_csrf.parameterName}"
-											value="${_csrf.token}" />
-
-										<!-- 인증요청 정보 출력 테이블 - 인증요청 버튼만 보이게 visibility: collapse 적용 -->
-										<table style="visibility: collapse;" width="527"
-											align="center" cellspacing="0" cellpadding="0"
-											class="margin_top_20">
-											<tr>
-												<td colspan="2" class="title">인 증 정 보</td>
-											</tr>
-											<!-- 요청번호(ordr_idxx) -->
-											<tr>
-												<td class="sub_title1">요청번호</td>
-												<td class="sub_input1">&nbsp&nbsp<input type="text"
-													name="ordr_idxx" class="frminput" value="<%=ordr_idxx%>"
-													size="40" readonly="readonly" maxlength="40" /></td>
-											</tr>
-											<!-- 명의자명 -->
-											<tr>
-												<td class="sub_title1">성명</td>
-												<td class="sub_content1"><input type="text"
-													name="user_name" value="" size="20" maxlength="20"
-													class="frminput" /></td>
-											</tr>
-											<!-- 생년월일 -->
-											<tr>
-												<td class="sub_title1">생년월일</td>
-												<td class="sub_content1" id="year_month_day"></td>
-											</tr>
-											<!-- 성별구분 -->
-											<tr>
-												<td class="sub_title1">성별구분</td>
-												<td class="sub_content1 bold"><input type="radio"
-													name="sex_code" value="" />선택 <input type="radio"
-													name="sex_code" value="01" />남성 <input type="radio"
-													name="sex_code" value="02" />여성 <!-- 내/외국인구분 --> <select
-													name='local_code' class="frmselect">
-														<option value=''>선택</option>
-														<option value='01'>내국인</option>
-														<option value='02'>외국인</option>
-												</select></td>
-											</tr>
-											<tr class="height_1px">
-												<td colspan="2" bgcolor="#0f75ac"></td>
-											</tr>
-										</table>
-										<!-- 인증요청 정보 출력 테이블 End -->
-
-										<!-- 인증요청 버튼 테이블 Start -->
-										<table align="center" cellspacing="0" cellpadding="0"
-											class="margin_top_20">
-											<!-- 인증요청 이미지 버튼 -->
-											<tr id="show_pay_btn">
-												<td colspan="2" align="center"><input type="submit"
-													formaction="https://testcert.kcp.co.kr/kcp_cert/cert_view.jsp"
-													class="mb-2 mr-2 btn btn-primary btn-sm"
-													onclick="return auth_type_check();" value="휴대폰 인증" /></td>
-											</tr>
-										</table>
-										<!-- 인증요청 버튼 테이블 End --> --%>
 
 									<!-- ***************** <히든으로 넘겨주는 input 태그들>  *************************** -->
 
@@ -205,26 +141,25 @@
 										</h5>
 										
 										
-									<!-- 인증완료후 자동으로 제출되는 form -->
+									<!-- 인증완료후 자동으로 제출되는 form 시작-->
 									<form action="<c:url value='/AuthRegister'/>" method="post">
 										<!-- 스프링 시큐리티 적용 요청시 필수로 보내야 할 값 -->
 										<input type="hidden" name="${_csrf.parameterName}"
 											value="${_csrf.token}" />
 
 										<!-- 자식창(인증모듈 팝업창)에서 넘어올 값 받을 태그  : 이름, 생년월일, 핸드폰 번호-->
-										<input type="hidden" name="auth_name" id="auth_name" /> <input
-											type="hidden" name="auth_birth" id="auth_birth" /> <input
-											type="hidden" name="auth_phone" id="auth_phone" />
+										<input type="hidden" name="auth_name" id="auth_name" />
+										 <input	type="hidden" name="auth_birth" id="auth_birth" />
+										  <input type="hidden" name="auth_phone" id="auth_phone" />
 										<!-- 전송버튼 -->
 										<button type="submit" name="auth_test" id="auth_test"
 											style="display: none;"></button>
 									</form>
+									<!-- 인증완료후 자동으로 제출되는 form 끝-->
 
-
-
-									<!-- 입력 폼 시작 -->
+									
+									<!-- 인증모듈에서 세팅해놓은 입력 폼 시작 -->
 									<form name="form_auth" method="post">
-
 
 										<!-- 스프링 시큐리티 사용시 모든 POST 요청에 반드시 넣어줘야함  -->
 										<input type="hidden" name="${_csrf.parameterName}"
@@ -333,7 +268,7 @@
 											type="hidden" name="param_opt_3" value="opt3" />
 										<!-- ************************************************************************* -->
 									</form>
-									<!-- 입력 폼 끝 -->
+									<!-- 인증모듈에서 세팅해놓은 입력 폼 끝 -->
 								</div>
 
 								<!-- <div class="divider row"></div> -->

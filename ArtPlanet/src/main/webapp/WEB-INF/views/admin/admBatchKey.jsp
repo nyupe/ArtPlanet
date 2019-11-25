@@ -153,6 +153,7 @@
 	</script>
 </head>
 <body onload="init_orderid()" oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
+	
 	<!-- 케로 관리자UI -->
    	<div class="app-container app-theme-gray">
 		  <div class="app-main">
@@ -184,6 +185,12 @@
                                         <i class="metismenu-icon pe-7s-rocket"></i>
                                         	회원관리
                                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                        <div>
+											<button class="btn_1">버튼1</button>
+											<button class="btn_1">버튼1</button>
+											<button class="btn_1">버튼1</button>
+											<button class="btn_1">버튼1</button>
+										</div>
                                     </a>
                                     
                                   <ul>          

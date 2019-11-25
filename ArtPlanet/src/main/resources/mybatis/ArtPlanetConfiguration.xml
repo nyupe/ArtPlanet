@@ -50,6 +50,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/ArtClass.xml"/>
 		<!-- 아트 클래스 날짜 및 시간 -->
 		<mapper resource="mybatis/ClassOpeningDate.xml"/>
+		<!-- 아트 클래스 예약정보 -->
+		<mapper resource="mybatis/ClassReservation.xml"/>
 		<!-- 태그 -->
 		<mapper resource="mybatis/Tag.xml"/>
 		<!-- 태그 관계 -->
