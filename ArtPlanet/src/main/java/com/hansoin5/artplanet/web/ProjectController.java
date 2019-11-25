@@ -55,12 +55,16 @@ public class ProjectController{
 		List<Map> rewardList = projectDao.selectRewardList(map);
 		/* int commentCount = projectDao.getCommentCount(map); 필요 없어짐 */
 		
-		
+		String tags = "";
+		for(int i=0; i<tagList.size();i++) {
+			tags += "#" + tagList.get(i).get("TAGNAME") +" ";
+		}
 		
 		record.setContent(record.getContent());
 		List<Map> list = projectDao.selectsupport(map);
 		int supportcount = list.size();
 		
+		model.addAttribute("tags",tags);
 		model.addAttribute("list",list);
 		model.addAttribute("record",record);
 		model.addAttribute("supportcount",supportcount);
@@ -228,6 +232,18 @@ public class ProjectController{
 		projectDao.insertReward(map);
 		System.out.println("쿼리 적용 됨");
 		return "forward:/Search/Project/ProjectView";
+	}
+	
+	
+	@RequestMapping("/Search/Project/Test")
+	public String kakaolink(@RequestParam Map map) {
+		
+		return "contents/project/ViewProject.tiles";
+	}
+	@RequestMapping("/Search/Project/Test2")
+	public String kakaolink2(@RequestParam Map map) {
+		
+		return "contents/project/ViewProject2.tiles";
 	}
 	
 	/*public String project()

@@ -67,6 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="projectCommentCount" parameterType="java.util.Map" resultType="int">
 		SELECT COUNT(*) FROM REPLY WHERE projectNo = #{projectNo}
 	</select>
+	<!-- 프로젝트별 태그리스트 뿌리기 -->
 	<select id="projectSelectTagsList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT * FROM 
 			TAGRELATION tr JOIN TAG t ON tr.tagno = t.tagno WHERE projectNO = #{projectNo} 

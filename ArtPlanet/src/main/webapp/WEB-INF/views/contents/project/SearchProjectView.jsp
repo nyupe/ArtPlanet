@@ -6,8 +6,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%-- <sec:authentication property="principal.username" var="id"/> --%>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
 
 <sec:authorize access="hasRole('ROLE_USER')">
+	<sec:authentication property="principal.username" var="id"/>
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
 	<sec:authentication property="principal.username" var="id"/>
 </sec:authorize>
 
@@ -223,6 +227,9 @@ $(document).ready(function(){
 	//페이지 로드시 코멘트 목록 뿌려주기]
 	showComment();
 	
+	var newURL = "https:"+window.location.protocol + "//" + window.location.host +  window.location.pathname +"?" + "projectNo=${record.projectNo}"
+	
+	console.log(newURL);
 	//코멘트 입력및 수정처리]
 	$('#commentsubmit').click(function(){
 		
@@ -261,7 +268,7 @@ $(document).ready(function(){
 		console.log('쇼코멘트')
 			$.ajax({
 			url:"<c:url value='/Search/Project/CommentsList'/>",
-			data:{projectNo:${record.projectNo},'_csrf':'${_csrf.token}'},
+			data:{projectNo:'${record.projectNo}','_csrf':'${_csrf.token}'},
 			dataType:'json',
 			type:'post',
 			success:displayComments,
@@ -350,7 +357,7 @@ $(document).ready(function(){
 						<h4 class="widget_title" style="margin: 5px;">Tag Clouds</h4>
 						<ul class="prolist">
 							<c:forEach items="${tagList}" var="item">
-							<li>${item.TAGNAME}</li>
+								<li>${item.TAGNAME}</li>
 							</c:forEach>
 						</ul>
 					</aside>
@@ -455,7 +462,8 @@ $(document).ready(function(){
 													<p class="date">${targetdate - nowdate}시간 전</p>
 												</c:if>
 												<c:if test="${not hour }">
-													<p class="date">${(targetdate - nowdate)/24 }일 전</p>
+													<fmt:parseNumber value="${(targetdate - nowdate)/24}" integerOnly="true" var="goneDate"></fmt:parseNumber>
+													<p class="date">${goneDate }일 전</p>
 												</c:if>
 												
 												</div>
@@ -530,7 +538,7 @@ $(document).ready(function(){
 								</div>
 								
 								
-								<div class="col-50" style="width:1000%; text-align: left; font-size:small; margin-bottom: 20px;"><span>${per}</span>% 달성</div>
+								<div class="col-50" style="width:100%; text-align: left; font-size:small; margin-bottom: 20px;"><span>${per}</span>% 달성</div>
 								<div class="col-70" style="width:100%; text-align: left; font-size:large; margin-bottom: 20px;"><span style="font-weight: bold;">${fundInfo.projectsupportsum }</span>원  모집</div>
 								<div class="col-70" style="width:100%; text-align: left; font-size:large; margin-bottom: 20px;white-space: pre;"><span style="font-weight: bold;">${supportcount }</span>명 후원</div>
 								
@@ -640,7 +648,7 @@ $(document).ready(function(){
 									<button class="bb primary-bg text-white w-100" id="myBtn" type="submit" style="background: #00c4c4;border: none;height: 50px;border-radius: 2px;font-weight: bold;cursor: pointer;margin-bottom: 20px;">후원하기</button>
 								</c:if>
 								
-								<form action="<c:url value='#'/>" style="width: 32%;">
+								<%-- <form action="<c:url value='#'/>" style="width: 32%;">
 									<button class="bb  w-100" type="submit" style="border: 1px solid #dadce0;background:#fff ;height: 50px;border-radius: 2px;font-weight: bold;color: black;">SHARE</button>
 								</form>
 								
@@ -649,7 +657,70 @@ $(document).ready(function(){
 								</form>
 								<form action="<c:url value='#'/>" style="width: 32%;">
 									<button class="bb w-100" type="submit" style="border: 1px solid #dadce0;background:#fff ;height: 50px;border-radius: 2px;font-weight: bold;color: black;">LIKE</button>
-								</form>
+								</form> --%>
+								<div class="row" style="display: flex;justify-content:center;">
+									<!-- 카카오톡 공유  시작 -->
+									<c:set var="URL" value="http://localhost:8080/artplanet/Search/Project/ProjectView?projectNo=${record.projectNo} " />
+									<span class="sociallink ml-1 col-3">
+									    <a href="javascript:sendLinkKakao()" id="kakao-link-btn" title="카카오톡으로 공유">
+									        <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" alt="Kakaotalk">
+									    </a>
+									</span>
+									<span class="sociallink ml-1 col-3">
+									<a>
+									<img src="<c:url value='/resources/img/project/facebook.png'/>" /></a>
+									</span>
+									<span class="sociallink ml-1 col-3">
+									<img src="<c:url value='/resources/img/project/twitter.png'/>" />
+									</span>
+									<span class="sociallink ml-1 col-3">
+									<img src="<c:url value='/resources/img/project/Copy.png'/>" />
+									</span>
+								</div>
+								<script>
+								
+								Kakao.init('e48160c4b97a640dbc60d607fb8fcb59');
+								
+								function sendLinkKakao(){
+								
+								    Kakao.Link.sendDefault({
+								      objectType: 'feed',
+								      content: {
+								          title: '${record.title}', //프로젝트 제목
+								          description: '${tags}', //프로젝트 태그
+								          imageUrl: '${record.fileurl}', //프로젝트 이미지
+								          link: {
+								            mobileWebUrl: 'https://developers.kakao.com', //이미지 클릭시 이동할 url
+								            webUrl: 'https://www.naver.com' //클릭시 이동할 url
+								          }
+								      },
+								      social: {
+								          likeCount: 0, //프로젝트 좋아요 수
+								          commentCount: 20, //프로젝트 댓글 수
+								          sharedCount: 0 //프로젝트 공유 수
+								        },
+								        buttons: [
+								            {
+								              title: '웹으로 보기', //공유 할때 하단에 보여줄 버튼
+								              link: {
+								                mobileWebUrl: 'https://developers.kakao.com', //버튼 클릭시 이동할 url
+								                webUrl: '${URL}' //버튼 클릭시 이동할 url
+								              }
+								            },
+								            {
+								              title: '앱으로 보기', //공유 할때 하단에 보여줄 버튼
+								              link: {
+								                mobileWebUrl: 'https://developers.kakao.com', //버튼 클릭시 이동할 url
+								                webUrl: 'https://developers.kakao.com' //버튼 클릭시 이동할 url
+								              }
+								            }
+								          ]
+								    });
+									
+								}
+								
+								
+								</script>
 								
 								
 							</div>
@@ -692,7 +763,7 @@ $(document).ready(function(){
 
 $('.rewardDelete').click(function(){
 	if(confirm("삭제하겠습니까?")){
-		
+		alert('아직 구현 안함')
 	}
 })
 
