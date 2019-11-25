@@ -133,6 +133,8 @@ public class TopController
 		List<ProjectDTO> list = projectDao.selectlist(map);
 		model.addAttribute("list", list);
 
+		
+		
 		return "contents/SearchProject.tiles";
 	}
 

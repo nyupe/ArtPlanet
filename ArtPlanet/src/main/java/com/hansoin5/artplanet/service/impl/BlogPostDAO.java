@@ -45,4 +45,6 @@ public class BlogPostDAO
 	{
 		return template.selectList("getPublicByMemberNo", memberNo);
 	}
+	//안드로이드 로직
+	public <>
 }

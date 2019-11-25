@@ -35,6 +35,10 @@ public class AndroidController {
 	@ResponseBody
 	public String getGCSList(@RequestParam Map map, @RequestParam String fileUrl) {
 		
+		BlogPostDAO.insert(map);
+		
+		
+		
 		
 		
 		// GCS 테이블에 접근하여 모든 레코드들의 이미지 URL을 가져오는 서비스 호출
