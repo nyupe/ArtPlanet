@@ -111,6 +111,8 @@
 					if(data.length == 0) isEnd = true;
 					$(data).each(function(index, item) {
 						console.log(item);
+						
+						var intro = item.intro != null ? item.intro : "";
 						if(item.posts[2] != null)
 						{
 							var $htmlString = 
@@ -122,7 +124,7 @@
 						        		+ '</div>'
 										+ '<div class="artist-info">'
 							        		+ '<h3 style="text-align: center;"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><span class="artist-title">'+item.nickname+'</span></a></h3>'
-							        		+ '<span class="artist-skill">'+item.intro+'</span>'
+							        		+ '<span class="artist-skill">'+intro+'</span>'
 							        		+ '<div class="three-posts" style="text-align: center; padding-top: 5px; padding-bottom: 10px;">'
 							        			+ '<a href="<c:url value="/Blog/'+item.memberId+'/'+item.posts[0].blogNo+'"/>"><img class="artist-post" src="'+item.posts[0].url+'" alt=""></a>'
 							        			+ '<a href="<c:url value="/Blog/'+item.memberId+'/'+item.posts[1].blogNo+'"/>"><img class="artist-post" src="'+item.posts[1].url+'" alt=""></a>'
@@ -143,7 +145,7 @@
 						        		+ '</div>'
 										+ '<div class="artist-info">'
 							        		+ '<h3 style="text-align: center;"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><span class="artist-title">'+item.nickname+'</span></a></h3>'
-							        		+ '<span class="artist-skill">'+item.intro+'</span>'
+							        		+ '<span class="artist-skill">'+intro+'</span>'
 							        		+ '<div class="three-posts" style="text-align: center; padding-top: 5px; padding-bottom: 10px;">'
 							        			+ '<a href="<c:url value="/Blog/'+item.memberId+'/'+item.posts[0].blogNo+'"/>"><img class="artist-post" src="'+item.posts[0].url+'" alt=""></a>'
 						        				+ '<a href="<c:url value="/Blog/'+item.memberId+'/'+item.posts[1].blogNo+'"/>"><img class="artist-post" src="'+item.posts[1].url+'" alt=""></a>'
@@ -163,7 +165,7 @@
 						        		+ '</div>'
 										+ '<div class="artist-info">'
 							        		+ '<h3 style="text-align: center;"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><span class="artist-title">'+item.nickname+'</span></a></h3>'
-							        		+ '<span class="artist-skill">'+item.intro+'</span>'
+							        		+ '<span class="artist-skill">'+intro+'</span>'
 							        		+ '<div class="three-posts" style="text-align: center; padding-top: 5px; padding-bottom: 10px;">'
 							        			+ '<a href="<c:url value="/Blog/'+item.memberId+'/'+item.posts[0].blogNo+'"/>"><img class="artist-post" src="'+item.posts[0].url+'" alt=""></a>'
 						        			+ '</div>'
@@ -173,6 +175,7 @@
 						}
 						else
 						{
+							
 							var $htmlString = 
 								$('<div class="col-lg-3 col-md-4 all'+item.engCategorie+'" style="position: absolute; left: 0%; top: 0px;">'
 									+ '<div class="single_portfolio">'
@@ -182,7 +185,7 @@
 						        		+ '</div>'
 										+ '<div class="artist-info">'
 							        		+ '<h3 style="text-align: center;"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><span class="artist-title">'+item.nickname+'</span></a></h3>'
-							        		+ '<span class="artist-skill">'+item.intro+'</span>'
+							        		+ '<span class="artist-skill">'+intro+'</span>'
 							        		+ '<div class="three-posts" style="text-align: center; padding-top: 5px; padding-bottom: 10px;">'
 						        			+ '</div>'
 						        		+ '</div>'
