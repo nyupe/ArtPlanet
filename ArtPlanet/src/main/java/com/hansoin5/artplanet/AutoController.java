@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
 import com.hansoin5.artplanet.service.impl.ProjectDAO;
 import com.hansoin5.artplanet.service.impl.SubscribeDAO;
+import com.hansoin5.artplanet.utils.AutoPayment;
 
 
 @Controller
@@ -15,7 +16,6 @@ public class AutoController {
 	
 	//셀레니움 적용한 서비스(AutoPayment.class) 주입
 	//@Resource(name="autoPayment")
-	//private AutoPayment autoPayment;
 	//private AutoPayment autoPaymentObj;
 	
 
@@ -35,7 +35,6 @@ public class AutoController {
 	
 	// 자동 DB 조회 
 	
-	// 자동 DB 조회 및 조건에 따른 서비스 호출
 	
 	// 자동 DB 조회 및 조건에 따른 서비스 호출 (프로젝트 실행 한다음 15초후 셀레니움 실행)
 	//@Scheduled(cron = "0/15 * * * * ?") // 15초마다 자동 실행
@@ -52,7 +51,7 @@ public class AutoController {
 			 //System.out.println("정기구독결제 조회 쿼리 성공");
 			  
 			  // 셀리니움 적용한 정기구독 결제 메소드 실행 
-			  //autoPaymentObj.autoPayment("subscribe");
+			  autoPaymentObj.autoPayment("subscribe");
 			  
 		  //}/////
 		  
