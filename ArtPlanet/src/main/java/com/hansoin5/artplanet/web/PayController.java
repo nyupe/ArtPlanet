@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,15 +22,25 @@ public class PayController {
 	private PayDAO dao;
 	
 	@RequestMapping("Order.do")
-	public String order()
+	public String order(@RequestParam Map map, Model model)
 	{
 		//return "pay/sample/order.tiles"; 타일즈적용시 아코디언 버벅거림
 		//return "pay/sample/order";   //수정1차
 		
+		/*
+		//들어온것 찍어보기
+		Set<String> keys = map.keySet();
+		for(String key : keys) {
+			System.out.println(key);
+		}///// - 잘들어옴
+		*/
+		
+		//가격 리퀘스트 영역에 저장 
+		model.addAttribute("fee", map.get("fee").toString().replace("원", ""));
 		
 		return "pay/sample/OrderFinal.tiles";   //수정최종
 
-	}
+	}/////order()
 	
 	
 	@RequestMapping("Hub.do")

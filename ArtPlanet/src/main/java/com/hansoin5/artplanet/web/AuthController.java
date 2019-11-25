@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController { 
 
 	// 휴대폰 인증버튼을 보여주는 page
-	@RequestMapping("/AuthStart.do")
+	@RequestMapping("/AuthStartPage")
 	public String authStart() {
 		return "kcpcert_enc_jsp/WEB_ENC/kcpcert_start";
 	}////// authStart()
 
 	// 인증후 결과 데이터를 받는 page;
-	@RequestMapping("AuthReq.do")
+	@RequestMapping("/AuthProcess")
 	public String authReq() {
 		return "kcpcert_enc_jsp/WEB_ENC/kcpcert_proc_req";
 	}////// authReq()

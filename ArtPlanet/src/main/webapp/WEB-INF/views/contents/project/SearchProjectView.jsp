@@ -268,7 +268,11 @@ $(document).ready(function(){
 		console.log('쇼코멘트')
 			$.ajax({
 			url:"<c:url value='/Search/Project/CommentsList'/>",
+<<<<<<< HEAD
 			data:{projectNo:'${record.projectNo}','_csrf':'${_csrf.token}'},
+=======
+			data:{projectNo:'${record.projectNo}','_csrf':'${_csrf.token}'},//////////////////////
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			dataType:'json',
 			type:'post',
 			success:displayComments,
