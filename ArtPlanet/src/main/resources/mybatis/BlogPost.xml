@@ -49,5 +49,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getPublicByMemberNo" parameterType="java.lang.String" resultType="BlogPostDTO">
 		SELECT * FROM blogPost WHERE memberNo=#{memberNo} AND accessRight = 0
 	</select>
+	
 </mapper>
 <!-- 캐시아니라고 -->

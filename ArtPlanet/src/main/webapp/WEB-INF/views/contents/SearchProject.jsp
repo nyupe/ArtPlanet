@@ -97,9 +97,9 @@ margin: 10px 0px;}
 		</div>
 		<div class="card-header card-header-tab-animation" style="font-size: 1.8em; margin-bottom: 30px; padding: 0;">
 			<ul class="nav nav-justified">
-				<li class="nav-item"><a href="<c:url value='/Search/Project/'/>" class="nav-link active">최신글</a></li>
-				<li class="nav-item"><a href="<c:url value='/Search/Project/'/>" class="nav-link">마감임박</a></li>
-				<li class="nav-item"><a href="<c:url value='/Search/Project/'/>" class="nav-link">인기글</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project'/>" class="nav-link active">최신글</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project/Closing'/>" class="nav-link">마감임박</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project/Best'/>" class="nav-link">인기글</a></li>
 			</ul>
 		</div>
 
@@ -115,7 +115,7 @@ margin: 10px 0px;}
 			
 		
 			<form action="<c:url value='/Search/Project/ProjectWrite'/>">
-				<button class="bb primary-bg w-100" type="submit" 
+				<button class="bb primary-bg w-100" type="submit" name="${id }"
 				style="background:white;border: none;border-radius: 2px;font-weight: bold;cursor: pointer;color: #00c4c4;">글쓰기</button>
 			</form>
 			<form action="<c:url value='/Search/Project/Test'/>">
@@ -194,7 +194,7 @@ margin: 10px 0px;}
 $(function() {
 	
 	$('.bb').click(function(e){
-		if($(this).val() == ""){
+		if($('.bb').attr('name') == ""){
 			alert('로그인 해주세요');
 			e.stopPropagation();
 	        e.preventDefault();

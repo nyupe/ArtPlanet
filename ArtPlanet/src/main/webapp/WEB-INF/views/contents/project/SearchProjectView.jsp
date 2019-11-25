@@ -362,7 +362,7 @@ $(document).ready(function(){
 						</ul>
 					</aside>
 	<div style="text-align: center;clear: both;"></div>
-		<div class="row">
+		<div class="row" style="margin-top: 10px;">
 			<div class="col-lg-8 mb-5 mb-lg-0">
 				<div class="blog_left_sidebar">
 					<article class="blog_item">
@@ -568,7 +568,7 @@ $(document).ready(function(){
 								    <div class="modal-body">
 								    	<div>
 								        	<div class="media post_item">
-												<form role="form" method="post" action="<c:url value='/Search/Project/projectSupport'/>" style="width: 100%">
+												<form role="form" method="post" action="<c:url value='/ProjectAuthReq.do'/>" style="width: 100%">
 													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 													
 													
@@ -630,7 +630,7 @@ $(document).ready(function(){
 													<textarea class="form-control w-100" name="rewardContent"
 													id="rewardContent" cols="30" rows="9" placeholder="리워드 보상을 입력해주세요"></textarea>
 													<div style="text-align: center;margin-top: 15px;">
-													<button type="submit" class="bb" style="width: 15%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">리워드 등록</button>
+														<button type="submit" class="bb" style="width: 15%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">리워드 등록</button>
 													</div>
 												</form>
 											</div>
@@ -638,6 +638,7 @@ $(document).ready(function(){
 								    </div>
 								  </div>
 								</div>
+								
 								<!-- 리워드 등록 끝  -->
 								
 								
@@ -646,6 +647,26 @@ $(document).ready(function(){
 								</c:if>
 								<c:if test="${not writercheck }">
 									<button class="bb primary-bg text-white w-100" id="myBtn" type="submit" style="background: #00c4c4;border: none;height: 50px;border-radius: 2px;font-weight: bold;cursor: pointer;margin-bottom: 20px;">후원하기</button>
+								</c:if>
+								<c:if test="${writercheck }">
+								<div class="row" style="width: 100%;margin: auto;">
+									<form class="col-6" method="post" action="<c:url value='/Search/Project/projectUpdate'/>">
+										<div style="text-align: center;margin-top: 15px;">
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+											<input type="hidden" name="projectNo" value="${record.projectNo}" />
+											<button type="submit" class="bb" 
+											style="width: 100%;border-radius:2px;border: #00c4c4 1px solid ;height: 50px;cursor: pointer;background: white;color: #00c4c4;">프로젝트 수정</button>
+										</div>
+									</form>
+									<form class="col-6" role="form" action="<c:url value='/Search/Project/projectDelete'/>">
+										<div style="text-align: center;margin-top: 15px;">
+											<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+											<input type="hidden" name="projectNo" value="${record.projectNo}" />
+											<button type="submit" class="bb" 
+											style="width: 100%;border-radius:2px;border: #00c4c4 1px solid ;height: 50px;cursor: pointer;background: white;color: #00c4c4;">프로젝트 삭제</button>
+										</div>
+									</form>
+								</div>
 								</c:if>
 								
 								<%-- <form action="<c:url value='#'/>" style="width: 32%;">
@@ -658,22 +679,22 @@ $(document).ready(function(){
 								<form action="<c:url value='#'/>" style="width: 32%;">
 									<button class="bb w-100" type="submit" style="border: 1px solid #dadce0;background:#fff ;height: 50px;border-radius: 2px;font-weight: bold;color: black;">LIKE</button>
 								</form> --%>
-								<div class="row" style="display: flex;justify-content:center;">
+								<div class="row" style="display: flex;margin-top: 20px;justify-content: center;">
 									<!-- 카카오톡 공유  시작 -->
 									<c:set var="URL" value="http://localhost:8080/artplanet/Search/Project/ProjectView?projectNo=${record.projectNo} " />
-									<span class="sociallink ml-1 col-3">
+									<span class="sociallink ml-1 col-2">
 									    <a href="javascript:sendLinkKakao()" id="kakao-link-btn" title="카카오톡으로 공유">
 									        <img src="//developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_medium.png" alt="Kakaotalk">
 									    </a>
 									</span>
-									<span class="sociallink ml-1 col-3">
+									<span class="sociallink ml-1 col-2">
 									<a>
 									<img src="<c:url value='/resources/img/project/facebook.png'/>" /></a>
 									</span>
-									<span class="sociallink ml-1 col-3">
+									<span class="sociallink ml-1 col-2">
 									<img src="<c:url value='/resources/img/project/twitter.png'/>" />
 									</span>
-									<span class="sociallink ml-1 col-3">
+									<span class="sociallink ml-1 col-2">
 									<img src="<c:url value='/resources/img/project/Copy.png'/>" />
 									</span>
 								</div>

@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 
 import org.json.simple.JSONArray;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hansoin5.artplanet.service.RecPayDTO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
+import com.hansoin5.artplanet.service.impl.ProjectDAO;
 import com.hansoin5.artplanet.service.impl.RecAuthDAO;
 import com.hansoin5.artplanet.service.impl.RecPayDAO;
 
@@ -27,6 +29,8 @@ public class ProjectPayController {
 	// member 테이블에 접근하는 객체를 주입받습니다.
 	@Resource(name = "memberDAO")
 	private MemberDAO memberDao;
+	@Resource(name="projectDAO")
+	private ProjectDAO projectDao;
 
 	@Resource(name = "recAuth")
 	private RecAuthDAO authDao;
@@ -35,23 +39,45 @@ public class ProjectPayController {
 
 	// 인증
 	@RequestMapping("/ProjectAuthReq.do")
-	public String authReq() {
+	public String authReq(@RequestParam Map map,Model model) {
+		System.out.println("ProjectAuthReq 컨트롤시작");
+		
+		//프로젝트에서 후원 할 때 후원액 , 삭제 
+		String projectSupportSum = map.get("projectSupportSum").toString().replace(",", "");
+		map.put("projectSupportSum", projectSupportSum);
+		//프로젝트에서 후원할 때 id로 memberNo 가져오기
+		String memberNo = memberDao.getMemberNo(map.get("id").toString());
+		map.put("memberNo", memberNo);
+		
+		//영역에 저장 총액,멤버번호,프로젝트번호
+		model.addAttribute("projectSupportSum",map.get("projectSupportSum"));
+		model.addAttribute("memberNo",map.get("memberNo"));
+		model.addAttribute("projectNo",map.get("projectNo"));
+		System.out.println(map.get("projectNo"));
+		System.out.println("ProjectAuthReq 컨트롤 끝");
+		
 		return "project_pay/sample/auth/Requestkey.tiles";
 	}////////////// RecurringAuthReq.do
 
 	@RequestMapping("/ProjectAuthHub.do")
-	public String authHub(@RequestParam Map map) {
+	public String authHub(@RequestParam Map map,Model model) {
 		System.out.println("/ProjectAuthHub 요청으로 들어온 컨트롤러 메소드 입니다");
 		System.out.println("스프링 시큐리티를 적용하여 아이디를 히든으로 넘겼습니다 :" + map.get("id").toString());
 		String memberNo = memberDao.getMemberNo(map.get("id").toString());
 		System.out.println("아이디로 멤버테이블에서 조회한 회원번호입니다:" + memberNo);
-
+		System.out.println(map.get("memberNo"));
+		model.addAttribute("projectSupportSum",map.get("projectSupportSum"));
+		model.addAttribute("memberNo",map.get("memberNo"));
+		model.addAttribute("projectNo",map.get("projectNo"));
+		
 		return "project_pay/sample/auth/pp_cli_hub";
 	}////////////// RecurringAuthHub.do
 
 	// DB저장
 	@RequestMapping("/ProjectAuthRes.do")
 	public String authRes(@RequestParam Map map) {
+		System.out.println("ProjectAuthRes 컨트롤 시작");
+		System.out.println(map.get("projectNo"));
 		System.out.println(map.get("batch_key"));
 		map.put("memberNo", memberDao.getMemberNo(map.get("id").toString()));
 		map.put("app_time", "");
@@ -59,6 +85,8 @@ public class ProjectPayController {
 		if (affected == 1) {
 			System.out.println("프로젝트 후원[인증] DB입력완료");
 		}
+		projectDao.insertsupport(map);
+		System.out.println("ProjectAuthRes 컨트롤 끝");
 
 		return "project_pay/sample/auth/result";
 	}/////////// RecurringAuthRes.do
