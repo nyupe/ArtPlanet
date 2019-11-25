@@ -27,6 +27,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.config.annotation.authentication.configurers.userdetails.DaoAuthenticationConfigurer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,7 +52,7 @@ public class ArtclassController {
 		
 		//맵에 클래스 고유번호 담기
 		map.put("classNo",classNo);
-		
+		//map.put("memberNo",memberNo);
 		//서비스 호출
 		ArtClassDTO record=artClassDAO.selectOne(map); //데이터 저장 //줄바꿈 처리
 		System.out.println("dao에서 데이터 컨트롤러로 가져옴 성공");
@@ -63,13 +64,13 @@ public class ArtclassController {
 	}/////
 
 	//입력
-	@RequestMapping(value = "/View_Input", method = { org.springframework.web.bind.annotation.RequestMethod.GET })
+	@RequestMapping(value = "/WriteClass", method = { org.springframework.web.bind.annotation.RequestMethod.GET })
 	public String moveViewinput() {
-		return "sub/art_class/View_Input.tiles";
+		return "sub/art_class/WriteClass.tiles";
 	}
 	
 	//artclass(list)페이지
-	@RequestMapping(value = "/View_Input", method = { org.springframework.web.bind.annotation.RequestMethod.POST })
+	@RequestMapping(value = "/WriteClass", method = { org.springframework.web.bind.annotation.RequestMethod.POST })
 	public String viewinputOK(@RequestParam Map map, HttpServletRequest req) throws ParseException {
 		/*
 		 * Map<String, String> arrMap = new TreeMap();
@@ -78,15 +79,33 @@ public class ArtclassController {
 		 * (iterator.hasNext()) { System.out.println(iterator.next()); }
 		 * 
 		 */
+		System.out.println("writeClass");
+		//System.out.println("memberNo:"+map.get("memberNo"));
+	    map.put("memberNo", 2);
+	    //JSON형태 문자열 자바객체로 변환하기
+		Map<String,List<Map<String,Object>>> gsonMap2 = new HashMap<String, List<Map<String,Object>>>();
+		Gson gson2 = new Gson();
+		JSONParser parser2 = new JSONParser();
+		System.out.println("map.get.schd:"+map.get("schedules").toString());
+		Object obj2 = parser2.parse(map.get("schedules").toString());
+		JSONObject jsonObj2 = (JSONObject) obj2;
+		
+		gsonMap2 = gson2.fromJson(JSONObject.toJSONString(jsonObj2).replace("\\/", "/"),
+				new TypeToken<Map<String,List<Map<String,Object>>>>(){}.getType());
+		/////////////////////////////
+		System.out.println("jsonObj2:"+JSONObject.toJSONString(jsonObj2).replace("\\/", "/"));
+		
 		if (this.artClassDAO.insert(map) == 1) {
-			for (int i = 0; i < Integer.parseInt((String) map.get("total")); i++) {
-				String[] scheduleStrArr = map.get("schedule" + i).toString().split(" ");
+			for (int i = 0; i < gsonMap2.get("schedules").size(); i++) {
+				String[] scheduleStrArr = gsonMap2.get("schedules").get(i).get("schedule").toString().split(" ");
 				map.put("openingDate", scheduleStrArr[0]);
 				map.put("openingTime", scheduleStrArr[1]);
+				System.out.println("classNo:"+map.get("classNo"));
 				this.classOpeningDateDAO.insert(map);
 			}
 			//JSON형태 문자열 자바객체로 변환하기
 			Map<String,List<Map<String,Object>>> gsonMap = new HashMap<String, List<Map<String,Object>>>();
+			
 			Gson gson = new Gson();
 			JSONParser parser = new JSONParser();
 			System.out.println("map.get.img:"+map.get("imgs").toString());
@@ -105,7 +124,8 @@ public class ArtclassController {
 			System.out.println("jsonObj:"+JSONObject.toJSONString(jsonObj).replace("\\/", "/"));
 			
 		}
-		return "sub/art_class/View_Input.tiles";
+		return "sub/art_class/WriteClass.tiles";
+		
 	}
 	
 	// 목록 처리]
@@ -117,16 +137,19 @@ public class ArtclassController {
 		
 		  List<Map> collections = new Vector<Map>();
 		  
-		  List<ArtClassDTO> list = artClassDAO.selectList();
 		  
-		  Map map = new HashMap();
+		  List<ArtClassDTO> list = artClassDAO.selectList();
 		  
 		  for(ArtClassDTO dto:list) { 
 			 
 			  Map record = new HashMap(); 
 			  
 			  List<GcsDTO> gcsList = gcsDAO.getListByClassNo(dto.getClassNo());
+			  //Map map = new HashMap();
+			
+			  //record.put("memberNo",2);
 			  System.out.println("dto.getClassNo():"+dto.getClassNo());
+			  System.out.println("dto.getMemberNo():"+dto.getMemberNo());
 			  //아트클래스 고유번호
 			  record.put("classNo", dto.getClassNo());
 			  record.put("title",dto.getTitle());
@@ -139,13 +162,12 @@ public class ArtclassController {
 			  record.put("classAddress",dto.getClassAddress());
 			  record.put("detailedAddr",dto.getDetailedAddr());
 			  record.put("categorie",dto.getCategorie());
-			  record.put("memberNo",dto.getMemberNo());
-			  record.put("imageUrl",gcsList.get(0).getFileUrl());
+			 // record.put("memberNo",dto.getMemberNo());
+			
+			  //record.put("imageUrl",gcsList.get(0).getFileUrl());
 			  
-			  
-			  
-			  
-			  map.put("classNo", dto.getClassNo());  
+			  //map.put("classNo", dto.getClassNo());
+			 
 		  //List<GcsDTO> gcsDTOList = gcsDAO.getListByClass(map);
 		  
 		  //record.put("gcsDTOList",gcsDTOList);

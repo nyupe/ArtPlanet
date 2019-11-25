@@ -21,9 +21,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 회원가입 처리 -->
 	<insert id="memberInsert" parameterType="java.util.Map" >
-			INSERT INTO MEMBER(MEMBERNO, ID, PASSWORD, NAME, PHONENUMBER, ADDRESS, NICKNAME, BIRTH, PROFILEPICTURE)
+			INSERT INTO MEMBER(MEMBERNO, ID, PASSWORD, NAME, PHONENUMBER, ADDRESS, NICKNAME, BIRTH, PROFILEPICTURE, MAINPICTURE)
 			<!-- 회원번호(시퀀스), 아이디, 비밀번호, 이름, 핸드폰번호, 주소, 생년월일, 프로필사진-디폴트값 필요, 가입일(현재날짜로 자동초기화) -->
-			VALUES(SEQ_MEMBER_memberNo.NEXTVAL, #{id}, #{password}, #{name}, #{phoneNumber}, #{address}, #{nickName}, #{birth}, #{profilePicture} )
+			VALUES(SEQ_MEMBER_memberNo.NEXTVAL, #{id}, #{password}, #{name}, #{phoneNumber}, #{address}, #{nickName}, #{birth}, #{profilePicture}, #{banner})
 	</insert>
 	
 	<!-- 아이디 중복 처리 -->
@@ -46,9 +46,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT * FROM MEMBER WHERE ID = #{id}
 	</select>
 	
-	<!-- 아이디로 회원번호 조회 -->
+	<!-- 아이디로 회원번호 조회 --> 
 	<select id="getMemberNo" parameterType="java.lang.String" resultType="String">
 			SELECT MEMBERNO FROM MEMBER WHERE ID = #{id}
+	</select>
+	
+	<!-- 회원번호로 아이디 조회11/24추가 -->
+	<select id="getMemberId" parameterType="java.lang.String" resultType="String">
+			SELECT ID FROM MEMBER WHERE MEMBERNO = #{MEMBERNO}
 	</select>
 	
 	<!-- 회원 탈퇴처리  -->
@@ -76,7 +81,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			GROUP BY MONTH, TOT
 			ORDER BY MONTH
 	</select>
-	
+	<!-- 회원번호로 회원정보 조회 -->
+	<select id="getMemberByMemberNo" parameterType="java.lang.String" resultType="MemberDTO">
+		SELECT * FROM member WHERE memberNo = #{memberNo}
+	</select>
+	<!-- 아이디로 회원정보 조회 -->
+	<select id="getMemberById" parameterType="java.lang.String" resultType="MemberDTO">
+		SELECT * FROM member WHERE id = #{id}
+	</select>
+	<!-- 페이징해서 모든 회원정보 조회 -->
+	<select id="getArtistList" parameterType="java.util.Map" resultType="MemberDTO">
+		SELECT * FROM (
+			SELECT tb.*, ROWNUM AS r FROM (
+				SELECT * FROM member ORDER BY memberNo DESC) tb)
+			WHERE r BETWEEN #{start} AND #{end}
+	</select>
+	<select id="getMemberCount" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM member 
+	</select>
+	<update id="updateBlog" parameterType="java.util.Map">
+		UPDATE member SET mainPicture=#{fileUrl}, introContent=#{intro}, subscriptionFee=#{fee} WHERE memberNo=#{memberNo}
+	</update>
 	<!-- 수업예제 쿼리문  -->
 	<!-- <select id="memoIsLogin" parameterType="java.util.Map" resultType="int">
 			SELECT COUNT(*) FROM MEMBER WHERE ID = #{id} and PWD = #{pwd}

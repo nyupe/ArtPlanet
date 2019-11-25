@@ -25,10 +25,6 @@ public class GcsDAO
 	{
 		return template.insert("uploadImage",map);
 	}
-	/* 프로젝트 작성폼 업로드 이미지 등록 */
-	public int projectUploadImage(Map map) {
-		return template.insert("project-uploadImage",map);
-	}
 	public List<GcsDTO> getListByClassNo(String classNo)
 	{
 		return template.selectList("getListByClassNo",classNo);
@@ -41,8 +37,19 @@ public class GcsDAO
 	{
 		return template.update("updateBlogNo", map);
 	}
+	public int updateProjectNo(Map map) {
+		return template.update("updateProjectNo",map);
+	}
 	public int updateClassNo(Map map)
 	{
 		return template.update("updateClassNo", map);
+	}
+	public int updateMemberNo(Map map)
+	{
+		return template.update("updateMemberNo", map);
+	}
+	public List<GcsDTO> getListByBlogNo(String blogNo)
+	{
+		return template.selectList("getListByBlogNo",blogNo);
 	}
 }

@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html;charset=euc-kr" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="../../cfg/site_conf_inc.jsp" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
+<sec:authentication property="principal.username" var="id" />
+
 <%request.setCharacterEncoding ( "utf-8" ) ;%>
 <% response.setContentType("text/html;charset=utf-8"); %>
 <%!   
@@ -127,6 +132,7 @@
    	   <!-- PG사로 폼값 포스트로 전송하기 -->
                               
        <form name="formOrder" method="post" action="<c:url value='/ProjectAuthHub.do'/>">
+       	<input type="hidden" name="id" value="${id}"/>
        <!-- 상단 문구 -->
        <div class="sample">
        <p>후원자의 신원정보와 신용카드 정보를 입력하여</br> 

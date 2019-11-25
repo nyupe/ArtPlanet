@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!-- 정기결제 1910251145759969 -->
 <style>
 .card-header>.nav .nav-link:hover {
 	color: #ff5555;
@@ -48,11 +47,170 @@
 	color: #1a1d24;
 	font-weight: 400;
 }
+.three-posts {
+	min-height: 130px;
+}
 </style>
 <script>
+
+	const default_img = "https://storage.googleapis.com/art-planet-storage/blog/default_img.png";
+	
 	$(function() {
 		
+		let isEnd = false;
+		let isSlow = true;
+		
+        $(window).scroll(function(){
+            let $window = $(this);
+            let scrollTop = $window.scrollTop();
+            let windowHeight = $window.height();
+            let documentHeight = $(document).height();
+            
+            console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
+            
+            // scrollbar의 thumb가 바닥 전 100px까지 도달 하면 리스트를 가져온다.
+            if( scrollTop + windowHeight + 100 > documentHeight && !isEnd && isSlow){
+            	isSlow = false;
+                getArtworkList();
+                setTimeout(function(){isSlow = true;},500)
+            }
+        });
+		
+		$('.portfolio-filter ul li').on('click', function () {
+	        $('.portfolio-filter ul li').removeClass('active');
+	        $(this).addClass('active');
+	
+	        var data = $(this).attr('data-filter');
+	        $workGrid.isotope({
+	            filter: data
+	        });
+	   	});
+		//레이아웃 설정
+		var $workGrid;
+	    if (document.getElementById('portfolio')) {
+			$workGrid = $('.portfolio-grid').isotope({
+	            itemSelector: '.all',
+	            percentPosition: true,
+	            masonry: {
+	                columnWidth: '.grid-sizer'
+	            }
+	        });
+	    }
+	    
+		var nowPage = 1;
+
+		//글 리스트 요청
+		function getArtworkList(){
+			$.ajax({
+				url:"<c:url value='/getArtistList'/>",
+				type:'get',
+				data:{"nowPage":nowPage},
+				dataType:'json',
+				success:function(data){
+					console.log(data);
+					if(data.length == 0) isEnd = true;
+					$(data).each(function(index, item) {
+						console.log(item);
+						
+						var intro = item.intro != null ? item.intro : "";
+						if(item.posts[2] != null)
+						{
+							var $htmlString = 
+								$('<div class="col-lg-3 col-md-4 all'+item.engCategorie+'" style="position: absolute; left: 0%; top: 0px;">'
+									+ '<div class="single_portfolio">'
+										+ '<a href="#"><img class="img-fluid w-100" src="'+item.banner+'" alt=""></a>'
+										+ '<div class="avatar-icon-wrapper avatar-icon-lg">'
+						        			+ '<div class="avatar-icon"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><img src="'+item.profile+'"></a></div>'
+						        		+ '</div>'
+										+ '<div class="artist-info">'
+							        		+ '<h3 style="text-align: center;"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><span class="artist-title">'+item.nickname+'</span></a></h3>'
+							        		+ '<span class="artist-skill">'+intro+'</span>'
+							        		+ '<div class="three-posts" style="text-align: center; padding-top: 5px; padding-bottom: 10px;">'
+							        			+ '<a href="<c:url value="/Blog/'+item.memberId+'/'+item.posts[0].blogNo+'"/>"><img class="artist-post" src="'+item.posts[0].url+'" alt=""></a>'
+							        			+ '<a href="<c:url value="/Blog/'+item.memberId+'/'+item.posts[1].blogNo+'"/>"><img class="artist-post" src="'+item.posts[1].url+'" alt=""></a>'
+							        			+ '<a href="<c:url value="/Blog/'+item.memberId+'/'+item.posts[2].blogNo+'"/>"><img class="artist-post" src="'+item.posts[2].url+'" alt=""></a>'
+							        		+ '</div>'
+						        		+ '</div>'
+					        		+ '</div>'
+				        		+ '</div>');
+						}
+						else if(item.posts[1] != null)
+						{
+							var $htmlString = 
+								$('<div class="col-lg-3 col-md-4 all'+item.engCategorie+'" style="position: absolute; left: 0%; top: 0px;">'
+									+ '<div class="single_portfolio">'
+										+ '<a href="#"><img class="img-fluid w-100" src="'+item.banner+'" alt=""></a>'
+										+ '<div class="avatar-icon-wrapper avatar-icon-lg">'
+						        			+ '<div class="avatar-icon"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><img src="'+item.profile+'"></a></div>'
+						        		+ '</div>'
+										+ '<div class="artist-info">'
+							        		+ '<h3 style="text-align: center;"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><span class="artist-title">'+item.nickname+'</span></a></h3>'
+							        		+ '<span class="artist-skill">'+intro+'</span>'
+							        		+ '<div class="three-posts" style="text-align: center; padding-top: 5px; padding-bottom: 10px;">'
+							        			+ '<a href="<c:url value="/Blog/'+item.memberId+'/'+item.posts[0].blogNo+'"/>"><img class="artist-post" src="'+item.posts[0].url+'" alt=""></a>'
+						        				+ '<a href="<c:url value="/Blog/'+item.memberId+'/'+item.posts[1].blogNo+'"/>"><img class="artist-post" src="'+item.posts[1].url+'" alt=""></a>'
+						        			+ '</div>'
+						        		+ '</div>'
+					        		+ '</div>'
+				        		+ '</div>');
+						}
+						else if(item.posts[0] != null)
+						{
+							var $htmlString = 
+								$('<div class="col-lg-3 col-md-4 all'+item.engCategorie+'" style="position: absolute; left: 0%; top: 0px;">'
+									+ '<div class="single_portfolio">'
+										+ '<a href="#"><img class="img-fluid w-100" src="'+item.banner+'" alt=""></a>'
+										+ '<div class="avatar-icon-wrapper avatar-icon-lg">'
+						        			+ '<div class="avatar-icon"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><img src="'+item.profile+'"></a></div>'
+						        		+ '</div>'
+										+ '<div class="artist-info">'
+							        		+ '<h3 style="text-align: center;"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><span class="artist-title">'+item.nickname+'</span></a></h3>'
+							        		+ '<span class="artist-skill">'+intro+'</span>'
+							        		+ '<div class="three-posts" style="text-align: center; padding-top: 5px; padding-bottom: 10px;">'
+							        			+ '<a href="<c:url value="/Blog/'+item.memberId+'/'+item.posts[0].blogNo+'"/>"><img class="artist-post" src="'+item.posts[0].url+'" alt=""></a>'
+						        			+ '</div>'
+						        		+ '</div>'
+					        		+ '</div>'
+				        		+ '</div>');
+						}
+						else
+						{
+							
+							var $htmlString = 
+								$('<div class="col-lg-3 col-md-4 all'+item.engCategorie+'" style="position: absolute; left: 0%; top: 0px;">'
+									+ '<div class="single_portfolio">'
+										+ '<a href="#"><img class="img-fluid w-100" src="'+item.banner+'" alt=""></a>'
+										+ '<div class="avatar-icon-wrapper avatar-icon-lg">'
+						        			+ '<div class="avatar-icon"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><img src="'+item.profile+'"></a></div>'
+						        		+ '</div>'
+										+ '<div class="artist-info">'
+							        		+ '<h3 style="text-align: center;"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><span class="artist-title">'+item.nickname+'</span></a></h3>'
+							        		+ '<span class="artist-skill">'+intro+'</span>'
+							        		+ '<div class="three-posts" style="text-align: center; padding-top: 5px; padding-bottom: 10px;">'
+						        			+ '</div>'
+						        		+ '</div>'
+					        		+ '</div>'
+				        		+ '</div>');
+						}
+			        		//컨텐츠 추가 및 레이아웃 초기화
+							$workGrid.append($htmlString)
+							.isotope('appended', $htmlString)
+							.imagesLoaded( function() {
+								$workGrid.isotope('layout');
+							});
+					});
+					console.log("nowPage:"+nowPage);
+					nowPage++;
+					
+				},//success()
+				error:function(data){
+					console.log("error");
+					console.log(data);
+				}
+			});
+		}
 	});
+	
 </script>
 
 <!--================ Start Portfolio Area =================-->

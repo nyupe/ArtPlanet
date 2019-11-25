@@ -34,17 +34,115 @@
 }
 </style>
 <script>
+
+	const default_img = "https://storage.googleapis.com/art-planet-storage/blog/default_img.png";
+	
 	$(function() {
+		
+		let isEnd = false;
+		let isSlow = true;
+        let lastScrollTop;
+		
+        $(window).scroll(function(){
+            let $window = $(this);
+            let scrollTop = $window.scrollTop();
+            let windowHeight = $window.height();
+            let documentHeight = $(document).height();
+            
+            //console.log("documentHeight:" + documentHeight + " | scrollTop:" + scrollTop + " | windowHeight: " + windowHeight );
+            
+            // scrollbar의 thumb가 바닥 전 50px까지 도달 하면 리스트를 가져온다.
+            if( scrollTop + windowHeight + 50 > documentHeight && !isEnd && isSlow){
+            	isSlow = false;
+                getArtworkList();
+                setTimeout(function(){isSlow = true;},500)
+            }
+        });
+		
+		$('.portfolio-filter ul li').on('click', function () {
+	        $('.portfolio-filter ul li').removeClass('active');
+	        $(this).addClass('active');
+	
+	        var data = $(this).attr('data-filter');
+	        $workGrid.isotope({
+	            filter: data
+	        });
+	   	});
+		//레이아웃 설정
+		var $workGrid;
+	    if (document.getElementById('portfolio')) {
+			$workGrid = $('.portfolio-grid').isotope({
+	            itemSelector: '.all',
+	            percentPosition: true,
+	            masonry: {
+	                columnWidth: '.grid-sizer'
+	            }
+	        });
+	    }
+	    
+		var nowPage = 1;
+
 		//글 리스트 요청
-		$.ajax({
-			url:"<c:url value='/getArtworkList'/>",
-			type:'get',
-			dataType:'json',
-			success:function(data){
-				
-			},
-		});		
+		function getArtworkList(){
+			$.ajax({
+				url:"<c:url value='/getArtworkList'/>",
+				type:'get',
+				data:{"nowPage":nowPage},
+				dataType:'json',
+				success:function(data){
+					console.log(data);
+					if(data.length == 0) isEnd = true;
+					$(data).each(function(index, item) {
+						
+						var src = item.accessRight == 0 ? item.imgUrl : default_img;
+						//isotope 라이브러리 사용을 위해 객체형식으로 선언
+						var $htmlString = 
+							$("<div class='col-lg-3 col-md-4 all "+item.engCategorie+"'>"
+								+ "<a href='<c:url value='/Blog/"+item.memberId+"/"+item.blogNo+"'/>'>"
+									+ "<div class='single_portfolio'>"
+										+ "<img class='img-fluid w-100' src='"+src+"' alt=''>"
+										+ "<div class='short_info'>"
+											+ "<span class='post-type'>"+item.categorie+"</span>"
+						        			+ "<span class='post-date'>"+item.postDate+"</span>"
+							        		+ "<h3><span class='post-title'>"+item.title+"</span></h3>"
+							        		+ "<div class='avatar-icon-wrapper avatar-icon-sm'>"
+							        			+ "<div class='avatar-icon'><img src='"+item.profile+"'/></div>"
+							        		+ "</div>"
+						        			+ "<span class='post-artist'>"+item.nickname+"</span>"
+						        			+ "<div class='clear'> </div>"
+						        			+ "<div class='font-icon-wrapper font-icon-sm'>"
+						        				+ "<i class='pe-7s-comment'> </i> <span class='post-comment'>12</span>"
+						        			+ "</div>"
+						        			+ "<div class='font-icon-wrapper font-icon-sm'>"
+						        				+ "<i class='pe-7s-look'> </i> <span class='post-comment'>107</span>"
+						        			+ "</div>"
+										+ "</div>"
+									+ "</div>"
+								+ "</a>"
+							+ "</div>")
+							//컨텐츠 추가 및 레이아웃 초기화
+							$workGrid.append($htmlString)
+							.isotope('appended', $htmlString)
+							.imagesLoaded( function() {
+								$workGrid.isotope('layout');
+							});
+					});
+					console.log("nowPage:"+nowPage);
+					nowPage++;
+					
+				},//success()
+				error:function(data){
+					console.log("error");
+					console.log(data);
+				}
+			});
+		}
+		
+		//최초 실행시 한번 요청
+		getArtworkList();
+		console.log("최초요청");
 	});
+	
 </script>
 
 <!--================ Start Portfolio Area =================-->
@@ -67,7 +165,7 @@
 		</div>
 
 		<div class="filters portfolio-filter">
-			<ul>
+			<ul id="ul_category">
 				<li class="active" data-filter="*">all</li>
 				<li data-filter=".illustration">일러스트레이션</li>
 				<li data-filter=".animation">애니메이션</li>
@@ -80,698 +178,7 @@
 		<div class="filters-content">
 			<div class="row portfolio-grid"> <!-- 여기에 append -->
 				<div class="grid-sizer col-md-4 col-lg-3"></div>
-<!-- 일러스트레이션 그림 시작 -->	
-			
-				<div class="col-lg-3 col-md-4 all illustration painting">
-					<a href="<c:url value='/Blog'/>">
-						<div class="single_portfolio">
-							<img class="img-fluid w-100" src="<c:url value='/resources/img/project/illustration/1.jpg'/>" alt="">
-							<div class="short_info">
-								<span class="post-type">일러스트</span>
-			        			<span class="post-date">13분 전</span>
-				        		<h3><span class="post-title">그림그린그림</span></h3>
-				        		<div class="avatar-icon-wrapper avatar-icon-sm">
-				        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-				        		</div>
-			        			<span class="post-artist">작가이름</span>
-			        			<div class="clear"> </div>
-			        			<div class="font-icon-wrapper font-icon-sm">
-			        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-			        			</div>
-			        			<div class="font-icon-wrapper font-icon-sm">
-			        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-			        			</div>
-							</div>
-						</div>
-					</a>
-				</div>
-					
-				<div class="col-lg-3 col-md-4 all illustration painting">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/illustration/2.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all illustration painting">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/illustration/3.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all illustration painting">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/illustration/5.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all illustration painting">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/illustration/6.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all illustration painting">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/illustration/7.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all illustration painting">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/illustration/8.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all illustration painting">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/illustration/9.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all illustration painting">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/illustration/4.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-<!-- 일러스트레이션 끝 -->
-<!-- 애니메이션 시작 -->
-				<div class="col-lg-3 col-md-4 all painting animation">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/animation/1.gif'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all painting animation">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/animation/2.gif'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all painting animation">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/animation/3.gif'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all painting animation">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/animation/4.gif'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all painting animation">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/animation/5.gif'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all painting animation">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/animation/6.gif'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-<!-- 애니메이션 끝 -->
-<!-- 디자인 시작 -->				
-				<div class="col-lg-3 col-md-4 all design">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/design/1.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all design">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/design/2.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all design">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/design/3.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all design">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/design/4.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all design">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/design/5.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all design">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/design/6.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-<!-- 디자인 끝 -->
-<!-- 켈리그라피 시작 -->
-				<div class="col-lg-3 col-md-4 all calligraphy">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/calligraphy/1.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-
-<div class="col-lg-3 col-md-4 all calligraphy">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/calligraphy/2.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all calligraphy">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/calligraphy/3.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all calligraphy">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/calligraphy/4.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-<!-- 켈리그라피 끝 -->
-
-<!-- 조소공예시작 -->
-				<div class="col-lg-3 col-md-4 all crafts">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/claymodelcrafts/1.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all crafts">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/claymodelcrafts/2.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all crafts">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/claymodelcrafts/3.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all crafts">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/claymodelcrafts/4.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all crafts">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/claymodelcrafts/5.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="col-lg-3 col-md-4 all crafts">
-					<div class="single_portfolio">
-						<img class="img-fluid w-100" src="<c:url value='/resources/img/project/claymodelcrafts/6.jpg'/>" alt="">
-						<div class="short_info">
-							<span class="post-type">일러스트</span>
-		        			<span class="post-date">13분 전</span>
-			        		<h3><span class="post-title">그림그린그림</span></h3>
-			        		<div class="avatar-icon-wrapper avatar-icon-sm">
-			        			<div class="avatar-icon"><img src="<c:url value='/resources/kero/assets/images/avatars/2.jpg'/>"/></div>
-			        		</div>
-		        			<span class="post-artist">작가이름</span>
-		        			<div class="clear"> </div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-comment"> </i> <span class="post-comment">12</span>
-		        			</div>
-		        			<div class="font-icon-wrapper font-icon-sm">
-		        				<i class="pe-7s-look"> </i> <span class="post-comment">107</span>
-		        			</div>
-						</div>
-					</div>
-				</div>
-<!-- 조소공예끝 -->
-				
+				<!-- 실제 콘텐츠 영역 -->
 			</div>
 		</div>
 	</div>

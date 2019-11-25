@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html;charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+
+<!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
+<sec:authentication property="principal.username" var="id" />
 <%
     /* ============================================================================== */
     /* =   PAGE : 결제 요청 처리 PAGE                                               = */
@@ -67,7 +71,9 @@
     String    app_time        = "";                                                       // 승인시간
     String    app_no          = "";                                                       // 승인번호
     String    noinf           = "";                                                       // 무이자여부
-    String    quota           = "";                                                       // 할부개월
+    String    quota           = "";          
+    String paied_batch = "";
+    // 할부개월
     /* ============================================================================== */
 
 
@@ -135,6 +141,8 @@
                     c_PayPlus.mf_set_us( card_data_set, "quota",          request.getParameter("quotaopt") );
                     c_PayPlus.mf_set_us( card_data_set, "bt_group_id",    request.getParameter("bt_group_id") );
                     c_PayPlus.mf_set_us( card_data_set, "bt_batch_key",   request.getParameter("bt_batch_key") );
+                    //배치키 가져가기
+                    paied_batch = request.getParameter("bt_batch_key");
                 }
                 c_PayPlus.mf_add_rs( payx_data_set, card_data_set );
             }
@@ -312,9 +320,14 @@
             <input type="hidden" name="app_no"     value="<%= app_no     %>">  <!-- 승인번호 -->
             <input type="hidden" name="quota"      value="<%= quota      %>">  <!-- 할부개월 -->
             <input type="hidden" name="noinf"      value="<%= noinf      %>">  <!-- 무이자여부 -->
-			
+		
 			 <!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			 <!-- 스프링시큐리티에서 내려주는 아이디사용 -->
+        <input type="hidden" name="id"              value="<c:out value='${id}'/>"/> 
+         <!-- 배치키 가져가기 -->
+       	    <input type="hidden" name="paied_batch" value="<%=paied_batch%>" />
+       	    
         </form>
     </body>
     </html>

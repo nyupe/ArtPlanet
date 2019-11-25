@@ -12,36 +12,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 인증 배치키 디비입력 처리 -->
 	<insert id="recAuthInsert" parameterType="java.util.Map" >
-			INSERT INTO RECAUTH(ORDR_IDXX, RES_CD, BATCH_KEY, CARD_CD, BUYR_NAME, MEMBERNO)
-			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, SEQ_MEMBER.NEXTVAL)
+			INSERT INTO RECAUTH(ORDR_IDXX, RES_CD, BATCH_KEY, CARD_CD, BUYR_NAME, APP_TIME, MEMBERNO, SUBSCRIBENO)
+			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, #{app_time}, #{memberNo}, SEQ_MEMBER.NEXTVAL)
 	</insert>
 	
 	<select id="recAuthSelectlist" parameterType="java.util.Map" resultType="RecAuthDTO">
-		SELECT * FROM RECAUTH
+		SELECT * FROM recAuth ORDER BY app_time DESC, ordr_idxx DESC
 	</select>
 	
-	
-	
-	<!-- 블로그후원(일회성)정기인증정보 배치키 CRUD 쿼리문  -->
+	<!-- 배치키로 결제시 인증테이블의 app_time업데이트하기      memberNo맞춰야함-->
+	<update id="updateApptime" parameterType="java.util.Map" >
+			UPDATE recAuth SET app_time = #{currentTime} WHERE batch_key = #{paied_batch}
+	</update>
+<!-- 	SEQ_MEMBER.NEXTVAL -->
+	<!-- 블로그후원(일회성)정기인증정보 배치키 CRUD 쿼리문  memberNo맞춰야함 -->
 	<!-- 인증 배치키 디비입력 처리 -->
 	<insert id="projAuthInsert" parameterType="java.util.Map" >
-			INSERT INTO PROJAUTH(ORDR_IDXX, RES_CD, BATCH_KEY, CARD_CD, BUYR_NAME, MEMBERNO)
-			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, SEQ_MEMBER.NEXTVAL)
+			INSERT INTO PROJAUTH(ORDR_IDXX, RES_CD, BATCH_KEY, CARD_CD, BUYR_NAME, MEMBERNO,APP_TIME, PROJECTSUPPORTNO)
+			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, #{memberNo}, #{app_time}, SEQ_MEMBER.NEXTVAL)
 	</insert>
 	<select id="projAuthSelectlist" parameterType="java.util.Map" resultType="RecAuthDTO">
-		SELECT * FROM PROJAUTH
+		 SELECT * FROM projAuth ORDER BY res_cd ASC, ordr_idxx ASC
 	</select>
 	<!--반드시 삭제쿼리문 집어넣을것  -->
+	<delete id="projAuthDelete" parameterType="java.util.Map" >
+			DELETE PROJAUTH WHERE BATCH_KEY = #{batch_key}
+	</delete> 
 	
 	<!-- PROJECTSUPPORT테이블과 조인해서 PROJECTSUPPORTSUM컬럼만 셀렉트해오는 쿼리문 -->
 	<select id="recAuthSelectProjectSupportSum" parameterType="java.util.Map" resultType="RecAuthDTO">
 		SELECT PROJECTSUPPORTSUM FROM PROJAUTH R INNER JOIN PROJECTSUPPORT P ON R.MEMBERNO = P.MEMBERNO
 	</select>
-	
+	<!-- 프로젝트(1회성)배치키 테이블에서 프로젝트서포트테이블의 멤버넘버와 같은 컬럼의 배치키만 뽑아오는 쿼리문  -->
 	<select id="recAuthSelectBatchKey" parameterType="java.util.Map" resultType="RecAuthDTO">
 		SELECT BATCH_KEY FROM PROJAUTH R INNER JOIN PROJECTSUPPORT P ON R.MEMBERNO = P.MEMBERNO
 	</select>
 	
+	<!-- 배치키로 결제시 인증테이블의 app_time업데이트하기      memberNo맞춰야함-->
+	<update id="updateApptimeForProj" parameterType="java.util.Map" >
+			UPDATE projAuth SET app_time = #{currentTime} WHERE batch_key = #{paied_batch}
+	</update>
 	
 	<!-- 수업예제 쿼리문  -->
 	<!-- <select id="memoIsLogin" parameterType="java.util.Map" resultType="int">

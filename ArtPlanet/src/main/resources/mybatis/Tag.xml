@@ -23,4 +23,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getTagNo" parameterType="java.util.Map" resultType="java.lang.String">
 		SELECT tagNo FROM tag WHERE tagName = #{tagName}
 	</select>
+	
+	<select id="getTagByTagNo" parameterType="java.util.Map" resultType="TagDTO">
+		SELECT * FROM tag WHERE tagNo=#{tagNo}
+	</select>
 </mapper>

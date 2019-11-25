@@ -1,11 +1,13 @@
 package com.hansoin5.artplanet.service;
 
+import java.util.Date;
+
 public class BlogPostDTO
 {
 	private String blogNo; //글번호
 	private String title; //글제목
 	private String content; //글내용
-	private java.util.Date postDate; //작성일
+	private Date postDate; //작성일
 	private int viewCount; //조회수
 	private String categorie; // 카테고리
 	private String accessRight; //열람권한
@@ -35,11 +37,11 @@ public class BlogPostDTO
 	{
 		this.content = content;
 	}
-	public java.util.Date getPostDate()
+	public Date getPostDate()
 	{
 		return postDate;
 	}
-	public void setPostDate(java.util.Date postDate)
+	public void setPostDate(Date postDate)
 	{
 		this.postDate = postDate;
 	}

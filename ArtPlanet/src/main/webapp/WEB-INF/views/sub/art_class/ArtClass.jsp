@@ -41,77 +41,126 @@
 	href="<c:url value='/resources/artclass2/css/style.css'/>">
 <style>
 .portfolio_area .filters ul li {
-width: 100%;
-padding-left:  25px;
-margin: 0px;
+	width: 100%;
+	padding-left: 25px;
+	margin: 0px;
 }
-.portfolio_area .filters ul li.active:before{
+
+.portfolio_area .filters ul li.active:before {
 	left: 25px;
 	right: 25px;
-	
-	
-	
-
-}	
-
+}
 
 .search-inner {
-		background-color: #fff;
-	}
-#search_input {
-		width: 45%;
-		color: #1a1d24;
-		display: inline-block;
-	}
+	background-color: #fff;
+}
 
+#search_input {
+	width: 45%;
+	color: #1a1d24;
+	display: inline-block;
+}
 </style>
 
 <script>
-$(function(){
-	
-	/*  $(document).ready(function(){
-		$("#national a").click(function(e){
-		e.preventDefault();
-		var category = $(this).attr("title");
-		$("#category li").fadeOut("slow");
-		if(national == "all"){$("#category li").fadeIn("slow");}
-		else{$("#category li[class*="+national+"]").fadeIn("slow");}
-		});  */
-		
-	
-	
-	$.ajax({
-	        type    :   "get",
-	        url     :   "<c:url value='/getClassList'/>", 
-	        dataType:   "json",
-	         success :   function(data) {
-	        				console.log(data);
-	        				
-	        var listString;
-	        
-	       //style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">"			
-	        
-	        $.each(data, function(index,element){
-	        		console.log("들어왓나")
-	        		
-	        		
-	        		listString += "<a title="+element['classNo']+" href='<c:url value="/View"/>?classNo="+element['classNo']+"' class='block-5'>
-	        		+element+['imageUrl']"
-	        		listString += "<div class='text'>"
-	        		listString+= "<h3 class=heading>"+element['categoryNo']+"</h3>"+"<div class='post-meta'><span>장소:"+element['classAddress']+"</span></div>"+
-	        		"<p><span class='price'>"+element['tuitionFee']+"</span></p>"
-	        		listString+= "</div>";
-	        		listString+="</a>";
-	        	}
-	        );//.each			
-	    		  
-	        $('#listInfo').html(listString);
-	        }             
-	    });	//ajax
-	
-});// function
+	$(function() {
 
+		/*  $(document).ready(function(){
+			$("#national a").click(function(e){
+			e.preventDefault();
+			var category = $(this).attr("title");
+			$("#category li").fadeOut("slow");
+			if(national == "all"){$("#category li").fadeIn("slow");}
+			else{$("#category li[class*="+national+"]").fadeIn("slow");}
+			});  */
 
+		$
+				.ajax({
+					type : "get",
+					url : "<c:url value='/getClassList'/>",
+					dataType : "json",
+					success : function(data) {
+						console.log(data);
+
+						var listString;
+
+						//style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">"			
+
+						$
+								.each(
+										data,
+										function(index, element) {
+											console.log("들어왓나")
+
+											listString = "<div class='col-md-6 col-lg-3 all illustration  seoul class_content'>"
+											listString += "<a title="
+													+ element['classNo']
+													+ " href='<c:url value="/View"/>?classNo="
+													+ element['classNo']
+													+ "' class='block-5'>"
+
+											//+element+['imageUrl']"
+
+											listString += "<div class='text'>"
+											listString += "<h3 class=heading>"
+													+ element['categorie']
+													+ "</h3>"
+													+ "<div class='post-meta'><span>장소:"
+													+ element['classAddress']
+													+ "</span></div>"
+													+ "<p><span class='price'>"
+													+ element['tuitionFee']
+													+ "</span></p>"
+											listString += "</div>";
+											listString += "</a>";
+											console.log($('.portfolio-grid'));
+											console.log(listString);
+											$('.portfolio-grid').append(
+													listString);
+
+											/*
+												<div class="col-md-6 col-lg-3 all illustration  seoul class_content" style="position: absolute; left: 0%; top: 0px;">
+													<a href="/artplanet/View" class="block-5" style="background-image: url('/artplanet/resources/artclass/images/menu-list/1.jpg');">
+														<div class="text">
+															<p>재미있어요</p>
+														</div>
+													</a>
+												</div>
+											 */
+
+											 
+										});//.each			
+							clearGrid();
+					}
+				}); //ajax
+
+	});// function
+	
+	function clearGrid()
+	{
+		$('.portfolio-filter ul li').on('click', function () {
+	        $('.portfolio-filter ul li').removeClass('active');
+	        $(this).addClass('active');
+
+	        var data = $(this).attr('data-filter');
+	        $workGrid.isotope({
+	            filter: data
+	        });
+	    });
+
+	    if (document.getElementById('portfolio')) {
+	        var $workGrid = $('.portfolio-grid').isotope({
+	            itemSelector: '.all',
+	            percentPosition: true,
+	            masonry: {
+	                columnWidth: '.grid-sizer'
+	            }
+	        });
+	    }
+	    	//$workGrid.isotope('relayout');
+	        //$('.portfolio-grid').isotope( 'updateSortData', $('.portfolio-grid').children() );
+	        //console.log("cash");
+	}
 </script>
 <!--  
 						<a href="<c:url value='/View'/>" class="block-5"
@@ -132,26 +181,32 @@ $(function(){
 					</div>
 							-->
 
-		<section class="portfolio_area area-padding" id="portfolio" >
-			<div class="container" style="max-width:1700px" >
-				  
-						<div class="area-heading">
-						 	<h3>당신의 <span>기술과 멋진 경험을</span> 공유하세요.</h3>
-                            <p>새로운 분야에 도전하거나, 당신의 기술을 향상시키거나. 어느 것이든 좋습니다.</p>
-                            	<form class="search-inner" action="<c:url value='/Search'/>">
-				<input type="text" class="form-control" id="search_input" placeholder="Search Here">
-				<button type="submit" class="btn"><i class="fas fa-search"></i></button>
-			         </form>					
-							<div class="row no-gutters justify-content-center mb-2 pb-2 ftco-animate">
-										
-								<div class="col-md-7 text-center heading-section">
-				<!--    	        
+<section class="portfolio_area area-padding" id="portfolio">
+	<div class="container" style="max-width: 1700px">
+
+		<div class="area-heading">
+			<h3>
+				당신의 <span>기술과 멋진 경험을</span> 공유하세요.
+			</h3>
+			<p>새로운 분야에 도전하거나, 당신의 기술을 향상시키거나. 어느 것이든 좋습니다.</p>
+			<form class="search-inner" action="<c:url value='/Search'/>">
+				<input type="text" class="form-control" id="search_input"
+					placeholder="Search Here">
+				<button type="submit" class="btn">
+					<i class="fas fa-search"></i>
+				</button>
+			</form>
+			<div
+				class="row no-gutters justify-content-center mb-2 pb-2 ftco-animate">
+
+				<div class="col-md-7 text-center heading-section">
+					<!--    	        
 		<video type="video/webm" autoplay loop="" muted="" playsinline="">
   			 <source src="https://player.vimeo.com/external/160999247.sd.mp4?s=193dc7c78332bb051ef5b59b31d076c68ee5d827&profile_id=164"/>
    
 		</video>
--->	
-<!--  
+-->
+					<!--  
 동영상 주소
 https://player.vimeo.com/external/307814435.hd.mp4?s=112c2d57d192c55a37de507121645654613ec150&profile_id=174
 https://player.vimeo.com/external/325698769.sd.mp4?s=4e70164190f4b472059c9f4ca74ca0ca58056ce4&profile_id=165
@@ -170,12 +225,12 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 
 
 
-								</div>
-				
-							</div>
-				 
-						</div> 
-                  <!-- 
+				</div>
+
+			</div>
+
+		</div>
+		<!-- 
                    <div class="dropdown d-inline-block">
                    	
                        <button type="button" aria-haspopup="true"
@@ -236,336 +291,191 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
                        </div>
                    </div>
                   -->
-			<!-- 메뉴 바 시작 -->		
-			
-			  <div class="filters portfolio-filter"    >			
-				 <div class="dropdown d-inline-block"  >
-				     <ul >
-                        <button  type="button" aria-haspopup="true"
-                                  aria-expanded="false"
-                                  data-toggle="dropdown"
-                                  class="mb-2 mr-2 dropdown-toggle btn btn-outline-primary">
-                                  	지역별
-                          </button>
-                          
-                          <div id=national  tabindex="-1" role="menu" aria-hidden="true"
-                               class="dropdown-menu" >
-                              <button  type="button" tabindex="1"
-                                      class="dropdown-item">
-                                   <li data-filter=".seoul"><a herf=#>서울</a></li>
-                                     </button>
-                              
-                              <button  type="button" tabindex="1"
-                                      class="dropdown-item">
-                             	   <li data-filter=".daejeon">대전</li>
-                              </button>
-                              <button type="button" tabindex="2"
-                                      class="dropdown-item">
-                             	   <li data-filter=".gg">경기</li>
-                              </button>
-                              <button type="button" tabindex="3"
-                                      class="dropdown-item">
-                             	   <li data-filter=".busan">부산</li>
-                              </button>
-                             
-                              <button type="button" tabindex="4"
-                                      class="dropdown-item">
-                                   <li data-filter=".daegu"> 대구</li>
-                              </button>
-                               <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                                   <li data-filter=".gyeongnam"> 경남</li>
-                              </button>
-                               <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                                   <li data-filter=".incheon">인천</li>
-                              </button>
-                               <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                                   <li data-filter=".chungbuk"> 충북</li>
-                              </button>
-                               <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                                   <li data-filter=".gangwon"> 강원</li>
-                              </button>
-                               <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                                   <li data-filter=".gwangju">광주</li>
-                              </button>
-                               <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                                   <li data-filter=".chungnam"> 충남</li>
-                              </button>
-                               <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                                   <li data-filter=".ulsan"> 울산</li>
-                              </button>
-                               <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                                   <li data-filter=".jeju"> 제주</li>
-                              </button>
-                          
-                          </div>
-                          </ul> 
-                      </div>	
-                        
-                 	
-			<!-- 메뉴 바 끝 -->     
-          	
+		<!-- 메뉴 바 시작 -->
+
+		<div class="filters portfolio-filter">
+			<div class="dropdown d-inline-block">
+				<ul>
+					<button type="button" aria-haspopup="true" aria-expanded="false"
+						data-toggle="dropdown"
+						class="mb-2 mr-2 dropdown-toggle btn btn-outline-primary">
+						지역별</button>
+
+					<div id=national tabindex="-1" role="menu" aria-hidden="true"
+						class="dropdown-menu">
+						<button type="button" tabindex="1" class="dropdown-item">
+							<li data-filter=".seoul"><a herf=#>서울</a></li>
+						</button>
+
+						<button type="button" tabindex="1" class="dropdown-item">
+							<li data-filter=".daejeon">대전</li>
+						</button>
+						<button type="button" tabindex="2" class="dropdown-item">
+							<li data-filter=".gg">경기</li>
+						</button>
+						<button type="button" tabindex="3" class="dropdown-item">
+							<li data-filter=".busan">부산</li>
+						</button>
+
+						<button type="button" tabindex="4" class="dropdown-item">
+							<li data-filter=".daegu">대구</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".gyeongnam">경남</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".incheon">인천</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".chungbuk">충북</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".gangwon">강원</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".gwangju">광주</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".chungnam">충남</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".ulsan">울산</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".jeju">제주</li>
+						</button>
+
+					</div>
+				</ul>
+			</div>
+
+
+			<!-- 메뉴 바 끝 -->
+
 			<!-- 메뉴 바 시작 -->
-                 <div class="dropdown d-inline-block" >
-                        <button type="button" aria-haspopup="true"
-                                  aria-expanded="false"
-                                  data-toggle="dropdown"
-                                  class="mb-2 mr-2 dropdown-toggle btn btn-outline-primary">
-                                                          카테고리
-                          </button>
-                          	<ul class="menu">
-                          <div id=category tabindex="-1" role="menu" aria-hidden="true"
-                               class="dropdown-menu">
-                              <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                                 <li  data-filter="*">all</li>
-                              </button>
-                              <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                              	  <li data-filter=".illustration">일러스트레이션</li>
-                              </button>
-                             
-                              <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                             	     <li data-filter=".painting">회화</li>
-                              </button>
-                              <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                             	   <li data-filter=".animation">애니메이션</li>
-                              </button>
-                               <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                             	   <li data-filter=".design">디자인</li>
-                              </button>
-                               <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                             	  <li data-filter=".calligraphy">캘리그라피</li>
-                              </button>
-                               <button type="button" tabindex="0"
-                                      class="dropdown-item">
-                             	  <li data-filter=".crafts">조소/공예</li>
-                              </button>
-                            
-                          </div>
-                          
-                      </div>
-                      </ul> 
-                      <!-- 등록하기 버튼 -->
-                      <a href="<c:url value='/View_Input'/>">  
-                       <button class="btn-wide mb-2 mr-2 btn-pill btn btn-primary" style="left: 75%;">
-                                                                    등록하기</button> </a>
-                     <!-- 등록하기 버튼 끝 -->                                         
-				</div>
-				<!-- 메뉴 바 끝 -->	
-			<div class="col-md-12 filters-content">
-				<div class="row portfolio-grid">
-					<div class="grid-sizer col-md-6 col-lg-3 "></div>
-						<div class="col-md-6 col-lg-3 all illustration  seoul class_content">
-							
-							<a href="<c:url value='/View'/>" class="block-5"
-								style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
-								<div class="text">
-								<!--     
-							<c:if test="${empty list }" var="isEmpty">
-					<tr>
-						<td colspan="4">등록된 게시물이 없습니다</td>
-					</tr>
-							</c:if>
-							-->
-								<c:if test="${not isEmpty}">
-					        <c:forEach var="list" items="${list}" varStatus="status">
-									<h3 class="heading">${list.category}</h3>
-									<div class="post-meta">
-										<span>장소: ${list.classAddress}</span>
-									</div>
-									<p>
-										<span class="price">￦ ${list.tuitionFee}</span>
-									</p>
-					        </c:forEach>
-								</c:if>
-									<p>재미있어요</p>
-								</div>
-							</a>
-						</div>
+			<div class="dropdown d-inline-block">
+				<button type="button" aria-haspopup="true" aria-expanded="false"
+					data-toggle="dropdown"
+					class="mb-2 mr-2 dropdown-toggle btn btn-outline-primary">
+					카테고리</button>
+				<ul class="menu">
+					<div id=category tabindex="-1" role="menu" aria-hidden="true"
+						class="dropdown-menu">
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter="*">all</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".illustration">일러스트레이션</li>
+						</button>
 
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".painting">회화</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".animation">애니메이션</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".design">디자인</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".calligraphy">캘리그라피</li>
+						</button>
+						<button type="button" tabindex="0" class="dropdown-item">
+							<li data-filter=".crafts">조소/공예</li>
+						</button>
 
-					<div  class="col-md-6 col-lg-3 all painting  seoul class_content">
-	
-						<a href="<c:url value='/View'/>" class="block-5"
-							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
-
-							<div class="text">
-
-								<h3 class="heading">페인팅</h3>
-								<div class="post-meta">
-									<span>장소:가산디지털단지</span>
-								</div>
-								<p>
-									<span class="price">￦30,000</span>
-								</p>
-								<p>재미있어요</p>
-							</div>
-						</a>
 					</div>
-							<!-- ajax 적용 -->
-				<div id="listInfo" class="col-md-6 col-lg-3 all painting  seoul class_content">
-				
-					<a href="<c:url value='/View'/>" class="block-5"
-							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
-						<!-- ajax로 목록 뿌리기  -->
-					</a>
-					
-				</div>
-						<!--  ajax 끝 -->
-					<div class="col-md-6 col-lg-3 all design daejeon class_content">
-						<a href="<c:url value='/View'/>" class="block-5"
-							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
-							
-							<div class="text">
-
-								<h3 class="heading">디자인</h3>
-								<div class="post-meta">
-									<span>장소:대전</span>
-								</div>
-								<p>
-									<span class="price">￦30,000</span>
-								</p>
-								<p>재미있어요</p>
-							</div>
-						</a>
-					</div>
-
-
-					<div class="col-md-6 col-lg-3 all calligraphy gg class_content">
-						<a href="<c:url value='/View'/>" class="block-5"
-							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
-
-							<div class="text">
-
-								<h3 class="heading">캘리그라피</h3>
-								<div class="post-meta">
-									<span>장소:경기도</span>
-								</div>
-								<p>
-									<span class="price">￦30,000</span>
-								</p>
-								<p>재미있어요</p>
-							</div>
-						</a>
-					</div>
-
-
-					<div class="col-md-6 col-lg-3 all design gg class_content">
-						<a href="<c:url value='/View'/>" class="block-5"
-							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/2.jpg'/>');">
-
-							<div class="text">
-
-								<h3 class="heading">디자인</h3>
-								<div class="post-meta">
-									<span>장소:경기도</span>
-								</div>
-								<p>
-									<span class="price">￦30,000</span>
-								</p>
-								<p>재미있어요</p>
-							</div>
-						</a>
-					</div>
-
-
-					<div class="col-md-6 col-lg-3 all calligraphy gg class_content">
-						<a href="<c:url value='/View'/>" class="block-5"
-							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
-
-							<div class="text">
-
-								<h3 class="heading">칼리그라피</h3>
-								<div class="post-meta">
-									<span>장소:경기도</span>
-								</div>
-								<p>
-									<span class="price">￦30,000</span>
-								</p>
-								<p>재미있어요</p>
-							</div>
-						</a>
-					</div>
-
-
-					<div class="col-md-6 col-lg-3 all crafts busan class_content">
-						<a href="<c:url value='/View'/>" class="block-5"
-							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
-
-							<div class="text">
-
-								<h3 class="heading">조소/공예</h3>
-								<div class="post-meta">
-									<span>장소:부산</span>
-								</div>
-								<p>
-									<span class="price">￦30,000</span>
-								</p>
-								<p>재미있어요</p>
-							</div>
-						</a>
-					</div>
-
-					<div class="col-md-6 col-lg-3 all crafts busan class_content">
-						<a href="<c:url value='/View'/>" class="block-5"
-							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
-
-							<div class="text">
-
-								<h3 class="heading">조소/공예</h3>
-								<div class="post-meta">
-									<span>장소:부산</span>
-								</div>
-
-								<p>재미있어요</p>
-							</div>
-						</a>
-					</div>
-				</div>
+			</div>
+			</ul>
+			<!-- 등록하기 버튼 -->
+			<a href="<c:url value='/WriteClass'/>">
+				<button class="btn-wide mb-2 mr-2 btn-pill btn btn-primary"
+					style="left: 75%;">등록하기</button>
+			</a>
+			<!-- 등록하기 버튼 끝 -->
+		</div>
+		<!-- 메뉴 바 끝 -->
+		<div class="col-md-12 filters-content">
+			<div class="row portfolio-grid">
+				<!-- 여기에 .apend -->
+				<div class="grid-sizer col-md-6 col-lg-3 "></div>
+				<div class="col-md-6 col-lg-3 all illustration  seoul class_content" style="position: absolute; left: 0%; top: 0px;">
+													<a href="/artplanet/View" class="block-5" style="background-image: url('/artplanet/resources/artclass/images/menu-list/1.jpg');">
+														<div class="text">
+															<p>재미있어요</p>
+														</div>
+													</a>
+												</div>
+												<div class="col-md-6 col-lg-3 all illustration  seoul class_content" style="position: absolute; left: 0%; top: 0px;">
+													<a href="/artplanet/View" class="block-5" style="background-image: url('/artplanet/resources/artclass/images/menu-list/1.jpg');">
+														<div class="text">
+															<p>재미있어요</p>
+														</div>
+													</a>
+												</div>
+												<div class="col-md-6 col-lg-3 all illustration  seoul class_content" style="position: absolute; left: 0%; top: 0px;">
+													<a href="/artplanet/View" class="block-5" style="background-image: url('/artplanet/resources/artclass/images/menu-list/1.jpg');">
+														<div class="text">
+															<p>재미있어요</p>
+														</div>
+													</a>
+												</div>
+												<div class="col-md-6 col-lg-3 all illustration  seoul class_content" style="position: absolute; left: 0%; top: 0px;">
+													<a href="/artplanet/View" class="block-5" style="background-image: url('/artplanet/resources/artclass/images/menu-list/1.jpg');">
+														<div class="text">
+															<p>재미있어요</p>
+														</div>
+													</a>
+												</div>
+												
+												<div class="col-md-6 col-lg-3 all illustration  seoul class_content" style="position: absolute; left: 0%; top: 0px;">
+													<a href="/artplanet/View" class="block-5" style="background-image: url('/artplanet/resources/artclass/images/menu-list/1.jpg');">
+														<div class="text">
+															<p>재미있어요</p>
+														</div>
+													</a>
+												</div>
 			</div>
 		</div>
+	</div>
 </section>
 
 
 
 
 <script src="<c:url value='/resources/artclass2/js/jquery.min.js'/>"></script>
-<script	src="<c:url value='/resources/artclass2/js/jquery-migrate-3.0.1.min.js'/>"></script>
+<script
+	src="<c:url value='/resources/artclass2/js/jquery-migrate-3.0.1.min.js'/>"></script>
 <script src="<c:url value='/resources/artclass2/js/popper.min.js'/>"></script>
 <script src="<c:url value='/resources/artclass2/js/bootstrap.min.js'/>"></script>
-<script	src="<c:url value='/resources/artclass2/js/jquery.easing.1.3.js'/>"></script>
-<script	src="<c:url value='/resources/artclass2/js/jquery.waypoints.min.js'/>"></script>
-<script	src="<c:url value='/resources/artclass2/js/jquery.stellar.min.js'/>"></script>
-<script	src="<c:url value='/resources/artclass2/js/owl.carousel.min.js'/>"></script>
-<script	src="<c:url value='/resources/artclass2/js/jquery.magnific-popup.min.js'/>"></script>
+<script
+	src="<c:url value='/resources/artclass2/js/jquery.easing.1.3.js'/>"></script>
+<script
+	src="<c:url value='/resources/artclass2/js/jquery.waypoints.min.js'/>"></script>
+<script
+	src="<c:url value='/resources/artclass2/js/jquery.stellar.min.js'/>"></script>
+<script
+	src="<c:url value='/resources/artclass2/js/owl.carousel.min.js'/>"></script>
+<script
+	src="<c:url value='/resources/artclass2/js/jquery.magnific-popup.min.js'/>"></script>
 <script src="<c:url value='/resources/artclass2/js/aos.js'/>"></script>
-<script	src="<c:url value='/resources/artclass2/js/jquery.animateNumber.min.js'/>"></script>
-<script	src="<c:url value='/resources/artclass2/js/bootstrap-datepicker.js'/>"></script>
-<script	src="<c:url value='/resources/artclass2/js/jquery.timepicker.min.js'/>"></script>
+<script
+	src="<c:url value='/resources/artclass2/js/jquery.animateNumber.min.js'/>"></script>
+<script
+	src="<c:url value='/resources/artclass2/js/bootstrap-datepicker.js'/>"></script>
+<script
+	src="<c:url value='/resources/artclass2/js/jquery.timepicker.min.js'/>"></script>
 <script src="<c:url value='/resources/artclass2/js/main.js'/>"></script>
 
-    
+
 
 <script>
-$(function(){
-	
-	$('.dropdown-item').click(function() {
-        $('.dropdown-menu').removeClass('show');
-     });
-	});
+	$(function() {
 
+		$('.dropdown-item').click(function() {
+			$('.dropdown-menu').removeClass('show');
+		});
+	});
 </script>
 
 

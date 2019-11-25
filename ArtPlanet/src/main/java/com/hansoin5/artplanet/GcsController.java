@@ -20,6 +20,7 @@ import com.google.cloud.storage.Acl.Role;
 import com.google.cloud.storage.Acl.User;
 import com.hansoin5.artplanet.service.impl.BlogPostDAO;
 import com.hansoin5.artplanet.service.impl.GcsDAO;
+import com.hansoin5.artplanet.service.impl.MemberDAO;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -44,6 +45,8 @@ public class GcsController
 {
 	@Resource(name="gcsDAO")
 	private GcsDAO dao;
+	@Resource(name="memberDAO")
+	private MemberDAO memberDao;
 	
 	public static final String BUCKET_NAME = "art-planet-storage";// 버켓명
 
@@ -135,9 +138,13 @@ public class GcsController
 		case "editor":
 			dao.editorUploadImage(map);
 			break;
-		case "project":
-			dao.projectUploadImage(map);
-			break;
+		case "banner":
+			System.out.println(req.getParameter("intro"));
+			System.out.println(req.getParameter("fee").replace(",", ""));
+			map.put("intro", req.getParameter("intro"));
+			map.put("fee", req.getParameter("fee").replace(",", ""));
+			map.put("memberNo", req.getParameter("memberNo"));
+			memberDao.updateBlog(map);
 		default:
 			dao.uploadImage(map);
 			break;
@@ -145,5 +152,8 @@ public class GcsController
 		
 		return JSONObject.toJSONString(map).replace("\\/", "/"); // 슬래시가 이스케이프처리되는 문제 해결
 	}
+	
+	
+	
 
 }
