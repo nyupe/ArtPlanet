@@ -22,20 +22,27 @@ $(function(){
 			dataType:'json',
 			success:function(data){
 				console.log(data);
+				if(data.length == 0)
+				{
+					console.log("널인데요");
+					var htmlString = "<div style='text-align:center; width:100%;'><h2>등록된 글이 없어요</h2><div>";
+					$('.blog_left_sidebar').append(htmlString);
+				}
 				$(data).each(function(index, item) {
-					console.log(item.content);
-					var src = item.accessRight == 0 ? item.images[0].src : default_img;
+					var src = item.accessRight == 0 ? item.images[index].src : default_img;			
 					var htmlString = 
 						'<article class="blog_item">'
 						+ '<div class="blog_item_img">'
-							+ '<img class="card-img rounded-0" src="'+src+'" alt="">'
+							+ '<a href="<c:url value="/Blog/${id}/'+item.blogNo+'"/>">'
+								+ '<img class="card-img rounded-0" src="'+src+'" alt="">'
+							+ '</a>'
 							+ '<a href="<c:url value="/Blog/${id}/'+item.blogNo+'"/>" class="blog_item_date">'
 								+ '<h3>'+item.postDate.split(' ')[2]+'</h3>'
 								+ '<p>'+item.postDate.split(' ')[1]+'</p>'
 							+ '</a>'
 						+ '</div>'
 						+ '<div class="blog_details">'
-							+ '<a class="d-inline-block" href="/artplanet/ViewPost"><h2>'+item.title+'</h2></a>'
+							+ '<a class="d-inline-block" href="<c:url value="/Blog/${id}/'+item.blogNo+'"/>"><h2>'+item.title+'</h2></a>'
 							+ item.content
 							+ '<ul class="blog-info-link">'
 								+ '<li><a href="<c:url value="/Blog/${id}/'+item.blogNo+'"/>"><i class="far fa-user"></i> '+item.categorie+'</a></li>'
@@ -112,7 +119,7 @@ $(function(){
 		<div class="row">
 			<div class="col-lg-8 mb-5 mb-lg-0">
 				<div class="blog_left_sidebar">
-					
+					<!-- 
 					<nav class="blog-pagination justify-content-center d-flex">
 						<ul class="pagination">
 							<li class="page-item"><a href="#" class="page-link"
@@ -126,26 +133,20 @@ $(function(){
 							</a></li>
 						</ul>
 					</nav>
+					 -->
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="blog_right_sidebar">
 					<aside class="single_sidebar_widget search_widget">
 						<div class="menu-header-content" style="text-align: center;">
-						<button onclick="test();">test</button>
-						<script>
-							function test()
-							{
-								console.log($('.input-mask-trigger').val());
-							}
-						</script>
 						<sec:authorize access="isAuthenticated()">
 							<sec:authentication property="principal.username" var="loginedId"/>
 							<c:if test="${id eq loginedId}">
 								<button type="button" style="float:right; border:white; background-color:white; cursor:pointer;" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw" aria-hidden="true"></i></button>
 							</c:if>
 						</sec:authorize>
-							<div class="avatar-icon-wrapper mb-3 avatar-icon-xxl">
+							<div style="margin-right:-30px;" class="avatar-icon-wrapper mb-3 avatar-icon-xxl">
 								<div class="avatar-icon">
 									<img src="${profilePicture}" alt="Avatar">
 								</div>
@@ -172,7 +173,9 @@ $(function(){
 								<p>블로그 주인</p>
 								</c:when>
 								<c:when test="${id ne loginedId}">
-								<form action="<c:url value='/WritePost'/>">
+								<form action="<c:url value='/Subscribe'/>">
+									<input type="hidden" name="id" value="${id}"/>
+									<input type="hidden" name="loginedId" value="${loginedId}"/>
 									<button class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
 								</form>
 								<p>로그인상태, 방문자</p>
@@ -180,7 +183,7 @@ $(function(){
 							</c:choose>
 						</sec:authorize>
 						<sec:authorize access="isAnonymous()">
-							<form action="<c:url value='/WritePost'/>">
+							<form action="<c:url value='/Login'/>">
 								<button class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
 							</form>
 							<p>비로그인상태</p>

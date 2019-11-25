@@ -21,6 +21,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <typeAlias alias="TagDTO" type="com.hansoin5.artplanet.service.TagDTO"/>
 		 <typeAlias alias="TagRelationDTO" type="com.hansoin5.artplanet.service.TagRelationDTO"/>
 		 <typeAlias alias="ProjectDTO" type="com.hansoin5.artplanet.service.ProjectDTO"/>
+		 <typeAlias alias="SubscribeDTO" type="com.hansoin5.artplanet.service.SubscribeDTO"/>
 		 
 	</typeAliases>
 
@@ -58,6 +59,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/TagRelation.xml"/>
 		<!-- 프로젝트 -->
 		<mapper resource="mybatis/Project.xml"/>
+		<!-- 블로그 구독 -->
+		<mapper resource="mybatis/Subscribe.xml"/>
 		
 		
 	</mappers>

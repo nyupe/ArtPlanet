@@ -45,4 +45,20 @@ public class BlogPostDAO
 	{
 		return template.selectList("getPublicByMemberNo", memberNo);
 	}
+	//댓글관련
+	
+	//코멘트 등록
+	public void insertcomment(Map map) {
+		template.insert("BlogInsertComment",map);
+	}
+	
+	//코멘트 삭제
+	public void commentDelete(Map map) {
+		template.delete("BlogDeleteComment",map);
+	}
+	
+	//코멘트 리스트
+	public List<Map> selectcomment(Map map){
+		return template.selectList("BlogSelectListComment",map);
+	}
 }

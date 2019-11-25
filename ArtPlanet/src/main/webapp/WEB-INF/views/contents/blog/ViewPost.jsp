@@ -7,6 +7,7 @@
 
 <script>
 	$(function() {
+		console.log('blog는 ${blogNo}');
 		//조회수 증가
 		/*
 		$.ajax({
@@ -19,7 +20,197 @@
 			}
 		});
 		*/
+		
+		var files;
+		$("#input-banner").on('change', function(){
+			files = this.files;
+		});
+		$("#changeSetting").click(function ()
+		{
+			 for (var i = 0; i < files.length; i++) 
+		     {
+				 var formData = new FormData();
+				formData.append('file',files[i]);
+				formData.append('role','banner'); //role 설정해서 보내주자
+				formData.append('intro',$('#input-intro').val());
+				formData.append('fee',$('#input-fee').val());
+				formData.append('memberNo',memberNo);
+		     }
+			
+			var uploadURL = "<c:url value='/FileUploadToCloud'/>"; //Upload URL
+		    var jqXHR=$.ajax({
+		        beforeSend : function(xhr)
+		        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+		            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		        },
+		        url: uploadURL,
+		        enctype:"multipart/form-data",
+		        type:"POST",
+		        contentType:false,
+		        processData:false,
+		        cache:false,
+		        data:formData,
+		        dataType:"json",
+		        success: function(data)
+		        {
+		            console.log(data);
+		            location.reload();
+		        }
+		    }); 
+		});
+		
+		var files;
+		$("#input-banner").on('change', function(){
+			files = this.files;
+		});
+		$("#changeSetting").click(function ()
+		{
+			 for (var i = 0; i < files.length; i++) 
+		     {
+				 var formData = new FormData();
+				formData.append('file',files[i]);
+				formData.append('role','banner'); //role 설정해서 보내주자
+				formData.append('intro',$('#input-intro').val());
+				formData.append('fee',$('#input-fee').val());
+				formData.append('memberNo',memberNo);
+		     }
+			
+			var uploadURL = "<c:url value='/FileUploadToCloud'/>"; //Upload URL
+		    var jqXHR=$.ajax({
+		        beforeSend : function(xhr)
+		        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+		            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+		        },
+		        url: uploadURL,
+		        enctype:"multipart/form-data",
+		        type:"POST",
+		        contentType:false,
+		        processData:false,
+		        cache:false,
+		        data:formData,
+		        dataType:"json",
+		        success: function(data)
+		        {
+		            console.log(data);
+		            location.reload();
+		        }
+		    }); 
+		});
+		
+/*       댓글 관련 코드 시작                      */		
+		//페이지 로드시 코멘트 목록 뿌려주기]
+		showComment();
+		
+		//코멘트 입력및 수정처리]
+		$('#commentsubmit').click(function(){
+			
+			if($('.idComment').val() == ""){
+				alert('로그인 해주세요');
+				return;
+			}
+			var action="<c:url value='/BlogPost/Comments'/>";
+			
+			//ajax로 요청]
+			$.ajax({
+				url:action,
+				data:$('#commentForm').serialize(),
+				dataType:'text',
+				type:'post',
+				success:function(data){
+					console.log(data);
+					console.log('Ajax 성공');
+					//등록한후 현재 모든 댓글 뿌려주기
+					showComment();
+					//입력댓글 클리어 및 포커스 주기
+					$('#replyContent').val('');
+					$('#replyContent').focus();
+					//글 수정후 등록버튼으로 다시 교체하기
+					/* if($('#submit').val()=='수정')
+						$('#submit').val('등록'); */
+				}
+			});	
+			
+		});//#submit
+			
+		
 	});
+	//현재 글번호에 대한 코멘트 목록을 가져오는 함수-Ajax로 처리
+	var showComment= function(){
+		console.log('쇼코멘트')
+			$.ajax({
+			url:"<c:url value='/BlogPost/CommentsList'/>",
+			data:{blogNo:'${blogNo}','_csrf':'${_csrf.token}'},//////////////////////
+			dataType:'json',
+			type:'post',
+			success:displayComments,
+			error:function(request,status,error){
+				 console.log('응답코드:%s,에러메시지:%s,error:%s,status:%s',
+							request.status,request.responseText,error,status);	
+			}
+		});		
+	};//////////showComment
+	
+	
+	var displayComments=function(data){
+		console.log('코멘트 목록:',data)
+		var commentcounts = 0;
+		var	comments="<h4 style='float: left;'>Comments</h4>&nbsp;<span class='badge badge-primary'>${commentcount}</span>"
+			$.each(data,function(index,element){
+				comments+="<div class='comment-list' style='clear: both;'>"
+				comments+="<div class='single-comment justify-content-between d-flex'>"
+				comments+="<div class='user justify-content-between d-flex'>"
+				comments+="<div class='thumb'>"
+				comments+="<img src='"+element['PROFILEPICTURE']+"' alt=''>"
+				comments+="</div>"
+				comments+="<div class='desc'>"
+				comments+="<p class='comment'>"+element['REPLYCONTENT']+"</p>"
+				comments+="<div class='d-flex justify-content-between'>"
+				comments+="<div class='d-flex align-items-center'>"
+				comments+="<h5><a href='#'>"+element['NICKNAME']+"</a></h5>"
+				comments+="<p class='date'>"+element['REPLYPOSTDATE']+"</p>"
+				comments+="</div>"
+				if('${id}' == element['ID']){
+				comments+="<div class='update-btn' style='cursor:pointer;margin:0px 10px;'>"
+				comments+="<a class='btn-update text-uppercase' name='"+element['REPLYNO']+"'>수정</a>"
+				comments+="</div>"
+				comments+="<div class='delete-btn' style='cursor:pointer'>"
+				comments+="<a class='btn-delete text-uppercase'  name='"+element['REPLYNO']+"'>삭제</a>"
+				comments+="</div>"
+				}
+				comments+="</div>"
+				comments+="</div>"
+				comments+="</div>"
+				comments+="</div>"
+				comments+="</div>"
+				commentcounts++;
+			})
+			
+			comments+="</div>"
+			$('.fa-comments').after(commentcounts);
+			$('.align-middle').after(commentcounts);
+			$('.comments-area').html(comments);
+			
+			/*
+			$('.btn-delete').click(function(){
+				$.ajax({
+					url:'<c:url value="/Search/Project/CommentsDelete"/>',
+					data:{replyNo:$(this).attr('name'),'_csrf':'${_csrf.token}'},
+					type:'post',
+					success:function(){showComment();}
+				})
+			})
+			
+			$('.btn-update').click(function(){
+				$.ajax({
+					url:'<c:url value="/Search/Project/CommentsUpdate"/>',
+					data:{replyNo:$(this).attr('name'),'_csrf':'${_csrf.token}'},
+					type:'post',
+					success:function(){showComment();}
+				})
+			})
+			*/
+	}
+/*       댓글 관련 코드 끝                      */
 </script>
 
 <!--================Hero Banner Area Start =================-->
@@ -43,29 +234,32 @@
 						<h2>${title}</h2>
 						<ul class="blog-info-link mt-3 mb-4">
 							<li><a href="#"><i class="far fa-user"></i>${categorie}</a></li>
-							<li><a href="#"><i class="far fa-comments"></i> 03 Comments</a></li>
+							<li><a href="#"><i class="far fa-comments"></i> Comments</a></li>
 						</ul>
 						${content}
 					</div>
 				</div>
 				<div class="navigation-top">
 					<div class="d-sm-flex justify-content-between text-center">
+						<p class="comment-count">
+							<span class="align-middle"><i class="far fa-comment"></i></span>
+							 Comments
+						</p>
+						<!-- 
+						<div class="col-sm-4 text-center my-2 my-sm-0">
 						<p class="like-info">
 							<span class="align-middle"><i class="far fa-heart"></i></span>
 							Lily and 4 people like this
 						</p>
-						<div class="col-sm-4 text-center my-2 my-sm-0">
-							<p class="comment-count">
-								<span class="align-middle"><i class="far fa-comment"></i></span>
-								06 Comments
-							</p>
 						</div>
+						
 						<ul class="social-icons">
 							<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
 							<li><a href="#"><i class="fab fa-twitter"></i></a></li>
 							<li><a href="#"><i class="fab fa-dribbble"></i></a></li>
 							<li><a href="#"><i class="fab fa-behance"></i></a></li>
 						</ul>
+						 -->
 					</div>
 
 					<div class="navigation-area">
@@ -127,135 +321,48 @@
 
 				<div class="comments-area">
 					<h4>05 Comments</h4>
-					<div class="comment-list">
-						<div class="single-comment justify-content-between d-flex">
-							<div class="user justify-content-between d-flex">
-								<div class="thumb">
-									<img src="<c:url value='/resources/img/blog/c1.png'/>" alt="">
-								</div>
-								<div class="desc">
-									<p class="comment">Multiply sea night grass fourth day sea
-										lesser rule open subdue female fill which them Blessed, give
-										fill lesser bearing multiply sea night grass fourth day sea
-										lesser</p>
-
-									<div class="d-flex justify-content-between">
-										<div class="d-flex align-items-center">
-											<h5>
-												<a href="#">Emilly Blunt</a>
-											</h5>
-											<p class="date">December 4, 2017 at 3:12 pm</p>
-										</div>
-
-										<div class="reply-btn">
-											<a href="#" class="btn-reply text-uppercase">reply</a>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="comment-list">
-						<div class="single-comment justify-content-between d-flex">
-							<div class="user justify-content-between d-flex">
-								<div class="thumb">
-									<img src="<c:url value='/resources/img/blog/c2.png'/>" alt="">
-								</div>
-								<div class="desc">
-									<p class="comment">Multiply sea night grass fourth day sea
-										lesser rule open subdue female fill which them Blessed, give
-										fill lesser bearing multiply sea night grass fourth day sea
-										lesser</p>
-
-									<div class="d-flex justify-content-between">
-										<div class="d-flex align-items-center">
-											<h5>
-												<a href="#">Emilly Blunt</a>
-											</h5>
-											<p class="date">December 4, 2017 at 3:12 pm</p>
-										</div>
-
-										<div class="reply-btn">
-											<a href="#" class="btn-reply text-uppercase">reply</a>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="comment-list">
-						<div class="single-comment justify-content-between d-flex">
-							<div class="user justify-content-between d-flex">
-								<div class="thumb">
-									<img src="<c:url value='/resources/img/blog/c3.png'/>" alt="">
-								</div>
-								<div class="desc">
-									<p class="comment">Multiply sea night grass fourth day sea
-										lesser rule open subdue female fill which them Blessed, give
-										fill lesser bearing multiply sea night grass fourth day sea
-										lesser</p>
-
-									<div class="d-flex justify-content-between">
-										<div class="d-flex align-items-center">
-											<h5>
-												<a href="#">Emilly Blunt</a>
-											</h5>
-											<p class="date">December 4, 2017 at 3:12 pm</p>
-										</div>
-
-										<div class="reply-btn">
-											<a href="#" class="btn-reply text-uppercase">reply</a>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-					</div>
+					<!-- 댓글 목록 -->
 				</div>
+				
 				<div class="comment-form">
 					<h4>Leave a Reply</h4>
-					<form class="form-contact comment_form" action="#" id="commentForm">
+					<form class="form-contact comment_form" action="#" id="commentForm" onsubmit="return false">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<input type="hidden" name="blogNo" value="${blogNo}"/>
 						<div class="row">
 							<div class="col-12">
 								<div class="form-group">
-									<textarea class="form-control w-100" name="comment"
-										id="comment" cols="30" rows="9" placeholder="Write Comment"></textarea>
-								</div>
+									<textarea class="form-control w-100" name="replyContent"
+										id="replyContent" cols="30" rows="9" placeholder="댓글을 입력해주세요"></textarea></div>
 							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<input class="form-control" name="name" id="name" type="text"
-										placeholder="Name">
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<input class="form-control" name="email" id="email"
-										type="email" placeholder="Email">
-								</div>
-							</div>
-							<div class="col-12">
-								<div class="form-group">
-									<input class="form-control" name="website" id="website"
-										type="text" placeholder="Website">
-								</div>
-							</div>
+							
 						</div>
+						<input type="hidden" name="projectNo" value="${record.projectNo}" />
+						<input type="hidden" name="replyNo" />
+						<input type="hidden" name="replyPostDate" />
+						<input type="hidden" class="idComment" name="id" value="${id }" /> 
 						<div class="form-group">
-							<button type="submit" class="button button-contactForm">Send
-								Message</button>
+							<button id="commentsubmit" type="submit" class="button button-contactForm">등록</button>
 						</div>
+						<c:if test="${record.id == id }">
+							<button>수정</button>
+							<button>삭제</button>
+						</c:if>
 					</form>
 				</div>
+				
 			</div>
 			<div class="col-lg-4">
 				<div class="blog_right_sidebar">
 					<aside class="single_sidebar_widget search_widget">
 						<div class="menu-header-content" style="text-align: center;">
-							<div class="avatar-icon-wrapper mb-3 avatar-icon-xxl">
+						<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal.username" var="loginedId"/>
+							<c:if test="${id eq loginedId}">
+								<button type="button" style="float:right; border:white; background-color:white; cursor:pointer;" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw" aria-hidden="true"></i></button>
+							</c:if>
+						</sec:authorize>
+							<div style="margin-right:-30px;" class="avatar-icon-wrapper mb-3 avatar-icon-xxl">
 								<div class="avatar-icon">
 									<img src="${profilePicture}" alt="Avatar">
 								</div>
@@ -274,7 +381,6 @@
 							</div>
 						</div>
 						<sec:authorize access="isAuthenticated()">
-							<sec:authentication property="principal.username" var="loginedId"/>
 							<c:choose>
 								<c:when test="${id eq loginedId}">
 								<form action="<c:url value='/WritePost'/>">
@@ -362,6 +468,32 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display: none;" aria-hidden="true">
+	    <div class="modal-dialog" role="document">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title" id="exampleModalLabel">블로그 설정</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">×</span>
+	                </button>
+	            </div>
+	            <div class="modal-body">
+            		<h5>배너</h5>
+            		<input id="input-banner" type="file"/>
+            		<h5>소개글</h5>
+            		<textarea id="input-intro" rows="1" class="form-control autosize-input" style="max-height: 200px; min-height: 38px;"></textarea>
+            		<h5>구독료</h5>
+            		<input id="input-fee" class="form-control input-mask-trigger" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true" im-insert="true" style="text-align: right;"/>
+	                <!-- <p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+	                    unknown printer took a galley of type and scrambled.</p> -->
+	            </div>
+	            <div class="modal-footer">
+	                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+	                <button id="changeSetting" type="button" class="btn btn-primary">변경사항 저장</button>
+	            </div>
+	        </div>
+	    </div>
 	</div>
 </section>
 <!--================Blog Area end =================-->
