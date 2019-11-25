@@ -161,12 +161,7 @@
 
             <div id="smartwizard">
                <ul class="forms-wizard">
-<<<<<<< HEAD
-               	  <h1>가격 잘나오나 ${fee }</h1>
-                  <li><a href="#step-1"> <em>1</em><span>주소 정보</span>
-=======
                   <li><a href="#step-2"> <em>1</em><span>결제 정보</span>
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
                   </a></li>
                   <li><a href="#step-3"> <em>2</em><span>완료</span>
                   </a></li>
@@ -236,7 +231,7 @@
                                     </div>
                                     <div class="position-relative form-group">
                                        <label>결제금액</label> <input class="form-control" type="text"
-                                          name="good_mny" value="30000" maxlength="9" />원(숫자만 입력)
+                                          name="good_mny" value="${fee }" maxlength="9" />원(숫자만 입력)
                                     </div>
 
                                     <div class="form-group">

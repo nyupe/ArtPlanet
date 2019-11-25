@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
-
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <style>
 .img {
@@ -191,7 +191,9 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 <script>
 //리퀘스트 영역에 저장된 classNo 찍어보기
 //console.log('${classNo}')
-
+	
+	 var dateNo;
+	
 	 $(function(){ // 진입점 시작
 		
 		//클래스 개설날짜정보 리스트 얻기
@@ -207,22 +209,41 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 	var displayClassDateAndTime = function(data){
 		// 데이타 찍어보기(성공)
 		//console.log(data)
-		console.log("${timeRe}")
 		var checkBoxString="<table style='margin-left:auto; margin-right:auto'>";
 		checkBoxString+="<tr style='background-color:white;'><th></th><th>수업날짜</th><th>시작시간</th><th>소요시간</th><th>선택</th></tr>";
 		$.each(data,function(index,element){
 			checkBoxString+="<tr style='background-color:white'>";
-			checkBoxString+="<td>"+(index+1)+"</td><td>"+element['OpeningDate']+"</td><td>"+element['OpeningTime']+"</td>"+"<td>${record.timeRequired}시간</td>"+"<td><input type='checkbox' id=checkDateAndTime/></td>";
+			checkBoxString+="<td>"+(index+1)+"</td><td>"+element['openingDate']+"</td><td>"+element['openingTime']+"</td>"+"<td>${record.timeRequired}시간</td>"+"<td><input type='checkbox' class='checkClassOpeningInfo' title="+element['dateNo']+"></td>";
 			checkBoxString+="</tr>";
 		});
 		checkBoxString+="</table>";
 		
 	    $('#classDateAndTimePick').html(checkBoxString);
 	    
+	    
+	    
 	}/////displayClassDateAndTime
 	
 	
- 
+	function reservation(){/// 아트클래스 예약정보 테이블에
+		// 아트클래스 개설날짜정보 테이블 일련번호 
+		dateNo = $('.checkClassOpeningInfo').attr('title');
+		
+		var confirmResult = confirm('예약 결제를 진행하시겠습니까?')
+		
+		if(confirmResult){
+			/////결제화면으로 form 전송 및 페이지이동
+			$.ajax({
+				url : "<c:url value='/createReservationRecord'/>",
+				//스프링 씨큐리티 적용시(단, csrf적용시(Post방식)에만 서버에 CSRF토큰값도 같이 보내야한다)
+				data : {memberNo:"${memberNo}",'_csrf':'${_csrf.token}',classNo:"${classNo}","dateNo":dateNo},
+				type : "POST"
+			})
+			document.getElementById('payform').submit();
+		}/////if
+	}/////
+	
+	
 </script>
 
 
@@ -893,7 +914,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 								<div class="row">
 									<div class="text-center">
 								
-										<button class="btn btn-primary" onclick="document.getElementById('payform').submit();">
+										<button class="btn btn-primary" onclick="reservation()">
 											결제하기 <i class="fas fa-cart-plus ml-2" aria-hidden="true"></i>
 										</button>
 									

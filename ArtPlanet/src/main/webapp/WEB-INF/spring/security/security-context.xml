@@ -34,7 +34,7 @@
 		
 			
 		<security:intercept-url pattern="/AdmUserInfo.ad" access="hasRole('ROLE_ADMIN')"/>
-		<security:intercept-url pattern="/MyPage" access="hasRole('ROLE_USER','ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/MyPage" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/**" access="permitAll"/> 
 	
 	

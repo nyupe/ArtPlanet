@@ -8,7 +8,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.springframework.stereotype.Service;
 
 //셀레니움 적용 
 
@@ -108,7 +107,6 @@ public class AutoPayment {
 					Thread.sleep(2000); // 2초 쉬고
 					
 					//정기구독결제 버튼들 얻기
-<<<<<<< HEAD
 					//List<WebElement> subPayButtons = driver.findElements(By.className("")/*클래스명 넣기*/);
 					// 밑의 코드는 테스트 안해봄
 					List<WebElement> subPayButtons = wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.className("btn_1"))));
@@ -119,7 +117,6 @@ public class AutoPayment {
 						Thread.sleep(1000); 
 					}//for
 					 			
-=======
 				/*
 				 * Boolean list = wait.until(ExpectedConditions.invisibilityOfElementLocated(By.
 				 * className("mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-success"
@@ -135,7 +132,6 @@ public class AutoPayment {
 				 * Thread.sleep(3000); subPayButton.click(); Thread.sleep(3000); }//for
 				 */
 					
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 				}/////if
 				else if(AutoKind == "project") { // 프로젝트 후원결제인 경우
 					

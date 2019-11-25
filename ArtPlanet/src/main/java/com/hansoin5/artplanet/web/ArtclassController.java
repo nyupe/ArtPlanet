@@ -1,5 +1,6 @@
 package com.hansoin5.artplanet.web;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import com.hansoin5.artplanet.service.ArtClassDTO;
 import com.hansoin5.artplanet.service.ClassOpeningDateDTO;
 import com.hansoin5.artplanet.service.impl.ArtClassDAO;
 import com.hansoin5.artplanet.service.impl.ClassOpeningDateDAO;
+import com.hansoin5.artplanet.service.impl.ClassReservationDAO;
 import com.hansoin5.artplanet.service.impl.GcsDAO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
 
@@ -38,12 +40,45 @@ public class ArtclassController {
 	//아트클래스 개설날짜정보 테이블 접근 객체
 	@Resource(name = "classOpeningDateDAO")
 	private ClassOpeningDateDAO classOpeningDateDAO;
+	//아트클래스 예약정보 테이블 접근 객체
+	@Resource(name ="classReservationDAO")
+	private ClassReservationDAO classReservationDAO;
 	//구글클래스 스토리지 테이블 접근 객체
 	@Resource(name = "gcsDAO")
 	private GcsDAO gcsDAO;
 	//member 테이블 접근 객체
 	@Resource(name = "memberDAO")
 	private MemberDAO memberDAO;
+	
+	
+	// 아트클래스 예약정보 레코드 생성요청 받음
+	@RequestMapping(value="/createReservationRecord", method = RequestMethod.POST)
+	public void createReservationRecord(@RequestParam Map map) {
+		
+		
+		//찍어보기
+		Set<String> keys = map.keySet();
+		for(String key : keys ) {
+			System.out.println("map에 담겨온 키 :"+key+"키에 해당하는 값 :"+map.get(key).toString());
+		}///// 잘찍힘 
+		
+		
+		// 아트클래스 개설날짜정보 테이블 일련번호를 문자열에서 -> 숫자로 변환 -> 맵에 담기
+		map.put("dateNo",Integer.parseInt(map.get("dateNo").toString()));
+		// 아트클래스 개설날짜정보 테이블에서 필요한 정보 가져온 다음 맵에 담기
+		map.put("signUpDate", classOpeningDateDAO.selectOne(map).getOpeningDate()); // 개설날짜
+		map.put("signUpTime", classOpeningDateDAO.selectOne(map).getOpeningTime()); // 개설시간
+		
+		// 아트클래스 예약정보 레코드 생성 
+		classReservationDAO.insert(map);
+		
+		
+		
+	}/////createReservationRecord
+	
+	
+	
+	
 	
 	
 	// 생성된 아트클래스에 해당하는 개설날짜정보 가져오기 (ajax 요청 받는 메소드)
@@ -74,9 +109,11 @@ public class ArtclassController {
 			//아트클래스 일련번호
 			record.put("classNo",codDto.getClassNo());
 			//개설 날짜
-			record.put("OpeningDate",codDto.getOpeningDate());
+			record.put("openingDate",codDto.getOpeningDate());
 			//개설 시각
-			record.put("OpeningTime",codDto.getOpeningTime());
+			record.put("openingTime",codDto.getOpeningTime());
+			//아트클래스 개설날짜정보 일련번호
+			record.put("dateNo",codDto.getDateNo());
 			collections.add(record);
 		}/////for
 		
@@ -91,7 +128,8 @@ public class ArtclassController {
 	
 	/////아트 클래스 상세보기
 	@RequestMapping("/View")
-	public String view(@RequestParam String classNo,Model model, Map map) {
+	public String view(@RequestParam String classNo
+			, Model model, Map map, Principal principal) {
 		
 		//맵에 아트클래스 일련번호 담기 -> 밑의 서비스 호출 관련 쿼리문에서 classNo가 필요함
 		map.put("classNo",classNo);
@@ -103,8 +141,13 @@ public class ArtclassController {
 		//View 진입점에서 ${classNo}을 ajax 요청에 넣어서 아트클래스 개설날짜정보 테이블 조회
 		model.addAttribute("classNo", classNo);
 		
+		// 아트클래스 등록한 회원번호(memberNo) 리퀘스트 영역에 저장
+		model.addAttribute("classMemberNo",record.getMemberNo());
+		
+		// 로그인한 회원의 아이디로 회원번호 가져오기
+		model.addAttribute("memberNo", Integer.parseInt(memberDAO.getMemberNo(principal.getName()).toString()));
+		
 		//뷰에서 사용할 아트클래스 객체를 리퀘스트 영역에 저장
-		//아트클래스 컬럼 출력용 ex. record.xxx
 		model.addAttribute("record",record);
 		
 		//수강료 int형으로 변환 및 화폐단위표시 제거  
@@ -139,7 +182,6 @@ public class ArtclassController {
 		int memberNo = Integer.parseInt(memberDAO.getMemberNo(map.get("id").toString()));
 		System.out.println("--아이디로 가져온 회원번호:"+memberNo);
 		
-<<<<<<< HEAD
 		// 서비스 호출전 회원번호를 쿼리문 인자로 넣어줄 map에 넣어주기 
 		map.put("memberNo", memberNo);
 		
@@ -183,31 +225,11 @@ public class ArtclassController {
 	  	// -> Gson 형태로 변환 이때 위에선언한 타입(맵안에 리스트 , 리스트안에 맵)으로 변환
 		gsonMap = gson.fromJson(JSONObject.toJSONString(jsonObj).replace("\\/", "/") 
 				  , new TypeToken<Map<String, List<Map<String, Object>>>>(){}.getType()); 
-=======
-		if (this.artClassDAO.insert(map) == 1) {
-			for (int i = 0; i < gsonMap2.get("schedules").size(); i++) {
-				String[] scheduleStrArr = gsonMap2.get("schedules").get(i).get("schedule").toString().split(" ");
-				map.put("openingDate", scheduleStrArr[0]);
-				map.put("openingTime", scheduleStrArr[1]);
-				System.out.println("classNo:"+map.get("classNo"));
-				this.classOpeningDateDAO.insert(map);
-			}
-			//JSON형태 문자열 자바객체로 변환하기
-			Map<String,List<Map<String,Object>>> gsonMap = new HashMap<String, List<Map<String,Object>>>();
-			
-			Gson gson = new Gson();
-			JSONParser parser = new JSONParser();
-			System.out.println("map.get.img:"+map.get("imgs").toString());
-			Object obj = parser.parse(map.get("imgs").toString());
-			JSONObject jsonObj = (JSONObject) obj;
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			
 		//gson 구조 파악 예시 찍어보기
 		System.out.println("gson 구조 파악 예시 찍어보기:"+gsonMap.get("schedules").get(0).get("schedule"));
 		
 		// 위에서 생성한 아트클래스 레코드의 아트클래스 일련번호 가져오기
-		
-			  
 		if ( successInsertRecordcount == 1) { // 아트클래스 생성이 되었다면
 			  for (int i = 0; i < gsonMap.get("schedules").size(); i++) { 
 				String[] scheduleStrArr = gsonMap.get("schedules").get(i).get("schedule").toString().split(" ");

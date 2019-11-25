@@ -23,6 +23,11 @@ public class ClassOpeningDateDAO
     return this.template.selectList("openingDateSelectList",map);
   }/////
   
+  // 클래스 개설시각 레코드 한개 반환 
+  public ClassOpeningDateDTO selectOne(Map map) {
+	  return template.selectOne("getClassOpeningDateDTO", map);
+  }
+  
   // 클래스 개설시각 레코드 삽입(생성)
   public int insert(Map map)
   {

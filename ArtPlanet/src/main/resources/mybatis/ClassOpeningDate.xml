@@ -21,7 +21,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	SELECT * FROM classOpeningDate WHERE classNo = #{classNo}
   </select>
 
-
+  
+  <!-- 아트클래스 개설날짜정보 일련번호로 해당 레코드 가져오기 -->
+  <select id="getClassOpeningDateDTO" parameterType="java.util.Map" resultType="ClassOpeningDateDTO">
+  	SELECT * FROM CLASSOPENINGDATE WHERE DATENO = #{dateNo}
+  </select>
+	
 
 <!-- 
  <select id="classUpdate" parameterType="java.util.Map">
