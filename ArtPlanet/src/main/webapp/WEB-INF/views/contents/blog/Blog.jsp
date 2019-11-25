@@ -22,9 +22,15 @@ $(function(){
 			dataType:'json',
 			success:function(data){
 				console.log(data);
+				if(data.length == 0)
+				{
+					console.log("널인데요");
+					var htmlString = "<div style='text-align:center; width:100%;'><h2>등록된 글이 없어요</h2><div>";
+					$('.blog_left_sidebar').append(htmlString);
+				}
 				$(data).each(function(index, item) {
 					console.log(item.content);
-					var src = item.accessRight == 0 ? item.images[0].src : default_img;
+					var src = item.accessRight == 0 ? item.images[index].src : default_img;			
 					var htmlString = 
 						'<article class="blog_item">'
 						+ '<div class="blog_item_img">'
@@ -112,7 +118,7 @@ $(function(){
 		<div class="row">
 			<div class="col-lg-8 mb-5 mb-lg-0">
 				<div class="blog_left_sidebar">
-					
+					<!-- 
 					<nav class="blog-pagination justify-content-center d-flex">
 						<ul class="pagination">
 							<li class="page-item"><a href="#" class="page-link"
@@ -126,19 +132,13 @@ $(function(){
 							</a></li>
 						</ul>
 					</nav>
+					 -->
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="blog_right_sidebar">
 					<aside class="single_sidebar_widget search_widget">
 						<div class="menu-header-content" style="text-align: center;">
-						<button onclick="test();">test</button>
-						<script>
-							function test()
-							{
-								console.log($('.input-mask-trigger').val());
-							}
-						</script>
 						<sec:authorize access="isAuthenticated()">
 							<sec:authentication property="principal.username" var="loginedId"/>
 							<c:if test="${id eq loginedId}">

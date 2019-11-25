@@ -261,7 +261,7 @@ $(document).ready(function(){
 		console.log('쇼코멘트')
 			$.ajax({
 			url:"<c:url value='/Search/Project/CommentsList'/>",
-			data:{projectNo:${record.projectNo},'_csrf':'${_csrf.token}'},
+			data:{projectNo:'${record.projectNo}','_csrf':'${_csrf.token}'},//////////////////////
 			dataType:'json',
 			type:'post',
 			success:displayComments,
