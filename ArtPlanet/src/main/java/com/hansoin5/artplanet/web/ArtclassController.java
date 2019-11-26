@@ -25,6 +25,7 @@ import com.google.appengine.repackaged.com.google.gson.Gson;
 import com.google.common.reflect.TypeToken;
 import com.hansoin5.artplanet.service.ArtClassDTO;
 import com.hansoin5.artplanet.service.ClassOpeningDateDTO;
+import com.hansoin5.artplanet.service.GcsDTO;
 import com.hansoin5.artplanet.service.impl.ArtClassDAO;
 import com.hansoin5.artplanet.service.impl.ClassOpeningDateDAO;
 import com.hansoin5.artplanet.service.impl.ClassReservationDAO;
@@ -229,9 +230,11 @@ public class ArtclassController {
 		//gson 구조 파악 예시 찍어보기
 		System.out.println("gson 구조 파악 예시 찍어보기:"+gsonMap.get("schedules").get(0).get("schedule"));
 		
+		
 		// 위에서 생성한 아트클래스 레코드의 아트클래스 일련번호 가져오기
 		if ( successInsertRecordcount == 1) { // 아트클래스 생성이 되었다면
-			  for (int i = 0; i < gsonMap.get("schedules").size(); i++) { 
+			
+			  for (int i = 0; i < gsonMap.get("schedules").size(); i++) { //날짜정보테이블 입력
 				String[] scheduleStrArr = gsonMap.get("schedules").get(i).get("schedule").toString().split(" ");
 			  	map.put("openingDate", scheduleStrArr[0]); 
 			  	map.put("openingTime", scheduleStrArr[1]); 
@@ -241,7 +244,26 @@ public class ArtclassController {
 			  	classOpeningDateDAO.insert(map); 
 			  }/////for
 		 }/////if
-		
+		//Images객체 가져오기
+		String imgJson = map.get("imgs").toString();
+		System.out.println("imgJson::"+imgJson);
+		obj = jsonParser.parse(imgJson);
+		jsonObj = (JSONObject) obj;
+		gsonMap = gson.fromJson(JSONObject.toJSONString(jsonObj).replace("\\/", "/") 
+				  , new TypeToken<Map<String, List<Map<String, Object>>>>(){}.getType()); 
+		System.out.println("gson 구조 파악 예시 찍어보기:"+gsonMap.get("imgs").get(0).get("src"));
+		// 위에서 생성한 아트클래스 레코드의 아트클래스 일련번호 가져오기
+		if ( successInsertRecordcount == 1) { // 아트클래스 생성이 되었다면
+			
+			  for (int i = 0; i < gsonMap.get("imgs").size(); i++) { //날짜정보테이블 입력
+				String fileUrl = gsonMap.get("imgs").get(i).get("src").toString();
+			  	System.out.println("img:"+fileUrl);
+			  	String fileNo = gcsDAO.getFileNoByURL(fileUrl);
+			  	//classNo은 클래스 생성시 map에 담아놓음
+			  	map.put("fileNo", fileNo);
+			  	gcsDAO.updateClassNo(map); 
+			  }/////for
+		 }/////if
 		
 		// 뷰반환
 		return "sub/art_class/WriteClass.tiles";
@@ -304,10 +326,18 @@ public class ArtclassController {
 			  record.put("detailedAddr",dto.getDetailedAddr());
 			  record.put("categorie",dto.getCategorie());
 			  
+			  List<GcsDTO> gcsList = gcsDAO.getListByClassNo(dto.getClassNo());
+			  List<String> images = new Vector<String>();
+			  for(GcsDTO gd : gcsList)
+			  {
+				  images.add(gd.getFileUrl());
+			  }
+			  record.put("images",images);
+			  
 			  collections.add(record);
 			  
 		  }
-		  return JSONArray.toJSONString(collections);
+		  return JSONArray.toJSONString(collections).replace("\\/", "/");
 	}/////getClassList()
 	
 /*

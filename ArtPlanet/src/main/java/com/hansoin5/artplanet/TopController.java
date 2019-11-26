@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -127,16 +128,33 @@ public class TopController
 		return "contents/SearchArtist.tiles";
 	}
 
+	
+	//프로젝트 목록 리스트 메소드
 	@RequestMapping("/Search/Project")
-	public String searchProject(@RequestParam Map map, Model model)
-	{
+	public String searchProject(@RequestParam Map map,Model model)
+	{	
+		System.out.println("탑컨트롤러");
 		List<ProjectDTO> list = projectDao.selectlist(map);
+<<<<<<< HEAD
 		model.addAttribute("list", list);
 
 		
 		
+=======
+		List<Map> tags  = projectDao.selectTags(map);		
+		/* tagRelationDao. */
+		List<String[]> list2 = new Vector<String[]>();
+		for(int i =0; i<list.size();i++) {
+			String[] strarr = list.get(i).getTagName().split(",");
+			list2.add(strarr);
+		}
+		model.addAttribute("list",list);
+		model.addAttribute("tags",tags);
+		model.addAttribute("list2",list2);
+>>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 		return "contents/SearchProject.tiles";
 	}
+	
 
 	@RequestMapping("/ArtClass")
 	public String art_class()

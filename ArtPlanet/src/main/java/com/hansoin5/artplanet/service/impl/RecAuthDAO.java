@@ -67,9 +67,14 @@ public class RecAuthDAO {
 			return template.selectList("projAuthSelectlist", map);
 		}
 					
-		// PROJECTSUPPORT테이블과 조인해서 PROJECTSUPPORTSUM컬럼만 셀렉트해오는 
-		public List<RecAuthDTO> recAuthSelectProjectSupportSum(){
-			return template.selectList("recAuthSelectProjectSupportSum");
+		//프로젝트카운트 세기용 11/25projGetCount
+		public int projGetCount() {
+			return template.selectOne("projGetCount");
+		}
+		
+		//프로젝트 서포트넘버 얻기 11/25
+		public String projGetProjSupNo() {
+			return template.selectOne("projGetProjSupNo");
 		}
 		
 		//프로젝트 결제시 인증테이블 app_time 덮어씌우기용 메서드

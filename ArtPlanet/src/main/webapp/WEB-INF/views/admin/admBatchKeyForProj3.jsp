@@ -68,12 +68,12 @@
     var successAjax = function(data,id){
 		console.log('서버로 부터 받은 배치키 데이타:',data);
 		var tableString="<table style='width: 100%;' id='example' class='table table-hover table-striped table-bordered'>";
-        tableString += "<thead><tr><th>번호</th><th>아이디</th><th>주문번호</th><th>응답코드</th><th>카드코드</th><th>주문자명</th><th>배치키</th><th>금액</th><th>결제하기</th><th>최근결제일자</th></tr></thead>";
+        tableString += "<thead><tr><th>번호</th><th>프로젝트No</th><th>주문번호</th><th>응답코드</th><th>카드코드</th><th>주문자명</th><th>멤버No</th><th>배치키</th><th>후원금액</th><th>결제하기</th><th>최근결제일자</th></tr></thead>";
         tableString += "<tbody>";
         $.each(data,function(index,element){
 				tableString+="<tr>";					
-				tableString+="<td>"+(index+1)+"</td><td>"+element['id']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['res_cd']+
-				"</td><td>"+element['card_cd']+"</td><td>"+element['buyr_name']+"</td><td>"+element['batch_key']+"</td><td>"+20000+"</td>";			
+				tableString+="<td>"+(index+1)+"</td><td>"+element['projectNo']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['res_cd']+
+				"</td><td>"+element['card_cd']+"</td><td>"+element['buyr_name']+"</td><td>"+element['memberNo']+"</td><td>"+element['batch_key']+"</td><td>"+element['projectSupportSum']+"</td>";			
 				if(element['res_cd']!=0000)
 					tableString+="<td><button type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-danger' data-toggle='modal' data-target='#exampleModal'>배치키재발급요망</button></td>";
 				else if(element['app_time'].substr(4,2)==new Date().getMonth()+ 1)
@@ -113,8 +113,9 @@
 				console.log('페이트리거 안입니다')
 				$('#good_mny').val($(el).parent().prev().html());
 				$('#batch_key').val($(el).parent().prev().prev().html());
+			
+				console.log('아임노캐쉬');
 				$('#pay').trigger('click');
-		
 				//document.form_order.submit();
 			
 			}	
@@ -237,7 +238,7 @@
                                                     	 <div id=list></div>
                                                     
                                                        <!-- 폼 시작  -->
-                          <div style="display: none">
+                          <div style="">
                           <form name="form_order" method="post" action="<c:url value='/ProjectPayHub.do'/>">          
                                    <!-- PG사로 폼값 포스트로 전송하기 -->
                                     <div class="form-row">
@@ -265,7 +266,7 @@
                                        <div class="col-md-6">
                                           <div class="position-relative form-group">
                                              <label>주문자명</label> <input class="form-control"
-                                                type="text" name="buyr_name" value="아트플" />
+                                                type="text" name="buyr_name" value="프로젝트_관리자" />
                                           </div>
                                        </div>
 
