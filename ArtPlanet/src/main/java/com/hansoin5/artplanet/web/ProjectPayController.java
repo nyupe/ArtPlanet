@@ -82,6 +82,7 @@ public class ProjectPayController {
 		map.put("memberNo", memberDao.getMemberNo(map.get("id").toString()));
 		map.put("app_time", "");
 		
+		//프로젝트 서포트 넘버 반환
 		projectDao.insertsupport(map);
 
 		
@@ -90,6 +91,7 @@ public class ProjectPayController {
 			System.out.println("프로젝트 후원[인증] DB입력완료");
 		}
 		
+
 		System.out.println("ProjectAuthRes 컨트롤 끝");
 
 		return "project_pay/sample/auth/result";

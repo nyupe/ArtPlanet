@@ -100,8 +100,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</select>
 
-	
-
 	<!-- 댓글관련 -->
 
 	<!-- 코멘트 입력하기 -->

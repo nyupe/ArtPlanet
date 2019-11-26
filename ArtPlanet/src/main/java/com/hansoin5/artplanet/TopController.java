@@ -132,15 +132,15 @@ public class TopController
 	@RequestMapping("/Search/Project")
 	public String searchProject(@RequestParam Map map,Model model)
 	{	
-		System.out.println("탑컨트롤러");
+		System.out.println("탑컨트롤러 시작");
+		//프로젝트 목록 가져오기
 		List<ProjectDTO> list = projectDao.selectlist(map);
 		model.addAttribute("list", list);
-
-		
-		
+		//많이 등록된 태그들 가져오기
 		List<Map> tags  = projectDao.selectTags(map);		
-		/* tagRelationDao. */
+		//프로젝트마다의 태그 넣기 위한 List 선언
 		List<String[]> list2 = new Vector<String[]>();
+		//프로젝트별 태그 넣기
 		for(int i =0; i<list.size();i++) {
 			String[] strarr = list.get(i).getTagName().split(",");
 			list2.add(strarr);

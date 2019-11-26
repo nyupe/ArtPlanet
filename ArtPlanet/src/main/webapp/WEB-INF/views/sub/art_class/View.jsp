@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=720857926e6d51e1ec90e3642210f71b&libraries=services,clusterer,drawing"></script>
 
 <!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
 <sec:authentication property="principal.username" var="id" />
@@ -376,13 +378,91 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 								</a></li>
 							</ul>
 							
+<!-- 카카오맵 -->
+<script>
+
+
+$(function(){
+	
+	
+function mapInit(addr){
+	var x,y = "";
+	
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	    level: 3 // 지도의 확대 레벨
+	};  
+	
+	//지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	//주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	
+	//주소로 좌표를 검색합니다
+	geocoder.addressSearch(addr, function(result, status) {
+	
+	// 정상적으로 검색이 완료됐으면 
+	 if (status === kakao.maps.services.Status.OK) {
+	
+	    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	    
+	    y = result[0].x;
+	    x = result[0].y;
+	    $('.locasearch').attr('onclick',"location.href = 'https://map.kakao.com/link/to/목적지,"+x+","+y+"\'");
+	    $('.locasearch').attr('name',"location.href = 'https://map.kakao.com/link/to/목적지,"+x+","+y+"\'");
+	    console.log(coords);
+	    console.log(x);
+	    console.log(y);
+	    
+	    
+	
+	    // 결과값으로 받은 위치를 마커로 표시합니다
+	    var marker = new kakao.maps.Marker({
+	        map: map,
+	        position: coords
+	    });
+	
+	    // 인포윈도우로 장소에 대한 설명을 표시합니다
+	    var infowindow = new kakao.maps.InfoWindow({
+	        content: '<div style="width:150px;text-align:center;padding:6px 0;">여기로 오세요</div>'
+	    });
+	    infowindow.open(map, marker);
+	
+	    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	    map.setCenter(coords);
+	}//if
+	
+	});//geocoder.addressSearch
+}
+function btnInit(addr) {
+	$('#tab-c1-1').click(function() {
+		//map.relayout();
+		setTimeout(function() {
+			mapInit(addr);
+		}, 300);
+		
+	});
+}
+	var addr = '<c:out value="${record.classAddress}"/>'
+	btnInit(addr);
+	});
+</script>
+<!-- 맵끝 -->
+							
 							<div class="tab-content">
 								<div class="tab-pane active" id="tab-animated1-0"
 									role="tabpanel">
 									<p class="mb-0">${record.content }</p>
 								</div>
 								<div class="tab-pane" id="tab-animated1-1" role="tabpanel" align="center">
-									<h4>주소 : ${record.classAddress}, ${record.detailedAddr}</h4> 
+									<h4 style="float: left;">주소 : ${record.classAddress}, ${record.detailedAddr}</h4>
+									<button  class="locasearch" style="border-radius:4px;border: #da624a 1px solid ;cursor: pointer;
+										background: #da624a;color: white;font-size: 1.1em; float: right;margin-top: 25px;" >길 찾기</button> 
+									
+									
 									<!-- 카카오 map을 출력할 div -->
 									<div id="map" style="width: 100%; height: 350px;"></div>
 								</div>
@@ -671,17 +751,35 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
-	
+
+<!-- <script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=507d9a5016712739e50d9d8c9ef33fd9"></script>
+
+
+맵
+
 	
 <!-- 카카오 맵 -->
 <!-- 아래 스크랩트 태그 2개에 Daum 카카오 API 에서 제공해주는 key를 삽입할것 appkey= xxxxx &  : xxxx 위치에 넣어줘야함 -->
-<script type="text/javascript"
+<!-- <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29cf6db2d1dca112820c1f0483f5b61&libraries=services,clusterer,drawing"></script>
 	
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29cf6db2d1dca112820c1f0483f5b61"></script>	
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29cf6db2d1dca112820c1f0483f5b61"></script>	 -->
 	
-<!-- 이미지 -->
+
+
+	<!-- 이종성이 추가한 코드 시작 -->
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=720857926e6d51e1ec90e3642210f71b"></script>
+		
+	<!-- 맵 -->
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=720857926e6d51e1ec90e3642210f71b&libraries=services,clusterer,drawing"></script>
+		
+	<!-- 이미지 -->
+	<!-- 이종성이 추가한 코드 끝 -->
+
 <script>
 	function view() {
 		var div = document.form
@@ -717,66 +815,6 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 	}
 </script>
 
-<!-- 카카오맵 -->
-<script>
-$(function(){
-	
-	
-	
-function mapInit(addr){
-	
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	mapOption = {
-	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	    level: 3 // 지도의 확대 레벨
-	};  
-	
-	//지도를 생성합니다    
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
-	
-	//주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
-	
-	//주소로 좌표를 검색합니다
-	geocoder.addressSearch(addr, function(result, status) {
-	
-	// 정상적으로 검색이 완료됐으면 
-	 if (status === kakao.maps.services.Status.OK) {
-	
-	    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-	
-	    // 결과값으로 받은 위치를 마커로 표시합니다
-	    var marker = new kakao.maps.Marker({
-	        map: map,
-	        position: coords
-	    });
-	
-	    // 인포윈도우로 장소에 대한 설명을 표시합니다
-	    var infowindow = new kakao.maps.InfoWindow({
-	        content: '<div style="width:150px;text-align:center;padding:6px 0;">여기로 오세요</div>'
-	    });
-	    infowindow.open(map, marker);
-	
-	    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-	    map.setCenter(coords);
-	}//if
-	
-	});//geocoder.addressSearch
-}
-function btnInit(addr) {
-	$('#tab-c1-1').click(function() {
-		//map.relayout();
-		setTimeout(function() {
-			mapInit(addr);
-		}, 300);
-		
-	});
-}
-	var addr = '<c:out value="${record.classAddress}"/>'
-	btnInit(addr);
-	});
-</script>
-<!-- 맵끝 -->
 <!-- 삭제 처리 -->
 <script>		
    		function isDelete(){

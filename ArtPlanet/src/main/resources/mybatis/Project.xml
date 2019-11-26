@@ -25,6 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="InsertSupport" parameterType="java.util.Map">
 		<selectKey keyProperty="projectSupportNo" resultType="int" order="BEFORE">
 			SELECT SEQ_SUP.NEXTVAL FROM DUAL
+
 		</selectKey>
 		INSERT INTO PROJECTSUPPORT VALUES(#{projectSupportNo},#{projectSupportSum},sysdate,#{memberNo},#{projectNo})
 	</insert>
@@ -32,9 +33,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="InsertReward" parameterType="java.util.Map">
 		INSERT INTO PROJECTREWARD VALUES(SEQ_PROJECTREWARD_rewardNo.NEXTVAL,#{projectNo},#{rewardContent},#{supportStep})
 	</insert>
+	<insert id="projectUpdate" parameterType="java.util.Map">
+		INSERT INTO PROJECTUPDATE VALUES(SEQ_PROJECTUPDATE_UPDATENO.NEXTVAL,#{updateContent},SYSDATE,#{projectNo})
+	</insert>
+	
 	<!-- 목록리스트 뿌리기 -->	
 	<select id="Projectselectlist" parameterType="java.util.Map" resultType="ProjectDTO">
-		select p.*,tagname,sup.projectsupportsum,fileUrl,id
+		SELECT p.*,tagname,sup.projectsupportsum,fileUrl,id
         	From (select projectno, WM_CONCAT(tagname) tagname from tag h join tagrelation tl  on h.tagno = tl.tagno group by projectNO) 
 	        	q join project p on q.projectNo=p.projectNo left outer 
 	        		JOIN (select projectNO, sum(projectsupportsum) projectsupportsum from projectsupport  group by projectno) sup 
@@ -57,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 리워드 뿌리기 -->
 	<select id="projectSelectRewardList" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT * FROM PROJECTREWARD WHERE PROJECTNO = 77
+		SELECT * FROM PROJECTREWARD WHERE projectNo = #{projectNo} ORDER BY supportStep ASC
 	</select>
 	<!-- 서포터 리스트 뿌리기 -->
 	<select id="ProjectSelectListSupport" parameterType="java.util.Map" resultType="java.util.Map">
@@ -89,6 +94,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT q.*,t.tagname 
     		FROM (SELECT p.*,ROWNUM r FROM (SELECT tagno,COUNT(*) FROM TAGRELATION GROUP BY tagno ORDER BY COUNT(*) DESC ) p ) q 
         		JOIN TAG t ON q.tagno = t.tagno WHERE r BETWEEN 1 AND 5
+	</select>
+	<!-- 프로젝트 업데이트 목록 뿌리기 -->
+	<select id="projectUpdateList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT * FROM PROJECTUPDATE
 	</select>
 	<!-- 댓글 삭제 -->
 	<delete id="ProjectDeleteComment" parameterType="java.util.Map">

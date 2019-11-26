@@ -554,6 +554,8 @@ function valueCheck(eleForm){
 						<!-- ID 히든으로 넘기기 -->
 						<input type="hidden" name="id" value="${id }" />
 						
+						<input type="hidden" name="title" id="titleName"/>
+						
 						<!-- 카테고리 선택 필드  -->
 						<select class="form-control" name="categorie"
 							style="margin: 20px; position: relative; left: 200%;">
@@ -909,8 +911,14 @@ function valueCheck(eleForm){
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 <!-- 카카오맵  --> <!-- API 키입력  -->
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ba2ef291c1e27015d3bc775b7e8a40ab&libraries=services"></script>
+<!-- <script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29cf6db2d1dca112820c1f0483f5b61&libraries=services"></script> -->
+	
+	<!-- 이종성이 작성한 코드 -->
+	
+	<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=720857926e6d51e1ec90e3642210f71b&libraries=services"></script>
+
 
 
 
@@ -1177,9 +1185,11 @@ function valueCheck(eleForm){
 	// 검색 결과 목록과 마커를 표출하는 함수입니다
 	function displayPlaces(places) {
 
-		var listEl = document.getElementById('placesList'), menuEl = document
-				.getElementById('menu_wrap'), fragment = document
-				.createDocumentFragment(), bounds = new kakao.maps.LatLngBounds(), listStr = '';
+		var listEl = document.getElementById('placesList'), 
+			menuEl = document.getElementById('menu_wrap'), 
+			fragment = document.createDocumentFragment(), 
+			bounds = new kakao.maps.LatLngBounds(), 
+			listStr = '';
 
 		// 검색 결과 목록에 추가된 항목들을 제거합니다
 		removeAllChildNods(listEl);
@@ -1196,6 +1206,7 @@ function valueCheck(eleForm){
 			// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 			// LatLngBounds 객체에 좌표를 추가합니다
 			bounds.extend(placePosition);
+			
 
 			// 마커와 검색결과 항목에 mouseover 했을때
 			// 해당 장소에 인포윈도우에 장소명을 표시합니다
@@ -1221,6 +1232,7 @@ function valueCheck(eleForm){
 					document.getElementById('classAddr').value = $(this).find(
 							'div').find('span:first').html();
 					$('#detailAddr').focus();
+					$('#titleName').attr('value',title);
 				}
 
 			})(marker, places[i].place_name);
@@ -1325,6 +1337,7 @@ function valueCheck(eleForm){
 	// 인포윈도우에 장소명을 표시합니다
 	function displayInfowindow(marker, title) {
 		var content = '<div style="padding:5px;z-index:1;">' + title + '</div>';
+		console.log(title); 
 
 		infowindow.setContent(content);
 		infowindow.open(map, marker);
