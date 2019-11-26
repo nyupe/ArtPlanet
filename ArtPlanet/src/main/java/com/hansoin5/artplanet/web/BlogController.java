@@ -158,8 +158,10 @@ public class BlogController
 	public String viewPost(
 			@PathVariable("id") String id,
 			@PathVariable("blogNo") String blogNo,
-			Map map)
+			Map map,
+			Authentication auth)
 	{
+		map.put("id",id);
 		map.put("memberId", id);
 		map.put("blogNo", blogNo);
 		List<GcsDTO> gcsList = gcsDAO.getListByBlogNo(blogNo);
@@ -187,7 +189,17 @@ public class BlogController
 		map.put("introContent", memberDto.getIntroContent());
 		map.put("fee", memberDto.getSubscriptionFee());
 		map.put("nickname", memberDto.getNickName());
+		map.put("subscribe",0);
+		//스프링 시큐리티 이용할 때 아이디 값 가져오는 코드
+		if(auth != null)
+		{
+			map.put("loginedId", ((UserDetails)auth.getPrincipal()).getUsername());
+			System.out.println("loginedId:"+map.get("loginedId"));
 		
+			List<SubscribeDTO> subList = subscribeDAO.getSubscribe(map);
+			if(subList.size() > 0)
+				map.put("subscribe", 1);
+		}
 		
 		return "contents/blog/ViewPost.tiles";
 	}

@@ -46,6 +46,10 @@ public class RecAuthDAO {
 		public int updateApptime(Map map) {
 			return template.update("updateApptime", map);
 		}
+		//구독신청 완료 후 구독번호 업데이트
+		public int updateSubscribeNo(Map map) {
+			return template.update("updateSubscribeNo", map);
+		}
 		
 		/////////////////////////////////////////////////
 		//프로젝트용 1회용 배치키

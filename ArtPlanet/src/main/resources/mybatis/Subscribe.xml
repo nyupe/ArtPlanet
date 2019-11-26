@@ -11,9 +11,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="mybatis.Subscribe">
 
 	<insert id="doSubscribe" parameterType="java.util.Map">
+		<selectKey keyProperty="subscribeNo" resultType="int" order="BEFORE">
+			SELECT SEQ_SUBSCRIBE_subscribeNo.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO subscribe(subscribeNo, subscribeStartDate, targetedMemberNo, memberNo)
-			VALUES(SEQ_SUBSCRIBE_subscribeNo.NEXTVAL, SYSDATE,
-			 (SELECT memberNo FROM member WHERE id=#{id}),
+			VALUES(#{subscribeNo}, SYSDATE,
+			 (SELECT memberNo FROM member WHERE id=#{targetId}),
 			 (SELECT memberNo FROM member WHERE id=#{loginedId}))
 	</insert>
 	

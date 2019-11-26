@@ -127,6 +127,8 @@
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 		 <!-- 스프링시큐리티에서 내려주는 아이디사용 -->
         <input type="hidden" name="id"              value="<c:out value='${id}'/>"/> 
+         <!-- 구독을 위한 피구독자 아이디-->
+        <input type="hidden" name="targetId"        value="<c:out value='${targetId}'/>"/>
     </form>
     </body>
     </html>
