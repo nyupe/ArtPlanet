@@ -1,12 +1,15 @@
 package com.hansoin5.artplanet.service;
 
 public class ClassOpeningDateDTO
-{
-  private String DateNo;
-  private String classNo;
-  private String openingDate;
-  private String openingTime;
+{ 
+  //멤버변수
+  private String DateNo; // 아트클래스 개설날짜정보 테이블 일련번호 PK
+  private String classNo; // 아트클래스 번호 FK
+  private String openingDate; //시작날짜 
+  private String openingTime; //시작시간
   
+  
+  //게터 & 세터 
   public String getDateNo()
   {
     return this.DateNo;
@@ -46,4 +49,6 @@ public class ClassOpeningDateDTO
   {
     this.openingTime = openingTime;
   }
-}
+  
+}/////class
+

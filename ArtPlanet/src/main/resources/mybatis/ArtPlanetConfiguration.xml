@@ -19,13 +19,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <typeAlias alias="ArtClassDTO" type="com.hansoin5.artplanet.service.ArtClassDTO"/>
 		 <typeAlias alias="ClassOpeningDateDTO" type="com.hansoin5.artplanet.service.ClassOpeningDateDTO"/>
 		 <typeAlias alias="TagDTO" type="com.hansoin5.artplanet.service.TagDTO"/>
-<<<<<<< HEAD
 		 <typeAlias alias="TagRelationDTO" type="com.hansoin5.artplanet.service.TagRelationDTO"/>
 		 <typeAlias alias="QnaDTO" type="com.hansoin5.artplanet.service.QnaDTO" />
-=======
 		 <typeAlias alias="TagRelationDTO" type="com.hansoin5.artplanet.service.TagRelationDTO"/>
 		 <typeAlias alias="ProjectDTO" type="com.hansoin5.artplanet.service.ProjectDTO"/>
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 		 
 	</typeAliases>
 
@@ -55,18 +52,17 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/ArtClass.xml"/>
 		<!-- 아트 클래스 날짜 및 시간 -->
 		<mapper resource="mybatis/ClassOpeningDate.xml"/>
+		<!-- 아트 클래스 예약정보 -->
+		<mapper resource="mybatis/ClassReservation.xml"/>
 		<!-- 태그 -->
 		<mapper resource="mybatis/Tag.xml"/>
 		<!-- 태그 관계 -->
 		<mapper resource="mybatis/TagRelation.xml"/>
-<<<<<<< HEAD
 		<!-- 문의 게시판 -->
 		<mapper resource="mybatis/Qna.xml" />
-=======
 		<!-- 프로젝트 -->
 		<mapper resource="mybatis/Project.xml"/>
-		
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
-		
+		<!-- 안드로이드 -->
+		<mapper resource="mybatis/Android.xml"/>
 	</mappers>
 </configuration>

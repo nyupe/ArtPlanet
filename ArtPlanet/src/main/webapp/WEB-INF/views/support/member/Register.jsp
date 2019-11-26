@@ -295,7 +295,7 @@
                             </div>
                             <!-- 회원가입 form 시작 --> 
 							<form method="post"  action="<c:url value='/Register'/>" enctype="multipart/form-data" >
-								<!-- 스프링 시큐리티 사용시 모든 POST 요청에 반드시 넣어줘야함  -->
+								<!-- 스프링 시큐리티 CSRF방어 설정시 : 모든 POST 요청에 반드시 넣어줘야함  -->
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 									
 									<!-- ID 입력 필드 시작 -->								

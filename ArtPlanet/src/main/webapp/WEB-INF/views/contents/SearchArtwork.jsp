@@ -160,7 +160,6 @@
 			<ul class="nav nav-justified">
 				<li class="nav-item"><a href="<c:url value='/Search/Artwork'/>" class="nav-link active">작품</a></li>
 				<li class="nav-item"><a href="<c:url value='/Search/Artist'/>" class="nav-link">아티스트</a></li>
-				<li class="nav-item"><a href="<c:url value='/Search/Project'/>" class="nav-link">프로젝트</a></li>
 			</ul>
 		</div>
 

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -63,78 +65,49 @@
 </style>
 
 <script>
-	$(function() {
-
-		/*  $(document).ready(function(){
-			$("#national a").click(function(e){
-			e.preventDefault();
-			var category = $(this).attr("title");
-			$("#category li").fadeOut("slow");
-			if(national == "all"){$("#category li").fadeIn("slow");}
-			else{$("#category li[class*="+national+"]").fadeIn("slow");}
-			});  */
-
-		$
-				.ajax({
+		$(function(){ // 진입점 시작
+			$.ajax({
 					type : "get",
 					url : "<c:url value='/getClassList'/>",
 					dataType : "json",
-					success : function(data) {
-						console.log(data);
-
-						var listString;
-
-						//style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">"			
-
-						$
-								.each(
-										data,
-										function(index, element) {
-											console.log("들어왓나")
-
-											listString = "<div class='col-md-6 col-lg-3 all illustration  seoul class_content'>"
-											listString += "<a title="
-													+ element['classNo']
-													+ " href='<c:url value="/View"/>?classNo="
-													+ element['classNo']
-													+ "' class='block-5'>"
-
-											//+element+['imageUrl']"
-
-											listString += "<div class='text'>"
-											listString += "<h3 class=heading>"
-													+ element['categorie']
-													+ "</h3>"
-													+ "<div class='post-meta'><span>장소:"
-													+ element['classAddress']
-													+ "</span></div>"
-													+ "<p><span class='price'>"
-													+ element['tuitionFee']
-													+ "</span></p>"
-											listString += "</div>";
-											listString += "</a>";
-											console.log($('.portfolio-grid'));
-											console.log(listString);
-											$('.portfolio-grid').append(
-													listString);
-
-											/*
-												<div class="col-md-6 col-lg-3 all illustration  seoul class_content" style="position: absolute; left: 0%; top: 0px;">
-													<a href="/artplanet/View" class="block-5" style="background-image: url('/artplanet/resources/artclass/images/menu-list/1.jpg');">
-														<div class="text">
-															<p>재미있어요</p>
-														</div>
-													</a>
-												</div>
-											 */
-
-											 
-										});//.each			
+					success :function(data) {
+							console.log(data);
+							var listString;
+	
+							$.each(data,function(index, element) {
+									console.log("들어왓나")
+	
+									listString = "<div class='col-md-6 col-lg-3 all illustration  seoul class_content'>"
+									listString += "<a title="
+											+ element['classNo']
+											+ " href='<c:url value="/View"/>?classNo="
+											+ element['classNo']
+											+ "' class='block-5'>"
+	
+									//+element+['imageUrl']"
+	
+									listString += "<div class='text'>"
+									listString += "<h3 class=heading>"
+											+ element['title']
+											+ "</h3>"
+											+ "<div class='post-meta'><span>장소:"
+											+ element['classAddress']
+											+ "</span></div>"
+											+ "<p><span class='price'>"
+											+ element['tuitionFee']
+											+ "</span></p>"
+									listString += "</div>";
+									listString += "</a>";
+									console.log($('.portfolio-grid'));
+									console.log(listString);
+									
+									$('.portfolio-grid').append(listString);
+								});//.each
+								
 							clearGrid();
-					}
+					}/////success
 				}); //ajax
-
-	});// function
+			});// 진입점 끝
 	
 	function clearGrid()
 	{
@@ -157,29 +130,10 @@
 	            }
 	        });
 	    }
-	    	//$workGrid.isotope('relayout');
-	        //$('.portfolio-grid').isotope( 'updateSortData', $('.portfolio-grid').children() );
-	        //console.log("cash");
+	    	
 	}
 </script>
-<!--  
-						<a href="<c:url value='/View'/>" class="block-5"
-							style="background-image: url('<c:url value='/resources/artclass/images/menu-list/1.jpg'/>');">
 
-							<div class="text">
-
-								<h3 class="heading">페인팅</h3>
-								<div class="post-meta">
-									<span>장소:가산디지털단지</span>
-								</div>
-								<p>
-									<span class="price">￦30,000</span>
-								</p>
-								<p>재미있어요</p>
-							</div>
-						</a>
-					</div>
-							-->
 
 <section class="portfolio_area area-padding" id="portfolio">
 	<div class="container" style="max-width: 1700px">
@@ -230,67 +184,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 			</div>
 
 		</div>
-		<!-- 
-                   <div class="dropdown d-inline-block">
-                   	
-                       <button type="button" aria-haspopup="true"
-                               aria-expanded="false"
-                               data-toggle="dropdown"
-                               class="mb-2 mr-2 dropdown-toggle btn btn-primary">
-                                                                                   카테고리
-                       </button>
-                       <div tabindex="-1" role="menu" aria-hidden="true"
-                            class="dropdown-menu-lg dropdown-menu">
-                           <div class="dropdown-menu-header">
-                               <div class="dropdown-menu-header-inner bg-primary">
-                                   <div class="menu-header-image"
-                                        style="background-image: url('assets/images/dropdown-header/abstract1.jpg');"></div>
-                                   <div class="menu-header-content"><h5
-                                           class="menu-header-title">Settings</h5>
-                                       <h6
-                                               class="menu-header-subtitle">Manage
-                                           all of
-                                           your
-                                           options</h6></div>
-                               </div>
-                           </div>
-                         	
-                           <ul>
-                               <li class="nav-item-header nav-item" data-filter=".seoul">Activity</li>
-                               <li class="nav-item"><a href="javascript:void(0);"
-                                                       class="nav-link">Chat
-                                   <div class="ml-auto badge badge-pill badge-info">
-                                       8
-                                   </div>
-                               </a></li>
-                               <li class="nav-item" ><a href="javascript:void(0);"
-                                                       class="nav-link">Recover
-                                   Password</a>
-                               </li>
-                               <li class="nav-item-header nav-item">My Account</li>
-                               <li class="nav-item"><a href="javascript:void(0);"
-                                                       class="nav-link">Settings
-                                   <div class="ml-auto badge badge-success">New
-                                   </div>
-                               </a></li>
-                               <li class="nav-item"><a href="javascript:void(0);"
-                                                       class="nav-link">Messages
-                                   <div class="ml-auto badge badge-warning">512
-                                   </div>
-                               </a></li>
-                               <li class="nav-item"><a href="javascript:void(0);"
-                                                       class="nav-link">Logs</a>
-                               </li>
-                               <li class="nav-item-divider nav-item"></li>
-                               <li class="nav-item-btn nav-item">
-                                   <button class="btn-wide btn-shadow btn btn-danger btn-sm">
-                                       Cancel
-                                   </button>
-                               </li>
-                           </ul>
-                       </div>
-                   </div>
-                  -->
+	
 		<!-- 메뉴 바 시작 -->
 
 		<div class="filters portfolio-filter">
@@ -344,15 +238,12 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 						<button type="button" tabindex="0" class="dropdown-item">
 							<li data-filter=".jeju">제주</li>
 						</button>
-
 					</div>
 				</ul>
 			</div>
-
-
 			<!-- 메뉴 바 끝 -->
-
-			<!-- 메뉴 바 시작 -->
+			
+			<!-- 카테고리 드롭 다운 시작 -->
 			<div class="dropdown d-inline-block">
 				<button type="button" aria-haspopup="true" aria-expanded="false"
 					data-toggle="dropdown"
@@ -387,54 +278,30 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 					</div>
 			</div>
 			</ul>
+			
+			
 			<!-- 등록하기 버튼 -->
-			<a href="<c:url value='/WriteClass'/>">
-				<button class="btn-wide mb-2 mr-2 btn-pill btn btn-primary"
-					style="left: 75%;">등록하기</button>
-			</a>
+			<!-- 로그인 안한 상태  등록하기 버튼 비활성화 -->
+				<sec:authorize access="isAnonymous()" > 
+						<button class="btn-wide mb-2 mr-2 btn-pill btn btn-primary"
+							style="left: 75%;"  onclick="alert('로그인 후 이용해주세요')" >아트 클래스 등록하기</button>
+				</sec:authorize>
+				
+				<!-- 로그인 한상태 등록하기 버튼 활성화-->
+				<sec:authorize access="isAuthenticated()" >
+					<a href="<c:url value='/WriteClass'/>">
+						<label class="btn-wide mb-2 mr-2 btn-pill btn btn-primary"
+							style="left: 75%;" >아트 클래스 등록하기</label>
+					</a>
+				</sec:authorize>
 			<!-- 등록하기 버튼 끝 -->
+			
 		</div>
 		<!-- 메뉴 바 끝 -->
 		<div class="col-md-12 filters-content">
-			<div class="row portfolio-grid">
-				<!-- 여기에 .apend -->
+			<div class="row portfolio-grid" id="startListPrintPoint">
 				<div class="grid-sizer col-md-6 col-lg-3 "></div>
-				<div class="col-md-6 col-lg-3 all illustration  seoul class_content" style="position: absolute; left: 0%; top: 0px;">
-													<a href="/artplanet/View" class="block-5" style="background-image: url('/artplanet/resources/artclass/images/menu-list/1.jpg');">
-														<div class="text">
-															<p>재미있어요</p>
-														</div>
-													</a>
-												</div>
-												<div class="col-md-6 col-lg-3 all illustration  seoul class_content" style="position: absolute; left: 0%; top: 0px;">
-													<a href="/artplanet/View" class="block-5" style="background-image: url('/artplanet/resources/artclass/images/menu-list/1.jpg');">
-														<div class="text">
-															<p>재미있어요</p>
-														</div>
-													</a>
-												</div>
-												<div class="col-md-6 col-lg-3 all illustration  seoul class_content" style="position: absolute; left: 0%; top: 0px;">
-													<a href="/artplanet/View" class="block-5" style="background-image: url('/artplanet/resources/artclass/images/menu-list/1.jpg');">
-														<div class="text">
-															<p>재미있어요</p>
-														</div>
-													</a>
-												</div>
-												<div class="col-md-6 col-lg-3 all illustration  seoul class_content" style="position: absolute; left: 0%; top: 0px;">
-													<a href="/artplanet/View" class="block-5" style="background-image: url('/artplanet/resources/artclass/images/menu-list/1.jpg');">
-														<div class="text">
-															<p>재미있어요</p>
-														</div>
-													</a>
-												</div>
-												
-												<div class="col-md-6 col-lg-3 all illustration  seoul class_content" style="position: absolute; left: 0%; top: 0px;">
-													<a href="/artplanet/View" class="block-5" style="background-image: url('/artplanet/resources/artclass/images/menu-list/1.jpg');">
-														<div class="text">
-															<p>재미있어요</p>
-														</div>
-													</a>
-												</div>
+				<!-- 여기에 .apend -->
 			</div>
 		</div>
 	</div>
@@ -467,30 +334,11 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 	src="<c:url value='/resources/artclass2/js/jquery.timepicker.min.js'/>"></script>
 <script src="<c:url value='/resources/artclass2/js/main.js'/>"></script>
 
-
-
 <script>
 	$(function() {
-
 		$('.dropdown-item').click(function() {
 			$('.dropdown-menu').removeClass('show');
 		});
 	});
 </script>
-
-
-
-
-
-
-
-<!--   <script src="<c:url value='/resources/artclass3/js/main.js'/>"></script>-->
-
-
-
-
-
-
-
-
 

@@ -167,7 +167,7 @@ public class TopController
 //리액트 페이지로 이동
 	@RequestMapping(value = "/React.bbs")
 	public String React()
-	{
+	{	
 		return "react/index.tiles";
 	}///// login()
 

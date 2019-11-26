@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <style>
 .img {
@@ -177,48 +178,6 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 </style>
 
 
-<!-- 
-<!--로그인시 버튼 수정 삭제  
-<script>
-	$(function(){
-		
-		//페이지 로드시 코멘트 목록 뿌려주기]
-		showComment();
-		
-		
-		//코멘트 입력및 수정처리]
-		$('#submit').click(function(){
-			if($(this).val()=='등록')
-				var action="<c:url value='/MemoComment/BBS/Write.bbs'/>";
-			else
-				var action="<c:url value='/MemoComment/BBS/Edit.bbs'/>";	
-			//ajax로 요청]
-			$.ajax({
-				url:action,
-				data:$('#frm').serialize(),
-				dataType:'text',
-				type:'post',
-				success:function(data){
-					console.log(data);
-					//등록한후 현재 모든 댓글 뿌려주기
-					showComment();
-					//입력댓글 클리어 및 포커스 주기
-					$('#title').val('');
-					$('#title').focus();
-					//글 수정후 등록버튼으로 다시 교체하기
-					if($('#submit').val()=='수정')
-						$('#submit').val('등록');
-				}				
-			});	
-			
-		});//#submit
-</script>
- -->
-
-<!--로그인시 버튼 수정 삭제 끝 -->
-
-
-
 <!-- Stylesheets -->
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass/css/plugins.css'/>">
@@ -228,19 +187,65 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass/css/custom.css'/>">
 
-<!-- timepicker
- <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.common.min.css"/>
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.rtl.min.css"/>
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.silver.min.css"/>
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2019.3.1023/styles/kendo.mobile.all.min.css"/>
 
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="https://kendo.cdn.telerik.com/2019.3.1023/js/kendo.all.min.js"></script>
-     -->
+<script>
+//리퀘스트 영역에 저장된 classNo 찍어보기
+//console.log('${classNo}')
+	
+	 var dateNo;
+	
+	 $(function(){ // 진입점 시작
+		
+		//클래스 개설날짜정보 리스트 얻기
+		$.ajax({
+			url:"<c:url value='/getOpeningDates'/>",
+			dataType:'json',
+			type: "get",
+			data:{classNo:"${classNo}"},
+			success:displayClassDateAndTime
+		})/////ajax
+	})// 진입점 끝
+	
+	var displayClassDateAndTime = function(data){
+		// 데이타 찍어보기(성공)
+		//console.log(data)
+		var checkBoxString="<table style='margin-left:auto; margin-right:auto'>";
+		checkBoxString+="<tr style='background-color:white;'><th></th><th>수업날짜</th><th>시작시간</th><th>소요시간</th><th>선택</th></tr>";
+		$.each(data,function(index,element){
+			checkBoxString+="<tr style='background-color:white'>";
+			checkBoxString+="<td>"+(index+1)+"</td><td>"+element['openingDate']+"</td><td>"+element['openingTime']+"</td>"+"<td>${record.timeRequired}시간</td>"+"<td><input type='checkbox' class='checkClassOpeningInfo' title="+element['dateNo']+"></td>";
+			checkBoxString+="</tr>";
+		});
+		checkBoxString+="</table>";
+		
+	    $('#classDateAndTimePick').html(checkBoxString);
+	    
+	    
+	    
+	}/////displayClassDateAndTime
+	
+	
+	function reservation(){/// 아트클래스 예약정보 테이블에
+		// 아트클래스 개설날짜정보 테이블 일련번호 
+		dateNo = $('.checkClassOpeningInfo').attr('title');
+		
+		var confirmResult = confirm('예약 결제를 진행하시겠습니까?')
+		
+		if(confirmResult){
+			/////결제화면으로 form 전송 및 페이지이동
+			$.ajax({
+				url : "<c:url value='/createReservationRecord'/>",
+				//스프링 씨큐리티 적용시(단, csrf적용시(Post방식)에만 서버에 CSRF토큰값도 같이 보내야한다)
+				data : {memberNo:"${memberNo}",'_csrf':'${_csrf.token}',classNo:"${classNo}","dateNo":dateNo},
+				type : "POST"
+			})
+			document.getElementById('payform').submit();
+		}/////if
+	}/////
+	
+	
+</script>
 
-<!--[if lte IE 9]>
-		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-	<![endif]-->
 
 <!-- Start Blog List View Area -->
 <section
@@ -439,12 +444,15 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 				<div class="row">
 					<div class="col-md-12">
 						<div class="popupal__menu" style="
-    position: relative;
-    top: 250px;">
+    							position: relative;
+    							top: 250px;">
 							<h4>인기있는 항목</h4>
 						</div>
 					</div>
 				</div>
+				
+				
+				<!-- 인기있는 아트클래스 뿌려주는 부분(시작) : 클래스 예약정보에 많이 등록되어 있는 아트클래스 상위 3개를 뿌려주면 될듯--> 
 				<div class="row mt--10">
 
 					<!-- Start Single Product -->
@@ -527,22 +535,28 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 					</div>
 					<!-- End Single Product -->
 				</div>
+			 <!-- 인기있는 아트클래스 뿌려주는 부분(끝) -->	
+				
+				
+				
 			</div>
-
-			<div class="col-lg-4 col-md-12 col-sm-14 md--mt--40 sm--mt--40"
-				style="left: 150px;">
-                         			    <!-- 수정 삭제 버튼 -->
-                          <div class="col-lg-10" style="left: 40%;">
-                           <a href="<c:url value='/View_Input'/>">  
-                            <button class="mb-2 mr-2 btn-icon btn-pill btn btn-outline-primary">
-                               <i class="pe-7s-tools btn-icon-wrapper"> </i>수정하기
-                            </button></a>
-                                                     
-                            <button class="mb-2 mr-2 btn-icon btn-pill btn btn-outline-danger">
-                                <i class="pe-7s-trash btn-icon-wrapper"> </i>삭제하기
-                            </button>
-                          </div>
-                          				<!-- 수정 삭제 버튼 -->
+			
+			    <div class="col-lg-4 col-md-12 col-sm-14 md--mt--40 sm--mt--40"	style="left: 150px;">
+       			    
+					 <!-- 수정 삭제 버튼 시작 -->
+                      <div class="col-lg-10" style="left: 40%;">
+                       <a href="<c:url value='/View_Input'/>">  
+                        <button class="mb-2 mr-2 btn-icon btn-pill btn btn-outline-primary">
+                           <i class="pe-7s-tools btn-icon-wrapper"> </i>수정하기
+                        </button></a>
+                                                 
+                        <button class="mb-2 mr-2 btn-icon btn-pill btn btn-outline-danger">
+                            <i class="pe-7s-trash btn-icon-wrapper"> </i>삭제하기
+                        </button>
+                     </div>
+                    <!-- 수정 삭제 버튼 끝-->
+			
+				
 				<!--================Banner Area =================-->
 
 				<div class="food__category__area mt--60">
@@ -555,7 +569,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 							<div class="food__menu__details">
 								<div class="food__menu__content">
 
-									<h2>애니메이션</h2>
+									<h2>${record.title}</h2>
 									<ul class="food__dtl__prize d-flex">
 
 										<li>${record.tuitionFee}</li>
@@ -777,6 +791,8 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 				</div>
 
 			</div>
+			
+			
 		</div>
 	</div>
 	</div>
@@ -785,7 +801,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 <!-- End Blog List View Area -->
 
 
-<!-- Modal -->
+<!-- 예약하기 누르면 나오는 모달창 -->
 <div class="modal fade" id="modalQuickView" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true"
 	data-backdrop="false" style="background: rgba(10, 0, 0, 0.5);">
@@ -793,131 +809,127 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="row">
-					<div class="col-lg-5">
-						<div data-toggle="datepicker-inline" style="position: relative;top: 30px;"></div>
-					</div>
-					<div class="col-lg-7">
+					
+				
+					
+					<!-- 아트클래스 강의 시간을 출력해줄 달력시작  -->
+						<!-- <div class="col-lg-5">
+							<div data-toggle="datepicker-inline" style="position: relative;top: 30px;"></div>
+						</div> -->
+					<!-- 아트클래스 강의 시간을 출력해줄 달력끝 -->
+					
+					
+					
+					<!-- 아트클래스 수강료, 날짜출력, 시간선택 아코디언, 수강인원수 및 가격출력 div 시작 -->
+					<div class="col-lg-12">
+						<!-- 아트클래스 이름  -->
 						<h2 class="h2-responsive product-name">
-							<strong>아트 클래스</strong>
+							<strong>${record.title }</strong>
 						</h2>
-						<h4 class="h4-responsive">
-							<span class="green-text"> <strong>${record.tuitionFee}</strong>
-							<!--  </span> <span class="grey-text"> <small> <s>60000</s> -->
-							</small>
-							</span>
-						</h4>
 						
-						                        <!-- accordion -->
-                                                <div id="accordion" class="accordion-wrapper mb-3">
-                                                    <div class="">
-                                                        <div id="headingOne" class="card-header">
-                                                            <h5 class="mb-0" style="position: relative;bottom: 13px;">2019년 11월 03일</h5>
-                                                        </div>
-                                                        <div data-parent="#accordion" id="collapseOne1"
-                                                             aria-labelledby="headingOne" class="collapse show">
-                                                           
-                                                        </div>
-                                                    </div>
-                                                    <div class="">
-                                                        <div id="headingTwo" class="b-radius-0 card-header">
-                                                            <button type="button" data-toggle="collapse"
-                                                                    data-target="#collapseOne2" aria-expanded="false"
-                                                                    aria-controls="collapseTwo"
-                                                                    class="text-left m-0 p-0 btn btn-link btn-block"><h5
-                                                                    class="m-0 p-0" >시간 선택      <i class="icon ion-android-arrow-down"></i> </h5></button>
-                                                        </div>
-                                                        <div data-parent="#accordion" id="collapseOne2" class="collapse">
-                                                            <div class="card-body">
-							                                                      <!-- Card body -->
-																		
-																			<div class="font-icon-wrapper">
-																				<i class="lnr-clock"> </i>
-																				<p>2:00~4:00</p>
-																			</div>
-																		
-																		<div class="font-icon-wrapper">
-																			<i class="lnr-clock"> </i>
-																			<p>4:00~6:00</p>
-																		</div>
-																</div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="">
-                                                        <div id="headingThree" class="card-header">
-                                                      
-												<form name='form' style="right: 10px;bottom: 8px; position: relative">
-													<table style="margin: 10px;">
+						<!-- 아트클래스 수강료  -->
+						<%-- <h4 class="h4-responsive">
+							<span class="green-text"> <strong>${record.tuitionFee}</strong>
+							</span>
+						</h4> --%>
+					
+						<!-- 아트클래스 강의날짜 및 시간 출력 체크박스가 생성될 다이브 -->
+						<div id="classDateAndTimePick" align="center"> </div>
+					   
+					   	
+    				  <!-- accordion -->
+                      <!-- <div id="accordion" class="accordion-wrapper mb-3"> -->
+                          
+                          <!-- 
+                          <div class="">
+                              <div id="headingOne" class="card-header">
+                                  <h5 class="mb-0" style="position: relative;bottom: 13px;">2019년 11월 03일</h5>
+                              </div>
+                              <div data-parent="#accordion" id="collapseOne1"
+                                   aria-labelledby="headingOne" class="collapse show">
+                                 
+                              </div>
+                          </div>
+                           -->
+                          
+                          <!-- 
+                          <div class="">
+                              <div id="headingTwo" class="b-radius-0 card-header">
+                                  <button type="button" data-toggle="collapse"
+                                          data-target="#collapseOne2" aria-expanded="false"
+                                          aria-controls="collapseTwo"
+                                          class="text-left m-0 p-0 btn btn-link btn-block"><h5
+                                          class="m-0 p-0" >시간 선택      <i class="icon ion-android-arrow-down"></i> </h5></button>
+                              </div>
+                              
+	                          <div data-parent="#accordion" id="collapseOne2" class="collapse">
+	                                
+	                                <div class="card-body">
+	                                
+		                               		Card body
+										<div class="font-icon-wrapper">
+											<i class="lnr-clock"> </i>
+											<p>2:00~4:00</p>
+										</div>
+										
+										<div class="font-icon-wrapper">
+											<i class="lnr-clock"> </i>
+											<p>4:00~6:00</p>
+										</div>
+									
+									</div>
+                          	</div>
+                      </div> 
+                      -->
+                      
+                     <!-- </div> -->
+                                     <div class="">
+                                     
+                                         <div style="margin-left: 400px"align="right">
+                                       
+											<form id="payform" action="<c:url value='Order.do'/>" method="post" style="right: 10px;bottom: 8px; position: relative">
+												<!-- CSRF 방지 -->
+												<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+												
+												<table style="margin: 10px;">
 														<td>인원</td>
 														<td><input id="pricount" type='text' name='count' value='1' size='3'
-															readonly></td>
-														<td><a href='#' onclick='change(1);'>▲</a><br>
-															<a href='#' onclick='change(-1);'>▼</a> </td>
-													</table>
-												
-												</form>
-															<form style="position: relative; left: 20px;bottom: 8px; ">    
-												                       합계:<input type="text" id="classPrice" value="${record.tuitionFee}원" style="position: relative; left: 20px;" />
-												                      
-															</form>
-                                                        </div>
-                                                        <div data-parent="#accordion" id="collapseOne3" class="collapse">
-                                                            <div class="card-body">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                     	<input type="text" id="classValue" style="visibility: hidden;" value=30000 />
-                                                </div>
-                                            
-	                                            <!-- accordion  end -->              
+														readonly></td>
+														<td><a href='#' onclick='change(1);'>▲</a><a href='#' onclick='change(-1);'>▼</a></td>
+														<td>합계: <input type="text" name="fee" id="classPrice" value="${fee}원" size='15' style="margin-left: 10px"/></td>
+														<!-- 예약하기 모달창에서 버튼에 의해 value가 증감되는 태그 -->
+                                      					<input type="text" id="classValue" style="visibility: hidden;"  value="${fee}" />
+												</table>
+											</form>
+                                         </div>
+                                         
+                                     </div>
+                                     
+                                     	
+                				 </div>
+                             <!-- 아트클래스  날짜출력, 수강 인원수 및 수강일에 따른 가격 출력 div 끝 -->
+	                                                    
 								
-							<!-- 결제 버튼 -->
 							<div class="card-body" style="position: relative; left: 600px">
 								<div class="row">
-								<!-- Add to Cart 
-									<div class="col-md-6">
-					
-										<select
-											class="md-form mdb-select colorful-select dropdown-primary">
-											<option value="" disabled selected>Choose your option</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-										</select> <label>선택하세요</label>
-	
-									</div>
-									<div class="col-md-6">
-	
-										<select
-											class="md-form mdb-select colorful-select dropdown-primary">
-											<option value="" disabled selected>Choose your option</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-										</select> <label>선택하세요</label>
-	
-									</div>
-								</div>
-								<!-- /.Add to Cart -->
-								<div class="text-center">
-									<button class="btn btn-primary">
-										결제하기 <i class="fas fa-cart-plus ml-2" aria-hidden="true"></i>
-									</button>
-									<button type="button" class="btn btn-secondary"
+									<div class="text-center">
+								
+										<button class="btn btn-primary" onclick="reservation()">
+											결제하기 <i class="fas fa-cart-plus ml-2" aria-hidden="true"></i>
+										</button>
+									
+										<button type="button" class="btn btn-secondary"
 										data-dismiss="modal">닫기</button>
 									
+									</div>
 								</div>
 							</div>
-							
-						</div>
-						<!-- 결제버튼 end-->
 					</div>
 				</div>
 			</div>
 		</div>
 	
-
-<!-- Modal end -->
+<!-- 예약하기 누르면 나오는 모달창 끝 -->
 
 <!-- Login Form 
 	<div class="accountbox-wrapper">
@@ -1023,9 +1035,11 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 	crossorigin="anonymous"></script>
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=507d9a5016712739e50d9d8c9ef33fd9"></script>
+	
 <!-- 맵 -->
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
+	
 <!-- 이미지 -->
 <script>
 	function view() {
@@ -1036,13 +1050,6 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 	function change(num) {
 	
 		
-		//var str= string.split('w');
-		//var value= ${record.tuitionFee};
-		//var $('￦').after('w'+str) = $('#classValue').val();
-		//var value.split('w')  = $('#classValue').val();
-		//var str = ${record.tuitionFee};
-		//var res = str.substring(1);
-		//var value.split('w')  = $('#classValue').val();
 		var value =$('#classValue').val();
 		var counter = $('#pricount').val();
 		

@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.annotation.Resource;
@@ -25,7 +26,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -66,13 +70,13 @@ public class BlogController
 		map.put("memberNo", memberDto.getMemberNo());
 		List<BlogPostDTO> list = dao.getDtoByMemberNo(map);
 		List<Map> posts = new Vector<Map>();
-		Map post = new HashMap();
 		for(BlogPostDTO dto : list) {
+			Map post = new HashMap();
 			List<GcsDTO> gcsList = gcsDAO.getListByBlogNo(dto.getBlogNo());
 			List<Map> images = new Vector<Map>();
-			Map image = new HashMap();
 			for(GcsDTO gd : gcsList)
 			{
+				Map image = new HashMap();
 				image.put("src", gd.getFileUrl());
 				images.add(image);
 			}
@@ -109,13 +113,13 @@ public class BlogController
 	{
 		List<BlogPostDTO> list = dao.getDtoByMemberNo(map);
 		List<Map> posts = new Vector<Map>();
-		Map post = new HashMap();
 		for(BlogPostDTO dto : list) {
+			Map post = new HashMap();
 			List<GcsDTO> gcsList = gcsDAO.getListByBlogNo(dto.getBlogNo());
 			List<Map> images = new Vector<Map>();
-			Map image = new HashMap();
 			for(GcsDTO gd : gcsList)
 			{
+				Map image = new HashMap();
 				image.put("src", gd.getFileUrl());
 				images.add(image);
 			}
@@ -145,9 +149,9 @@ public class BlogController
 		map.put("blogNo", blogNo);
 		List<GcsDTO> gcsList = gcsDAO.getListByBlogNo(blogNo);
 		List<Map> images = new Vector<Map>();
-		Map image = new HashMap();
 		for(GcsDTO gd : gcsList)
 		{
+			Map image = new HashMap();
 			image.put("src", gd.getFileUrl());
 			images.add(image);
 		}
@@ -399,5 +403,47 @@ public class BlogController
 		System.out.println(JSONArray.toJSONString(collections).replace("\\/", "/"));
 		return JSONArray.toJSONString(collections).replace("\\/", "/");
 		
+	}
+	
+	//댓글관련
+	@ResponseBody
+	@RequestMapping(value = "/BlogPost/Comments")
+	public String commentajax(@RequestParam Map map,Authentication auth) {
+		System.out.println("코멘트입력폼 컨트롤러 들어옴");
+		
+		//스프링 시큐리티 이용할 때 아이디 값 가져오는 코드
+		map.put("id", ((UserDetails)auth.getPrincipal()).getUsername());
+		System.out.println("쿼리 시작");
+		String memberNo = memberDAO.getMemberNo(map.get("id").toString());
+		map.put("memberNo", memberNo);
+		dao.insertcomment(map);
+		System.out.println("쿼리 적용 됨");
+		return map.get("blogNo").toString();
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/BlogPost/CommentsList",produces = "text/html; charset=UTF-8")
+	public String commentlist(@RequestParam Map map,Model model) {
+		System.out.println("코멘트리스트 컨트롤러 ");
+		System.out.println("blogNo:"+map.get("blogNo"));
+		//서비스호출
+		List<Map> list = dao.selectcomment(map);
+		
+		System.out.println("JSONOBJ"+JSONObject.toJSONString(map));
+		
+		System.out.println("쿼리 작동");
+		
+		
+		for(Map comment:list) {
+			comment.put("REPLYPOSTDATE", comment.get("REPLYPOSTDATE").toString().substring(0,10));
+
+		}
+		System.out.println("날짜 변환");
+		
+		
+		
+		
+		System.out.println(JSONArray.toJSONString(list).toString());
+		return JSONArray.toJSONString(list).replace("\\/", "/");	
 	}
 }

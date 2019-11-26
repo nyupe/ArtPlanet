@@ -49,5 +49,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getPublicByMemberNo" parameterType="java.lang.String" resultType="BlogPostDTO">
 		SELECT * FROM blogPost WHERE memberNo=#{memberNo} AND accessRight = 0
 	</select>
+	
+	<!-- 댓글관련 -->
+	<!-- 코멘트 입력하기 -->
+	<insert id="BlogInsertComment" parameterType="java.util.Map">
+		INSERT INTO REPLY(replyNo,replyContent,memberNo,blogNo) 
+			VALUES(SEQ_REPLY_replyNo.Nextval,#{replyContent},#{memberNo},#{blogNo})
+	</insert>
+	<!-- 코멘트 리스트 뿌리기 -->
+	<select id="BlogSelectListComment" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT r.*,id,profilePicture,nickname FROM REPLY r JOIN MEMBER m on r.memberNo = m.memberNo WHERE r.blogNo = #{blogNo}
+	</select>
+	<!-- 코멘트카운트 -->
+	<select id="BlogCommentCount" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) FROM REPLY WHERE blogNo = #{blogNo}
+	</select>
 </mapper>
-<!-- 캐시아니라고 -->
