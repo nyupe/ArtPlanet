@@ -50,10 +50,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM blogPost WHERE memberNo=#{memberNo} AND accessRight = 0
 	</select>
 	
-<<<<<<< HEAD
-</mapper>
+
+
 <!-- 캐시아니라고 -->
-=======
+
 	<!-- 댓글관련 -->
 	<!-- 코멘트 입력하기 -->
 	<insert id="BlogInsertComment" parameterType="java.util.Map">
@@ -69,4 +69,3 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*) FROM REPLY WHERE blogNo = #{blogNo}
 	</select>
 </mapper>
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git

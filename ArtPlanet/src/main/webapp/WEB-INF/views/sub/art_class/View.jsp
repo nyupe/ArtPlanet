@@ -1033,14 +1033,26 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
-<script type="text/javascript"
+<!-- <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=507d9a5016712739e50d9d8c9ef33fd9"></script>
 	
-<!-- 맵 -->
+맵
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
 	
-<!-- 이미지 -->
+이미지 -->
+	
+	<!-- 이종성이 추가한 코드 시작 -->
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=720857926e6d51e1ec90e3642210f71b"></script>
+		
+	<!-- 맵 -->
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=720857926e6d51e1ec90e3642210f71b&libraries=services,clusterer,drawing"></script>
+		
+	<!-- 이미지 -->
+	<!-- 이종성이 추가한 코드 끝 -->
+
 <script>
 	function view() {
 		var div = document.form

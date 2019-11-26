@@ -97,8 +97,8 @@ margin: 10px 0px;}
 		</div>
 		<div class="card-header card-header-tab-animation" style="font-size: 1.8em; margin-bottom: 30px; padding: 0;">
 			<ul class="nav nav-justified">
-				<li class="nav-item"><a href="<c:url value='/Search/Project'/>" class="nav-link active">최신글</a></li>
-				<li class="nav-item"><a href="<c:url value='/Search/Project/Closing'/>" class="nav-link">마감임박</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project'/>" class="nav-link">최신글</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project/Closing'/>" class="nav-link active">마감임박</a></li>
 				<li class="nav-item"><a href="<c:url value='#'/>" class="nav-link">인기글</a></li>
 			</ul>
 		</div>

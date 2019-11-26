@@ -62,6 +62,16 @@ public class ProjectDAO {
 		return template.selectList("ProjectSelectListComment",map);
 	}
 	
+	// 프로젝트 업데이트 입력
+	public int insertUpdate(Map map){
+		return template.insert("projectUpdate",map);
+	}
+	
+	// 프로젝트 업데이트 리스트 뿌리기
+	public List<Map> selectUpdateList(Map map){
+		return template.selectList("projectUpdateList",map);
+	}
+	
 	// 프로젝트 내용뿌리기
 	public ProjectDTO selectOne(Map map) {
 		return template.selectOne("projectselectone",map);

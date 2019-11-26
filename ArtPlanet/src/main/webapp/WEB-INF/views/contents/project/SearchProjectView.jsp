@@ -217,6 +217,9 @@ display: inline;
 margin-bottom: 10px;
 }
 
+.update {
+clear: both;
+}
 
 
 
@@ -268,11 +271,7 @@ $(document).ready(function(){
 		console.log('쇼코멘트')
 			$.ajax({
 			url:"<c:url value='/Search/Project/CommentsList'/>",
-<<<<<<< HEAD
-			data:{projectNo:'${record.projectNo}','_csrf':'${_csrf.token}'},
-=======
 			data:{projectNo:'${record.projectNo}','_csrf':'${_csrf.token}'},//////////////////////
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 			dataType:'json',
 			type:'post',
 			success:displayComments,
@@ -432,10 +431,23 @@ $(document).ready(function(){
 					<div >&nbsp;</div>
 					
 					<div class="blog_details">
-						<h2 style="float: left;">업데이트 소식</h2>&nbsp;<span class="badge badge-primary" style="">4</span>
-						<ul style="clear: both;">
-							<li>프로젝트 공통 -마감일 후에는 즉시 제작에 착수하는 프로젝트 특성상 단순 변심에 의한 후원금 환불이 불가능합니다.</li>
-						</ul>
+							<h2 style="float: left;">업데이트 소식</h2>&nbsp;<span class="badge badge-primary" style="margin-bottom: 15px; padding-top: 10px;">${updatecount }</span>
+							<c:if test="${record.id == id }">
+							<form class="update" style="clear: both;margin-bottom: 10px;" method="post" action="<c:url value='/Search/Project/projectUpdate'/>">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+								<input type="hidden" name="projectNo" value="${record.projectNo}" />
+								<textarea class="form-control w-100" name="updateContent" style="clear: both;"
+									id="updateContent" cols="30" rows="3" placeholder="업데이트를 내용을 입력해주세요"></textarea>
+								<button type="submit" class="bb" 
+										style="border-radius:4px;border: #da624a 1px solid ;cursor: pointer;
+										background: #da624a;color: white;font-size: 1.1em; float: right;margin-top: 10px;">등록하기</button>								
+							</form>
+							</c:if>
+							<c:forEach var="item" items="${updateList }">
+								<ul style="clear: both;list-style: inside;">
+									<li>${item.UPDATECONTENT }</li>
+								</ul>
+							</c:forEach>
 					</div>
 					
 					<div id="prosupporter">&nbsp;&nbsp;</div>
@@ -515,10 +527,6 @@ $(document).ready(function(){
 						<div class="form-group">
 							<button id="commentsubmit" type="submit" class="button button-contactForm">등록</button>
 						</div>
-						<c:if test="${record.id == id }">
-							<button>수정</button>
-							<button>삭제</button>
-						</c:if>
 					</form>
 				</div>
 				<!-- 댓글 입력 폼  끝-->
@@ -541,9 +549,10 @@ $(document).ready(function(){
 									<div class="pro-skills pro-html progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: ${per}%;max-width:100%;">&nbsp;</div>
 								</div>
 								
-								
+							<fmt:formatNumber value="${fundInfo.projectsupportsum }" type="number" maxFractionDigits="3" var="total"></fmt:formatNumber>
+							<fmt:formatNumber value="${fundInfo.targetFigure }" type="number" maxFractionDigits="3" var="target"></fmt:formatNumber>	
 								<div class="col-50" style="width:100%; text-align: left; font-size:small; margin-bottom: 20px;"><span>${per}</span>% 달성</div>
-								<div class="col-70" style="width:100%; text-align: left; font-size:large; margin-bottom: 20px;"><span style="font-weight: bold;">${fundInfo.projectsupportsum }</span>원  모집</div>
+								<div class="col-70" style="width:100%; text-align: left; font-size:large; margin-bottom: 20px;"><span style="font-weight: bold;">${total }</span>원  모집</div>
 								<div class="col-70" style="width:100%; text-align: left; font-size:large; margin-bottom: 20px;white-space: pre;"><span style="font-weight: bold;">${supportcount }</span>명 후원</div>
 								
 								<!-- <p style="text-align: left; font-weight: bold;">모인금액</p>
@@ -551,7 +560,7 @@ $(document).ready(function(){
 								<p style="text-align: left; font-size:small;float: :left;" >목표 금액</p><span>300000</span> -->
 							</div>
 							<div class="row" style="padding:5px;margin-bottom: 20px; ">
-								<div style="width:50%;text-align: left;font-weight: bold;">목표금액</div><span style="font-weight: bold;">${fundInfo.targetFigure }원</span>
+								<div style="width:50%;text-align: left;font-weight: bold;">목표금액</div><span style="font-weight: bold;">${target }원</span>
 							<fmt:parseNumber value="${fundInfo.postDate.time / (1000*60*60*24)}" integerOnly="true" var="now"></fmt:parseNumber>
 							<fmt:parseNumber value="${fundInfo.deadline.time / (1000*60*60*24)}" integerOnly="true" var="target"></fmt:parseNumber>
 								<div style="width:50%;text-align: left;font-weight: bold;">남은기간</div><span style="font-weight: bold;">${target - now }일</span>
@@ -579,7 +588,6 @@ $(document).ready(function(){
 													<input type="hidden" class="idSupport" name="id" value="${id }" />
 													<input type="hidden" name="projectNo" value="${record.projectNo}"/>
 													
-													
 													<h3 id="cheon">1000원 이상 후원하시는 분께</h3>
 													<input type="text" class="form-control input-mask-trigger" id="projectSupportSum" name="projectSupportSum" 
 													data-inputmask="'alias': 'numeric','groupSeparator': ',', 'autoGroup': true," placeholder="후원액을 설정해주세요" 
@@ -596,12 +604,16 @@ $(document).ready(function(){
 								    	<h3 class="widget_title" style="margin-bottom: 20px;border: none;"></h3>
 								        <div>
 								        	<div class="media post_item">
-												<form style="width: 100%">
+												<form style="width: 100%" role="form" method="post" action="<c:url value='/ProjectAuthReq.do'/>">
+													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+													<input type="hidden" class="idSupport" name="id" value="${id }" />
+													<input type="hidden" name="projectNo" value="${record.projectNo}"/>
+													<input type="hidden" name="projectSupportSum" value="${item.SUPPORTSTEP }"/>
 													<h3 style="margin-bottom: 20px;">${item.SUPPORTSTEP }  <span style="font-size: 16px;"> 원 후원하기</span></h3>
 													<ul class="reward" style="padding-bottom: 20px;margin-bottom: 20px;">
 														<li>${item.REWARDCONTENT }</li>
 													</ul>
-													<button type="button" class="bb" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">선물 선택하고 후원하기</button>
+													<button type="submit" class="bb" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">선물 선택하고 후원하기</button>
 												</form>
 											</div>
 								        </div>
@@ -627,14 +639,16 @@ $(document).ready(function(){
 												<form role="form" method="post" action="<c:url value='/Search/Project/projectreward'/>" style="width: 100%">
 													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 													<input type="hidden" name="projectNo" value="${record.projectNo}"/>
-													<input type="hidden" class="form-control input-mask-trigger" id="supportStep" name="supportStep" 
+													<input type="text" class="form-control input-mask-trigger" id="supportStep" name="supportStep" 
 													data-inputmask="'alias': 'numeric','groupSeparator': ',', 'autoGroup': true," placeholder="후원 금액을 입력해주세요" 
 													style="clear:both;margin: 10px 0px;text-align: left;"/>원으로 설정하기
-													
-													<textarea class="form-control w-100" name="rewardContent"
-													id="rewardContent" cols="30" rows="9" placeholder="리워드 보상을 입력해주세요"></textarea>
+													<input class="form-control w-100 rewardtext1" type="text" placeholder="첫번째 리워드 보상 입력해주세요" style="margin-bottom: 10px"/>
+													<input class="form-control w-100 rewardtext2" type="text" placeholder="두번째 리워드 보상 입력해주세요" style="margin-bottom: 10px"/>
+													<input class="form-control w-100 rewardtext3" type="text" placeholder="세번째 리워드 보상 입력해주세요" style="margin-bottom: 10px"/>
+													<textarea class="form-control w-100" name="rewardContent" hidden="true"
+													id="rewardContent" cols="30" rows="9" ></textarea>
 													<div style="text-align: center;margin-top: 15px;">
-														<button type="submit" class="bb" style="width: 15%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">리워드 등록</button>
+														<button type="submit" class="bb rewardwrite" style="width: 15%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">리워드 등록</button>
 													</div>
 												</form>
 											</div>
@@ -693,13 +707,13 @@ $(document).ready(function(){
 									</span>
 									<span class="sociallink ml-1 col-2">
 									<a>
-									<img src="<c:url value='/resources/img/project/facebook.png'/>" /></a>
+									<img src="<c:url value='/resources/img/project/facebook.png'/>" style="cursor: pointer;" /></a>
 									</span>
-									<span class="sociallink ml-1 col-2">
-									<img src="<c:url value='/resources/img/project/twitter.png'/>" />
+									<span class="sociallink ml-1 col-2" >
+									<img src="<c:url value='/resources/img/project/twitter.png'/>"  style="cursor: pointer;"/>
 									</span>
-									<span class="sociallink ml-1 col-2">
-									<img src="<c:url value='/resources/img/project/Copy.png'/>" />
+									<span class="sociallink ml-1 col-2" >
+									<img src="<c:url value='/resources/img/project/Copy.png'/>" style="cursor: pointer;" />
 									</span>
 								</div>
 								<script>
@@ -763,7 +777,9 @@ $(document).ready(function(){
 							<form style="width: 100%" >
 								<h3 style="margin-bottom: 20px;">${item.SUPPORTSTEP } <span style="font-size: 16px;"> 원 펀딩</span></h3>
 								<ul class="reward" style="padding-bottom: 20px;margin-bottom: 20px;">
-									<li>${item.REWARDCONTENT }</li>
+									<c:forEach var="item" items="${rewardcontent[loop.index] }">
+									<li>${item}</li>
+									</c:forEach>
 								</ul>
 								<c:if test="${record.id == id }" var="deletecheck">
 									<button type="button"  class="bb rewardDelete${loop.index }" style="width: 100%;border: none;height: 50px;cursor: pointer;background: #00c4c4;color: white;">리워드 삭제하기</button>
@@ -791,8 +807,6 @@ $('.rewardDelete').click(function(){
 		alert('아직 구현 안함')
 	}
 })
-
-
 
 //이미지 확대 모달창
 // Get the modal
@@ -861,6 +875,15 @@ window.onclick = function(event) {
   }
   
 };
+var texts = "";
+$('.rewardwrite').click(function(){
+	texts = $('.rewardtext1').val()
+	texts += "," + $('.rewardtext2').val() + "," +  $('.rewardtext3').val();
+	$('#rewardContent').val(texts);
+	
+	
+})
+
 
 
 

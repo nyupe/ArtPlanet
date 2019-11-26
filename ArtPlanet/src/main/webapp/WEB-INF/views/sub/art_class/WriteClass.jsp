@@ -906,8 +906,13 @@ function valueCheck(eleForm){
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 
 <!-- 카카오맵  --> <!-- API 키입력  -->
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29cf6db2d1dca112820c1f0483f5b61&libraries=services"></script>
+<!-- <script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29cf6db2d1dca112820c1f0483f5b61&libraries=services"></script> -->
+	
+	<!-- 이종성이 작성한 코드 -->
+	
+	<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=720857926e6d51e1ec90e3642210f71b&libraries=services"></script>
 
 
 

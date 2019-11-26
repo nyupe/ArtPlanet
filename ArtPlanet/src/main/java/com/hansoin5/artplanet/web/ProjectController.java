@@ -51,11 +51,16 @@ public class ProjectController{
 	public String searchProjectview(@RequestParam Map map, Model model)
 	{
 		System.out.println("프로젝트 뷰 컨트롤 들어옴");
-		System.out.println(map.get("projectNo"));
 		ProjectDTO record = projectDao.selectOne(map);
 		ProjectDTO fundInfo = projectDao.selectFundInfo(map);
 		List<Map> tagList = projectDao.selectTagslist(map);
 		List<Map> rewardList = projectDao.selectRewardList(map);
+		
+		List<String[]> rewardcontent = new Vector<String[]>();
+		for(int i=0; i< rewardList.size();i++) {
+			String[] contentarray =  rewardList.get(i).get("REWARDCONTENT").toString().split(",");
+			rewardcontent.add(contentarray);
+		}
 		/* int commentCount = projectDao.getCommentCount(map); 필요 없어짐 */
 		String tags = "";
 		for(int i=0; i<tagList.size();i++) {
@@ -64,6 +69,8 @@ public class ProjectController{
 		record.setContent(record.getContent());
 		List<Map> list = projectDao.selectsupport(map);
 		int supportcount = list.size();
+		List<Map> updateList = projectDao.selectUpdateList(map);
+		int updatecount = updateList.size();
 		model.addAttribute("tags",tags);
 		model.addAttribute("list",list);
 		model.addAttribute("record",record);
@@ -71,6 +78,9 @@ public class ProjectController{
 		model.addAttribute("fundInfo",fundInfo);
 		model.addAttribute("rewardList",rewardList);
 		model.addAttribute("tagList",tagList);
+		model.addAttribute("updateList",updateList);
+		model.addAttribute("updatecount",updatecount);
+		model.addAttribute("rewardcontent",rewardcontent);
 		return "contents/project/SearchProjectView.tiles";
 	}
 	
@@ -165,6 +175,14 @@ public class ProjectController{
 	}
 	
 	
+	@RequestMapping("/Search/Project/projectUpdate")
+	public String projectUpdate(@RequestParam Map map) {
+		projectDao.insertUpdate(map);
+		return "forward:/Search/Project/ProjectView";
+		
+	}
+	
+	
 	
 	//코멘트 리스트 메소드
 	@ResponseBody
@@ -248,7 +266,7 @@ public class ProjectController{
 		model.addAttribute("list",list);
 		model.addAttribute("tags",tags);
 		model.addAttribute("list2",list2);
-		return "contents/SearchProject.tiles";
+		return "contents/SearchProjectClosing.tiles";
 	}
 	
 	
