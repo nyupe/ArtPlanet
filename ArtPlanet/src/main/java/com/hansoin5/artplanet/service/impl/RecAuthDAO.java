@@ -72,10 +72,10 @@ public class RecAuthDAO {
 			return template.selectOne("projGetCount");
 		}
 		
-		//프로젝트 서포트넘버 얻기 11/25
-		public String projGetProjSupNo() {
-			return template.selectOne("projGetProjSupNo");
-		}
+	/*
+	 * //프로젝트 서포트넘버 얻기 11/25 public String projGetProjSupNo() { return
+	 * template.selectOne("projGetProjSupNo"); }
+	 */
 		
 		//프로젝트 결제시 인증테이블 app_time 덮어씌우기용 메서드
 		public int updateApptimeForProj(Map map) {
