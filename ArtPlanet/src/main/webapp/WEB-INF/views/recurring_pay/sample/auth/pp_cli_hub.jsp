@@ -116,7 +116,7 @@
     </script>
     </head>
     <body onload="goResult()">
-    <form name="pay_info" method="post" action="RecurringAuthRes.do">
+    <form name="pay_info" method="post" action="<c:url value='/RecurringAuthRes.do'/>">
         <input type="hidden" name="res_cd"      value="<%=res_cd%>">            <!-- 결과 코드 -->
         <input type="hidden" name="res_msg"     value="<%=res_msg%>">           <!-- 결과 메세지 -->
         <input type="hidden" name="ordr_idxx"   value="<%=ordr_idxx%>">         <!-- 주문번호 -->

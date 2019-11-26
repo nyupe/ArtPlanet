@@ -112,7 +112,7 @@ public class AdminController {
 				record.put("card_name",dto.getCard_name());
 				record.put("app_time",dto.getApp_time());
 				record.put("app_no",dto.getApp_no());
-				record.put("memberNo",dto.getMemberno());
+				record.put("memberNo",dto.getMemberNo());
 				//취소테이블에서 해당레코드 확인용 구분자 리턴 0 아니면 1
 				record.put("isCanceled",cancelDao.cancelButtonShowCount(dto.getTno()));
 				

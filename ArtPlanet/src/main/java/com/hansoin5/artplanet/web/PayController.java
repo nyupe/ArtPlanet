@@ -36,7 +36,8 @@ public class PayController {
 		*/
 		
 		//가격 리퀘스트 영역에 저장 
-		model.addAttribute("fee", map.get("fee").toString().replace("원", ""));
+		if(map.get("fee")!=null)
+			model.addAttribute("fee", map.get("fee").toString().replace("원", ""));
 		
 		return "pay/sample/OrderFinal.tiles";   //수정최종
 

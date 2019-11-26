@@ -27,11 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 	SEQ_MEMBER.NEXTVAL -->
 	<!-- 블로그후원(일회성)정기인증정보 배치키 CRUD 쿼리문 -->
 	
-	<!-- 아래서 쓸 프로젝트서포트넘버 -->
-	<select id="projGetProjSupNo" parameterType="java.util.Map" resultType="RecAuthDTO">
-	select ps.projectsupportno from projectsupport ps join 
-	projauth pa on ps.projectsupportno = pa.projectsupportno where pa.memberno =#{memberNo}
-	</select>
+	
 	<!-- 인증 배치키 디비입력 처리 -->
 	<insert id="projAuthInsert" parameterType="java.util.Map" >
 			INSERT INTO PROJAUTH(ORDR_IDXX, RES_CD, BATCH_KEY, CARD_CD, BUYR_NAME, MEMBERNO,APP_TIME, PROJECTSUPPORTNO)

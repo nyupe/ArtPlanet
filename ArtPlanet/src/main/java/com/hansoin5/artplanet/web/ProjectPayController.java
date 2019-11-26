@@ -81,11 +81,15 @@ public class ProjectPayController {
 		System.out.println(map.get("batch_key"));
 		map.put("memberNo", memberDao.getMemberNo(map.get("id").toString()));
 		map.put("app_time", "");
+		
+		projectDao.insertsupport(map);
+
+		
 		int affected = authDao.projAuthInsert(map);
 		if (affected == 1) {
 			System.out.println("프로젝트 후원[인증] DB입력완료");
 		}
-		projectDao.insertsupport(map);
+		
 		System.out.println("ProjectAuthRes 컨트롤 끝");
 
 		return "project_pay/sample/auth/result";

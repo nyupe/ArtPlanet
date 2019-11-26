@@ -131,7 +131,7 @@
                       <div class="card-body">
    	   <!-- PG사로 폼값 포스트로 전송하기 -->
                               
-       <form name="formOrder" method="post" action="RecurringAuthHub.do">
+       <form name="formOrder" method="post" action="<c:url value='/RecurringAuthHub.do'/>">
        <!-- 상단 문구 -->
        <div class="sample">
        <p>후원자의 신원정보와 신용카드 정보를 입력하여</br> 

@@ -12,7 +12,8 @@ public class PayDTO {
 	private String card_name; //카드사
 	private String app_time; //승인시간
 	private String app_no; //승인번호
-	private int memberno; //회원번호
+	private String memberNo; //회원번호
+	
 	
 	private int isCanceled;//취소여부 확인 위한 추가 멤버변수 0==취소전 1==취소됨
 	
@@ -83,11 +84,11 @@ public class PayDTO {
 	public void setApp_no(String app_no) {
 		this.app_no = app_no;
 	}
-	public int getMemberno() {
-		return memberno;
+	public String getMemberNo() {
+		return memberNo;
 	}
-	public void setMemberno(int memberno) {
-		this.memberno = memberno;
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 
 	public int getIsCanceled() {

@@ -10,11 +10,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 일반결제 취소건 CRUD 쿼리문  -->
 	
+	
+	<!-- 취소시 아래에서 결제테이블의 멤버넘버 얻어오는 쿼리문 11/26-->
+
+	<select id="getMemberNoFromPayforCancel" parameterType="java.util.Map" resultType="java.lang.String">
+		SELECT memberNo FROM pay WHERE tno=#{tno}
+	</select>
+	
 	<!-- 일반결제 취소 디비입력 처리 -->
 <!-- 	INSERT INTO CANCEL(TNO, RES_CD, RES_MSG, MEMBERNO)
 		VALUES(#{tno}, #{res_cd}, #{res_msg}, SEQ_MEMBER.NEXTVAL)
 		ON DUPLICATE KEY UPDATE RES_CD=1004 -->
-	<update id="cancelInsert" parameterType="java.util.Map" >
+	<update id="cancelInsert" parameterType="java.util.Map">
 	 <![CDATA[
 		MERGE INTO CANCEL USING DUAL
         ON (tno = #{tno})
@@ -23,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                     
             WHEN NOT MATCHED THEN
                       INSERT (TNO, RES_CD, RES_MSG, MEMBERNO) 
-                      VALUES (#{tno}, #{res_cd}, #{res_msg}, SEQ_MEMBER.NEXTVAL)
+                      VALUES (#{tno}, #{res_cd}, #{res_msg}, #{memberNo})
 		  ]]>
 	</update>
 	
