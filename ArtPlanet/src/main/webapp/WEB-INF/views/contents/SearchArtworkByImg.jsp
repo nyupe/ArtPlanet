@@ -95,15 +95,17 @@ $(function() {
             }
         });
     }
-	    
+	
+    var tagString = "<c:out value="${tagString}"/>";
+    console.log(tagString);
+    
 	var nowPage = 1;
-
 	//글 리스트 요청
 	function getArtworkList(){
 		$.ajax({
-			url:"<c:url value='/getArtworkList'/>",
+			url:"<c:url value='/ImgTagSearch'/>",
 			type:'get',
-			data:{"nowPage":nowPage},
+			data:{"nowPage":nowPage,"tagString":tagString},
 			dataType:'json',
 			success:function(data){
 				console.log(data);

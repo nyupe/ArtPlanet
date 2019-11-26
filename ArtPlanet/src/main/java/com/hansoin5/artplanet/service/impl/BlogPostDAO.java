@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.hansoin5.artplanet.service.BlogPostDTO;
+import com.hansoin5.artplanet.service.TagDTO;
+import com.hansoin5.artplanet.service.TagRelationDTO;
 
 @Repository
 public class BlogPostDAO
@@ -45,8 +47,19 @@ public class BlogPostDAO
 	{
 		return template.selectList("getPublicByMemberNo", memberNo);
 	}
+	public List<String> imgTagSearch(Map map)
+	{
+		return template.selectList("imgTagSearch", map);
+	}
+	public List<String> tagRelSearch(Map map)
+	{
+		return template.selectList("tagRelSearch", map);
+	}
+	public List<BlogPostDTO> getDtoByList(Map map)
+	{
+		return template.selectList("getDtoByList", map);
+	}
 
-	//안드로이드 로직
 	//댓글관련
 	
 	//코멘트 등록
