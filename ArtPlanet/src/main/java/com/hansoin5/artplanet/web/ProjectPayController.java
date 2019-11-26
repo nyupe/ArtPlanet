@@ -84,13 +84,14 @@ public class ProjectPayController {
 		
 		//프로젝트 서포트 넘버 반환
 		projectDao.insertsupport(map);
+
 		
 		int affected = authDao.projAuthInsert(map);
 		if (affected == 1) {
 			System.out.println("프로젝트 후원[인증] DB입력완료");
 		}
 		
-			
+
 		System.out.println("ProjectAuthRes 컨트롤 끝");
 
 		return "project_pay/sample/auth/result";

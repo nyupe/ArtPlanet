@@ -33,4 +33,10 @@ public class CancelDAO {
 		return template.selectOne("cancelButtonShow",map);
 	}
 	
+	//취소테이블에 입력할 멤버노 구하기위함 11/26
+	public String getMemberNoFromPayforCancel(Map map) {
+		return template.selectOne("getMemberNoFromPayforCancel", map);
+	}
+	
+	
 }/////

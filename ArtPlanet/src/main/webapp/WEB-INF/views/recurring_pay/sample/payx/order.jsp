@@ -181,7 +181,7 @@
                                                         <!-- 내용 -->
 
 
-    <form name="form_order" method="post" action="RecurringPayHub.do">
+    <form name="form_order" method="post" action="<c:url value='/RecurringPayHub.do'/>">
 				<!-- 케로UI -->
 				 <div id="step-2">
                      <div id="accordion" class="accordion-wrapper mb-3">

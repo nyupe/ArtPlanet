@@ -131,7 +131,7 @@
                       <div class="card-body">
    	   <!-- PG사로 폼값 포스트로 전송하기 -->
                               
-       <form name="formOrder" method="post" action="RecurringAuthHub.do">
+       <form name="formOrder" method="post" action="<c:url value='/RecurringAuthHub.do'/>">
        <!-- 상단 문구 -->
        <div class="sample">
        <p>후원자의 신원정보와 신용카드 정보를 입력하여</br> 
@@ -154,7 +154,7 @@
        <div class="col-md-6">
           <div class="position-relative form-group">
              <label>주문자명</label> 
-             <input class="form-control" type="text" name="buyr_name" value="김승" />
+             <input class="form-control" type="text" name="buyr_name" value="${name}" />
           </div>
        </div>
 	  
@@ -205,8 +205,9 @@
     <!-- 상품제공기간 설정 -->
     <input type='hidden' name='good_expr' value='2:1m'>
 	<!-- 씨큐리티 쓰려면 바로 밑 소스 한줄 무조건 넣어야함 -->
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
-	
+	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+	<!-- 구독을 위한 피구독자 아이디 -->
+	<input type="hidden" name="targetId" value="${targetId}"/>
 	<!-- 주민번호 S / 사업자번호 C 픽스 여부 -->
     <!-- <input type='hidden' name='batch_soc_choice' value='' /> -->
  

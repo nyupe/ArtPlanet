@@ -10,13 +10,16 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hansoin5.artplanet.service.MemberDTO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
 import com.hansoin5.artplanet.service.impl.RecAuthDAO;
 import com.hansoin5.artplanet.service.impl.RecPayDAO;
+import com.hansoin5.artplanet.service.impl.SubscribeDAO;
 //(RecurringController)에서는 (BLOG)메뉴에서 정기구독 (페이지이동)과 (인증키+결제결과)를 DB에 저장합니다.
 @Controller
 public class RecurringController {
@@ -29,34 +32,48 @@ public class RecurringController {
 	private RecAuthDAO authDao;
 	@Resource(name = "recPay")
 	private RecPayDAO payDao;
+	@Resource(name = "subscribeDAO")
+	private SubscribeDAO subscribeDao;
 
 	// 인증
-	@RequestMapping("RecurringAuthReq.do")
-	public String authReq() {
+	@RequestMapping("/RecurringAuthReq.do")
+	public String authReq(@RequestParam Map map, Model model) {
+		
+		model.addAttribute("targetId",map.get("id"));
+		System.out.println("map.get(\"loginedId\"):"+map.get("loginedId"));
+		List<MemberDTO> list = memberDao.getMemberById(map.get("loginedId").toString());		
+		model.addAttribute("name",list.get(0).getName());
+		model.addAttribute("memberNo",list.get(0).getMemberNo());
+		
 		return "recurring_pay/sample/auth/Requestkey.tiles";
 	}////////////// RecurringAuthReq.do
 	
 	
 	
-	@RequestMapping("RecurringAuthHub.do")
-	public String authHub() {
+	@RequestMapping("/RecurringAuthHub.do")
+	public String authHub(@RequestParam Map map, Model model) {
+		model.addAttribute("targetId",map.get("targetId"));
 		return "recurring_pay/sample/auth/pp_cli_hub";
 	}////////////// RecurringAuthHub.do
 
 	// DB저장
-	@RequestMapping("RecurringAuthRes.do")
+	@RequestMapping("/RecurringAuthRes.do")
 	public String authRes(@RequestParam Map map) {
 		System.out.println(map.get("batch_key"));
 		map.put("memberNo", memberDao.getMemberNo(map.get("id").toString()));
 		System.out.println("====================================================");
 		
-		//프로젝트서포트넘버 스트링 하나 얻기
-		String projectSupportNo = authDao.projGetProjSupNo();
-		System.out.println("프로젝트서포트넘버"+projectSupportNo);
-		map.put("projectSupportNo", projectSupportNo);
+		/*
+		 * //프로젝트서포트넘버 스트링 하나 얻기 String projectSupportNo = authDao.projGetProjSupNo();
+		 * System.out.println("프로젝트서포트넘버"+projectSupportNo); map.put("projectSupportNo",
+		 * projectSupportNo);
+		 */
 		
 		//아이디 넘기기
-		map.put("id",map.get("id").toString());
+		System.out.println("map.get(\"targetId\"):"+map.get("targetId"));
+		map.put("targetId", "wnstlr");
+		map.put("loginedId",map.get("id").toString());
+		map.put("id",map.get("id").toString());//원래있던거
 		System.out.println("id : "+map.get("id").toString());
 		map.put("app_time", "");
 		//낫널이라 오류남 (Cause: java.sql.SQLIntegrityConstraintViolationException: ORA-01400: NULL을)
@@ -65,6 +82,9 @@ public class RecurringController {
 		int affected = authDao.recAuthInsert(map);
 		if (affected == 1) {
 			System.out.println("배치[인증] DB입력완료");
+			//loginedId와 targetId 필요
+			subscribeDao.doSubscribe(map);
+			authDao.updateSubscribeNo(map);
 		}
 
 		return "recurring_pay/sample/auth/result";

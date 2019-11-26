@@ -48,7 +48,11 @@ public class CancelController {
 		System.out.println(map.get("res_cd"));
 		System.out.println(map.get("tno"));
 		System.out.println(map.get("res_msg"));
-		System.out.println(map.get("memberno"));
+		System.out.println(map.get("memberNo")); //널찍힘
+		//Pay테이블에서 memberNo 얻기
+		String memberNo = dao.getMemberNoFromPayforCancel(map);
+		map.put("memberNo", memberNo);
+		System.out.println("※※"+map.get("memberNo"));		
 		int affected = dao.cancelInsert(map);
 		System.out.println("안찍히냐2");
 		

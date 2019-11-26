@@ -143,10 +143,10 @@ $(function(){
 						<sec:authorize access="isAuthenticated()">
 							<sec:authentication property="principal.username" var="loginedId"/>
 							<c:if test="${id eq loginedId}">
-								<button type="button" style="float:right; border:white; background-color:white; cursor:pointer;" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw" aria-hidden="true"></i></button>
+								<button type="button" style="margin-left:-30px; float:right; border:white; background-color:white; cursor:pointer;" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw" aria-hidden="true"></i></button>
 							</c:if>
 						</sec:authorize>
-							<div style="margin-right:-30px;" class="avatar-icon-wrapper mb-3 avatar-icon-xxl">
+							<div class="avatar-icon-wrapper mb-3 avatar-icon-xxl">
 								<div class="avatar-icon">
 									<img src="${profilePicture}" alt="Avatar">
 								</div>
@@ -167,18 +167,22 @@ $(function(){
 						<sec:authorize access="isAuthenticated()">
 							<c:choose>
 								<c:when test="${id eq loginedId}">
-								<form action="<c:url value='/WritePost'/>">
-									<button class="button rounded-0 primary-bg text-white w-100" type="submit">포스트 등록</button>
-								</form>
-								<p>블로그 주인</p>
+									<form action="<c:url value='/WritePost'/>">
+										<button class="button rounded-0 primary-bg text-white w-100" type="submit">포스트 등록</button>
+									</form>
+									<p>블로그 주인</p>
 								</c:when>
-								<c:when test="${id ne loginedId}">
-								<form action="<c:url value='/Subscribe'/>">
-									<input type="hidden" name="id" value="${id}"/>
-									<input type="hidden" name="loginedId" value="${loginedId}"/>
-									<button class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
-								</form>
-								<p>로그인상태, 방문자</p>
+								<c:when test="${id ne loginedId and subscribe eq 0}">
+									<form action="<c:url value='/RecurringAuthReq.do'/>">
+										<input type="hidden" name="id" value="${id}"/>
+										<input type="hidden" name="loginedId" value="${loginedId}"/>
+										<button class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
+									</form>
+									<p>로그인상태, 방문자, 미구독상태</p>
+								</c:when>
+								<c:when test="${id ne loginedId and subscribe eq 1}">
+										<button style="border:1px solid #3c3; background:#3c3;" class="button rounded-0 primary-bg text-white w-100" type="button">구독중</button>
+									<p>로그인상태, 방문자, 구독중</p>
 								</c:when>
 							</c:choose>
 						</sec:authorize>

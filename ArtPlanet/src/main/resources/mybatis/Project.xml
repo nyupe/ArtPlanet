@@ -23,8 +23,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<!-- 후원하기 -->
 	<insert id="InsertSupport" parameterType="java.util.Map">
-		<selectKey order="BEFORE" resultType="int" keyProperty="projectSupportNo">
-			SELECT SEQ_SUP.NEXTVAL FROM DUAL 
+		<selectKey keyProperty="projectSupportNo" resultType="int" order="BEFORE">
+			SELECT SEQ_SUP.NEXTVAL FROM DUAL
+
 		</selectKey>
 		INSERT INTO PROJECTSUPPORT VALUES(#{projectSupportNo},#{projectSupportSum},sysdate,#{memberNo},#{projectNo})
 	</insert>
