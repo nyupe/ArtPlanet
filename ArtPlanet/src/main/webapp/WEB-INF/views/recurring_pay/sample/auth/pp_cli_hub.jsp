@@ -116,7 +116,7 @@
     </script>
     </head>
     <body onload="goResult()">
-    <form name="pay_info" method="post" action="RecurringAuthRes.do">
+    <form name="pay_info" method="post" action="<c:url value='/RecurringAuthRes.do'/>">
         <input type="hidden" name="res_cd"      value="<%=res_cd%>">            <!-- 결과 코드 -->
         <input type="hidden" name="res_msg"     value="<%=res_msg%>">           <!-- 결과 메세지 -->
         <input type="hidden" name="ordr_idxx"   value="<%=ordr_idxx%>">         <!-- 주문번호 -->
@@ -127,6 +127,8 @@
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 		 <!-- 스프링시큐리티에서 내려주는 아이디사용 -->
         <input type="hidden" name="id"              value="<c:out value='${id}'/>"/> 
+         <!-- 구독을 위한 피구독자 아이디-->
+        <input type="hidden" name="targetId"        value="<c:out value='${targetId}'/>"/>
     </form>
     </body>
     </html>

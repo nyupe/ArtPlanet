@@ -12,9 +12,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 인증 배치키 디비입력 처리 -->
 	<insert id="recAuthInsert" parameterType="java.util.Map" >
-			INSERT INTO RECAUTH(ORDR_IDXX, RES_CD, BATCH_KEY, CARD_CD, BUYR_NAME, APP_TIME, MEMBERNO, SUBSCRIBENO)
-			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, #{app_time}, #{memberNo}, SEQ_MEMBER.NEXTVAL)
+			INSERT INTO RECAUTH(ORDR_IDXX, RES_CD, BATCH_KEY, CARD_CD, BUYR_NAME, APP_TIME, MEMBERNO)
+			VALUES(#{ordr_idxx}, #{res_cd}, #{batch_key}, #{card_cd}, #{buyr_name}, #{app_time}, #{memberNo})
 	</insert>
+	
+	<!-- 구독신청 완료 후 구독번호 업데이트 -->
+	<update id="updateSubscribeNo" parameterType="java.util.Map">
+			UPDATE recauth SET subscribeNo = #{subscribeNo} WHERE ordr_idxx = #{ordr_idxx}
+	</update>
 	
 	<select id="recAuthSelectlist" parameterType="java.util.Map" resultType="RecAuthDTO">
 		SELECT * FROM recAuth ORDER BY app_time DESC, ordr_idxx DESC

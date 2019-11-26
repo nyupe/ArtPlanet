@@ -140,7 +140,7 @@
                                 <h6 class="mt-3">회원이 아니시라구요? 
                                 <br/>
                                 
-                                	<a href="<c:url value='/AuthStart.do'/>" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> 
+                                	<a href="<c:url value='/Register'/>" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> 
                                 </h6>
                                 <div class="divider row"></div>
                                 <div style="padding-bottom: 100px">
