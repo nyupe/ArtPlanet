@@ -135,12 +135,10 @@ public class TopController
 	{	
 		System.out.println("탑컨트롤러");
 		List<ProjectDTO> list = projectDao.selectlist(map);
-<<<<<<< HEAD
 		model.addAttribute("list", list);
 
 		
 		
-=======
 		List<Map> tags  = projectDao.selectTags(map);		
 		/* tagRelationDao. */
 		List<String[]> list2 = new Vector<String[]>();
@@ -151,7 +149,6 @@ public class TopController
 		model.addAttribute("list",list);
 		model.addAttribute("tags",tags);
 		model.addAttribute("list2",list2);
->>>>>>> branch 'master' of https://github.com/nyupe/ArtPlanet.git
 		return "contents/SearchProject.tiles";
 	}
 	
