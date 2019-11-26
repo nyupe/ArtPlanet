@@ -41,16 +41,17 @@
 	href="<c:url value='/resources/artclass2/css/icomoon.css'/>">
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass2/css/style.css'/>">
-<style>
+ 
+ <style>
 .portfolio_area .filters ul li {
-	width: 100%;
-	padding-left: 25px;
-	margin: 0px;
+	 width: 100%; 
+	 padding-left: 25px; 
+	 margin: 0px; 
 }
 
 .portfolio_area .filters ul li.active:before {
-	left: 25px;
-	right: 25px;
+	 left: 25px;
+	right: 25px; 
 }
 
 .search-inner {
@@ -58,9 +59,9 @@
 }
 
 #search_input {
-	width: 45%;
+	 width: 45%;
 	color: #1a1d24;
-	display: inline-block;
+	display: inline-block; 
 }
 </style>
 
@@ -76,13 +77,16 @@
 	
 							$.each(data,function(index, element) {
 									console.log("들어왓나")
-	
+									var image = "";
+									if(element['images'][0] != null)
+										image = element['images'][0]
 									listString = "<div class='col-md-6 col-lg-3 all illustration  seoul class_content'>"
 									listString += "<a title="
 											+ element['classNo']
 											+ " href='<c:url value="/View"/>?classNo="
 											+ element['classNo']
-											+ "' class='block-5'>"
+											+ "' class='block-5'"
+											+ " style='background-image: url(\""+image+"\")'>"
 	
 									//+element+['imageUrl']"
 	
@@ -135,8 +139,8 @@
 </script>
 
 
-<section class="portfolio_area area-padding" id="portfolio">
-	<div class="container" style="max-width: 1700px">
+<div class="container" style="margin-bottom: 60px">
+	<section class="portfolio_area area-padding" id="portfolio">
 
 		<div class="area-heading">
 			<h3>
@@ -283,14 +287,14 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 			<!-- 등록하기 버튼 -->
 			<!-- 로그인 안한 상태  등록하기 버튼 비활성화 -->
 				<sec:authorize access="isAnonymous()" > 
-						<button class="btn-wide mb-2 mr-2 btn-pill btn btn-primary"
-							style="left: 75%;"  onclick="alert('로그인 후 이용해주세요')" >아트 클래스 등록하기</button>
+						<button class="btn-wide mb-2 mr-2 btn-pill btn btn-danger"
+							style="left: 75%;"  onclick="alert('로그인 후 이용해주세요')" >아트클래스 등록하기</button>
 				</sec:authorize>
 				
 				<!-- 로그인 한상태 등록하기 버튼 활성화-->
 				<sec:authorize access="isAuthenticated()" >
 					<a href="<c:url value='/WriteClass'/>">
-						<label class="btn-wide mb-2 mr-2 btn-pill btn btn-primary"
+						<label class="btn-wide mb-2 mr-2 btn-pill btn btn-danger"
 							style="left: 75%;" >아트 클래스 등록하기</label>
 					</a>
 				</sec:authorize>
@@ -304,8 +308,9 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 				<!-- 여기에 .apend -->
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
+</div>
+
 
 
 

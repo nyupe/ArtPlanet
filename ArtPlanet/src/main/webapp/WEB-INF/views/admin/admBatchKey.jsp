@@ -184,13 +184,7 @@
                                     <a href="#">
                                         <i class="metismenu-icon pe-7s-rocket"></i>
                                         	회원관리
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                                        <div>
-											<button class="btn_1">버튼1</button>
-											<button class="btn_1">버튼1</button>
-											<button class="btn_1">버튼1</button>
-											<button class="btn_1">버튼1</button>
-										</div>
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>                         
                                     </a>
                                     
                                   <ul>          

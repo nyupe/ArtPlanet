@@ -21,12 +21,17 @@ public class ProjectDAO {
 	
 	// 프로젝트 삭제
 	public int delete(Map map) {
-		return 0;
+		return template.delete("projectDelete",map);
 	}
 	
-	// 프로젝트 목록 
+	// 프로젝트 목록 (최신글)
 	public List<ProjectDTO> selectlist(Map map) {
 		return template.selectList("Projectselectlist",map);
+	}
+	
+	// 프로젝트 목록 (마감임박)
+	public List<ProjectDTO> selectlistClosing(Map map) {
+		return template.selectList("ProjectselectlistClosing",map);
 	}
 	
 	

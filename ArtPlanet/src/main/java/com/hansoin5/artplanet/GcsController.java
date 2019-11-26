@@ -152,5 +152,8 @@ public class GcsController
 		
 		return JSONObject.toJSONString(map).replace("\\/", "/"); // 슬래시가 이스케이프처리되는 문제 해결
 	}
+	
+	
+	
 
 }

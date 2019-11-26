@@ -26,6 +26,7 @@ import com.google.common.reflect.TypeToken;
 import com.hansoin5.artplanet.service.ArtClassDTO;
 import com.hansoin5.artplanet.service.ClassOpeningDateDTO;
 import com.hansoin5.artplanet.service.GcsDTO;
+import com.hansoin5.artplanet.service.MemberDTO;
 import com.hansoin5.artplanet.service.impl.ArtClassDAO;
 import com.hansoin5.artplanet.service.impl.ClassOpeningDateDAO;
 import com.hansoin5.artplanet.service.impl.ClassReservationDAO;
@@ -51,11 +52,18 @@ public class ArtclassController {
 	@Resource(name = "memberDAO")
 	private MemberDAO memberDAO;
 	
+	// 아트클래스 삭제하기
+	@RequestMapping(value="/deleteClass", method = RequestMethod.POST)
+	@ResponseBody
+	public void deleteClass(@RequestParam Map map) {
+		//서비스 호출(아트클래스 map에 담긴 classNo에 해당하는 레코드 삭제)
+		artClassDAO.delete(map);
+	}/////deleteClass()
+	
 	
 	// 아트클래스 예약정보 레코드 생성요청 받음
 	@RequestMapping(value="/createReservationRecord", method = RequestMethod.POST)
 	public void createReservationRecord(@RequestParam Map map) {
-		
 		
 		//찍어보기
 		Set<String> keys = map.keySet();
@@ -143,16 +151,43 @@ public class ArtclassController {
 		model.addAttribute("classNo", classNo);
 		
 		// 아트클래스 등록한 회원번호(memberNo) 리퀘스트 영역에 저장
-		model.addAttribute("classMemberNo",record.getMemberNo());
+		//model.addAttribute("classMemberNo",record.getMemberNo());
+		
+		// map에 아트클래스 만든 아이디 넣기
+		map.put("id", memberDAO.getMemberId((record.getMemberNo().toString())));
+		// 리퀘스트 영역에 아트클래스 만든 사람 아이디 저장하기
+		model.addAttribute("createClassId",memberDAO.getMemberId((record.getMemberNo().toString())));
+		
+		
+		
+		Set<String> keys = map.keySet();
+		for(String key : keys) {
+			System.out.println("키:"+key+"값:"+map.get(key));
+		}
+		
+		// 아트클래스 만든 사람의 정보 가져오기
+		MemberDTO artClassCreater = memberDAO.getMemberDTO(map);
 		
 		// 로그인한 회원의 아이디로 회원번호 가져오기
 		model.addAttribute("memberNo", Integer.parseInt(memberDAO.getMemberNo(principal.getName()).toString()));
+		
+		//뷰에서 사용할 아트클래스 만든 사람정보 리퀘스트 영역에 저장
+		model.addAttribute("artClassCreater", artClassCreater);
 		
 		//뷰에서 사용할 아트클래스 객체를 리퀘스트 영역에 저장
 		model.addAttribute("record",record);
 		
 		//수강료 int형으로 변환 및 화폐단위표시 제거  
-		model.addAttribute("fee", Integer.parseInt(record.getTuitionFee().toString().substring(2))); // W표시, 공백 제거
+		model.addAttribute("fee", Integer.parseInt(record.getTuitionFee().toString().substring(2).replace(",",""))); // W표시, 공백 제거
+		
+		//gcs 이미지조회
+		List<GcsDTO> gcsList = gcsDAO.getListByClassNo(classNo);
+		List<String> images = new Vector<String>();
+		for(GcsDTO gd : gcsList)
+		{
+			images.add(gd.getFileUrl());
+		}
+		model.addAttribute("images",images);
 		
 		//뷰반환
 		return "sub/art_class/View.tiles";
@@ -251,13 +286,13 @@ public class ArtclassController {
 		jsonObj = (JSONObject) obj;
 		gsonMap = gson.fromJson(JSONObject.toJSONString(jsonObj).replace("\\/", "/") 
 				  , new TypeToken<Map<String, List<Map<String, Object>>>>(){}.getType()); 
-		System.out.println("gson 구조 파악 예시 찍어보기:"+gsonMap.get("imgs").get(0).get("src"));
+		System.out.println("gson 구조 파악 예시 찍어보기:"+gsonMap.get("images").get(0).get("src"));
 		// 위에서 생성한 아트클래스 레코드의 아트클래스 일련번호 가져오기
 		if ( successInsertRecordcount == 1) { // 아트클래스 생성이 되었다면
 			
-			  for (int i = 0; i < gsonMap.get("imgs").size(); i++) { //날짜정보테이블 입력
-				String fileUrl = gsonMap.get("imgs").get(i).get("src").toString();
-			  	System.out.println("img:"+fileUrl);
+			  for (int i = 0; i < gsonMap.get("images").size(); i++) { //날짜정보테이블 입력
+				String fileUrl = gsonMap.get("images").get(i).get("src").toString();
+			  	System.out.println("images:"+fileUrl);
 			  	String fileNo = gcsDAO.getFileNoByURL(fileUrl);
 			  	//classNo은 클래스 생성시 map에 담아놓음
 			  	map.put("fileNo", fileNo);
@@ -337,6 +372,7 @@ public class ArtclassController {
 			  collections.add(record);
 			  
 		  }
+		  System.out.println(JSONArray.toJSONString(collections).replace("\\/", "/"));
 		  return JSONArray.toJSONString(collections).replace("\\/", "/");
 	}/////getClassList()
 	

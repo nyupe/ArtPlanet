@@ -67,6 +67,7 @@ public class BlogController
 		return "contents/blog/Blog.tiles";
 	}
 	
+	///////////////////안드로이드 참고
 	@RequestMapping(value="/Blog/{id}", produces = "text/html; charset=UTF-8")
 	public String blog(@PathVariable("id") String id, Map map, Authentication auth)
 	{	

@@ -4,8 +4,9 @@ public class CancelDTO {
 	private String tno;
 	private String res_cd;
 	private String res_msg;
-	private String memberno;
+	private String memberNo;
 	
+
 	//게터세터
 	public String getTno() {
 		return tno;
@@ -25,10 +26,10 @@ public class CancelDTO {
 	public void setRes_msg(String res_msg) {
 		this.res_msg = res_msg;
 	}
-	public String getMemberno() {
-		return memberno;
+	public String getMemberNo() {
+		return memberNo;
 	}
-	public void setMemberno(String memberno) {
-		this.memberno = memberno;
+	public void setMemberNo(String memberNo) {
+		this.memberNo = memberNo;
 	}
 }

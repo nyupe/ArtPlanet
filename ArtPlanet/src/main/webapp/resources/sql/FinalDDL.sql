@@ -386,6 +386,8 @@ CREATE TABLE RECAUTH
 	card_cd nvarchar2(10),
 	-- 주문자명
 	buyr_name nvarchar2(30),
+	-- 최근결제시간
+	app_time nvarchar2(30),
 	-- 회원번호
 	memberNo number NOT NULL,
 	PRIMARY KEY (ordr_idxx)
@@ -612,13 +614,13 @@ ALTER TABLE REPLY
 
 
 ALTER TABLE SUBSCRIBE
-	ADD FOREIGN KEY (targetedMemberNo)
+	ADD FOREIGN KEY (memberNo)
 	REFERENCES MEMBER (memberNo)
 ;
 
 
 ALTER TABLE SUBSCRIBE
-	ADD FOREIGN KEY (memberNo)
+	ADD FOREIGN KEY (targetedMemberNo)
 	REFERENCES MEMBER (memberNo)
 ;
 
@@ -782,6 +784,7 @@ COMMENT ON COLUMN RECAUTH.res_cd IS '인증응답코드';
 COMMENT ON COLUMN RECAUTH.batch_key IS '배치키';
 COMMENT ON COLUMN RECAUTH.card_cd IS '카드코드';
 COMMENT ON COLUMN RECAUTH.buyr_name IS '주문자명';
+COMMENT ON COLUMN RECAUTH.app_time IS '최근결제시간';
 COMMENT ON COLUMN RECAUTH.memberNo IS '회원번호';
 COMMENT ON TABLE RECPAY IS '정기결제 테이블';
 COMMENT ON COLUMN RECPAY.tno IS '거래번호';

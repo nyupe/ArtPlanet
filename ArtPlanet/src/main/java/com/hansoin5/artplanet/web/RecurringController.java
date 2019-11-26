@@ -62,6 +62,12 @@ public class RecurringController {
 		System.out.println(map.get("batch_key"));
 		map.put("memberNo", memberDao.getMemberNo(map.get("id").toString()));
 		System.out.println("====================================================");
+		
+		//프로젝트서포트넘버 스트링 하나 얻기
+		String projectSupportNo = authDao.projGetProjSupNo();
+		System.out.println("프로젝트서포트넘버"+projectSupportNo);
+		map.put("projectSupportNo", projectSupportNo);
+		
 		//아이디 넘기기
 		System.out.println("map.get(\"targetId\"):"+map.get("targetId"));
 		map.put("targetId", "wnstlr");

@@ -2,6 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<sec:authorize access="hasRole('ROLE_USER')">
+	<sec:authentication property="principal.username" var="id"/>
+</sec:authorize>
+<sec:authorize access="hasRole('ROLE_ADMIN')">
+	<sec:authentication property="principal.username" var="id"/>
+</sec:authorize>
 
 <style>
 
@@ -89,9 +97,9 @@ margin: 10px 0px;}
 		</div>
 		<div class="card-header card-header-tab-animation" style="font-size: 1.8em; margin-bottom: 30px; padding: 0;">
 			<ul class="nav nav-justified">
-				<li class="nav-item"><a href="<c:url value='/Search/Project/'/>" class="nav-link active">최신글</a></li>
-				<li class="nav-item"><a href="<c:url value='/Search/Project/'/>" class="nav-link">마감임박</a></li>
-				<li class="nav-item"><a href="<c:url value='/Search/Project/'/>" class="nav-link">인기글</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project'/>" class="nav-link active">최신글</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project/Closing'/>" class="nav-link">마감임박</a></li>
+				<li class="nav-item"><a href="<c:url value='/Search/Project/Best'/>" class="nav-link">인기글</a></li>
 			</ul>
 		</div>
 
@@ -107,8 +115,16 @@ margin: 10px 0px;}
 			
 		
 			<form action="<c:url value='/Search/Project/ProjectWrite'/>">
-				<button class="bb primary-bg w-100" type="submit" 
+				<button class="bb primary-bg w-100" type="submit" name="${id }"
 				style="background:white;border: none;border-radius: 2px;font-weight: bold;cursor: pointer;color: #00c4c4;">글쓰기</button>
+			</form>
+			<form action="<c:url value='/Search/Project/Test'/>">
+				<button class="link primary-bg w-100" type="submit" 
+				style="background:white;border: none;border-radius: 2px;font-weight: bold;cursor: pointer;color: #00c4c4;">링크테스트</button>
+			</form>
+			<form action="<c:url value='/Search/Project/Test2'/>">
+				<button class="link2 primary-bg w-100" type="submit" 
+				style="background:white;border: none;border-radius: 2px;font-weight: bold;cursor: pointer;color: #00c4c4;">링크테스트</button>
 			</form>
 			
 		</div>
@@ -172,4 +188,40 @@ margin: 10px 0px;}
 		</div>
 	</div>
 </section>
+
+<script >
+
+$(function() {
+	
+	$('.bb').click(function(e){
+		if($('.bb').attr('name') == ""){
+			alert('로그인 해주세요');
+			e.stopPropagation();
+	        e.preventDefault();
+		}
+	})
+	
+	$('.portfolio-filter ul li').on('click', function () {
+           $('.portfolio-filter ul li').removeClass('active');
+           $(this).addClass('active');
+   
+           var data = $(this).attr('data-filter');
+           $workGrid.isotope({
+               filter: data
+           });
+         });
+      //레이아웃 설정
+      var $workGrid;
+       if (document.getElementById('portfolio')) {
+         $workGrid = $('.portfolio-grid').isotope({
+               itemSelector: '.all',
+               percentPosition: true,
+               masonry: {
+                   columnWidth: '.grid-sizer'
+               }
+           });
+       }
+});
+
+</script>
 <!--================ End Portfolio Area =================-->
