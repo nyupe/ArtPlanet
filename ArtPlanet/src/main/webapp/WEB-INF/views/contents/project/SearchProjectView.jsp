@@ -284,7 +284,7 @@ $(document).ready(function(){
 	
 	
 	var displayComments=function(data){
-		console.log('코메느 목록:',data)
+		console.log('코멘트 목록:',data)
 		var commentcounts = 0;
 		var	comments="<h4 style='float: left;'>Comments</h4>&nbsp;<span class='badge badge-primary'>${commentcount}</span>"
 			$.each(data,function(index,element){
@@ -533,12 +533,15 @@ $(document).ready(function(){
 					
 				</div>
 			</div>
+			
+			
 			<div class="mb-3 progress-bar-animated-alt progress">
 								<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
 								style="width: 30%;"></div>
 							</div>
 			<div class="col-lg-4">
 				<div class="blog_right_sidebar">
+					 
 					<aside class="single_sidebar_widget search_widget" style="padding: 0px 30px 30px 30px;">
 						<div class="menu-header-content" style="text-align: center; ">
 							<div class="row" >
@@ -687,16 +690,6 @@ $(document).ready(function(){
 								</div>
 								</c:if>
 								
-								<%-- <form action="<c:url value='#'/>" style="width: 32%;">
-									<button class="bb  w-100" type="submit" style="border: 1px solid #dadce0;background:#fff ;height: 50px;border-radius: 2px;font-weight: bold;color: black;">SHARE</button>
-								</form>
-								
-								<form action="<c:url value='#'/>" style="width: 32%;  margin: 0px 7px; ">
-									<button class="bb w-100" type="submit" style="border: 1px solid #dadce0;background:#fff ;height: 50px;border-radius: 2px;font-weight: bold;color: black;">FQA</button>
-								</form>
-								<form action="<c:url value='#'/>" style="width: 32%;">
-									<button class="bb w-100" type="submit" style="border: 1px solid #dadce0;background:#fff ;height: 50px;border-radius: 2px;font-weight: bold;color: black;">LIKE</button>
-								</form> --%>
 								<div class="row" style="display: flex;margin-top: 20px;justify-content: center;">
 									<!-- 카카오톡 공유  시작 -->
 									<c:set var="URL" value="http://localhost:8080/artplanet/Search/Project/ProjectView?projectNo=${record.projectNo} " />
@@ -717,11 +710,8 @@ $(document).ready(function(){
 									</span>
 								</div>
 								<script>
-								
 								Kakao.init('e48160c4b97a640dbc60d607fb8fcb59');
-								
 								function sendLinkKakao(){
-								
 								    Kakao.Link.sendDefault({
 								      objectType: 'feed',
 								      content: {
@@ -755,21 +745,13 @@ $(document).ready(function(){
 								            }
 								          ]
 								    });
-									
 								}
-								
-								
 								</script>
-								
-								
 							</div>
-							
-							
-							
 						</div>
-						
 					</aside>
 					
+					<!-- 프로젝트 상에 리워드 리스트 시작 -->
 					<aside class="single_sidebar_widget popular_post_widget" style="border: 1px solid #dadce0; margin: 10px;">
 						<h3 class="widget_title" style="margin-bottom: 20px;border: none;">리워드 선택</h3>
 						<c:forEach items="${rewardList }" var="item" varStatus="loop">
@@ -790,8 +772,8 @@ $(document).ready(function(){
 							</form>
 						</div>
 						</c:forEach>
-						
 					</aside>
+					<!-- 프로젝트 상에 리워드 리스트 끝 -->
 					
 				</div>
 			</div>

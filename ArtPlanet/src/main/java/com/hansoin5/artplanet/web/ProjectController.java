@@ -51,6 +51,7 @@ public class ProjectController{
 	public String searchProjectview(@RequestParam Map map, Model model)
 	{
 		System.out.println("프로젝트 뷰 컨트롤 들어옴");
+		System.out.println(map.get("projectNo"));
 		ProjectDTO record = projectDao.selectOne(map);
 		ProjectDTO fundInfo = projectDao.selectFundInfo(map);
 		List<Map> tagList = projectDao.selectTagslist(map);

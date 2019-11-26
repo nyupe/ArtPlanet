@@ -392,7 +392,7 @@ var removeTagdiv = function(e) {
 				<div class="blog_right_sidebar">
 					<aside class="single_sidebar_widget search_widget">
 						<div class="menu-header-content">
-							<h4 style="font-weight: bold;">누가 이 그림을 볼 수 있나요?</h4>
+							
 							<form role="form" id="projectform" method="post" onsubmit="postForm()" action="<c:url value='/Search/Project/Write'/>">
 								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 								<div>								

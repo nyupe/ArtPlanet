@@ -41,10 +41,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			UPDATE MEMBER SET NICKNAME = #{nickName} WHERE ID = #{id}
 	</update>
 	
-	<!-- 회원정보 조회  -->
+	<!-- 아이디로 회원정보 조회  -->
 	<select id="getMemberDTO" parameterType="java.util.Map" resultType="MemberDTO">
 			SELECT * FROM MEMBER WHERE ID = #{id}
 	</select>
+	
 	
 	<!-- 아이디로 회원번호 조회 --> 
 	<select id="getMemberNo" parameterType="java.lang.String" resultType="String">

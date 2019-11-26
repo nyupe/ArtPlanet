@@ -31,17 +31,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	SELECT * FROM artclass WHERE ClassNo = #{classNo}
   </select>
 
-  <!-- 아트클래스 일련번호로 클래스 삭제 -->
-  <delete id="classDelete" parameterType="java.util.Map">
-  	DELETE ARTCLASS WHERE CLASSNO=#{classNo}
-  </delete>
-  
-  
 <!--  
   
     <select id="classUpdate" parameterType="java.util.Map">
   	UPDATE artclass SET title=#{title},content=#{content},content=#{classLevel},content=#{timeRequired},content=#{numberOfPeople},content=#{tuitionFee},content=#{classAddress},content=#{detailedAddr} WHERE classNo=#{classNo}
   </select>
+  
+  <delete id="classDelete" parameterType="java.util.Map">
+  	DELETE artclass WHERE ClassNo=#{ClassNo}
+  </delete>
 
    -->
   

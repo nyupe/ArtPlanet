@@ -5,8 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	String site_cd   = "S6186"; //사이트 코드
-	String ordr_idxx = "TEST" + (new SimpleDateFormat("yyyyMMddHHmmssSSSSSSS")
-			.format(new Date())); // 요청번호 생성 예제
+	String ordr_idxx = "TEST" + (new SimpleDateFormat("yyyyMMddHHmmssSSSSSSS").format(new Date())); // 요청번호 생성 예제
 	boolean flag = false;			
 %>
 	
@@ -18,8 +17,9 @@
 	
 	<!-- 유효성 검증 관련 로직 -->
 	<script>
-	// 이름과 생년월일 핸드폰번호는 인증결과 처리된 값을 그대로 사용하므로 유효성 체크에서 제외(true)
-	// 이름, 생년월일, 핸드폰 번호에 해당하는 입력필드는 전부 readonly 속성 걸어둠(읽기만 하고 입력은 불가)
+	// 1.이름과 생년월일 핸드폰번호는 인증결과 처리된 값을 그대로 사용하므로 유효성 체크에서 제외(true) - 변수 초기화 
+	// 2.유효성 체크하는 함수도 주석처리 해놓음 - 핸드폰번호, 이름, 생년월일
+	// 3.이름, 생년월일, 핸드폰 번호에 해당하는 입력필드는 전부 readonly 속성 걸어둠(읽기만 하고 입력은 불가)
 	var v_id = false; // 아이디
 	var v_nickName = false; // 닉네임
 	var v_name = true; // 이름
@@ -224,6 +224,8 @@
 			}
 		}/////birthCheck()
 	
+		
+		
 		//핸드폰 번호 유효성 처리
 		function phoneNumberCheck(){
 			var phoneNumber = $('#phoneNumber').val();
@@ -352,7 +354,7 @@
 												class="text-danger">*</span> Birth</label>
 											<!-- 이름 입력태그  -->
 											<input name="birth" value="<c:out value='${auth_birth}'/>" oninput="birthCheck()"
-												id="birth" placeholder="ex)19911115" type="text" 
+												id="birth" placeholder="ex)19911115" type="text"  
 												class="form-control">
 											<span id="birthError"></span>
 										</div>

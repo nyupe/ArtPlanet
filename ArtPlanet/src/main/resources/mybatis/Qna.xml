@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+				<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace속성:매퍼파일의 완전한경로 .xml는 생략 -->
+<!-- ※ibatis와는 다르게 id값에 .(dot)를 사용 못한다. -->
+
+<mapper namespace="mybatis.Qna">
+	<!-- 컨트롤러에서 받은 아이디 contactsInsert -->
+	<insert id="qnaInsert" parameterType="java.util.Map">
+		INSERT INTO QNA(QNANO,QNATITLE,QNACONTENT,MEMBERNO,QNACATEGORY) 
+		VALUES(SEQ_QNA_qnaNo.NEXTVAL,#{qnaTitle},#{qnaContent},#{memberNo},#{qnaCategory})
+	</insert>
+
+	<select id="qnaSelectList" parameterType="java.util.Map"
+		resultType="QnaDTO">
+		SELECT * FROM (SELECT T.*,ROWNUM R FROM (SELECT * FROM
+		QNA ORDER BY qnaNo desc) T)WHERE R BETWEEN #{start} AND #{end} 
+	</select>
+
+	<select id="qnaTotalRecord" parameterType="java.util.Map"
+		resultType="int">
+		SELECT COUNT(*) FROM QNA
+	</select>
+
+	<select id="qnaSelectOne" parameterType="String"
+		resultType="QnaDTO">
+		SELECT * FROM QNA WHERE qnaNo=#{qnaNo}
+	</select>
+	<update id="qnaUpdate" parameterType="java.util.Map">
+		UPDATE QNA SET qnaTitle=#{qnaTitle},qnaContent=#{qnaContent},qnaCategory=#{qnaCategory} WHERE qnaNo=#{qnaNo}
+	</update>
+	
+	<delete id="qnaDelete" parameterType="java.util.Map">
+		DELETE QNA WHERE qnaNo=#{qnaNo}
+	</delete>
+</mapper>

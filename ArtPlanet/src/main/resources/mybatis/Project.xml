@@ -38,7 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 목록리스트 뿌리기 -->	
 	<select id="Projectselectlist" parameterType="java.util.Map" resultType="ProjectDTO">
-		select p.*,tagname,sup.projectsupportsum,fileUrl,id
+		SELECT p.*,tagname,sup.projectsupportsum,fileUrl,id
         	From (select projectno, WM_CONCAT(tagname) tagname from tag h join tagrelation tl  on h.tagno = tl.tagno group by projectNO) 
 	        	q join project p on q.projectNo=p.projectNo left outer 
 	        		JOIN (select projectNO, sum(projectsupportsum) projectsupportsum from projectsupport  group by projectno) sup 
@@ -61,7 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 리워드 뿌리기 -->
 	<select id="projectSelectRewardList" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT * FROM PROJECTREWARD WHERE PROJECTNO = #{projectNo} ORDER BY ASC
+		SELECT * FROM PROJECTREWARD WHERE projectNo = #{projectNo} ORDER BY supportStep ASC
 	</select>
 	<!-- 서포터 리스트 뿌리기 -->
 	<select id="ProjectSelectListSupport" parameterType="java.util.Map" resultType="java.util.Map">

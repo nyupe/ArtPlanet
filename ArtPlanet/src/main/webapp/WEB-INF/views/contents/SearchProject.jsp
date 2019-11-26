@@ -118,6 +118,10 @@ margin: 10px 0px;}
 				<button class="bb primary-bg w-100" type="submit" name="${id }"
 				style="background:white;border: none;border-radius: 2px;font-weight: bold;cursor: pointer;color: #00c4c4;">글쓰기</button>
 			</form>
+			<form action="<c:url value='/Search/Project/Test'/>">
+				<button class="bb primary-bg w-100" type="submit" name="${id }"
+				style="background:white;border: none;border-radius: 2px;font-weight: bold;cursor: pointer;color: #00c4c4;">글쓰기</button>
+			</form>
 			
 			
 		</div>
@@ -130,50 +134,44 @@ margin: 10px 0px;}
 				<c:forEach var="item" items="${list }" varStatus="loop">
 				
 				
-				<div class="col-xl-3 col-lg-4 col-md-6 all painting <c:forEach var="list2" items="${list2[loop.index] }">${list2 } </c:forEach>">
-				
+				<div class="col-xl-3 col-lg-4 col-md-6 all painting 
+				<c:forEach var="list2" items="${list2[loop.index] }">${list2 } </c:forEach>">
 					<div class="single_portfolio">
-						<a href="<c:url value='/Search/Project/ProjectView?projectNo=${item.projectNo }'/>"><img class="img-fluid w-100" src=${item.fileurl } alt=""></a>
-						<div class="project-info">
-						<div class="avatar-icon-wrapper avatar-icon-sm" style="padding: 0px;">
-			        			<div class="avatar-icon"><img src="https://storage.googleapis.com/art-planet-storage/profile/%ED%94%84%EB%A1%9C%ED%95%84_%EA%B8%B0%EB%B3%B8.jpg"/></div>
-			        		</div>
-		        			<span class="post-artist">${item.id}</span><br/>		
-		        			<ul class="prolist"style="max-height:60px;contain:paint; height: 60px;margin-bottom: 0px;"> 
-		        			
-							<c:forEach var="list2" items="${list2[loop.index] }">
-							<li>#${list2 }</li>
-							</c:forEach>
-							
-							</ul>
-							
-							<fmt:parseNumber value="${item.postDate.time / (1000*60*60*24)}" integerOnly="true" var="nowdate"></fmt:parseNumber>
-							<fmt:parseNumber value="${item.deadline.time / (1000*60*60*24)}" integerOnly="true" var="targetdate"></fmt:parseNumber>
-							<c:if test="${item.projectsupportsum != null }" var="total">
-							<fmt:parseNumber value="${item.projectsupportsum / item.targetFigure * 100 }" integerOnly="true" var="per" type="number"></fmt:parseNumber>
-							</c:if>
-							<c:if test="${not total }">
-							<fmt:parseNumber value="0" integerOnly="true" var="per" type="number"></fmt:parseNumber>
-							</c:if>
-							
-							
-						
-			        		<h4 style="clear: both;max-height: 35px;contain:paint;" ><span class="project-title" style="display: inline-block;">${item.title}</span></h4>
-			        		
-		        			
-       						<div class="mb-3 progress-bar-animated-alt progress">
-								<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
-								style="width: ${per}%;"></div>
-							</div>
-							<div class="project-stats" >
-								<span class="stat-target">목표 ${item.targetFigure}원</span>
-								<span class="stat-progress">${per}%</span>
-								<span class="stat-limit">남은 기간 ${targetdate - nowdate }일</span>
+						<a href="<c:url value='/Search/Project/ProjectView?projectNo=${item.projectNo }'/>">
+							<img class="img-fluid w-100" src=${item.fileurl } alt=""></a>
+								<div class="project-info">
+									<div class="avatar-icon-wrapper avatar-icon-sm" style="padding: 0px;">
+			        					<div class="avatar-icon">
+			        					<img src="https://storage.googleapis.com/art-planet-storage/profile/%ED%94%84%EB%A1%9C%ED%95%84_%EA%B8%B0%EB%B3%B8.jpg"/></div>
+			        				</div>
+		        					<span class="post-artist">${item.id}</span><br/>		
+		        					<ul class="prolist"style="max-height:60px;contain:paint; height: 60px;margin-bottom: 0px;"> 
+										<c:forEach var="list2" items="${list2[loop.index] }">
+											<li>#${list2 }</li>
+										</c:forEach>
+									</ul>
+										<fmt:parseNumber value="${item.postDate.time / (1000*60*60*24)}" integerOnly="true" var="nowdate"></fmt:parseNumber>
+										<fmt:parseNumber value="${item.deadline.time / (1000*60*60*24)}" integerOnly="true" var="targetdate"></fmt:parseNumber>
+									<c:if test="${item.projectsupportsum != null }" var="total">
+										<fmt:parseNumber value="${item.projectsupportsum / item.targetFigure * 100 }" integerOnly="true" var="per" type="number"></fmt:parseNumber>
+									</c:if>
+									<c:if test="${not total }">
+										<fmt:parseNumber value="0" integerOnly="true" var="per" type="number"></fmt:parseNumber>
+									</c:if>
+			        				<h4 style="clear: both;max-height: 35px;contain:paint;" ><span class="project-title" style="display: inline-block;">${item.title}</span></h4>
+       								<div class="mb-3 progress-bar-animated-alt progress">
+									<div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+										style="width: ${per}%;"></div>
+									</div>
+									<div class="project-stats" >
+										<span class="stat-target">목표 ${item.targetFigure}원</span>
+										<span class="stat-progress">${per}%</span>
+										<span class="stat-limit">남은 기간 ${targetdate - nowdate }일</span>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
-				</c:forEach>
+					</c:forEach>
 				</c:if>
 				<!-- 프로젝트 게시글 끝 -->
 				

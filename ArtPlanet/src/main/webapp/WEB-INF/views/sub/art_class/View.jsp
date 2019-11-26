@@ -3,6 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=720857926e6d51e1ec90e3642210f71b&libraries=services,clusterer,drawing"></script>
+
+<!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
+<sec:authentication property="principal.username" var="id" />
 
 <style>
 .img {
@@ -241,7 +247,22 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 			})
 			document.getElementById('payform').submit();
 		}/////if
-	}/////
+	}/////reservation()
+	
+	
+	function deleteClass(){ // 클래스 삭제하기
+		
+		var confirmResult = confirm('클래스를 정말 삭제하시겠습니까?')
+		if(confirmResult){
+			$.ajax({
+				url : "<c:url value='/deleteClass'/>",
+				//스프링 씨큐리티 적용시(단, csrf적용시(Post방식)에만 서버에 CSRF토큰값도 같이 보내야한다)
+				data : {'_csrf':'${_csrf.token}',classNo:"${classNo}"},
+				type : "POST"
+			})
+		}
+		history.back();
+	}/////deleteClass()
 	
 	
 </script>
@@ -249,15 +270,13 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 
 <!-- Start Blog List View Area -->
 <section
-	class="blog__list__view section-padding--lg menudetails-right-sidebar bg--white">
+	class="blog__list__view section-padding--lg menudetails-right-sidebar bg--white" >
 
 
-	<div class="container">			
-									
-								
+	<div class="container" style="margin-bottom: 90px">			
 		<div class="row">
 
-			<div class="col-lg-6 col-md-6 col-sm-12">
+			<div class="col-lg-6 col-md-6 col-sm-12" >
 
 				<div class="food__menu__container" style="position: relative;top: 5%;left: 5%;">
 
@@ -302,88 +321,25 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 
 
 
-						
-
+			
 							<ul class="slides">
-								<input type="radio" name="radio-btn" id="img-1" checked />
-								<li class="slide-container">
-									<div class="slide">
-										<img
-											src="<c:url value='/resources/artclass/images/2.jpg'/>" />
-									</div>
-									<div class="nav">
-										<label for="img-6" class="prev">&#x2039;</label> <label
-											for="img-2" class="next">&#x203a;</label>
-									</div>
+								<c:forEach items="${images}" var="image" varStatus="status">
+									<input type="radio" name="radio-btn" id="img-${status.count}" ${status.first ? 'checked' : ""} />
+									<li class="slide-container">
+										<div class="slide">
+											<img src="${image}" />
+										</div>									
+										<div class="nav">
+											<label for="img-${status.first ? fn:length(images) : status.count-1}" class="prev">&#x2039;</label>
+											<label for="img-${status.last ? 1 : status.count+1}" class="next">&#x203a;</label>
+										</div>
+									</li>
+								</c:forEach>
+								<li class="nav-dots">
+								<c:forEach items="${images}" var="image" varStatus="status">
+									<label for="img-${status.count}" class="nav-dot" id="img-dot-${status.count}"></label>
+								</c:forEach>
 								</li>
-
-								<input type="radio" name="radio-btn" id="img-2" />
-								<li class="slide-container">
-									<div class="slide">
-										<img
-											src="<c:url value='/resources/artclass/images/4.jpg'/>" />
-									</div>
-									<div class="nav">
-										<label for="img-1" class="prev">&#x2039;</label> <label
-											for="img-3" class="next">&#x203a;</label>
-									</div>
-								</li>
-
-								<input type="radio" name="radio-btn" id="img-3" />
-								<li class="slide-container">
-									<div class="slide">
-										<img
-											src="http://farm9.staticflickr.com/8068/8250438572_d1a5917072_z.jpg" />
-									</div>
-									<div class="nav">
-										<label for="img-2" class="prev">&#x2039;</label> <label
-											for="img-4" class="next">&#x203a;</label>
-									</div>
-								</li>
-
-								<input type="radio" name="radio-btn" id="img-4" />
-								<li class="slide-container">
-									<div class="slide">
-										<img
-											src="http://farm9.staticflickr.com/8061/8237246833_54d8fa37f0_z.jpg" />
-									</div>
-									<div class="nav">
-										<label for="img-3" class="prev">&#x2039;</label> <label
-											for="img-5" class="next">&#x203a;</label>
-									</div>
-								</li>
-
-								<input type="radio" name="radio-btn" id="img-5" />
-								<li class="slide-container">
-									<div class="slide">
-										<img
-											src="http://farm9.staticflickr.com/8055/8098750623_66292a35c0_z.jpg" />
-									</div>
-									<div class="nav">
-										<label for="img-4" class="prev">&#x2039;</label> <label
-											for="img-6" class="next">&#x203a;</label>
-									</div>
-								</li>
-
-								<input type="radio" name="radio-btn" id="img-6" />
-								<li class="slide-container">
-									<div class="slide">
-										<img
-											src="http://farm9.staticflickr.com/8195/8098750703_797e102da2_z.jpg" />
-									</div>
-									<div class="nav">
-										<label for="img-5" class="prev">&#x2039;</label> <label
-											for="img-1" class="next">&#x203a;</label>
-									</div>
-								</li>
-
-								<li class="nav-dots"><label for="img-1" class="nav-dot"
-									id="img-dot-1"></label> <label for="img-2" class="nav-dot"
-									id="img-dot-2"></label> <label for="img-3" class="nav-dot"
-									id="img-dot-3"></label> <label for="img-4" class="nav-dot"
-									id="img-dot-4"></label> <label for="img-5" class="nav-dot"
-									id="img-dot-5"></label> <label for="img-6" class="nav-dot"
-									id="img-dot-6"></label></li>
 							</ul>
 
 
@@ -410,7 +366,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 							<ul class="tabs-animated-shadow nav-justified tabs-animated nav">
 								<li class="nav-item"><a role="tab" class="nav-link active"
 									id="tab-c1-0" data-toggle="tab" href="#tab-animated1-0"> <span
-										class="nav-text">소개</span>
+										class="nav-text">클래스에 대한 소개</span>
 								</a></li>
 								<li class="nav-item"><a role="tab" class="nav-link"
 									id="tab-c1-1" data-toggle="tab" href="#tab-animated1-1"> <span
@@ -421,19 +377,101 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 										class="nav-text">작가 정보</span>
 								</a></li>
 							</ul>
+							
+<!-- 카카오맵 -->
+<script>
+
+
+$(function(){
+	
+	
+function mapInit(addr){
+	var x,y = "";
+	
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	mapOption = {
+	    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	    level: 3 // 지도의 확대 레벨
+	};  
+	
+	//지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	//주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	
+	//주소로 좌표를 검색합니다
+	geocoder.addressSearch(addr, function(result, status) {
+	
+	// 정상적으로 검색이 완료됐으면 
+	 if (status === kakao.maps.services.Status.OK) {
+	
+	    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	    
+	    y = result[0].x;
+	    x = result[0].y;
+	    $('.locasearch').attr('onclick',"location.href = 'https://map.kakao.com/link/to/목적지,"+x+","+y+"\'");
+	    $('.locasearch').attr('name',"location.href = 'https://map.kakao.com/link/to/목적지,"+x+","+y+"\'");
+	    console.log(coords);
+	    console.log(x);
+	    console.log(y);
+	    
+	    
+	
+	    // 결과값으로 받은 위치를 마커로 표시합니다
+	    var marker = new kakao.maps.Marker({
+	        map: map,
+	        position: coords
+	    });
+	
+	    // 인포윈도우로 장소에 대한 설명을 표시합니다
+	    var infowindow = new kakao.maps.InfoWindow({
+	        content: '<div style="width:150px;text-align:center;padding:6px 0;">여기로 오세요</div>'
+	    });
+	    infowindow.open(map, marker);
+	
+	    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	    map.setCenter(coords);
+	}//if
+	
+	});//geocoder.addressSearch
+}
+function btnInit(addr) {
+	$('#tab-c1-1').click(function() {
+		//map.relayout();
+		setTimeout(function() {
+			mapInit(addr);
+		}, 300);
+		
+	});
+}
+	var addr = '<c:out value="${record.classAddress}"/>'
+	btnInit(addr);
+	});
+</script>
+<!-- 맵끝 -->
+							
 							<div class="tab-content">
 								<div class="tab-pane active" id="tab-animated1-0"
 									role="tabpanel">
-									<p class="mb-0">아트 아트 아트 아트아트 아트아트 아트아트 아트아트 아트아트 아트아트 아트아트 아트아트 아트아트 아트아트 아트</p>
+									<p class="mb-0">${record.content }</p>
 								</div>
-								<div class="tab-pane" id="tab-animated1-1" role="tabpanel">
+								<div class="tab-pane" id="tab-animated1-1" role="tabpanel" align="center">
+									<h4 style="float: left;">주소 : ${record.classAddress}, ${record.detailedAddr}</h4>
+									<button  class="locasearch" style="border-radius:4px;border: #da624a 1px solid ;cursor: pointer;
+										background: #da624a;color: white;font-size: 1.1em; float: right;margin-top: 25px;" >길 찾기</button> 
+									
+									
+									<!-- 카카오 map을 출력할 div -->
 									<div id="map" style="width: 100%; height: 350px;"></div>
 								</div>
 								<div class="tab-pane" id="tab-animated1-2" role="tabpanel">
-									<p class="mb-0">이름:</p>
-									<p class="mb-0">나이:</p>
+									<p class="mb-0">닉네임:${artClassCreater.nickName }</p>
+									<p class="mb-0">소개:${artClassCreater.introContent }</p>
 								</div>
 							</div>
+							
 							<!-- Start Single Content -->
 						</div>
 						<!-- End Tab Content -->
@@ -453,10 +491,9 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 				
 				
 				<!-- 인기있는 아트클래스 뿌려주는 부분(시작) : 클래스 예약정보에 많이 등록되어 있는 아트클래스 상위 3개를 뿌려주면 될듯--> 
-				<div class="row mt--10">
-
+				<div class="row mt--10"  >
 					<!-- Start Single Product -->
-					<div class="col-lg-4 col-md-6 col-sm-12 popular">
+					<div class="col-lg-4 col-md-6 col-sm-12 popular" >
 						<div class="beef_product">
 							<div class="beef__thumb">
 								<a href="menu-details.html"> <img class='img1'
@@ -468,7 +505,6 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 									<a href="menu-details.html">서예</a>
 								</h4>
 								<ul class="beef__prize">
-
 									<li>￦30,000</li>
 								</ul>
 								<p>동양화와 함께해요 동양화와 함께해요</p>
@@ -480,80 +516,28 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 					</div>
 	
 					<!-- End Single Product -->
-					<!-- Start Single Product -->
-					<div class="col-lg-4 col-md-6 col-sm-12 popular">
-						<div class="beef_product">
-							<div class="beef__thumb">
-								<a href="menu-details.html"> <img class='img1'
-									src=" <c:url value='/resources/artclass/images/menu-list/1.jpg'/>">
-								</a>
-							</div>
-
-
-							<div class="beef__details">
-								<h4>
-									<a href="menu-details.html">기타</a>
-								</h4>
-								<ul class="beef__prize">
-
-									<li>￦30,000</li>
-								</ul>
-								<p>동양화와 함께해요 동양화와 함께해요</p>
-								<div class="beef__cart__btn">
-									<a href="cart.html">배우러 가기</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- End Single Product -->
-
-
-					<!-- Start Single Product -->
-					<div class="col-lg-4 col-md-6 col-sm-12 popular">
-						<div class="beef_product">
-							<div class="beef__thumb">
-								<a href="menu-details.html"> <img class='img1'
-									src=" <c:url value='/resources/artclass/images/menu-list/1.jpg'/>">
-								</a>
-							</div>
-
-
-							<div class="beef__details">
-								<h4>
-									<a href="menu-details.html">동양화</a>
-								</h4>
-								<ul class="beef__prize">
-
-									<li>￦30,000</li>
-								</ul>
-								<p>동양화와 함께해요 동양화와 함께해요</p>
-								<div class="beef__cart__btn">
-									<a href="cart.html">배우러 가기</a>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- End Single Product -->
 				</div>
 			 <!-- 인기있는 아트클래스 뿌려주는 부분(끝) -->	
-				
-				
-				
-			</div>
+		</div>
 			
 			    <div class="col-lg-4 col-md-12 col-sm-14 md--mt--40 sm--mt--40"	style="left: 150px;">
        			    
+       			    
 					 <!-- 수정 삭제 버튼 시작 -->
-                      <div class="col-lg-10" style="left: 40%;">
-                       <a href="<c:url value='/View_Input'/>">  
-                        <button class="mb-2 mr-2 btn-icon btn-pill btn btn-outline-primary">
-                           <i class="pe-7s-tools btn-icon-wrapper"> </i>수정하기
-                        </button></a>
-                                                 
-                        <button class="mb-2 mr-2 btn-icon btn-pill btn btn-outline-danger">
-                            <i class="pe-7s-trash btn-icon-wrapper"> </i>삭제하기
-                        </button>
-                     </div>
+					 <!-- 로그인한 아이디와 클래스 만든 사람의 아이디가 동일할 경우만 수정 및 삭제버튼 출력 -->
+					 <c:if test="${createClassId eq id }">
+	                      <div class="col-lg-10" style="left: 40%;">
+	                       <a href="<c:url value='/View_Input'/>">  
+	                        <button class="mb-2 mr-2 btn-icon btn-pill btn btn-outline-primary">
+	                           <i class="pe-7s-tools btn-icon-wrapper"> </i>수정하기
+	                        </button></a>
+	                                                 
+	                        <button class="mb-2 mr-2 btn-icon btn-pill btn btn-outline-danger" 
+	                        	onclick="deleteClass()">
+	                            <i class="pe-7s-trash btn-icon-wrapper"> </i>삭제하기
+	                        </button>
+	                     </div>
+                     </c:if>
                     <!-- 수정 삭제 버튼 끝-->
 			
 				
@@ -593,37 +577,6 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 								</div>
 							</div>
 
-							<!--    
-                                                            <h5 class="card-title">날짜 선택</h5>
-                                                            <div class="input-group">
-                                                                <div class="input-group-prepend datepicker-trigger">
-                                                                    <div class="input-group-text">
-                                                                        <i class="fa fa-calendar-alt"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <input type="text" class="form-control"
-                                                                       data-toggle="datepicker-icon"/>
-                                                            </div>
--->
-
-
-
-							<!-- timepicker
-															<input id="timepicker">
-															<script>
-															$("#timepicker").kendoTimePicker({
-																'disableTimeRanges': [
-																	['1am', '2am'],
-																	['3am', '4:00am']
-																]
-															});
-											
-															var timepicker = $("#timepicker").data("kendoTimePicker");
-															
-															var value = timepicker.value();
-															console.log(value);
-															</script>
-																	 -->
 
 
 							<h5 class="card-title"></h5>
@@ -640,66 +593,13 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 					</div>
 
 
-
-
-					<!-- <div class="boking_table">
-
-													</div>
-												<h5 class="card-title">  </h5>	
-												<a href="Order.do"><button type="button" class="btn btn-danger">예약하기</button></a>
-												<button type="button" class="btn btn-light">메세지보내기</button>
-												
-										
-													 
-												</div>
-											  </div>	
-										
-							
-					
-									
-							<!-- <div class="boking_table">
-
-								<div class="row">
-									<div class="col-md-10">
-										<div class="book_tabel_item">
-											<div class="form-group">
-												<div class='input-group date' id='datetimepicker11'>
-													<input type='text' class="form-control"
-														placeholder="Start Date" /> <span
-														class="input-group-addon"> <i
-														class="fa fa-calendar" aria-hidden="true"></i>
-													</span>
-												</div>
-											</div>
-											<div class="form-group">
-												<div class='input-group date' id='datetimepicker1'>
-													<input type='text' class="form-control"
-														placeholder="finish Date" /> <span
-														class="input-group-addon"> <i
-														class="fa fa-calendar" aria-hidden="true"></i>
-													</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									
-								</div>
-								================Banner Area =================
-
-								<div class="add__to__cart__btn">
-									<a class="food__btn" href="cart.html">예약하기</a>
-
-								</div>
-							</div> -->
-
 					<div class="food__sidebar">
-
-
-
 						<!-- Start Recent Post -->
 						<div class="food__recent__post mt--60">
-							<h4 class="side__title">최근 아트 클래스</h4>
+							<h4 class="side__title">최근 게시된 아트 클래스</h4>
+							
 							<div class="recent__post__wrap">
+								
 								<!-- Start Single Post -->
 								<div class="single__recent__post d-flex">
 									<div class="recent__post__thumb">
@@ -716,58 +616,9 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 									</div>
 								</div>
 								<!-- End Single Post -->
-								<!-- Start Single Post -->
-								<div class="single__recent__post d-flex">
-									<div class="recent__post__thumb">
-										<a href="blog-details.html"> <img class='img'
-											src=" <c:url value='/resources/artclass/images/menu-list/1.jpg'/>"
-											alt="beef images">
-										</a>
-									</div>
-									<div class="recent__post__details">
-										<span>2019년 9월13일 금요일</span>
-										<h4>
-											<a href="blog-details.html">보고 가세요</a>
-										</h4>
-									</div>
-								</div>
-								<!-- End Single Post -->
-
-
-
-
-								<!-- Start Single Post -->
-								<div class="single__recent__post d-flex">
-									<div class="recent__post__thumb">
-										<a href="blog-details.html"> <img class='img'
-											src=" <c:url value='/resources/artclass/images/menu-list/1.jpg'/>"
-											alt="beef images">
-										</a>
-									</div>
-									<div class="recent__post__details">
-										<span>February 13, 2019</span>
-										<h4>
-											<a href="blog-details.html">보고 가세요.</a>
-										</h4>
-									</div>
-								</div>
-								<!-- End Single Post -->
-								<!-- Start Single Post -->
-								<div class="single__recent__post d-flex">
-									<div class="recent__post__thumb">
-										<a href="blog-details.html"> <img class='img'
-											src=" <c:url value='/resources/artclass/images/menu-list/1.jpg'/>"
-											alt="beef images">
-										</a>
-									</div>
-									<div class="recent__post__details">
-										<span>February 15, 2019</span>
-										<h4>
-											<a href="blog-details.html">보고 가세요.</a>
-										</h4>
-									</div>
-								</div>
-								<!-- End Single Post -->
+								
+								
+									
 							</div>
 						</div>
 						<!-- End Recent Post -->
@@ -811,15 +662,6 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 				<div class="row">
 					
 				
-					
-					<!-- 아트클래스 강의 시간을 출력해줄 달력시작  -->
-						<!-- <div class="col-lg-5">
-							<div data-toggle="datepicker-inline" style="position: relative;top: 30px;"></div>
-						</div> -->
-					<!-- 아트클래스 강의 시간을 출력해줄 달력끝 -->
-					
-					
-					
 					<!-- 아트클래스 수강료, 날짜출력, 시간선택 아코디언, 수강인원수 및 가격출력 div 시작 -->
 					<div class="col-lg-12">
 						<!-- 아트클래스 이름  -->
@@ -827,62 +669,11 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 							<strong>${record.title }</strong>
 						</h2>
 						
-						<!-- 아트클래스 수강료  -->
-						<%-- <h4 class="h4-responsive">
-							<span class="green-text"> <strong>${record.tuitionFee}</strong>
-							</span>
-						</h4> --%>
-					
-						<!-- 아트클래스 강의날짜 및 시간 출력 체크박스가 생성될 다이브 -->
+						<!-- 아트클래스 강의날짜 및 시간 출력 체크박스가 포함될 테이블이 생성될 다이브 -->
 						<div id="classDateAndTimePick" align="center"> </div>
 					   
 					   	
-    				  <!-- accordion -->
-                      <!-- <div id="accordion" class="accordion-wrapper mb-3"> -->
-                          
-                          <!-- 
-                          <div class="">
-                              <div id="headingOne" class="card-header">
-                                  <h5 class="mb-0" style="position: relative;bottom: 13px;">2019년 11월 03일</h5>
-                              </div>
-                              <div data-parent="#accordion" id="collapseOne1"
-                                   aria-labelledby="headingOne" class="collapse show">
-                                 
-                              </div>
-                          </div>
-                           -->
-                          
-                          <!-- 
-                          <div class="">
-                              <div id="headingTwo" class="b-radius-0 card-header">
-                                  <button type="button" data-toggle="collapse"
-                                          data-target="#collapseOne2" aria-expanded="false"
-                                          aria-controls="collapseTwo"
-                                          class="text-left m-0 p-0 btn btn-link btn-block"><h5
-                                          class="m-0 p-0" >시간 선택      <i class="icon ion-android-arrow-down"></i> </h5></button>
-                              </div>
-                              
-	                          <div data-parent="#accordion" id="collapseOne2" class="collapse">
-	                                
-	                                <div class="card-body">
-	                                
-		                               		Card body
-										<div class="font-icon-wrapper">
-											<i class="lnr-clock"> </i>
-											<p>2:00~4:00</p>
-										</div>
-										
-										<div class="font-icon-wrapper">
-											<i class="lnr-clock"> </i>
-											<p>4:00~6:00</p>
-										</div>
-									
-									</div>
-                          	</div>
-                      </div> 
-                      -->
-                      
-                     <!-- </div> -->
+    				  
                                      <div class="">
                                      
                                          <div style="margin-left: 400px"align="right">
@@ -931,80 +722,7 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 	
 <!-- 예약하기 누르면 나오는 모달창 끝 -->
 
-<!-- Login Form 
-	<div class="accountbox-wrapper">
-		<div class="accountbox text-left">
-			<ul class="nav accountbox__filters" id="myTab" role="tablist">
-				<li><a class="active" id="log-tab" data-toggle="tab"
-					href="#log" role="tab" aria-controls="log" aria-selected="true">Login</a>
-				</li>
-				<li><a id="profile-tab" data-toggle="tab" href="#profile"
-					role="tab" aria-controls="profile" aria-selected="false">Register</a>
-				</li>
-			</ul>
-			<div class="accountbox__inner tab-content" id="myTabContent">
-				<div class="accountbox__login tab-pane fade show active" id="log"
-					role="tabpanel" aria-labelledby="log-tab">
-					<form action="#">
-						<div class="single-input">
-							<input class="cr-round--lg" type="text"
-								placeholder="User name or email">
-						</div>
-						<div class="single-input">
-							<input class="cr-round--lg" type="password"
-								placeholder="Password">
-						</div>
-						<div class="single-input">
-							<button type="submit" class="card-title">
-								<span>Go</span>
-							</button>
-						</div>
-						<div class="accountbox-login__others">
-							<h6>Or login with</h6>
-							<div class="social-icons">
-								<ul>
-									<li class="facebook"><a href="https://www.facebook.com/"><i
-											class="fa fa-facebook"></i></a></li>
-									<li class="twitter"><a href="https://twitter.com/"><i
-											class="fa fa-twitter"></i></a></li>
-									<li class="pinterest"><a href="#"><i
-											class="fa fa-google-plus"></i></a></li>
-								</ul>
-							</div>
-						</div>
-					</form>
-				</div>
-				<div class="accountbox__register tab-pane fade" id="profile"
-					role="tabpanel" aria-labelledby="profile-tab">
-					<form action="#">
-						<div class="single-input">
-							<input class="cr-round--lg" type="text" placeholder="User name">
-						</div>
-						<div class="single-input">
-							<input class="cr-round--lg" type="email"
-								placeholder="Email address">
-						</div>
-						<div class="single-input">
-							<input class="cr-round--lg" type="password"
-								placeholder="Password">
-						</div>
-						<div class="single-input">
-							<input class="cr-round--lg" type="password"
-								placeholder="Confirm password">
-						</div>
-						<div class="single-input">
-							<button type="submit" class="food__btn">
-								<span>Sign Up</span>
-							</button>
-						</div>
-					</form>
-				</div>
-				<span class="accountbox-close-button"><i
-					class="zmdi zmdi-close"></i></span>
-			</div>
-		</div>
-	</div>  -->
-<!-- //Login Form -->
+
 
 </div>
 <!-- //Main wrapper -->
@@ -1033,15 +751,24 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 	crossorigin="anonymous"></script>
+
 <!-- <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=507d9a5016712739e50d9d8c9ef33fd9"></script>
-	
+
+
 맵
+
+	
+<!-- 카카오 맵 -->
+<!-- 아래 스크랩트 태그 2개에 Daum 카카오 API 에서 제공해주는 key를 삽입할것 appkey= xxxxx &  : xxxx 위치에 넣어줘야함 -->
+<!-- <script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29cf6db2d1dca112820c1f0483f5b61&libraries=services,clusterer,drawing"></script>
+	
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=APIKEY&libraries=services,clusterer,drawing"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d29cf6db2d1dca112820c1f0483f5b61"></script>	 -->
 	
-이미지 -->
-	
+
+
 	<!-- 이종성이 추가한 코드 시작 -->
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=720857926e6d51e1ec90e3642210f71b"></script>
@@ -1088,75 +815,6 @@ input#img-1:checked ~ .nav-dots label#img-dot-1, input#img-2:checked ~
 	}
 </script>
 
-<!-- 카카오맵 -->
-<script>
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	mapOption = {
-		center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-		level : 7
-	// 지도의 확대 레벨 
-	};
-
-	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-
-	// HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-	if (navigator.geolocation) {
-
-		// GeoLocation을 이용해서 접속 위치를 얻어옵니다
-		navigator.geolocation.getCurrentPosition(function(position) {
-
-			var lat = position.coords.latitude, // 위도
-			lon = position.coords.longitude; // 경도
-
-			var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-			message = '<div style="padding:2px;">현재위치</div>'; // 인포윈도우에 표시될 내용입니다
-
-			// 마커와 인포윈도우를 표시합니다
-			displayMarker(locPosition, message);
-
-		});
-
-	} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-
-		var locPosition = new kakao.maps.LatLng(33.450701, 126.570667), message = 'geolocation을 사용할수 없어요..'
-
-		displayMarker(locPosition, message);
-	}
-
-	// 지도에 마커와 인포윈도우를 표시하는 함수입니다
-	function displayMarker(locPosition, message) {
-
-		// 마커를 생성합니다
-		var marker = new kakao.maps.Marker({
-			map : map,
-			position : locPosition
-		});
-
-		var iwContent = message, // 인포윈도우에 표시할 내용
-		iwRemoveable = true;
-
-		// 인포윈도우를 생성합니다
-		var infowindow = new kakao.maps.InfoWindow({
-			content : iwContent,
-			removable : iwRemoveable
-		});
-
-		// 인포윈도우를 마커위에 표시합니다 
-		infowindow.open(map, marker);
-
-		// 지도 중심좌표를 접속위치로 변경합니다
-		map.setCenter(locPosition);
-	}
-
-	$(function() {
-		$('#tab-c1-1').click(function() {
-			setTimeout(function() {
-				map.relayout();
-			}, 10);
-		});
-	});
-</script>
-<!-- 맵끝 -->
 <!-- 삭제 처리 -->
 <script>		
    		function isDelete(){
