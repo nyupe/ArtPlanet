@@ -256,20 +256,44 @@ public class AdminController {
 		@ResponseBody
 		public String admBatchKeyForProjList() {
 			//비지니스 로직 호출]
-				Map map = new HashMap();
-				map.put("start",1);
-				map.put("end",10);
-				List<RecAuthDTO> list=recAuthDao.projAuthSelectlist(map);
-				//[{},{},{},{}]형태로 반환
-				
-				/*JSONArray의 정적 메소드인 toJSONString(List계열 컬렉션)
-				호출시에는 List계열 컬렉션에 반드시 Map계열 컬렉션이 저장되어야 한다]		
-				ReplyBBSDTO를 Map으로 변경]		
-				ReplyBbsDTO를 Map으로 저장해서
-				List계열 컬렉션에 저장
-				*/
 				List<Map> collections = new Vector<Map>();
+				List<RecAuthDTO> list = null;
+				int projCount = recAuthDao.projGetCount();
+				System.out.println("프로젝트의 레코드수 반환: "+projCount);
+				Map map = new HashMap();
+				for(int i=1; i<=projCount; i++ ) {
+					map.put("projGetCount", i);
+				
+				list=recAuthDao.projAuthSelectlist(map);
+					if(list.size() != 0)
+					{
+						for(RecAuthDTO dto:list)
+						{
+							Map recMap = new HashMap();
+							recMap.put("ordr_idxx",dto.getOrdr_idxx());
+							recMap.put("res_cd",dto.getRes_cd());
+							recMap.put("batch_key",dto.getBatch_key()==null? "인증실패" :dto.getBatch_key());
+							recMap.put("card_cd",dto.getCard_cd()==null? "인증실패" :dto.getCard_cd());					
+							recMap.put("buyr_name",dto.getBuyr_name());					
+							recMap.put("memberNo",dto.getMemberNo());
+							//app_time추가
+							recMap.put("app_time",dto.getApp_time()==null?" 프로젝트 미결제":"\""+dto.getApp_time()+"\"");
+							//관리자에서 아이디 출력용
+							recMap.put("id", memberDao.getMemberId(dto.getMemberNo()));
+							//프로젝트서포트넘버+ 프로제트서포트섬+ 프로젝트넘버 추가 11/25
+							recMap.put("projectSupportNo", dto.getProjectSupportNo());
+							recMap.put("projectSupportSum", dto.getProjectSupportSum());
+							recMap.put("projectNo", dto.getProjectNo());
+							
+							collections.add(recMap);
+						}
+					}
+				}
+				/*
 				for(RecAuthDTO dto:list) {
+					List<Map> recList = new Vector<Map>();
+					System.out.println("카운트");
+					System.out.println(dto.getProjectSupportNo());
 					Map record = new HashMap();
 					record.put("ordr_idxx",dto.getOrdr_idxx());
 					record.put("res_cd",dto.getRes_cd());
@@ -281,8 +305,14 @@ public class AdminController {
 					record.put("app_time",dto.getApp_time()==null?" 프로젝트 미결제":"\""+dto.getApp_time()+"\"");
 					//관리자에서 아이디 출력용
 					record.put("id", memberDao.getMemberId(dto.getMemberNo()));
+					//프로젝트서포트넘버+ 프로제트서포트섬+ 프로젝트넘버 추가 11/25
+					record.put("projectSupportNo", dto.getProjectSupportNo());
+					record.put("projectSupportSum", dto.getProjectSupportSum());
+					record.put("projectNo", dto.getProjectNo());
+					
 					collections.add(record);
 				}
+				*/
 				/*
 				 * ※아래 형태로 반환됨
 				 * [{"name":"가길동","postDate":"2019-09-20","title":"1111111111111111"},{"name":"가길동","postDate":"2019-09-17","title":"sgfsdgdfd"},{"name":"가길동","postDate":"2019-09-17","title":"2222222"},{"name":"가길동","postDate":"2019-09-17","title":"4444"},{"name":"가길동","postDate":"2019-09-17","title":"11111111111"},{"name":"이길동","postDate":"2019-09-11","title":"이가 원본글"},{"name":"가길동","postDate":"2019-09-11","title":"1111111111"},{"name":"가길동","postDate":"2019-09-11","title":"저도 답글 달아요1"},{"name":"이길동","postDate":"2019-09-11","title":"조언 감사합니다"},{"name":"이길동","postDate":"2019-09-11","title":"내가 다시 답글"}]

@@ -28,10 +28,10 @@
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artwork'/>">Artworks</a></li>
 						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Artist'/>">Artists</a></li> --%>
 						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Search/Project'/>">Projects</a></li>
-						<li  class="nav-item"><a class="nav-link" href="<c:url value='/ArtClass'/>">Art Class</a></li>						
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/ArtClass'/>">ArtClass</a></li>						
 						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/Pay'/>">Pay</a></li> --%>
 						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li> --%>
-						<li  class="nav-item"><a class="nav-link" href="<c:url value='/React.bbs'/>">React</a></li>
+						<li  class="nav-item"><a class="nav-link" href="<c:url value='/React.bbs'/>">Contact Us</a></li>
 
 
 

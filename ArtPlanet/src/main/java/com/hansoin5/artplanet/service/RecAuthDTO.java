@@ -11,7 +11,10 @@ public class RecAuthDTO {
 	private String memberNo;// 멤버고유번호
 	
 	//조인할때 쓰기위해 필요한 프로젝트 1회성후원 후원금액컬럼 
-	private String projectSupportSum; // PROJECTSUPPORTSUM
+	private String projectSupportSum; // projectSupportSum
+	private String projectSupportNo; //projectSupportNo
+	private String projectNo; //projectNo
+	
 	
 	//app_time용 컬럼
 	private String app_time; //시간용_
@@ -68,6 +71,18 @@ public class RecAuthDTO {
 	}
 	public void setApp_time(String app_time) {
 		this.app_time = app_time;
+	}
+	public String getProjectSupportNo() {
+		return projectSupportNo;
+	}
+	public void setProjectSupportNo(String projectSupportNo) {
+		this.projectSupportNo = projectSupportNo;
+	}
+	public String getProjectNo() {
+		return projectNo;
+	}
+	public void setProjectNo(String projectNo) {
+		this.projectNo = projectNo;
 	}
 	/////////캐시아니라고
 }

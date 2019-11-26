@@ -53,7 +53,7 @@ public class AutoPayment {
 		wait = new WebDriverWait(driver,5);
 		
 		// ArtPlanet 로그인 화면 = targetUrl
-		tartgetUrl = "http://localhost:7070/artplanet/Login";
+		tartgetUrl = "http://localhost:8080/artplanet/Login";
 		
 	}/////
 	
@@ -119,8 +119,9 @@ public class AutoPayment {
 					countSubscribe++;
 					//30초가 넘어갈시 무한루프 빠져나감
 					if(countSubscribe >= 10) break;
+					//버튼 한번은 클릭되야함
 					
-				}//for
+				}//while
 				
 				//구독 버튼 관련 카운트 멤버변수 초기화 - 무한루프 재 탈출을 위해
 				countSubscribe = 0; 
@@ -146,7 +147,7 @@ public class AutoPayment {
 					//30초가 넘어갈시 무한루프 빠져나감
 					if(countProject >= 10) break;
 					
-				}//for
+				}//while
 				
 				//프로젝트 자동결제 버튼 관련 카운트 멤버변수 초기화 - 무한루프 재 탈출을 위해
 				countProject = 0;
