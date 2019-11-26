@@ -1,6 +1,5 @@
 package com.hansoin5.artplanet;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,6 @@ import com.hansoin5.artplanet.service.impl.AuthorityDAO;
 import com.hansoin5.artplanet.service.impl.GcsDAO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
 import com.hansoin5.artplanet.service.impl.ProjectDAO;
-import com.hansoin5.artplanet.utils.FileUpDownUtils;
 
 @Controller
 public class TopController
@@ -47,7 +45,8 @@ public class TopController
 		System.out.println("컨트롤러에서 찍어보기 : " +map.get("auth_birth"));
 		System.out.println("컨트롤러에서 찍어보기 : " +map.get("auth_phone"));
 		
-		//Reqeust 영역에 모듈에서 넘어온값 저장 model.addAttribute("auth_name",map.get("auth_name"));
+		//Reqeust 영역에 모듈에서 넘어온값 저장 
+		model.addAttribute("auth_name",map.get("auth_name"));
 		model.addAttribute("auth_birth",map.get("auth_birth"));
 		model.addAttribute("auth_phone",map.get("auth_phone"));
 		
@@ -135,6 +134,10 @@ public class TopController
 	{	
 		System.out.println("탑컨트롤러");
 		List<ProjectDTO> list = projectDao.selectlist(map);
+		model.addAttribute("list", list);
+
+		
+		
 		List<Map> tags  = projectDao.selectTags(map);		
 		/* tagRelationDao. */
 		List<String[]> list2 = new Vector<String[]>();
@@ -176,12 +179,13 @@ public class TopController
 	}///// login()
 
 //리액트 페이지로 이동
-	@RequestMapping(value = "/React.bbs")
+	@RequestMapping(value ="/React.bbs")
 	public String React()
-	{
+	{	
 		return "react/index.tiles";
 	}///// login()
 
+	
 	/*
 	 * //회원가입 페이지으로 이동
 	 *

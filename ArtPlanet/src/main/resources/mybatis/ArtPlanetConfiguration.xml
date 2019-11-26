@@ -20,6 +20,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		 <typeAlias alias="ClassOpeningDateDTO" type="com.hansoin5.artplanet.service.ClassOpeningDateDTO"/>
 		 <typeAlias alias="TagDTO" type="com.hansoin5.artplanet.service.TagDTO"/>
 		 <typeAlias alias="TagRelationDTO" type="com.hansoin5.artplanet.service.TagRelationDTO"/>
+		 <typeAlias alias="QnaDTO" type="com.hansoin5.artplanet.service.QnaDTO" />
+		 <typeAlias alias="TagRelationDTO" type="com.hansoin5.artplanet.service.TagRelationDTO"/>
 		 <typeAlias alias="ProjectDTO" type="com.hansoin5.artplanet.service.ProjectDTO"/>
 		 <typeAlias alias="SubscribeDTO" type="com.hansoin5.artplanet.service.SubscribeDTO"/>
 		 
@@ -57,11 +59,14 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="mybatis/Tag.xml"/>
 		<!-- 태그 관계 -->
 		<mapper resource="mybatis/TagRelation.xml"/>
+		<!-- 문의 게시판 -->
+		<mapper resource="mybatis/Qna.xml" />
 		<!-- 프로젝트 -->
 		<mapper resource="mybatis/Project.xml"/>
+		<!-- 안드로이드 -->
+		<mapper resource="mybatis/Android.xml"/>
 		<!-- 블로그 구독 -->
 		<mapper resource="mybatis/Subscribe.xml"/>
-		
 		
 	</mappers>
 </configuration>

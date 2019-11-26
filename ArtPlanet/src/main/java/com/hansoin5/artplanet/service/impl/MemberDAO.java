@@ -36,10 +36,11 @@ public class MemberDAO {
 		return template.selectOne("getMemberId", memberNo);
 	}
 	
-	//회원정보 조회
+	//아이디로 회원정보 조회
 	public MemberDTO getMemberDTO(Map map) {
 		return template.selectOne("getMemberDTO", map);
 	}/////getMemberNo()
+	
 	
 	
 	//아이디 중복처리 

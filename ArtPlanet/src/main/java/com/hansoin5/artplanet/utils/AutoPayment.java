@@ -1,6 +1,4 @@
 package com.hansoin5.artplanet.utils;
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -24,6 +22,10 @@ public class AutoPayment {
 	
 	//셀리니움 타겟 URL
 	private String tartgetUrl;
+	
+	//무한루프를 탈출할 2개의 count 멤버변수
+	private int countSubscribe = 0;
+	private int countProject = 0;
 	
 	//페이지 로딩시까지 대기하는 객체 멤버변수
 	WebDriverWait wait; 
@@ -98,62 +100,57 @@ public class AutoPayment {
 				webElement.click();
 				Thread.sleep(2000); // 2초 쉬고
 				
-				if(AutoKind == "subscribe") {// 정기 구독 결제인경우 
 					
-					// '[BLOG] 정기결제 - 배치키' 클릭
-					// 정기구독 페이지로 이동
-					webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[1]/ul/li[3]/ul/li[2]/a")));
+				// '[BLOG] 정기결제 - 배치키' 클릭
+				// 정기구독 페이지로 이동
+				webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[1]/ul/li[3]/ul/li[2]/a")));
+				webElement.click();
+				Thread.sleep(2000); // 2초 쉬고
+					
+					
+					
+				//정기구독 결제 버튼들 1초시간 두면서 클릭
+				while(true) { 
+					
+					Thread.sleep(3000); // 3초
+					webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"example\"]/tbody/tr[1]/td[9]/button")));
 					webElement.click();
-					Thread.sleep(2000); // 2초 쉬고
-					
-					//정기구독결제 버튼들 얻기
-					//List<WebElement> subPayButtons = driver.findElements(By.className("")/*클래스명 넣기*/);
-					// 밑의 코드는 테스트 안해봄
-					List<WebElement> subPayButtons = wait.until(ExpectedConditions.visibilityOfAllElements(driver.findElements(By.className("btn_1"))));
-					
-					//버튼들 1초시간 두면서 클릭
-					for(WebElement subPayButton : subPayButtons) { 
-						subPayButton.click();
-						Thread.sleep(1000); 
-					}//for
-					 			
-				/*
-				 * Boolean list = wait.until(ExpectedConditions.invisibilityOfElementLocated(By.
-				 * className("mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-success"
-				 * )));
-				 */
-					//List<WebElement> subPayButtons = driver.findElements(By.className("mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-success")/*클래스명 넣기*/);
-					
+					//3초마다 카운트가 1 증가
+					countSubscribe++;
+					//30초가 넘어갈시 무한루프 빠져나감
+					if(countSubscribe >= 10) break;
 					//버튼 한번은 클릭되야함
-					while(true) {
-						Thread.sleep(5000); // 5초 쉬고
-						webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"example\"]/tbody/tr[1]/td[9]/button")));
-						webElement.click();
-					}
-				/*
-				 * //버튼들 사이여유시간 3초시간 두면서 클릭 for(WebElement subPayButton : subPayButtons) {
-				 * Thread.sleep(3000); subPayButton.click(); Thread.sleep(3000); }//for
-				 */
 					
-				}/////if
-				else if(AutoKind == "project") { // 프로젝트 후원결제인 경우
+				}//while
+				
+				//구독 버튼 관련 카운트 멤버변수 초기화 - 무한루프 재 탈출을 위해
+				countSubscribe = 0; 
+			
 					
-					// '[PROJECT] 후원 - 배치키(일회성)' 클릭
-					// 정기구독 페이지로 이동
-					webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[1]/ul/li[3]/ul/li[5]/a")));
+				// '[PROJECT] 후원 - 배치키(일회성)' 클릭
+				// 정기구독 페이지로 이동
+				webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/html/body/div[1]/div/div[1]/div/div[2]/div[1]/ul/li[3]/ul/li[5]/a")));
+				webElement.click();
+				Thread.sleep(2000); // 2초 쉬고
+				
+				
+				
+				
+				//프로젝트 후원해야하는 버튼들 1초시간 두면서 클릭
+				while(true) { 
+					
+					Thread.sleep(3000); // 3초
+					webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(""))); // 정기구독 버튼의 XPath 승찬이형 페이지에서 넣기만하자 
 					webElement.click();
-					Thread.sleep(2000); // 2초 쉬고
+					//3초마다 카운트가 1 증가
+					countProject++;
+					//30초가 넘어갈시 무한루프 빠져나감
+					if(countProject >= 10) break;
 					
-					//프로젝트 모금 후원 결제 버튼들 얻기
-					List<WebElement> projcetPayButtons = driver.findElements(By.className("")/*클래스명 넣기*/);
-					
-					//버튼들 1초시간 두면서 클릭
-					for(WebElement projcetPayButton : projcetPayButtons) {
-						projcetPayButton.click();
-						Thread.sleep(1000); 
-					}//for
-					
-				}/////else if
+				}//while
+				
+				//프로젝트 자동결제 버튼 관련 카운트 멤버변수 초기화 - 무한루프 재 탈출을 위해
+				countProject = 0;
 				
 				
 				//관리자 페이지에 있는 로고 누르기:(TOP)이 보이는 페이지로 이동 
