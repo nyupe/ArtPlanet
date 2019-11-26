@@ -140,7 +140,7 @@
                                 <h6 class="mt-3">회원이 아니시라구요? 
                                 <br/>
 									<!-- 핸드폰 인증모듈 회원가입 안됨 -->                                
-                                	<%-- <a href="<c:url value='/AuthStart.do'/>" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> --%>
+                                	<%-- <a href="<c:url value='/AuthStartPage'/>" class="text-danger">이곳을 클릭하여 회원가입하세요.</a> --%>
                                 	 <a href="<c:url value='/Register'/>" class="text-danger">이곳을 클릭하여 회원가입하세요.</a>
                                 </h6>
                                 <div class="divider row"></div>

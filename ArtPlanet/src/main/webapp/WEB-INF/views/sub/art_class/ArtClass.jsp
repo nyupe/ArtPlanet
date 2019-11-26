@@ -44,14 +44,14 @@
  
  <style>
 .portfolio_area .filters ul li {
-	/* width: 100%; */
-	/* padding-left: 25px; */
-	/* margin: 0px; */
+	 width: 100%; 
+	 padding-left: 25px; 
+	 margin: 0px; 
 }
 
 .portfolio_area .filters ul li.active:before {
-	/* left: 25px;
-	right: 25px; */
+	 left: 25px;
+	right: 25px; 
 }
 
 .search-inner {
@@ -59,9 +59,9 @@
 }
 
 #search_input {
-	/* width: 45%;
+	 width: 45%;
 	color: #1a1d24;
-	display: inline-block; */
+	display: inline-block; 
 }
 </style>
 
@@ -77,13 +77,16 @@
 	
 							$.each(data,function(index, element) {
 									console.log("들어왓나")
-	
+									var image = "";
+									if(element['images'][0] != null)
+										image = element['images'][0]
 									listString = "<div class='col-md-6 col-lg-3 all illustration  seoul class_content'>"
 									listString += "<a title="
 											+ element['classNo']
 											+ " href='<c:url value="/View"/>?classNo="
 											+ element['classNo']
-											+ "' class='block-5'>"
+											+ "' class='block-5'"
+											+ " style='background-image: url(\""+image+"\")'>"
 	
 									//+element+['imageUrl']"
 	

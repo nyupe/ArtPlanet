@@ -20,8 +20,7 @@
 	
 	
 	<!-- csrf 제외 Url 설정 -->
-	<security:http pattern="/AuthReq.do" security="none" />
-	<security:http pattern="/AuthRes.do" security="none" />
+	<security:http pattern="/AuthProcess" security="none" />
 	<security:http pattern="/Search/Project/Writes" security="none"/>
 	
 	

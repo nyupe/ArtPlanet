@@ -36,15 +36,19 @@
 
 
 						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/Others'/>">Others</a></li> --%>
-						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/AuthStartPage'/>">Register</a></li> --%>
+						
 						<!-- <li  class="nav-item"><a class="nav-link" id="go_admin" href="http://localhost:7070/artplanet/AdmUserInfo.ad">Admin</a></li> -->
 
 
 
-						<!-- 인증모듈 적용 회원가입 막힘  : 2019.11.22 17시 기준 -->
-						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/AuthStart.do'/>">Register</a></li> --%>
 						<!-- 인증 모듈 없이 회원가입 페이지로 이동 -->
-						<li  class="nav-item"><a class="nav-link" href="<c:url value='/Register'/>">Register</a></li>
+						<!-- 로그인 안한상태에서만 회원가입 등록보이게하기 -->
+						<sec:authorize access="isAnonymous()">
+							<!-- 인증모듈 적용 회원가입 막힘  : 2019.11.22 17시 기준 -->
+							<li  class="nav-item"><a class="nav-link" href="<c:url value='/AuthStartPage'/>">Register</a></li>
+							<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/AuthStart.do'/>">Register</a></li> --%>
+							<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/Register'/>">Register</a></li> --%>
+						</sec:authorize>
 						<%-- <li  class="nav-item"><a class="nav-link" href="<c:url value='/AuthStart.do'/>">Register</a></li> --%>
 						
 

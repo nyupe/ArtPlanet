@@ -529,7 +529,7 @@ function valueCheck(eleForm){
 		//서버로 데이터 전송 (submit) - 요청URL : WriteClass / 전송방식 : POST
 		$('#class-form').submit();
 		
-
+		
 		
 	}/////postForm()
 	
