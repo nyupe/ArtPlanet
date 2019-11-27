@@ -85,7 +85,7 @@
             $.each(data,function(index,element){
 					tableString+="<tr>";					
 					tableString+="<td>"+(index+1)+"</td><td>"+element['id']+"</td><td>"+element['ordr_idxx']+"</td><td>"+element['res_cd']+
-					"</td><td>"+element['card_cd']+"</td><td>"+element['buyr_name']+"</td><td>"+element['batch_key']+"</td><td>"+20000+"</td>";			
+					"</td><td>"+element['card_cd']+"</td><td>"+element['buyr_name']+"</td><td>"+element['batch_key']+"</td><td>"+element['blogFee']+"</td>";			
 					if(element['res_cd']!=0000)
 						tableString+="<td><button type='button' class='mb-2 mr-2 border-0 btn-transition btn btn-shadow btn-outline-danger' data-toggle='modal' data-target='#exampleModal'>배치키재발급요망</button></td>";
 					else if(element['app_time'].substr(4,2)==new Date().getMonth()+ 1)

@@ -144,7 +144,7 @@ $(document).ready(function(){
         e.stopPropagation();
         e.preventDefault();
     });
-     
+    
     function blogFileUpload(files,obj)
     {
     	console.log("blogFileupload()");
@@ -381,6 +381,7 @@ var sendTags = function() {
 	
 	
 }
+
 </script>
 <!--================Hero Banner Area Start =================-->
 <section class="hero-banner">
@@ -474,13 +475,6 @@ var sendTags = function() {
 						</div>						
 					</aside>
 				</div>
-				<button onclick="visionTest()">테스트</button>				
-				<script type="text/javascript">
-				function visionTest()
-				{						
-					postForm();
-				}
-				</script>
 			</div>
 		</div>
 	</div>

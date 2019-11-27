@@ -34,9 +34,18 @@ public class SubscribeDAO {
 		return template.insert("doSubscribe", map);
 	}
 	//구독정보 조회
-		public List<SubscribeDTO> getSubscribe(Map map)
-		{
-			return template.selectList("getSubscribe", map);
-		}
-	
+	public List<SubscribeDTO> getSubscribe(Map map)
+	{
+		return template.selectList("getSubscribe", map);
+	}
+	//나를 구독하고있는 정보
+	public List<SubscribeDTO> getWhoSubscribeMe(Map map)
+	{
+		return template.selectList("getWhoSubscribeMe", map);
+	}
+	//내가 구독하고있는 정보
+	public List<SubscribeDTO> getISubscribeWho(Map map)
+	{
+		return template.selectList("getISubscribeWho", map);
+	}
 }/////class

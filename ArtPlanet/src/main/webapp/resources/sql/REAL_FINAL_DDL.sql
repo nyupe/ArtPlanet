@@ -14,12 +14,14 @@ DROP TABLE Pay CASCADE CONSTRAINTS;
 DROP TABLE PROJAUTH CASCADE CONSTRAINTS;
 DROP TABLE PROJECTREWARD CASCADE CONSTRAINTS;
 DROP TABLE PROJECTSUPPORT CASCADE CONSTRAINTS;
+DROP TABLE PROJECTUPDATE CASCADE CONSTRAINTS;
 DROP TABLE PROJECT CASCADE CONSTRAINTS;
-DROP TABLE QNA CASCADE CONSTRAINTS;
+DROP TABLE PROJPAY CASCADE CONSTRAINTS;
 DROP TABLE RECAUTH CASCADE CONSTRAINTS;
 DROP TABLE RECPAY CASCADE CONSTRAINTS;
 DROP TABLE SUBSCRIBE CASCADE CONSTRAINTS;
 DROP TABLE MEMBER CASCADE CONSTRAINTS;
+DROP TABLE QNA CASCADE CONSTRAINTS;
 DROP TABLE TAG CASCADE CONSTRAINTS;
 
 
@@ -39,6 +41,7 @@ DROP SEQUENCE SEQ_HASHTAG_tagNo;
 DROP SEQUENCE SEQ_MEMBER_memberNo;
 DROP SEQUENCE SEQ_PROJECTREWARD_projectRewardNo;
 DROP SEQUENCE SEQ_PROJECTSUPPORT_projectSupportNo;
+DROP SEQUENCE SEQ_PROJECTUPDATE_updateNo;
 DROP SEQUENCE SEQ_PROJECT_projectNo;
 DROP SEQUENCE SEQ_QNA_qnaNo;
 DROP SEQUENCE SEQ_REPLY_replyNo;
@@ -51,25 +54,20 @@ DROP SEQUENCE SEQ_TAG_tagNo;
 
 /* Create Sequences */
 
- -- 아트 클래스 테이블 PK 
 CREATE SEQUENCE SEQ_ARTCLASS_classNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_ATTACHFILE_attachfileNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_ATTACHIMAGE_imageNo INCREMENT BY 1 START WITH 1;
--- 권한테이블 PK
-CREATE SEQUENCE SEQ_AUTH_SECURITY_authorityNo INCREMENT BY 1 START WITH 1; 
+CREATE SEQUENCE SEQ_AUTH_SECURITY_authorityNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_BLOGPOST_blogNo INCREMENT BY 1 START WITH 1;
-CREATE SEQUENCE SEQ_CATEGORIE_categorieNo INCREMENT BY 1 START WITH 1; 
--- 아트클래스 개설날짜정보 테이블  PK
-CREATE SEQUENCE SEQ_CLASSOPENINGDATE_DateNo INCREMENT BY 1 START WITH 1; 
--- 아트클래스예약정보 테이블 PK
-CREATE SEQUENCE SEQ_CLASSRESERVATION_classReservationNo INCREMENT BY 1 START WITH 1; 
--- 구글 클라우드 스토리지 테이블 PK
-CREATE SEQUENCE SEQ_GCS_fileNo INCREMENT BY 1 START WITH 1; 
+CREATE SEQUENCE SEQ_CATEGORIE_categorieNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_CLASSOPENINGDATE_DateNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_CLASSRESERVATION_classReservationNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_GCS_fileNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_HASHTAG_tagNo INCREMENT BY 1 START WITH 1;
--- 회원 테이블 PK
-CREATE SEQUENCE SEQ_MEMBER_memberNo INCREMENT BY 1 START WITH 1; 
+CREATE SEQUENCE SEQ_MEMBER_memberNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_PROJECTREWARD_projectRewardNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_PROJECTSUPPORT_projectSupportNo INCREMENT BY 1 START WITH 1;
+CREATE SEQUENCE SEQ_PROJECTUPDATE_updateNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_PROJECT_projectNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_QNA_qnaNo INCREMENT BY 1 START WITH 1;
 CREATE SEQUENCE SEQ_REPLY_replyNo INCREMENT BY 1 START WITH 1;
@@ -103,7 +101,7 @@ CREATE TABLE ARTCLASS
 	-- 소요시간
 	timeRequired nvarchar2(20),
 	-- 카테고리
-	categorie nvarchar2(30),
+	Categorie nvarchar2(30),
 	-- 회원번호
 	memberNo number NOT NULL,
 	PRIMARY KEY (classNo)
@@ -165,30 +163,30 @@ CREATE TABLE CANCEL
 );
 
 
--- 클래스개설날짜정보
+-- 아트클래스개설날짜정보
 CREATE TABLE CLASSOPENINGDATE
 (
 	-- 날짜정보 번호
 	DateNo number NOT NULL,
 	-- 개설날짜
-	openingDate date,
+	openingDate nvarchar2(50),
 	-- 개설시각
-	openingTime date,
+	openingTime nvarchar2(50),
 	-- 클래스 글번호
 	classNo number NOT NULL,
 	PRIMARY KEY (DateNo)
 );
 
 
--- 아트 클래스예약정보
+-- 아트클래스예약정보
 CREATE TABLE CLASSRESERVATION
 (
 	-- 예약정보번호
 	classReservationNo number NOT NULL,
 	-- 수강날짜
-	signupDate date,
+	signupDate nvarchar2(50),
 	-- 수강시간
-	signupTime date,
+	signupTime nvarchar2(50),
 	-- 회원번호
 	memberNo number NOT NULL,
 	-- 클래스 글번호
@@ -263,7 +261,7 @@ CREATE TABLE Pay
 	-- 주문번호
 	ordr_idxx nvarchar2(40) NOT NULL,
 	-- 결제금액
-	good_mny number,
+	amonut number,
 	-- 상품명
 	good_name nvarchar2(20),
 	-- 주문자명
@@ -301,6 +299,10 @@ CREATE TABLE PROJAUTH
 	buyr_name nvarchar2(30),
 	-- 회원번호
 	memberNo number NOT NULL,
+	-- 최근결제시간
+	app_time date,
+	-- 프로젝트후원번호
+	projectSupportNo number NOT NULL,
 	PRIMARY KEY (ordr_idxx)
 );
 
@@ -358,6 +360,54 @@ CREATE TABLE PROJECTSUPPORT
 );
 
 
+-- 프로젝트 갱신
+CREATE TABLE PROJECTUPDATE
+(
+	-- 갱신번호
+	updateNo number NOT NULL,
+	-- 갱신내용
+	updateContent nvarchar2(2000),
+	-- 작성일
+	updateDate date DEFAULT SYSDATE,
+	-- 프로젝트 글번호
+	projectNo number NOT NULL,
+	PRIMARY KEY (updateNo)
+);
+
+
+-- 프로젝트 정기결제 테이블
+CREATE TABLE PROJPAY
+(
+	-- 거래번호
+	tno nvarchar2(20),
+	-- 주문번호
+	ordr_idxx nvarchar2(40) NOT NULL,
+	-- 결제금액
+	amonut number,
+	-- 상품명
+	good_name nvarchar2(20),
+	-- 주문자명
+	buyr_name nvarchar2(10),
+	-- 전화번호
+	buyr_tel1 nvarchar2(15),
+	-- 핸드폰번호
+	buyr_tel2 nvarchar2(20),
+	-- 주문자이메일주소
+	buyr_mail nvarchar2(30),
+	-- 카드명
+	card_name nvarchar2(10),
+	-- 승인시간
+	app_time nvarchar2(20),
+	-- 승인번호
+	app_no nvarchar2(10),
+	-- 응답코드
+	res_cd nvarchar2(10),
+	-- 회원번호
+	memberNo number NOT NULL,
+	PRIMARY KEY (ordr_idxx)
+);
+
+
 -- QNA 게시판
 CREATE TABLE QNA
 (
@@ -373,8 +423,8 @@ CREATE TABLE QNA
 	qnaChecked number(10) DEFAULT 0 NOT NULL,
 	-- 카테고리
 	qnaCategory nvarchar2(50) NOT NULL,
-	-- 회원번호
-	memberNo number NOT NULL,
+	-- 아이디
+	id nvarchar2(50) NOT NULL,
 	PRIMARY KEY (qnaNo)
 );
 
@@ -392,8 +442,12 @@ CREATE TABLE RECAUTH
 	card_cd nvarchar2(10),
 	-- 주문자명
 	buyr_name nvarchar2(30),
+	-- 최근결제시간
+	app_time nvarchar2(30),
 	-- 회원번호
 	memberNo number NOT NULL,
+	-- 구독일련번호
+	subscribeNo number NOT NULL,
 	PRIMARY KEY (ordr_idxx)
 );
 
@@ -406,7 +460,7 @@ CREATE TABLE RECPAY
 	-- 주문번호
 	ordr_idxx nvarchar2(40) NOT NULL,
 	-- 결제금액
-	good_mny number,
+	amonut number,
 	-- 상품명
 	good_name nvarchar2(20),
 	-- 주문자명
@@ -471,7 +525,7 @@ CREATE TABLE TAG
 	-- 태그번호
 	tagNo number NOT NULL,
 	-- 태그명
-	tagName varchar2(20),
+	tagName varchar2(100),
 	PRIMARY KEY (tagNo)
 );
 
@@ -534,14 +588,14 @@ ALTER TABLE ARTCLASS
 
 
 ALTER TABLE AUTH_SECURITY
-	ADD FOREIGN KEY (memberNo)
-	REFERENCES MEMBER (memberNo)
+	ADD FOREIGN KEY (id)
+	REFERENCES MEMBER (id)
 ;
 
 
 ALTER TABLE AUTH_SECURITY
-	ADD FOREIGN KEY (id)
-	REFERENCES MEMBER (id)
+	ADD FOREIGN KEY (memberNo)
+	REFERENCES MEMBER (memberNo)
 ;
 
 
@@ -593,7 +647,7 @@ ALTER TABLE PROJECTSUPPORT
 ;
 
 
-ALTER TABLE QNA
+ALTER TABLE PROJPAY
 	ADD FOREIGN KEY (memberNo)
 	REFERENCES MEMBER (memberNo)
 ;
@@ -647,6 +701,12 @@ ALTER TABLE PROJECTSUPPORT
 ;
 
 
+ALTER TABLE PROJECTUPDATE
+	ADD FOREIGN KEY (projectNo)
+	REFERENCES PROJECT (projectNo)
+;
+
+
 ALTER TABLE REPLY
 	ADD FOREIGN KEY (projectNo)
 	REFERENCES PROJECT (projectNo)
@@ -656,6 +716,18 @@ ALTER TABLE REPLY
 ALTER TABLE TAGRELATION
 	ADD FOREIGN KEY (projectNo)
 	REFERENCES PROJECT (projectNo)
+;
+
+
+ALTER TABLE PROJAUTH
+	ADD FOREIGN KEY (projectSupportNo)
+	REFERENCES PROJECTSUPPORT (projectSupportNo)
+;
+
+
+ALTER TABLE RECAUTH
+	ADD FOREIGN KEY (subscribeNo)
+	REFERENCES SUBSCRIBE (subscribeNo)
 ;
 
 
@@ -678,7 +750,7 @@ COMMENT ON COLUMN ARTCLASS.classAddress IS '주소';
 COMMENT ON COLUMN ARTCLASS.detailedAddr IS '상세주소';
 COMMENT ON COLUMN ARTCLASS.classLevel IS '난이도';
 COMMENT ON COLUMN ARTCLASS.timeRequired IS '소요시간';
-COMMENT ON COLUMN ARTCLASS.categorie IS '카테고리';
+COMMENT ON COLUMN ARTCLASS.Categorie IS '카테고리';
 COMMENT ON COLUMN ARTCLASS.memberNo IS '회원번호';
 COMMENT ON TABLE AUTH_SECURITY IS '권한 테이블';
 COMMENT ON COLUMN AUTH_SECURITY.authorityNo IS '권한번호';
@@ -700,12 +772,12 @@ COMMENT ON COLUMN CANCEL.tno IS '거래번호';
 COMMENT ON COLUMN CANCEL.res_cd IS '취소응답코드';
 COMMENT ON COLUMN CANCEL.res_msg IS '취소메시지';
 COMMENT ON COLUMN CANCEL.memberNo IS '회원번호';
-COMMENT ON TABLE CLASSOPENINGDATE IS '클래스개설날짜정보';
+COMMENT ON TABLE CLASSOPENINGDATE IS '아트클래스개설날짜정보';
 COMMENT ON COLUMN CLASSOPENINGDATE.DateNo IS '날짜정보 번호';
 COMMENT ON COLUMN CLASSOPENINGDATE.openingDate IS '개설날짜';
 COMMENT ON COLUMN CLASSOPENINGDATE.openingTime IS '개설시각';
 COMMENT ON COLUMN CLASSOPENINGDATE.classNo IS '클래스 글번호';
-COMMENT ON TABLE CLASSRESERVATION IS '클래스예약정보';
+COMMENT ON TABLE CLASSRESERVATION IS '아트클래스예약정보';
 COMMENT ON COLUMN CLASSRESERVATION.classReservationNo IS '예약정보번호';
 COMMENT ON COLUMN CLASSRESERVATION.signupDate IS '수강날짜';
 COMMENT ON COLUMN CLASSRESERVATION.signupTime IS '수강시간';
@@ -738,7 +810,7 @@ COMMENT ON COLUMN MEMBER.SubscriptionFee IS '구독료';
 COMMENT ON TABLE Pay IS '결제테이블';
 COMMENT ON COLUMN Pay.tno IS '거래번호';
 COMMENT ON COLUMN Pay.ordr_idxx IS '주문번호';
-COMMENT ON COLUMN Pay.good_mny IS '결제금액';
+COMMENT ON COLUMN Pay.amonut IS '결제금액';
 COMMENT ON COLUMN Pay.good_name IS '상품명';
 COMMENT ON COLUMN Pay.buyr_name IS '주문자명';
 COMMENT ON COLUMN Pay.buyr_tel1 IS '전화번호';
@@ -755,6 +827,8 @@ COMMENT ON COLUMN PROJAUTH.batch_key IS '배치키';
 COMMENT ON COLUMN PROJAUTH.card_cd IS '카드코드';
 COMMENT ON COLUMN PROJAUTH.buyr_name IS '주문자명';
 COMMENT ON COLUMN PROJAUTH.memberNo IS '회원번호';
+COMMENT ON COLUMN PROJAUTH.app_time IS '최근결제시간';
+COMMENT ON COLUMN PROJAUTH.projectSupportNo IS '프로젝트후원번호';
 COMMENT ON TABLE PROJECT IS '프로젝트';
 COMMENT ON COLUMN PROJECT.projectNo IS '프로젝트 글번호';
 COMMENT ON COLUMN PROJECT.title IS '글제목';
@@ -774,6 +848,25 @@ COMMENT ON COLUMN PROJECTSUPPORT.projectSupportSum IS '후원액수';
 COMMENT ON COLUMN PROJECTSUPPORT.projectSupportDate IS '후원일';
 COMMENT ON COLUMN PROJECTSUPPORT.memberNo IS '회원번호';
 COMMENT ON COLUMN PROJECTSUPPORT.projectNo IS '프로젝트 글번호';
+COMMENT ON TABLE PROJECTUPDATE IS '프로젝트 갱신';
+COMMENT ON COLUMN PROJECTUPDATE.updateNo IS '갱신번호';
+COMMENT ON COLUMN PROJECTUPDATE.updateContent IS '갱신내용';
+COMMENT ON COLUMN PROJECTUPDATE.updateDate IS '작성일';
+COMMENT ON COLUMN PROJECTUPDATE.projectNo IS '프로젝트 글번호';
+COMMENT ON TABLE PROJPAY IS '프로젝트 정기결제 테이블';
+COMMENT ON COLUMN PROJPAY.tno IS '거래번호';
+COMMENT ON COLUMN PROJPAY.ordr_idxx IS '주문번호';
+COMMENT ON COLUMN PROJPAY.amonut IS '결제금액';
+COMMENT ON COLUMN PROJPAY.good_name IS '상품명';
+COMMENT ON COLUMN PROJPAY.buyr_name IS '주문자명';
+COMMENT ON COLUMN PROJPAY.buyr_tel1 IS '전화번호';
+COMMENT ON COLUMN PROJPAY.buyr_tel2 IS '핸드폰번호';
+COMMENT ON COLUMN PROJPAY.buyr_mail IS '주문자이메일주소';
+COMMENT ON COLUMN PROJPAY.card_name IS '카드명';
+COMMENT ON COLUMN PROJPAY.app_time IS '승인시간';
+COMMENT ON COLUMN PROJPAY.app_no IS '승인번호';
+COMMENT ON COLUMN PROJPAY.res_cd IS '응답코드';
+COMMENT ON COLUMN PROJPAY.memberNo IS '회원번호';
 COMMENT ON TABLE QNA IS 'QNA 게시판';
 COMMENT ON COLUMN QNA.qnaNo IS '글번호';
 COMMENT ON COLUMN QNA.qnaTitle IS '글제목';
@@ -781,18 +874,20 @@ COMMENT ON COLUMN QNA.qnaContent IS '글내용';
 COMMENT ON COLUMN QNA.qnaPostdate IS '작성일';
 COMMENT ON COLUMN QNA.qnaChecked IS '답변여부';
 COMMENT ON COLUMN QNA.qnaCategory IS '카테고리';
-COMMENT ON COLUMN QNA.memberNo IS '회원번호';
+COMMENT ON COLUMN QNA.id IS '아이디';
 COMMENT ON TABLE RECAUTH IS '정기인증 테이블';
 COMMENT ON COLUMN RECAUTH.ordr_idxx IS '주문번호';
 COMMENT ON COLUMN RECAUTH.res_cd IS '인증응답코드';
 COMMENT ON COLUMN RECAUTH.batch_key IS '배치키';
 COMMENT ON COLUMN RECAUTH.card_cd IS '카드코드';
 COMMENT ON COLUMN RECAUTH.buyr_name IS '주문자명';
+COMMENT ON COLUMN RECAUTH.app_time IS '최근결제시간';
 COMMENT ON COLUMN RECAUTH.memberNo IS '회원번호';
+COMMENT ON COLUMN RECAUTH.subscribeNo IS '구독일련번호';
 COMMENT ON TABLE RECPAY IS '정기결제 테이블';
 COMMENT ON COLUMN RECPAY.tno IS '거래번호';
 COMMENT ON COLUMN RECPAY.ordr_idxx IS '주문번호';
-COMMENT ON COLUMN RECPAY.good_mny IS '결제금액';
+COMMENT ON COLUMN RECPAY.amonut IS '결제금액';
 COMMENT ON COLUMN RECPAY.good_name IS '상품명';
 COMMENT ON COLUMN RECPAY.buyr_name IS '주문자명';
 COMMENT ON COLUMN RECPAY.buyr_tel1 IS '전화번호';

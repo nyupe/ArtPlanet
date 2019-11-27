@@ -53,7 +53,7 @@
 </style>
 <script>
 
-	const default_img = "https://storage.googleapis.com/art-planet-storage/blog/default_img.png";
+	const default_img = "https://storage.googleapis.com/art-planet-storage/default/default_img.png";
 	
 	$(function() {
 		
@@ -118,7 +118,7 @@
 							var $htmlString = 
 								$('<div class="col-lg-3 col-md-4 all'+item.engCategorie+'" style="position: absolute; left: 0%; top: 0px;">'
 									+ '<div class="single_portfolio">'
-										+ '<a href="#"><img class="img-fluid w-100" src="'+item.banner+'" alt=""></a>'
+										+ '<a href="<c:url value="/Blog/'+item.memberId+'"/>"><img class="img-fluid w-100" src="'+item.banner+'" alt=""></a>'
 										+ '<div class="avatar-icon-wrapper avatar-icon-lg">'
 						        			+ '<div class="avatar-icon"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><img src="'+item.profile+'"></a></div>'
 						        		+ '</div>'
@@ -139,7 +139,7 @@
 							var $htmlString = 
 								$('<div class="col-lg-3 col-md-4 all'+item.engCategorie+'" style="position: absolute; left: 0%; top: 0px;">'
 									+ '<div class="single_portfolio">'
-										+ '<a href="#"><img class="img-fluid w-100" src="'+item.banner+'" alt=""></a>'
+										+ '<a href="<c:url value="/Blog/'+item.memberId+'"/>"><img class="img-fluid w-100" src="'+item.banner+'" alt=""></a>'
 										+ '<div class="avatar-icon-wrapper avatar-icon-lg">'
 						        			+ '<div class="avatar-icon"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><img src="'+item.profile+'"></a></div>'
 						        		+ '</div>'
@@ -159,7 +159,7 @@
 							var $htmlString = 
 								$('<div class="col-lg-3 col-md-4 all'+item.engCategorie+'" style="position: absolute; left: 0%; top: 0px;">'
 									+ '<div class="single_portfolio">'
-										+ '<a href="#"><img class="img-fluid w-100" src="'+item.banner+'" alt=""></a>'
+										+ '<a href="<c:url value="/Blog/'+item.memberId+'"/>"><img class="img-fluid w-100" src="'+item.banner+'" alt=""></a>'
 										+ '<div class="avatar-icon-wrapper avatar-icon-lg">'
 						        			+ '<div class="avatar-icon"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><img src="'+item.profile+'"></a></div>'
 						        		+ '</div>'
@@ -173,12 +173,16 @@
 					        		+ '</div>'
 				        		+ '</div>');
 						}
+						else if(item.memberId == "ADMIN")
+						{
+							var $htmlString = $('');
+						}
 						else
 						{
 							var $htmlString = 
 								$('<div class="col-lg-3 col-md-4 all'+item.engCategorie+'" style="position: absolute; left: 0%; top: 0px;">'
 									+ '<div class="single_portfolio">'
-										+ '<a href="#"><img class="img-fluid w-100" src="'+item.banner+'" alt=""></a>'
+										+ '<a href="<c:url value="/Blog/'+item.memberId+'"/>"><img class="img-fluid w-100" src="'+item.banner+'" alt=""></a>'
 										+ '<div class="avatar-icon-wrapper avatar-icon-lg">'
 						        			+ '<div class="avatar-icon"><a href="<c:url value="/Blog/'+item.memberId+'"/>"><img src="'+item.profile+'"></a></div>'
 						        		+ '</div>'

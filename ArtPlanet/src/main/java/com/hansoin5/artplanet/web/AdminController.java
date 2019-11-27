@@ -167,6 +167,7 @@ public class AdminController {
 					record.put("app_time",dto.getApp_time()==null?" 미결제":"\""+dto.getApp_time()+"\"");
 					//관리자에서 아이디 출력용
 					record.put("id", memberDao.getMemberId(dto.getMemberNo()));
+					record.put("blogFee",dto.getBlogFee());
 					collections.add(record);
 					
 				}

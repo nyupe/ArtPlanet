@@ -231,7 +231,9 @@ $(document).ready(function(){
 	showComment();
 	
 	var newURL = "https:"+window.location.protocol + "//" + window.location.host +  window.location.pathname +"?" + "projectNo=${record.projectNo}"
-	
+	if( ${fundInfo.deadline.time - fundInfo.postDate.time  } < 0  ){
+	      $('.fundbtn').css('pointer-events', 'none' );
+	   }
 	console.log(newURL);
 	//코멘트 입력및 수정처리]
 	$('#commentsubmit').click(function(){
@@ -241,6 +243,8 @@ $(document).ready(function(){
 			return;
 		}
 		var action="<c:url value='/Search/Project/Comments'/>";
+		
+		
 		
 		//ajax로 요청]
 		$.ajax({
@@ -468,10 +472,10 @@ $(document).ready(function(){
 		
 											<div class="d-flex justify-content-between">
 											
-											<c:set var="now" value="<%=new java.util.Date()%>" />
+											<c:set var="sysdate" value="<%=new java.util.Date()%>" />
 											
 											<fmt:parseNumber value="${item.PROJECTSUPPORTDATE.time / (1000*60*60)}" integerOnly="true" var="nowdate"></fmt:parseNumber>
-											<fmt:parseNumber value="${now.time / (1000*60*60)}" integerOnly="true" var="targetdate"></fmt:parseNumber>
+											<fmt:parseNumber value="${sysdate.time / (1000*60*60)}" integerOnly="true" var="targetdate"></fmt:parseNumber>
 											 
 												<div class="d-flex align-items-center">
 												<c:if test="${(targetdate - nowdate) < 24 }" var="hour" >
@@ -667,7 +671,7 @@ $(document).ready(function(){
 									<button class="bb primary-bg text-white w-100" id="myBtn" type="submit" style="background: #00c4c4;border: none;height: 50px;border-radius: 2px;font-weight: bold;cursor: pointer;margin-bottom: 20px;">리워드 등록하기</button>
 								</c:if>
 								<c:if test="${not writercheck }">
-									<button class="bb primary-bg text-white w-100" id="myBtn" type="submit" style="background: #00c4c4;border: none;height: 50px;border-radius: 2px;font-weight: bold;cursor: pointer;margin-bottom: 20px;">후원하기</button>
+									<button class="bb primary-bg text-white w-100 fundbtn" id="myBtn" type="submit" style="background: #00c4c4;border: none;height: 50px;border-radius: 2px;font-weight: bold;cursor: pointer;margin-bottom: 20px;">후원하기</button>
 								</c:if>
 								<c:if test="${writercheck }">
 								<div class="row" style="width: 100%;margin: auto;">

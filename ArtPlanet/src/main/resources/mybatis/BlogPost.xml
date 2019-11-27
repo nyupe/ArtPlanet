@@ -88,7 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="getDtoByMemberNo" parameterType="java.util.Map" resultType="BlogPostDTO">
 
-		SELECT * FROM blogPost WHERE memberNo=#{memberNo}
+		SELECT * FROM blogPost WHERE memberNo=#{memberNo} ORDER BY blogNo DESC
 
 	</select>
 
@@ -142,13 +142,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         	tagNo = #{tagNo} AND blogNo IS NOT NULL
         </foreach>
 	</select>
-	<!-- SELECT * FROM (
-
-			SELECT tb.*, ROWNUM AS r FROM (
-
-				SELECT * FROM blogPost ORDER BY blogNo DESC) tb)
-
-			WHERE r BETWEEN #{start} AND #{end} -->
+	
 	<select id="getDtoByList" parameterType="java.util.Map" resultType="BlogPostDTO">		
 	SELECT * FROM (
 		SELECT tb.*, ROWNUM AS r FROM (

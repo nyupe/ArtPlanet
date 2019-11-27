@@ -51,7 +51,7 @@
 </style>
 <script>
 
-const default_img = "https://storage.googleapis.com/art-planet-storage/blog/default_img.png";
+const default_img = "https://storage.googleapis.com/art-planet-storage/default/default_img.png";
 
 $(function() {
 		
@@ -110,7 +110,7 @@ $(function() {
 				if(data.length == 0) isEnd = true;
 				$(data).each(function(index, item) {
 					
-					var src = item.accessRight == 0 ? item.imgUrl : default_img;
+					var src = item.accessRight == "0" ? item.imgUrl : default_img;
 					//isotope 라이브러리 사용을 위해 객체형식으로 선언
 					var $htmlString = 
 						$("<div class='col-lg-3 col-md-4 all "+item.engCategorie+"'>"

@@ -14,6 +14,8 @@ public class RecAuthDTO {
 	private String projectSupportSum; // projectSupportSum
 	private String projectSupportNo; //projectSupportNo
 	private String projectNo; //projectNo
+	//블로그 정기구독료 가져오기 위한 변수
+	private String blogFee;
 	
 	
 	//app_time용 컬럼
@@ -85,4 +87,12 @@ public class RecAuthDTO {
 		this.projectNo = projectNo;
 	}
 	/////////캐시아니라고
+	public String getBlogFee()
+	{
+		return blogFee;
+	}
+	public void setBlogFee(String blogFee)
+	{
+		this.blogFee = blogFee;
+	}
 }

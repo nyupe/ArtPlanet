@@ -22,7 +22,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="recAuthSelectlist" parameterType="java.util.Map" resultType="RecAuthDTO">
-		SELECT * FROM recAuth ORDER BY app_time DESC, ordr_idxx DESC
+		SELECT r.*,m.subscriptionfee as blogFee
+			FROM recAuth r JOIN subscribe s ON r.subscribeno = s.subscribeno JOIN member m ON s.targetedmemberno = m.memberno 
+			ORDER BY app_time DESC, ordr_idxx DESC
 	</select>
 	
 	<!-- 배치키로 결제시 인증테이블의 app_time업데이트하기      memberNo맞춰야함-->

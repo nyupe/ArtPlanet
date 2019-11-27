@@ -21,6 +21,8 @@
 	
 	<!-- csrf 제외 Url 설정 -->
 	<!-- <security:http pattern="/React.bbs" security="none" /> -->
+	<security:http pattern="/api/contacts" security="none" />
+	<security:http pattern="/api/contact" security="none" />
 	<security:http pattern="/AuthProcess" security="none" />
 	<security:http pattern="/Search/Project/Writes" security="none"/>
 	<security:http pattern="/AndroidArrayList" security="none"/>

@@ -346,6 +346,16 @@ public class ArtclassController {
 		  for(ArtClassDTO dto:list) { 
 			 
 			  Map record = new HashMap(); 
+			  System.out.println("getClassNo"+dto.getClassNo());
+			  System.out.println("getTitle"+dto.getTitle());
+			  System.out.println("getContent"+dto.getContent());
+			  System.out.println("getClassLevel"+dto.getClassLevel());
+			  System.out.println("getTimeRequired"+dto.getTimeRequired());
+			  System.out.println("getNumberOfPeople"+dto.getNumberOfPeople());
+			  System.out.println("getTuitionFee"+dto.getTuitionFee());
+			  System.out.println("getClassAddress"+dto.getClassAddress());
+			  System.out.println("getDetailedAddr"+dto.getDetailedAddr());
+			  System.out.println("getCategorie"+dto.getCategorie());
 			  
 			  //아트클래스 고유번호
 			  record.put("classNo", dto.getClassNo());
@@ -365,6 +375,7 @@ public class ArtclassController {
 			  List<String> images = new Vector<String>();
 			  for(GcsDTO gd : gcsList)
 			  {
+				  System.out.println("getFileUrl"+gd.getFileUrl());
 				  images.add(gd.getFileUrl());
 			  }
 			  record.put("images",images);

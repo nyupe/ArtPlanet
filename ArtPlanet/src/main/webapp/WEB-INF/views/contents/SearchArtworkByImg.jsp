@@ -51,7 +51,7 @@
 </style>
 <script>
 
-const default_img = "https://storage.googleapis.com/art-planet-storage/blog/default_img.png";
+const default_img = "https://storage.googleapis.com/art-planet-storage/default/default_img.png";
 
 $(function() {
 		

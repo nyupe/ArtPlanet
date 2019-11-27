@@ -5,10 +5,11 @@
 <style>
 .hero-banner {
 	height:400px;
+	padding:80px 0 0px !important;
 }
 </style>
 <script>
-const default_img = "https://storage.googleapis.com/art-planet-storage/blog/default_img.png";
+const default_img = "https://storage.googleapis.com/art-planet-storage/default/default_img.png";
 $(function(){
 	console.log('${banner}');
 	$(".hero-banner").css({"background":"url(${banner})"});
@@ -24,12 +25,26 @@ $(function(){
 				console.log(data);
 				if(data.length == 0)
 				{
-					console.log("널인데요");
 					var htmlString = "<div style='text-align:center; width:100%;'><h2>등록된 글이 없어요</h2><div>";
 					$('.blog_left_sidebar').append(htmlString);
 				}
 				$(data).each(function(index, item) {
-					var src = item.accessRight == 0 ? item.images[index].src : default_img;			
+					var src;
+					console.log('subscribe:${subscribe}');
+					console.log('item.accessRight:'+item.accessRight);
+					if(item.accessRight == "1" && "${subscribe}" == "0")
+					{
+						src = default_img;
+					}
+					else if(item.accessRight == "1" && "${subscribe}" == "1")
+					{
+						src = item['images'][0]['src'];
+					}
+					else
+					{
+						console.log(item['images'][0]['src']);
+						src = item['images'][0]['src'];
+					}
 					var htmlString = 
 						'<article class="blog_item">'
 						+ '<div class="blog_item_img">'
@@ -71,16 +86,22 @@ $(function(){
 	});
 	$("#changeSetting").click(function ()
 	{
-		 for (var i = 0; i < files.length; i++) 
-	     {
-			 var formData = new FormData();
-			formData.append('file',files[i]);
-			formData.append('role','banner'); //role 설정해서 보내주자
-			formData.append('intro',$('#input-intro').val());
-			formData.append('fee',$('#input-fee').val());
-			formData.append('memberNo',memberNo);
-	     }
-		
+		if(files != null)
+		{
+			 for (var i = 0; i < files.length; i++) 
+		     {
+				 var formData = new FormData();
+				formData.append('file',files[i]);
+				formData.append('role','banner'); //role 설정해서 보내주자
+				formData.append('intro',$('#input-intro').val());
+				formData.append('fee',$('#input-fee').val());
+				formData.append('memberNo',memberNo);
+		     }
+		}
+		else
+		{
+			alert('배너사진을 등록해주세요');
+		}
 		var uploadURL = "<c:url value='/FileUploadToCloud'/>"; //Upload URL
 	    var jqXHR=$.ajax({
 	        beforeSend : function(xhr)
@@ -108,9 +129,11 @@ $(function(){
 </script>
 <!--================Hero Banner Area Start =================-->
 <section class="hero-banner">
-    <div class="container">
-		
-    </div>
+    <a href="<c:url value='/Blog/${id}'/>">
+	    <div style="background: yellow; width: 100%; height: 100%;">
+			
+	    </div>
+    </a>
 </section>
 
 <!--================Hero Banner Area End =================-->
@@ -155,7 +178,7 @@ $(function(){
 							<h6>${introContent}</h6>
 							<div style="text-align: center;">
 								<div style="display: inline-block; margin-right: 10px;">
-									<h4>3</h4>
+									<h4>${subscribeCount}</h4>
 									<h6>구독자</h6>
 								</div>
 								<div style="display: inline-block; margin-left: 10px;">
@@ -163,6 +186,7 @@ $(function(){
 									<h6>구독료</h6>
 								</div>
 							</div>
+							<h2>${id}와${loginedId}와${subscribe}</h2>
 						</div>
 						<sec:authorize access="isAuthenticated()">
 							<c:choose>
@@ -170,19 +194,16 @@ $(function(){
 									<form action="<c:url value='/WritePost'/>">
 										<button class="button rounded-0 primary-bg text-white w-100" type="submit">포스트 등록</button>
 									</form>
-									<p>블로그 주인</p>
 								</c:when>
-								<c:when test="${id ne loginedId and subscribe eq 0}">
+								<c:when test="${id ne loginedId and subscribe eq '0'}">
 									<form action="<c:url value='/RecurringAuthReq.do'/>">
 										<input type="hidden" name="id" value="${id}"/>
 										<input type="hidden" name="loginedId" value="${loginedId}"/>
 										<button class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
 									</form>
-									<p>로그인상태, 방문자, 미구독상태</p>
 								</c:when>
-								<c:when test="${id ne loginedId and subscribe eq 1}">
-										<button style="border:1px solid #3c3; background:#3c3;" class="button rounded-0 primary-bg text-white w-100" type="button">구독중</button>
-									<p>로그인상태, 방문자, 구독중</p>
+								<c:when test="${id ne loginedId and subscribe eq '1'}">
+									<button style="border:1px solid #3c3; background:#3c3;" class="button rounded-0 primary-bg text-white w-100" type="button">구독중</button>
 								</c:when>
 							</c:choose>
 						</sec:authorize>
@@ -190,7 +211,6 @@ $(function(){
 							<form action="<c:url value='/Login'/>">
 								<button class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
 							</form>
-							<p>비로그인상태</p>
 						</sec:authorize>
 					</aside>
 

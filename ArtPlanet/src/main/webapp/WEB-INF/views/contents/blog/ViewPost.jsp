@@ -7,6 +7,10 @@
 .img-fluid{
 	margin-top:20px;
 }
+.hero-banner {
+	height:400px;
+	padding:80px 0 0px !important;
+}
 </style>
 
 <script>
@@ -69,15 +73,22 @@
 		});
 		$("#changeSetting").click(function ()
 		{
-			 for (var i = 0; i < files.length; i++) 
-		     {
-				 var formData = new FormData();
-				formData.append('file',files[i]);
-				formData.append('role','banner'); //role 설정해서 보내주자
-				formData.append('intro',$('#input-intro').val());
-				formData.append('fee',$('#input-fee').val());
-				formData.append('memberNo',memberNo);
-		     }
+			if(files != null)
+			{
+				 for (var i = 0; i < files.length; i++) 
+			     {
+					 var formData = new FormData();
+					formData.append('file',files[i]);
+					formData.append('role','banner'); //role 설정해서 보내주자
+					formData.append('intro',$('#input-intro').val());
+					formData.append('fee',$('#input-fee').val());
+					formData.append('memberNo',memberNo);
+			     }
+			}
+		 else
+			{
+				alert('배너사진을 등록해주세요');
+			}
 			
 			var uploadURL = "<c:url value='/FileUploadToCloud'/>"; //Upload URL
 		    var jqXHR=$.ajax({
@@ -219,7 +230,11 @@
 
 <!--================Hero Banner Area Start =================-->
 <section class="hero-banner">
-	<div class="container"></div>
+	<a href="<c:url value='/Blog/${id}'/>">
+	    <div style="background: yellow; width: 100%; height: 100%;">
+			
+	    </div>
+    </a>
 </section>
 <!--================Hero Banner Area End =================-->
 <!--================Blog Area =================-->
@@ -243,6 +258,7 @@
 						${content}
 					</div>
 				</div>
+				<%-- 
 				<div class="navigation-top">
 					<div class="d-sm-flex justify-content-between text-center">
 						<p class="comment-count">
@@ -322,7 +338,7 @@
 						</div>
 					</div>
 				</div>
-
+				--%>
 				<div class="comments-area">
 					<h4>05 Comments</h4>
 					<!-- 댓글 목록 -->
@@ -375,7 +391,7 @@
 							<h6>${introContent}</h6>
 							<div style="text-align: center;">
 								<div style="display: inline-block; margin-right: 10px;">
-									<h4>3</h4>
+									<h4>${subscribeCount}</h4>
 									<h6>구독자</h6>
 								</div>
 								<div style="display: inline-block; margin-left: 10px;">
@@ -390,19 +406,16 @@
 								<form action="<c:url value='/WritePost'/>">
 									<button class="button rounded-0 primary-bg text-white w-100" type="submit">포스트 등록</button>
 								</form>
-								<p>블로그 주인</p>
 								</c:when>
-								<c:when test="${id ne loginedId}">
-								<form action="<c:url value='RecurringAuthReq.do'/>">
+								<c:when test="${id ne loginedId and subscribe eq '0'}">
+								<form action="<c:url value='/RecurringAuthReq.do'/>">
 									<input type="hidden" name="id" value="${id}"/>
 									<input type="hidden" name="loginedId" value="${loginedId}"/>
 									<button class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
 								</form>
-								<p>로그인상태, 방문자</p>
 								</c:when>
-								<c:when test="${id ne loginedId and subscribe eq 1}">
+								<c:when test="${id ne loginedId and subscribe eq '1'}">
 										<button style="border:1px solid #3c3; background:#3c3;" class="button rounded-0 primary-bg text-white w-100" type="button">구독중</button>
-									<p>로그인상태, 방문자, 구독중</p>
 								</c:when>
 							</c:choose>
 						</sec:authorize>
@@ -410,7 +423,6 @@
 							<form action="<c:url value='/WritePost'/>">
 								<button class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
 							</form>
-							<p>비로그인상태</p>
 						</sec:authorize>
 						
 					</aside>

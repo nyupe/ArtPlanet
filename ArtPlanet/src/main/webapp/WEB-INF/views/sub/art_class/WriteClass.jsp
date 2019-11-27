@@ -554,7 +554,7 @@ function valueCheck(eleForm){
 						<!-- ID 히든으로 넘기기 -->
 						<input type="hidden" name="id" value="${id }" />
 						
-						<input type="hidden" name="title" id="titleName"/>
+						<input type="hidden" name="titleName" id="titleName"/>
 						
 						<!-- 카테고리 선택 필드  -->
 						<select class="form-control" name="categorie"

@@ -68,7 +68,6 @@ public class BlogController
 		return "contents/blog/Blog.tiles";
 	}
 	
-	///////////////////안드로이드 참고
 	@RequestMapping(value="/Blog/{id}", produces = "text/html; charset=UTF-8")
 	public String blog(@PathVariable("id") String id, Map map, Authentication auth)
 	{	
@@ -106,16 +105,20 @@ public class BlogController
 		map.put("introContent", memberDto.getIntroContent());
 		map.put("fee", memberDto.getSubscriptionFee());
 		map.put("id",id);
+		
 		map.put("subscribe",0);
 		//스프링 시큐리티 이용할 때 아이디 값 가져오는 코드
 		if(auth != null)
 		{
 			map.put("loginedId", ((UserDetails)auth.getPrincipal()).getUsername());
 		
-			List<SubscribeDTO> subList = subscribeDAO.getSubscribe(map);
-			if(subList.size() > 0)
+			List<SubscribeDTO> subList2 = subscribeDAO.getSubscribe(map);
+			if(subList2.size() > 0)
 				map.put("subscribe", 1);
 		}
+		
+		List<SubscribeDTO> subList = subscribeDAO.getWhoSubscribeMe(map);
+		map.put("subscribeCount",subList.size());
 			
 		return "contents/blog/Blog.tiles";
 	}
@@ -158,6 +161,8 @@ public class BlogController
 			Authentication auth)
 	{
 		map.put("id",id);
+		List<SubscribeDTO> subList = subscribeDAO.getWhoSubscribeMe(map);
+		map.put("subscribeCount",subList.size());
 		map.put("memberId", id);
 		map.put("blogNo", blogNo);
 		List<GcsDTO> gcsList = gcsDAO.getListByBlogNo(blogNo);
@@ -191,8 +196,8 @@ public class BlogController
 		{
 			map.put("loginedId", ((UserDetails)auth.getPrincipal()).getUsername());
 		
-			List<SubscribeDTO> subList = subscribeDAO.getSubscribe(map);
-			if(subList.size() > 0)
+			List<SubscribeDTO> subList2 = subscribeDAO.getSubscribe(map);
+			if(subList2.size() > 0)
 				map.put("subscribe", 1);
 		}
 		
@@ -234,8 +239,9 @@ public class BlogController
 		for(BlogPostDTO dto : list) {
 			Map record = new HashMap();
 			//List페이지에선 첫번째 그림만 반환
+			System.out.println("blogno:"+dto.getBlogNo());
 			List<GcsDTO> gcsList = gcsDAO.getListByBlogNo(dto.getBlogNo());
-			
+			System.out.println("size:"+gcsList.size());
 			record.put("imgUrl", gcsList.get(0).getFileUrl());
 			record.put("blogNo", dto.getBlogNo());
 			record.put("title",dto.getTitle());
@@ -289,11 +295,14 @@ public class BlogController
 			record.put("profile",memberDto.getProfilePicture());
 			record.put("nickname",memberDto.getNickName());
 			record.put("memberId", memberDto.getId());
+			System.out.println("dto:"+dto.getAccessRight());
 			if(dto.getAccessRight().equals("1"))
 			{
+				System.out.println("1");
 				if(auth == null)
 				{
-					record.put("accessRight","1");
+					System.out.println("비로그인");
+					record.put("accessRight","0");
 				}
 				else
 				{
@@ -301,7 +310,13 @@ public class BlogController
 					map.put("id", memberDto.getId());
 					List<SubscribeDTO> subList = subscribeDAO.getSubscribe(map);
 					if(subList == null || subList.size() == 0)
+					{
+						record.put("accessRight","1");
+					}
+					else
+					{
 						record.put("accessRight","0");
+					}
 				}
 			}
 			else 
@@ -311,12 +326,14 @@ public class BlogController
 			
 			collections.add(record);
 		}
+		System.out.println("getartwork:"+JSONArray.toJSONString(collections).replace("\\/", "/"));
 		return JSONArray.toJSONString(collections).replace("\\/", "/");
 	}
 	
 	@RequestMapping("/UploadBlogPost")
 	public String UploadBlogPost(@RequestParam Map map) throws ParseException
 	{	
+		String id = map.get("id").toString();
 		String memberNo = memberDAO.getMemberNo(map.get("id").toString());		
 		map.put("memberNo", memberNo);
 		
@@ -361,7 +378,10 @@ public class BlogController
 			}
 			
 		}
-		return "contents/blog/WritePost.tiles";
+		//현재 글등록 2	번되는 문제때문에 그냥 검색페이지로 리턴
+		//return "contents/blog/WritePost.tiles";
+		//return "forward:/Blog/"+id;
+		return "contents/SearchArtwork.tiles";
 	}
 	public String updateViewCount(@RequestParam Map map)
 	{
@@ -393,6 +413,7 @@ public class BlogController
 			Map record = new HashMap();
 			
 			record.put("memberNo", dto.getMemberNo());
+			System.out.println("memberId : "+ dto.getId());
 			record.put("memberId", dto.getId());
 			record.put("nickname",dto.getNickName());
 			record.put("profile",dto.getProfilePicture());
@@ -430,7 +451,7 @@ public class BlogController
 						
 			collections.add(record);
 		}
-		
+		System.out.println("json:"+JSONArray.toJSONString(collections).replace("\\/", "/"));
 		return JSONArray.toJSONString(collections).replace("\\/", "/");
 		
 	}
@@ -465,6 +486,7 @@ public class BlogController
 	public String subscribe(@RequestParam Map map)
 	{
 		String id = map.get("id").toString();
+		map.put("targetId", id);
 		String loginedId = map.get("loginedId").toString();
 		int affected = subscribeDAO.doSubscribe(map);
 		

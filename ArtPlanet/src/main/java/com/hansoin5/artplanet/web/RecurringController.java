@@ -53,6 +53,7 @@ public class RecurringController {
 	@RequestMapping("/RecurringAuthHub.do")
 	public String authHub(@RequestParam Map map, Model model) {
 		model.addAttribute("targetId",map.get("targetId"));
+		System.out.println("hub.do target:"+map.get("targetId"));
 		return "recurring_pay/sample/auth/pp_cli_hub";
 	}////////////// RecurringAuthHub.do
 
@@ -70,8 +71,8 @@ public class RecurringController {
 		 */
 		
 		//아이디 넘기기
-		System.out.println("map.get(\"targetId\"):"+map.get("targetId"));
-		map.put("targetId", "wnstlr");
+		System.out.println("Res.do map.get(\"targetId\"):"+map.get("targetId"));
+		map.put("targetId", map.get("targetId"));
 		map.put("loginedId",map.get("id").toString());
 		map.put("id",map.get("id").toString());//원래있던거
 		System.out.println("id : "+map.get("id").toString());

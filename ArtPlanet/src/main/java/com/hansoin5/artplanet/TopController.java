@@ -87,17 +87,17 @@ public class TopController
 
 //gcs
 		System.out.println("컨트롤러에서 찍어보기 : " + map.get("profileImg"));
-		String defaultProfilePicturePath = "https://storage.googleapis.com/art-planet-storage/profile/%ED%94%84%EB%A1%9C%ED%95%84_%EA%B8%B0%EB%B3%B8.jpg";
+		String default_profile = "https://storage.googleapis.com/art-planet-storage/default/default_profile.jpg";
 		if (map.get("profileImg") == null || map.get("profileImg").toString().length() == 0)
 		{
-			defaultProfilePicturePath = "https://storage.googleapis.com/art-planet-storage/profile/%ED%94%84%EB%A1%9C%ED%95%84_%EA%B8%B0%EB%B3%B8.jpg";
-			map.put("profilePicture", defaultProfilePicturePath);
+			default_profile = "https://storage.googleapis.com/art-planet-storage/default/default_profile.jpg";
+			map.put("profilePicture", default_profile);
 		} else
 			map.put("profilePicture", map.get("profileImg").toString());
 
 //디폴트 배너
-		String banner = "https://storage.googleapis.com/art-planet-storage/banner/default-banner.jpg";
-		map.put("banner", banner);
+		String default_banner = "https://storage.googleapis.com/art-planet-storage/default/default_banner.jpg";
+		map.put("banner", default_banner);
 // 주소 + 상세주소
 		map.put("address", map.get("address").toString() + " " + map.get("detailAddress").toString());
 		memberDao.insert(map);// 회원정보 입력

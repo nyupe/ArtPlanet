@@ -26,4 +26,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			AND memberNo = (SELECT memberNo FROM member WHERE id=#{loginedId})
 	</select>
 	
+	<select id="getWhoSubscribeMe" parameterType="java.util.Map" resultType="SubscribeDTO">
+		SELECT * FROM subscribe 
+			WHERE targetedMemberNo = (SELECT memberNo FROM member WHERE id=#{id})
+	</select>
+	
+	<select id="getISubscribeWho" parameterType="java.util.Map" resultType="SubscribeDTO">
+		SELECT * FROM subscribe 
+			WHERE memberNo = (SELECT memberNo FROM member WHERE id=#{id})
+	</select>
+	
 </mapper>
