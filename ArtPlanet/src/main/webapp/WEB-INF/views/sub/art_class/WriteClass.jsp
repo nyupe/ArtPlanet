@@ -415,8 +415,18 @@ function valueCheck(eleForm){
 	// 서머노트 실제 생성
 	$(document).ready(function() { //진입점 시작
 		$('#summernote').summernote({
-			height : 400
-		});
+	    	height: 400,
+	    	callbacks:
+	    	{
+	    		onImageUpload: function(files, editor, editable)
+	    		{
+		            for (var i = files.length - 1; i >= 0; i--)
+		            {
+		            	editorUpload(files[i], this);
+		            }
+		        }
+			}
+	    });
 	}); // 진입점 끝
 </script>
 
@@ -456,29 +466,33 @@ function valueCheck(eleForm){
 	}
 
 	//summernote 이미지 업로드 요청
-	function editorUpload(file, editor) {
+	function editorUpload(file, editor)
+	{
 		var uploadURL = "<c:url value='/FileUploadToCloud'/>";
 		var form_data = new FormData();
-		form_data.append('file', file);
-		form_data.append('role', 'editor');
-		$.ajax({
-			beforeSend : function(xhr) { /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
-				xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
-			},
-			type : "POST",
-			enctype : 'multipart/form-data',
-			url : uploadURL,
-			cache : false,
-			contentType : false,
-			processData : false,
-			data : form_data,
-			dataType : "json",
-			success : function(data) {
-				console.log(data);
-				$(editor).summernote('insertImage', data.fileUrl);
-			}
-		});
+	  	form_data.append('file', file);
+		form_data.append('role','editor');
+	  	$.ajax({
+	  		beforeSend : function(xhr)
+	        {   /*데이터를 전송하기 전에 헤더에 csrf값을 설정한다*/
+	            xhr.setRequestHeader("${_csrf.headerName}", "${_csrf.token}");
+	        },
+	    	type: "POST",
+	    	enctype: 'multipart/form-data',
+	    	url: uploadURL,
+	    	cache: false,
+	    	contentType: false,
+	    	processData: false,
+	    	data: form_data,
+	    	dataType:"json",
+	    	success: function(data)
+	    	{
+	    		console.log(data);
+	      		$(editor).summernote('insertImage', data.fileUrl);
+	    	}
+	  	});
 	}
+	
 
 	function previewImage(src) {
 		$('.previewDiv')
