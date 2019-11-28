@@ -8,7 +8,7 @@
 	margin-top:20px;
 }
 .hero-banner {
-	height:400px;
+	height:235px;
 	padding:80px 0 0px !important;
 }
 </style>
@@ -16,6 +16,9 @@
 <script>
 	$(function() {
 		console.log('blog는 ${blogNo}');
+		
+		console.log('${banner}');
+		$(".hero-banner").css({"background":"url(${banner})"});
 		//조회수 증가
 		/*
 		$.ajax({
@@ -231,7 +234,7 @@
 <!--================Hero Banner Area Start =================-->
 <section class="hero-banner">
 	<a href="<c:url value='/Blog/${id}'/>">
-	    <div style="background: yellow; width: 100%; height: 100%;">
+	    <div style="width: 100%; height: 100%;">
 			
 	    </div>
     </a>
@@ -246,7 +249,13 @@
 				<div class="single-post">
 					<div class="feature-img">
 						<c:forEach var="image" items="${images}">
-						<img style="width:100%;" class="img-fluid" src="${image.src}" alt="">
+							<c:if test="${accessRight eq 0}">
+								<img style="width:100%;" class="img-fluid" src="${image.src}" alt="">
+							</c:if>
+							<c:if test="${accessRight eq 1}">
+								<!-- default_image -->
+								<img style="width:100%;" class="img-fluid" src="https://storage.googleapis.com/art-planet-storage/default/default_img.png" alt="">
+							</c:if>
 						</c:forEach>
 					</div>
 					<div class="blog_details">
@@ -383,9 +392,11 @@
 							</c:if>
 						</sec:authorize>
 							<div class="avatar-icon-wrapper mb-3 avatar-icon-xxl">
-								<div class="avatar-icon">
-									<img src="${profilePicture}" alt="Avatar">
-								</div>
+								<a href="<c:url value='/Login'/>">
+									<div class="avatar-icon">
+										<img src="${profilePicture}" alt="Avatar">
+									</div>
+								</a>
 							</div>
 							<h3>${nickname}</h3>
 							<h6>${introContent}</h6>
@@ -415,13 +426,13 @@
 								</form>
 								</c:when>
 								<c:when test="${id ne loginedId and subscribe eq '1'}">
-										<button style="border:1px solid #3c3; background:#3c3;" class="button rounded-0 primary-bg text-white w-100" type="button">구독중</button>
+									<button style="border:1px solid #3c3; background:#3c3;" class="button rounded-0 primary-bg text-white w-100" type="button">구독중</button>
 								</c:when>
 							</c:choose>
 						</sec:authorize>
 						<sec:authorize access="isAnonymous()">
-							<form action="<c:url value='/WritePost'/>">
-								<button class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
+							<form action="<c:url value='/Login'/>">
+								<button onclick="javascript:alert('로그인 후 이용하세요');" class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
 							</form>
 						</sec:authorize>
 						

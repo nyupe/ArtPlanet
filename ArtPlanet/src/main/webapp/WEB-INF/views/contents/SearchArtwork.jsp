@@ -109,7 +109,6 @@ $(function() {
 				console.log(data);
 				if(data.length == 0) isEnd = true;
 				$(data).each(function(index, item) {
-					
 					var src = item.accessRight == "0" ? item.imgUrl : default_img;
 					//isotope 라이브러리 사용을 위해 객체형식으로 선언
 					var $htmlString = 

@@ -7,12 +7,13 @@
 </sec:authorize>
 <style>
 .previewImg {
-	max-height:300px;
-	display:inline;
+	max-height:500px;
+	display:inline-block;
 	margin:10px auto;
 }
 .removeDiv {
-	float: right;
+    margin-right: 20px;
+    margin-left: -50px;
 }
 .dragAndDropDiv {
     border: 1px dashed #888;

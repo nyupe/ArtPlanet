@@ -122,8 +122,6 @@ public class VisionControllerTest
 	public String detectLabelsGcs() throws Exception, IOException
 	{
 		String gcsPath = "https://storage.cloud.google.com/art-planet-storage/blog/2019-11-15-072752662_kitten.png";
-		//https://storage.googleapis.com/art-planet-storage/blog/2019-11-15-072752662_kitten.png
-		//https://storage.cloud.google.com/art-planet-storage/blog/2019-11-15-072752662_kitten.png
 		List<AnnotateImageRequest> requests = new ArrayList<>();
 		System.out.println("gcsPath:"+gcsPath);
 		ImageSource imgSource = ImageSource.newBuilder().setGcsImageUri(gcsPath).build();

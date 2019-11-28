@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 목록리스트 뿌리기 -->	
 	<select id="Projectselectlist" parameterType="java.util.Map" resultType="ProjectDTO">
-		SELECT p.*,tagname,sup.projectsupportsum,fileUrl,id
+		SELECT p.*,tagname,sup.projectsupportsum,fileUrl,id,profilePicture
         	From (select projectno, WM_CONCAT(tagname) tagname from tag h join tagrelation tl  on h.tagno = tl.tagno group by projectNO) 
 	        	q join project p on q.projectNo=p.projectNo left outer 
 	        		JOIN (select projectNO, sum(projectsupportsum) projectsupportsum from projectsupport  group by projectno) sup 
@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 프로젝트 마감임박 리스트 -->
 	<select id="ProjectselectlistClosing" parameterType="java.util.Map" resultType="ProjectDTO">
-		select p.*,tagname,sup.projectsupportsum,fileUrl,id
+		select p.*,tagname,sup.projectsupportsum,fileUrl,id,profilePicture
 	       	From (select projectno, WM_CONCAT(tagname) tagname from tag h join tagrelation tl  on h.tagno = tl.tagno group by projectNO) 
 	        	q join project p on q.projectNo=p.projectNo left outer 
 	        		JOIN (select projectNO, sum(projectsupportsum) projectsupportsum from projectsupport  group by projectno) sup 
@@ -57,9 +57,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							JOIN member m on p.memberNo = m.memberno join gcs g on p.projectNo = g.projectno ORDER BY (p.deadline - p.postdate) ASC
 	</select>
 	<!-- 코멘트 리스트 뿌리기 -->
-	<select id="ProjectSelectListComment" parameterType="java.util.Map" resultType="java.util.Map">
-		SELECT r.*,id FROM REPLY r JOIN MEMBER m on r.memberNo = m.memberNo WHERE r.projectNo = #{projectNo}
-	</select>
+   <select id="ProjectSelectListComment" parameterType="java.util.Map" resultType="java.util.Map">
+      SELECT r.*,id,profilepicture FROM REPLY r JOIN MEMBER m on r.memberNo = m.memberNo WHERE r.projectNo = #{projectNo}
+   </select>
 	<!-- 리워드 뿌리기 -->
 	<select id="projectSelectRewardList" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT * FROM PROJECTREWARD WHERE projectNo = #{projectNo} ORDER BY supportStep ASC

@@ -21,6 +21,8 @@ public class ProjectDTO {
 	private String replyContent;
 	private String replyPostdate;
 	private String blogNo;
+	//테이블에는 없음. 작성자 프로필사진 가져오기위함
+	private String profilePicture;
 	
 	
 	
@@ -122,6 +124,14 @@ public class ProjectDTO {
 	}
 	public void setMemberNo(String memberNo) {
 		this.memberNo = memberNo;
+	}
+	public String getProfilePicture()
+	{
+		return profilePicture;
+	}
+	public void setProfilePicture(String profilePicture)
+	{
+		this.profilePicture = profilePicture;
 	}
 	
 

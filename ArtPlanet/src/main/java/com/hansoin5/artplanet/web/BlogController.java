@@ -125,7 +125,7 @@ public class BlogController
 	
 	@RequestMapping(value="/getPosts", produces = "text/html; charset=UTF-8")
 	@ResponseBody
-	public String getPosts(@RequestParam Map map)
+	public String getPosts(@RequestParam Map map, Authentication auth)
 	{
 		List<BlogPostDTO> list = dao.getDtoByMemberNo(map);
 		List<Map> posts = new Vector<Map>();
@@ -146,7 +146,44 @@ public class BlogController
 			post.put("postDate","'"+dto.getPostDate()+"'");
 			post.put("categorie",dto.getCategorie());
 			post.put("viewCount","'"+dto.getViewCount()+"'");
-			post.put("accessRight",dto.getAccessRight());
+			//글이 구독자 전용일때
+			if(dto.getAccessRight().equals("1"))
+			{
+				System.out.println("1");
+				//비로그인 상태일때
+				if(auth == null)
+				{
+					post.put("accessRight","1");
+				}
+				//로그인 상태일때
+				else
+				{
+					map.put("loginedId", ((UserDetails)auth.getPrincipal()).getUsername());
+					//id는 map에 이미 들어있음
+					List<SubscribeDTO> subList = subscribeDAO.getSubscribe(map);
+					//구독중이 아닐때
+					if(subList == null || subList.size() == 0)
+					{
+						post.put("accessRight","1");
+					}
+					//구독중일때
+					else
+					{
+						post.put("accessRight","0");
+					}
+					//현재 로그인한 아이디와 글 작성자 아이디가 같을때 || 관리자 아이디일때
+					if(map.get("id").toString().equals(((UserDetails)auth.getPrincipal()).getUsername())
+						|| "ADMIN".equals(((UserDetails)auth.getPrincipal()).getUsername()))
+					{
+						post.put("accessRight","0");
+					}
+				}
+			}
+			//글이 전체공개일때
+			else 
+			{
+				post.put("accessRight","0");
+			}
 			
 			posts.add(post);
 		}
@@ -161,8 +198,8 @@ public class BlogController
 			Authentication auth)
 	{
 		map.put("id",id);
-		List<SubscribeDTO> subList = subscribeDAO.getWhoSubscribeMe(map);
-		map.put("subscribeCount",subList.size());
+		List<SubscribeDTO> subCountList = subscribeDAO.getWhoSubscribeMe(map);
+		map.put("subscribeCount",subCountList.size());
 		map.put("memberId", id);
 		map.put("blogNo", blogNo);
 		List<GcsDTO> gcsList = gcsDAO.getListByBlogNo(blogNo);
@@ -179,7 +216,6 @@ public class BlogController
 		map.put("title", dto.getTitle());
 		map.put("content",dto.getContent());
 		map.put("memberNo",dto.getMemberNo());
-		map.put("accessRight",dto.getAccessRight());
 		map.put("categorie",dto.getCategorie());
 		map.put("postDate",dto.getPostDate());
 		map.put("viewCount",dto.getViewCount());
@@ -190,15 +226,42 @@ public class BlogController
 		map.put("introContent", memberDto.getIntroContent());
 		map.put("fee", memberDto.getSubscriptionFee());
 		map.put("nickname", memberDto.getNickName());
-		map.put("subscribe",0);
-		//스프링 시큐리티 이용할 때 아이디 값 가져오는 코드
-		if(auth != null)
+		//글이 구독자 전용일때
+		if(dto.getAccessRight().equals("1"))
 		{
-			map.put("loginedId", ((UserDetails)auth.getPrincipal()).getUsername());
-		
-			List<SubscribeDTO> subList2 = subscribeDAO.getSubscribe(map);
-			if(subList2.size() > 0)
-				map.put("subscribe", 1);
+			//비로그인 상태일때
+			if(auth == null)
+			{
+				map.put("accessRight","1");
+			}
+			//로그인 상태일때
+			else
+			{
+				map.put("loginedId", ((UserDetails)auth.getPrincipal()).getUsername());
+				map.put("id", memberDto.getId());
+				List<SubscribeDTO> subList = subscribeDAO.getSubscribe(map);
+				//구독중이 아닐때
+				if(subList == null || subList.size() == 0)
+				{
+					map.put("accessRight","1");
+				}
+				//구독중일때
+				else
+				{
+					map.put("accessRight","0");
+				}
+				//현재 로그인한 아이디와 글 작성자 아이디가 같을때 || 관리자 아이디일때
+				if(map.get("id").toString().equals(((UserDetails)auth.getPrincipal()).getUsername())
+					|| "ADMIN".equals(((UserDetails)auth.getPrincipal()).getUsername()))
+				{
+					map.put("accessRight","0");
+				}
+			}
+		}
+		//글이 전체공개일때
+		else 
+		{
+			map.put("accessRight","0");
 		}
 		
 		return "contents/blog/ViewPost.tiles";
@@ -295,30 +358,39 @@ public class BlogController
 			record.put("profile",memberDto.getProfilePicture());
 			record.put("nickname",memberDto.getNickName());
 			record.put("memberId", memberDto.getId());
-			System.out.println("dto:"+dto.getAccessRight());
+			//글이 구독자 전용일때
 			if(dto.getAccessRight().equals("1"))
 			{
-				System.out.println("1");
+				//비로그인 상태일때
 				if(auth == null)
 				{
-					System.out.println("비로그인");
-					record.put("accessRight","0");
+					record.put("accessRight","1");
 				}
+				//로그인 상태일때
 				else
 				{
 					map.put("loginedId", ((UserDetails)auth.getPrincipal()).getUsername());
 					map.put("id", memberDto.getId());
 					List<SubscribeDTO> subList = subscribeDAO.getSubscribe(map);
+					//구독중이 아닐때
 					if(subList == null || subList.size() == 0)
 					{
 						record.put("accessRight","1");
 					}
+					//구독중일때
 					else
+					{
+						record.put("accessRight","0");
+					}
+					//현재 로그인한 아이디와 글 작성자 아이디가 같을때 || 관리자 아이디일때
+					if(map.get("id").toString().equals(((UserDetails)auth.getPrincipal()).getUsername())
+						|| "ADMIN".equals(((UserDetails)auth.getPrincipal()).getUsername()))
 					{
 						record.put("accessRight","0");
 					}
 				}
 			}
+			//글이 전체공개일때
 			else 
 			{
 				record.put("accessRight","0");
@@ -413,7 +485,6 @@ public class BlogController
 			Map record = new HashMap();
 			
 			record.put("memberNo", dto.getMemberNo());
-			System.out.println("memberId : "+ dto.getId());
 			record.put("memberId", dto.getId());
 			record.put("nickname",dto.getNickName());
 			record.put("profile",dto.getProfilePicture());
@@ -441,9 +512,47 @@ public class BlogController
 			for(int i=0; i<postList.size(); i++)
 			{
 				Map post = new HashMap();
-				if(i == 3) break;
+				if(i == 3)
+					break;
 				post.put("blogNo", postList.get(i).getBlogNo());
 				post.put("url", gcsDAO.getListByBlogNo(postList.get(i).getBlogNo()).get(0).getFileUrl());
+				//글이 구독자 전용일때
+				if(postList.get(i).getAccessRight().equals("1"))
+				{
+					//비로그인 상태일때
+					if(auth == null)
+					{
+						post.put("accessRight","1");
+					}
+					//로그인 상태일때
+					else
+					{
+						map.put("loginedId", ((UserDetails)auth.getPrincipal()).getUsername());
+						map.put("id", dto.getId());
+						List<SubscribeDTO> subList = subscribeDAO.getSubscribe(map);
+						//구독중이 아닐때
+						if(subList == null || subList.size() == 0)
+						{
+							post.put("accessRight","1");
+						}
+						//구독중일때
+						else
+						{
+							post.put("accessRight","0");
+						}
+						//현재 로그인한 아이디와 글 작성자 아이디가 같을때 || 관리자 아이디일때
+						if(map.get("id").toString().equals(((UserDetails)auth.getPrincipal()).getUsername())
+							|| "ADMIN".equals(((UserDetails)auth.getPrincipal()).getUsername()))
+						{
+							post.put("accessRight","0");
+						}
+					}
+				}
+				//글이 전체공개일때
+				else 
+				{
+					post.put("accessRight","0");
+				}
 				
 				posts.add(post);
 			}

@@ -4,7 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <style>
 .hero-banner {
-	height:400px;
+	height:235px;
 	padding:80px 0 0px !important;
 }
 </style>
@@ -15,11 +15,13 @@ $(function(){
 	$(".hero-banner").css({"background":"url(${banner})"});
 	
 	var memberNo = "<c:out value='${memberNo}'/>";
+	var id = "<c:out value='${id}'/>";
 	function getPosts(){
 		$.ajax({
 			url:"<c:url value='/getPosts'/>",
 			type:'get',
-			data:{"memberNo":memberNo},
+			data:{"memberNo":memberNo
+				, "id":id},
 			dataType:'json',
 			success:function(data){
 				console.log(data);
@@ -29,22 +31,7 @@ $(function(){
 					$('.blog_left_sidebar').append(htmlString);
 				}
 				$(data).each(function(index, item) {
-					var src;
-					console.log('subscribe:${subscribe}');
-					console.log('item.accessRight:'+item.accessRight);
-					if(item.accessRight == "1" && "${subscribe}" == "0")
-					{
-						src = default_img;
-					}
-					else if(item.accessRight == "1" && "${subscribe}" == "1")
-					{
-						src = item['images'][0]['src'];
-					}
-					else
-					{
-						console.log(item['images'][0]['src']);
-						src = item['images'][0]['src'];
-					}
+					var src = item.accessRight == "0" ? item.images[0].src : default_img;
 					var htmlString = 
 						'<article class="blog_item">'
 						+ '<div class="blog_item_img">'
@@ -130,7 +117,7 @@ $(function(){
 <!--================Hero Banner Area Start =================-->
 <section class="hero-banner">
     <a href="<c:url value='/Blog/${id}'/>">
-	    <div style="background: yellow; width: 100%; height: 100%;">
+	    <div style="width: 100%; height: 100%;">
 			
 	    </div>
     </a>
@@ -170,9 +157,11 @@ $(function(){
 							</c:if>
 						</sec:authorize>
 							<div class="avatar-icon-wrapper mb-3 avatar-icon-xxl">
-								<div class="avatar-icon">
-									<img src="${profilePicture}" alt="Avatar">
-								</div>
+								<a href="<c:url value='/Login'/>">
+									<div class="avatar-icon">
+										<img src="${profilePicture}" alt="Avatar">
+									</div>
+								</a>
 							</div>
 							<h3>${nickname}</h3>
 							<h6>${introContent}</h6>
@@ -186,7 +175,6 @@ $(function(){
 									<h6>구독료</h6>
 								</div>
 							</div>
-							<h2>${id}와${loginedId}와${subscribe}</h2>
 						</div>
 						<sec:authorize access="isAuthenticated()">
 							<c:choose>
@@ -209,7 +197,7 @@ $(function(){
 						</sec:authorize>
 						<sec:authorize access="isAnonymous()">
 							<form action="<c:url value='/Login'/>">
-								<button class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
+								<button onclick="javascript:alert('로그인 후 이용하세요');" class="button rounded-0 primary-bg text-white w-100" type="submit">구독하기</button>
 							</form>
 						</sec:authorize>
 					</aside>

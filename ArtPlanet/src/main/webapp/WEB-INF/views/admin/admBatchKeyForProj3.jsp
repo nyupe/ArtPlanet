@@ -238,7 +238,7 @@
                                                     	 <div id=list></div>
                                                     
                                                        <!-- 폼 시작  -->
-                          <div style="">
+                          <div style="display: none;">
                           <form name="form_order" method="post" action="<c:url value='/ProjectPayHub.do'/>">          
                                    <!-- PG사로 폼값 포스트로 전송하기 -->
                                     <div class="form-row">

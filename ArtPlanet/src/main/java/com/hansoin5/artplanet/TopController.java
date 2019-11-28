@@ -68,23 +68,7 @@ public class TopController
 	@RequestMapping(value = "/Register", method = RequestMethod.POST)
 	public String registerOk(@RequestParam Map map, ModelMap modelmap, @RequestParam MultipartFile upload,
 			HttpServletRequest req) throws IllegalStateException, IOException
-	{
-		/*
-		 * System.out.println("컨트롤러에서 찍어보기 : " + map.get("auth_name"));
-		 * 
-		 * if (!upload.isEmpty()) { // 회원가입시 프로필 사진 첨부했을 경우 // 1]서버의 물리적 경로 얻기 String
-		 * String phisicalPath = req.getServletContext().getRealPath("/ProfilePicture");
-		 * // 2]File객체 생성 //똑같은 파일의 이름을 업로드시 서버에 저장되는 파일 변경 String String newFileName =
-		 * FileUpDownUtils.getNewFileName(phisicalPath, upload.getOriginalFilename());
-		 * String profilePicturePath = phisicalPath + File.separator + newFileName; File
-		 * file = new File(phisicalPath + File.separator + newFileName); // 3]업로드 처리
-		 * upload.transferTo(file); map.put("profilePicture", profilePicturePath);
-		 * System.out.println(profilePicturePath); } else {// 회원가입시 프로필 사진 첨부안할시 서버에 이미
-		 * 있는 디폴트 이미지의 경로를 저장 String defaultProfilePicturePath =
-		 * "https://storage.googleapis.com/art-planet-storage/profile/%ED%94%84%EB%A1%9C%ED%95%84_%EA%B8%B0%EB%B3%B8.jpg";
-		 * map.put("profilePicture", defaultProfilePicturePath); }
-		 */
-
+	{		
 //gcs
 		System.out.println("컨트롤러에서 찍어보기 : " + map.get("profileImg"));
 		String default_profile = "https://storage.googleapis.com/art-planet-storage/default/default_profile.jpg";
@@ -184,22 +168,5 @@ public class TopController
 	{	
 		return "react/index.tiles";
 	}///// login()
-
-	
-	/*
-	 * //회원가입 페이지으로 이동
-	 *
-	 * @RequestMapping(value = "/Register" , method=RequestMethod.GET, produces =
-	 * "text/plain; charset:UTF-8") public String register(@RequestParam Map map,
-	 * Model model ){
-	 *
-	 * //찍어보기 //System.out.println("컨트롤러에서 찍어보기 : "+map.get("name"));
-	 * //System.out.println("컨트롤러에서 찍어보기 : "+map.get("auth_name"));
-	 *
-	 * //리퀘스트 영역에 이름 저장 model.addAttribute("name", map.get("name"));
-	 * model.addAttribute("auth_name", map.get("auth_name"));
-	 *
-	 * return "support/member/Register.tiles"; }/////register()
-	 */
 
 }///// class

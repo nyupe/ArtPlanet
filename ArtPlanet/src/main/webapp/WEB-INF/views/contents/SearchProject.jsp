@@ -138,11 +138,11 @@ margin: 10px 0px;}
 				<c:forEach var="list2" items="${list2[loop.index] }">${list2 } </c:forEach>">
 					<div class="single_portfolio">
 						<a href="<c:url value='/Search/Project/ProjectView?projectNo=${item.projectNo }'/>">
-							<img class="img-fluid w-100" src=${item.fileurl } alt=""></a>
+							<img class="img-fluid w-100" src="${item.fileurl}" alt=""></a>
 								<div class="project-info">
 									<div class="avatar-icon-wrapper avatar-icon-sm" style="padding: 0px;">
 			        					<div class="avatar-icon">
-			        					<img src="https://storage.googleapis.com/art-planet-storage/profile/%ED%94%84%EB%A1%9C%ED%95%84_%EA%B8%B0%EB%B3%B8.jpg"/></div>
+			        					<img src="${item.profilePicture}"/></div>
 			        				</div>
 		        					<span class="post-artist">${item.id}</span><br/>		
 		        					<ul class="prolist"style="max-height:60px;contain:paint; height: 60px;margin-bottom: 0px;"> 

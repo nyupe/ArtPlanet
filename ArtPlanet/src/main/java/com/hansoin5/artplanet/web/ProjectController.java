@@ -62,6 +62,11 @@ public class ProjectController{
 			String[] contentarray =  rewardList.get(i).get("REWARDCONTENT").toString().split(",");
 			rewardcontent.add(contentarray);
 		}
+		
+		for(int i=0; i< rewardList.size();i++) {
+			rewardList.get(i).put("PROFILEPICTURE", rewardList.get(i).get("PROFILEPICTURE").toString().replace("\\/", "/"));
+	        System.out.println(rewardList.get(i).get("PROFILEPICTURE").toString());
+		}
 		/* int commentCount = projectDao.getCommentCount(map); 필요 없어짐 */
 		String tags = "";
 		for(int i=0; i<tagList.size();i++) {
@@ -199,7 +204,7 @@ public class ProjectController{
 		}
 		System.out.println("날짜 변환");
 		System.out.println(JSONArray.toJSONString(list).toString());
-		return JSONArray.toJSONString(list);	
+		return JSONArray.toJSONString(list).replace("\\/", "/");	
 	}
 	
 	

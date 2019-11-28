@@ -296,7 +296,7 @@ $(document).ready(function(){
 				comments+="<div class='single-comment justify-content-between d-flex'>"
 				comments+="<div class='user justify-content-between d-flex'>"
 				comments+="<div class='thumb'>"
-				comments+="<img src="+"\""+"<c:url value='/resources/img/blog/c1.png'/>"+"\""+ "alt=''>"
+				comments+="<img src='"+element['PROFILEPICTURE']+ "' alt=''>"
 				comments+="</div>"
 				comments+="<div class='desc'>"
 				comments+="<p class='comment'>"+element['REPLYCONTENT']+"</p>"
@@ -458,14 +458,14 @@ $(document).ready(function(){
 					<div >&nbsp;</div>
 					<!-- 서포터 리스트 시작 -->
 					<div class="blog_details">
-						<h2 style="float: left;">현재 이 프로젝트에 <span style="color:#00c4c4 ">${supportcount }명</span>의 참여가 이루어졌습니다</h2>&nbsp;
+						<h2 style="float: left;">현재 이 프로젝트에 <span style="color:#00c4c4 ">${supportcount}명</span>의 참여가 이루어졌습니다</h2>&nbsp;
 						
 							<c:forEach var="item" items="${list }" varStatus="loops">
 							<div class="comment-list" style="clear: both;border-bottom: 1px solid #e6eaed; padding: 20px 0px;">
 								<div class="single-comment justify-content-between d-flex">
 									<div class="user justify-content-between d-flex">
 										<div class="thumb" style="margin: auto 30px auto 0px;">
-											<img src="<c:url value='/resources/img/blog/c1.png'/>" alt="">
+											<img src="${item.PROFILEPICTURE}" alt="">
 										</div>
 										<div class="supportdesc">
 											<p class="comment"><span style="font-weight: bold;">${item.NICKNAME }</span>님이 ${item.PROJECTSUPPORTSUM} 원 펀딩으로 참여하였습니다</p>
