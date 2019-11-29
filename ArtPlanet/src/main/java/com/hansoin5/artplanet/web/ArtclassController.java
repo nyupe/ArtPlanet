@@ -301,7 +301,7 @@ public class ArtclassController {
 		 }/////if
 		
 		// 뷰반환
-		return "sub/art_class/WriteClass.tiles";
+		return "sub/art_class/ArtClass.tiles";
 		
 	}/////createArtClass()
 	

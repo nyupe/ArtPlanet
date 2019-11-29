@@ -137,7 +137,7 @@ $(function() {
 									+ "</div>"
 								+ "</div>"
 							+ "</a>"
-						+ "</div>")
+						+ "</div>");
 						//컨텐츠 추가 및 레이아웃 초기화
 						$workGrid.append($htmlString)
 						.isotope('appended', $htmlString)

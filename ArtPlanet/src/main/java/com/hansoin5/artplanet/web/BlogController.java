@@ -47,6 +47,7 @@ public class BlogController
 	public static final int HOUR = 24;
 	public static final int DAY = 30;
 	public static final int MONTH = 12;
+	public static final String NO_IMAGE = "https://storage.googleapis.com/art-planet-storage/default/no_image.jpg";
 
 	@Resource(name="blogPostDAO")	
 	private BlogPostDAO dao;
@@ -226,6 +227,16 @@ public class BlogController
 		map.put("introContent", memberDto.getIntroContent());
 		map.put("fee", memberDto.getSubscriptionFee());
 		map.put("nickname", memberDto.getNickName());
+		map.put("subscribe",0);
+		//구독중인지 확인
+		if(auth != null)
+		{
+			map.put("loginedId", ((UserDetails)auth.getPrincipal()).getUsername());
+		
+			List<SubscribeDTO> subList2 = subscribeDAO.getSubscribe(map);
+			if(subList2.size() > 0)
+				map.put("subscribe", 1);
+		}
 		//글이 구독자 전용일때
 		if(dto.getAccessRight().equals("1"))
 		{
@@ -305,7 +316,12 @@ public class BlogController
 			System.out.println("blogno:"+dto.getBlogNo());
 			List<GcsDTO> gcsList = gcsDAO.getListByBlogNo(dto.getBlogNo());
 			System.out.println("size:"+gcsList.size());
-			record.put("imgUrl", gcsList.get(0).getFileUrl());
+			try {
+				record.put("imgUrl", gcsList.get(0).getFileUrl());
+			} catch (IndexOutOfBoundsException e)
+			{
+				record.put("imgUrl", NO_IMAGE);
+			}
 			record.put("blogNo", dto.getBlogNo());
 			record.put("title",dto.getTitle());
 			record.put("content",dto.getContent());
@@ -515,7 +531,12 @@ public class BlogController
 				if(i == 3)
 					break;
 				post.put("blogNo", postList.get(i).getBlogNo());
+				try {
 				post.put("url", gcsDAO.getListByBlogNo(postList.get(i).getBlogNo()).get(0).getFileUrl());
+				} catch (IndexOutOfBoundsException e)
+				{
+					record.put("imgUrl", NO_IMAGE);
+				}
 				//글이 구독자 전용일때
 				if(postList.get(i).getAccessRight().equals("1"))
 				{
@@ -641,7 +662,12 @@ public class BlogController
 			//List페이지에선 첫번째 그림만 반환
 			List<GcsDTO> gcsList = gcsDAO.getListByBlogNo(dto.getBlogNo());
 			//for(GcsDTO gd : gcsList)
+			try {
 			record.put("imgUrl", gcsList.get(0).getFileUrl());
+			} catch (IndexOutOfBoundsException e)
+			{
+				record.put("imgUrl", NO_IMAGE);
+			}
 			record.put("blogNo", dto.getBlogNo());
 			record.put("title",dto.getTitle());
 			record.put("content",dto.getContent());
@@ -695,21 +721,39 @@ public class BlogController
 			record.put("nickname",memberDto.getNickName());
 			record.put("memberId", memberDto.getId());
 			
+			//글이 구독자 전용일때
 			if(dto.getAccessRight().equals("1"))
 			{
+				//비로그인 상태일때
 				if(auth == null)
 				{
 					record.put("accessRight","1");
 				}
+				//로그인 상태일때
 				else
 				{
 					map.put("loginedId", ((UserDetails)auth.getPrincipal()).getUsername());
 					map.put("id", memberDto.getId());
 					List<SubscribeDTO> subList = subscribeDAO.getSubscribe(map);
+					//구독중이 아닐때
 					if(subList == null || subList.size() == 0)
+					{
+						record.put("accessRight","1");
+					}
+					//구독중일때
+					else
+					{
 						record.put("accessRight","0");
+					}
+					//현재 로그인한 아이디와 글 작성자 아이디가 같을때 || 관리자 아이디일때
+					if(map.get("id").toString().equals(((UserDetails)auth.getPrincipal()).getUsername())
+						|| "ADMIN".equals(((UserDetails)auth.getPrincipal()).getUsername()))
+					{
+						record.put("accessRight","0");
+					}
 				}
 			}
+			//글이 전체공개일때
 			else 
 			{
 				record.put("accessRight","0");

@@ -467,8 +467,10 @@ function btnInit(addr) {
 									<div id="map" style="width: 100%; height: 350px;"></div>
 								</div>
 								<div class="tab-pane" id="tab-animated1-2" role="tabpanel">
-									<p class="mb-0">닉네임:${artClassCreater.nickName }</p>
-									<p class="mb-0">소개:${artClassCreater.introContent }</p>
+									<h3>닉네임</h3>
+									<h5>${artClassCreater.nickName }</h5>
+									<h3>소개</h3>
+									<h6>${artClassCreater.introContent }</h6>
 								</div>
 							</div>
 							
@@ -478,7 +480,7 @@ function btnInit(addr) {
 					</div>
 					<!-- End Product Descrive Area -->
 				</div>
-				
+				<%--
 				<div class="row">
 					<div class="col-md-12">
 						<div class="popupal__menu" style="
@@ -518,10 +520,10 @@ function btnInit(addr) {
 					<!-- End Single Product -->
 				</div>
 			 <!-- 인기있는 아트클래스 뿌려주는 부분(끝) -->	
+			 --%>
 		</div>
 			
 			    <div class="col-lg-4 col-md-12 col-sm-14 md--mt--40 sm--mt--40"	style="left: 150px;">
-       			    
        			    
 					 <!-- 수정 삭제 버튼 시작 -->
 					 <!-- 로그인한 아이디와 클래스 만든 사람의 아이디가 동일할 경우만 수정 및 삭제버튼 출력 -->
@@ -592,7 +594,7 @@ function btnInit(addr) {
 						</div>
 					</div>
 
-
+					<%--
 					<div class="food__sidebar">
 						<!-- Start Recent Post -->
 						<div class="food__recent__post mt--60">
@@ -639,13 +641,14 @@ function btnInit(addr) {
 						</div>
 						<!-- End Category Area -->
 					</div>
+					--%>
+					
 				</div>
 
 			</div>
 			
 			
 		</div>
-	</div>
 	</div>
 
 </section>
