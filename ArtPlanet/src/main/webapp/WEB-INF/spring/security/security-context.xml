@@ -20,12 +20,28 @@
 	
 	
 	<!-- csrf 제외 Url 설정 -->
-	<!-- <security:http pattern="/React.bbs" security="none" /> -->
 	<security:http pattern="/api/contacts" security="none" />
 	<security:http pattern="/api/contact" security="none" />
-	<security:http pattern="/AuthProcess" security="none" />
-	<security:http pattern="/Search/Project/Writes" security="none"/>
+	<security:http pattern="/Android/AndMyPageClass.do*" security="none" />
+   	<security:http pattern="/Android/AndMyPage.do*" security="none" />
 	<security:http pattern="/AndroidArrayList" security="none"/>
+	<security:http pattern="/ANDROID/AndIsMember.do*" security="none" />
+    <security:http pattern="/ANDROID/GetMeberInfo.do*" security="none" />
+	<security:http pattern="/AdmPushToPhone*" security="none"/>
+	<security:http pattern="/AdmRegisterToken*" security="none" />
+	<security:http pattern="/ANDROID/**" security="none"/>
+	<security:http pattern="/ANDROID/GetMeberInfo2.do" security="none"/>
+	<security:http pattern="/ANDROID/RegisterJson.do" security="none"/>
+	<security:http pattern="/FileUploadToCloud" security="none"/>
+	<security:http pattern="/ANDROID/VoiceRecognition**" security="none"/>
+	<!-- 웹 스프링시큐리터 필터 해제 목록  -->
+	
+	<security:http pattern="/Search/Project/Writes" security="none"/>
+	<security:http pattern="/AuthProcess" security="none" />
+	
+	<!-- <security:http pattern="/ANDROID/AndIsMember.do" security="none"/> -->
+	
+	
 	
 	<security:http auto-config="true" use-expressions="true" >
 

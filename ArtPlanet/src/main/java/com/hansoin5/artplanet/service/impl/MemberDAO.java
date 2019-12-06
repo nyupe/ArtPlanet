@@ -19,6 +19,33 @@ public class MemberDAO {
 	@Resource(name="template")
 	private SqlSessionTemplate template;
 	
+	//이종성 코드 시작
+	//로그인한 회원 정보 뿌리기(마이페이지)
+	public MemberDTO getmemberInfo(Map map){
+		return template.selectOne("getmemberInfo", map);
+	}
+	//내가 개설한 아트 클래스 리스트
+	public List<Map> getArtClasss(Map map){
+		return template.selectList("getArtClassList",map);
+	}
+	//내가 만든 프로젝트 리스트
+	public List<Map> getProject(Map map){
+		return template.selectList("getProjList",map);
+	}
+	//내가 구독 중인 작가 리스트
+	public List<Map> getsubscribe(Map map){
+		return template.selectList("getsubscribeList", map);
+	}
+	//내가 후원 중인 프로젝트 리스트
+	public List<Map> getfundingProj(Map map){
+		return template.selectList("getfundingProjList", map);
+	}
+	//내가 예약한 아트클래스 리스트
+	public List<Map> getreservedClass(Map map){
+		return template.selectList("getreservedClass", map);
+	}
+	//이종성 코드 끝
+	
 	
 	// 회원리스트 반환
 	public List<Map> getMembers(Map map) {

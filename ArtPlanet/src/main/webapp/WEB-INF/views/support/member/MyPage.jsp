@@ -2,16 +2,44 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
 <sec:authentication property="principal.username" var="id" />
+
+<style>
+
+.table-responsive{
+height: 361px;
+margin-bottom: 30px;
+overflow-y:scroll;
+-ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+display:none;}
+.table-responsive tbody td{
+height: 50px;
+} 
+.memberinfo {
+margin-left: 100px;
+}
+.membertitle{
+width: 60px;
+margin-left: 20px;
+}
+  
+
+
+
+
+</style>
 
 <script>
 //닉네임 유효성 처리
 	
 	v_nickName = false;
 	
-
+/* 
 	$(function(){ // 진입점 시작
 		$.ajax({
 			url:"<c:url value='/GetMeberInfo'/>",
@@ -20,7 +48,7 @@
 			data:{id:"${id}"},
 			success:displayUserProfile
 		})/////ajax
-	})// 진입점 끝
+	})// 진입점 끝 */
 	
 	function nickNameCheck(){
 		var nickName = $('#nickName').val();			 			
@@ -79,7 +107,7 @@
 	
 	
 	
-	var displayUserProfile = function(data){
+	/* var displayUserProfile = function(data){
 		
 		//data 콘솔에 찍어보기 회원정보를 뽑아준
 		console.log(data)
@@ -125,7 +153,7 @@
 		
 		
 		
-	}/////displayUserProfile
+	}/////displayUserProfile */
 	
 </script>
 
@@ -202,10 +230,125 @@
 
 	<div class="row" style="margin-bottom: 50px">
 	
-		<div class="col-md-6" align="center" style="margin-bottom: 50px">
-			<div class="card" style="width: 500px">
+		
+		<!-- 이종성 회원 정보 코드 시작  -->
+		<div class="col-md-6" align="center">
+			<div class="card-shadow-primary card-border mb-3 card">
+	            <div class="dropdown-menu-header">
+	                <div class="dropdown-menu-header-inner bg-primary">
+	                    <div class="menu-header-image"></div>
+	                    <div class="menu-header-content">
+	                        <div class="avatar-icon-wrapper avatar-icon-lg">
+	                            <div class="avatar-icon rounded btn-hover-shine"><img
+	                                    src="${memberInfo.profilePicture }"></div>
+	                        </div>
+	                        <div><h5 class="menu-header-title">${memberInfo.name }</h5>
+	                        </div>
+	                        
+	                    </div>
+	                </div>
+	            </div>
+	            <div >
+	                <div class="scrollbar-container">
+	                    <ul class="list-group list-group-flush">
+	                        <li class="list-group-item">
+	                            <div class="widget-content p-0">
+	                                <div class="widget-content-wrapper">
+	                                    <div class="widget-content-left center-elem mr-2">
+	                                        
+	                                    </div>
+	                                    <div class="widget-content-left">
+	                                        <div class="widget-heading membertitle">아이디
+	                                        </div>
+	                                    </div>
+	                                    <div class="widget-content-left memberinfo">
+	                                        ${memberInfo.id }
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </li>
+	                        <li class="list-group-item">
+	                            <div class="widget-content p-0">
+	                                <div class="widget-content-wrapper">
+	                                    <div class="widget-content-left center-elem mr-2">
+	                                        
+	                                    </div>
+	                                    <div class="widget-content-left">
+	                                        <div class="widget-heading membertitle">닉네임
+	                                        </div>
+	                                    </div>
+	                                    <div class="widget-content-left  memberinfo">
+	                                        ${memberInfo.nickName }
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </li>
+	                        <li class="list-group-item">
+	                            <div class="widget-content p-0">
+	                                <div class="widget-content-wrapper">
+	                                    <div class="widget-content-left center-elem mr-2">
+	                                        
+	                                    </div>
+	                                    <div class="widget-content-left">
+	                                        <div class="widget-heading membertitle">생년월일
+	                                        </div>
+	                                    </div>
+	                                    <div class="widget-content-left memberinfo">
+	                                        ${memberInfo.birth }
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </li>
+	                        <li class="list-group-item">
+	                            <div class="widget-content p-0">
+	                                <div class="widget-content-wrapper">
+	                                    <div class="widget-content-left center-elem mr-2">
+	                                        
+	                                    </div>
+	                                    <div class="widget-content-left">
+	                                        <div class="widget-heading membertitle">주소
+	                                        </div>
+	                                    </div>
+	                                    <div class="widget-content-left memberinfo">
+	                                        ${memberInfo.address }
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </li>
+	                        <li class="list-group-item">
+	                            <div class="widget-content p-0">
+	                                <div class="widget-content-wrapper">
+	                                    <div class="widget-content-left center-elem mr-2">
+	                                        
+	                                    </div>
+	                                    <div class="widget-content-left">
+	                                        <div class="widget-heading membertitle">연락처
+	                                        </div>
+	                                    </div>
+	                                    <div class="widget-content-left memberinfo">
+	                                        ${memberInfo.phoneNumber }
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </div>
+	            <div class="text-center d-block card-footer" style="text-align-last:right">
+	                <button data-toggle='modal' data-target='#updateProfile' id='updateProfile'  class="mr-2 border-0 btn-transition btn btn-outline-danger" >닉네임 변경
+	                </button>
+	                <button id='deleteMember' data-toggle='modal' data-target='#deleteMember' class="border-0 btn-transition btn btn-outline-success" >회원 탈퇴
+	                </button>
+	            </div>
+	        </div>
+		</div>
+		<!-- 이종성 회원 정보 코드 끝  -->
+		
+		<!-- 개설한 아트 클래스 시작 -->
+		<div class="col-md-6" align="center" style="margin-bottom: 50px;">
+			<!-- <div class="card" style="width: 500px">
 				<div class="card-body" id="card_profile">
-					<!-- <h4 class="card-title"><span id="user_name"></span>님 프로필</h4>
+					<h4 class="card-title"><span id="user_name"></span>님 프로필</h4>
 					<img id="user_profilePicture" style="width: auto;height: auto; max-height: 100px; max-width: 100px"  alt="프로필사진" />
 					<p class="card-text">
 						아이디:<span id="user_id"></span><br>
@@ -214,44 +357,270 @@
 						주소:<span id="user_address"></span>
 					</p>						
 					<a href="#" class="btn btn-primary">내정보 수정</a> 
-					<a href="#" class="btn btn-primary">회원탈퇴</a> -->
+					<a href="#" class="btn btn-primary">회원탈퇴</a>
 				</div>
-			</div>
+			</div> -->
+			
+			  <div class="card-header">
+	             <div><h5 class="menu-header-title text-capitalize text-primary">개설한 아트 클래스</h5></div>
+	             
+	         </div>
+	         <div class="table-responsive">
+	             <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+	                 <thead>
+	                 <tr>
+	                     <th class="text-center">No</th>
+	                     <th class="text-center">Categories</th>
+	                     <th class="text-center">Title</th>
+	                     <th class="text-center">Address</th>
+	                     <th class="text-center">Tuition fee</th>
+	                 </tr>
+	                 </thead>
+	                 <tbody>
+	                 <c:forEach items="${classList }" var="item" varStatus="loop">
+	                 <tr>
+	                     <td class="text-center text-muted" style="width: 80px;">${loop.count }</td>
+	                     <td class="text-center">
+	                         <div class="badge badge-pill pl-2 pr-2 badge-warning">${item.CATEGORIE }</div>
+	                     </td>	
+	                     
+	                     <!-- 프로그레스바 -->
+	                     <!-- <td class="text-center">
+	                         <div class="progress-bar-xs progress">
+	                             <div class="progress-bar bg-success" role="progressbar"
+	                                  aria-valuenow="76" aria-valuemin="0"
+	                                  aria-valuemax="100"
+	                                  style="width: 76%;"></div>
+	                         </div>
+	                     </td> -->
+	                     <td class="text-center">
+	                         <div>${item.TITLE }</div>
+	                     </td>
+	                     
+	                     <td class="text-center" style="width: 150px;">
+	                         ${item.ADDRESS }
+	                     </td>
+	                     <td class="text-center">${item.TUITIONFEE }</td>
+	                 </tr>  
+	                 </c:forEach> 
+	                 </tbody>
+	             </table>
+	         </div>
 		</div>
-		
-		<div class="col-md-6" align="center">
-			<div class="card" style="width: 500px">
-				<div class="card-body">
-					<h4 class="card-title"><span id="user_name_blog"></span>님의 최근 블로그 게시물</h4>
-					<p class="card-text">여기에 최근 게시물  사진 4~5개  썸네일로 뿌려줘야함 사진 누르면 상세보기 모달창으로 띄워줄것</p>
-					<a href="#" class="btn btn-primary">내 블로그로 가기</a>
-				</div>
-			</div>
-		</div>
-		
+		<!-- 개설한 아트 클래스 끝 -->
 	</div>
 	
-	<div class="row">
 	
+	
+	
+	
+	<div class="row">
+		<!-- 내가 만든 크라우드 펀딩 시작 -->
 		<div class="col-md-6" align="center" style="margin-bottom: 50px">
-			<div class="card" style="width: 500px">
-				<div class="card-body">
-					<h4 class="card-title">최근 구독 및 수입 현황</h4>
-					<p class="card-text">월별 구독자 수</p>
-					<canvas id="myChart" width="100" height="100"></canvas>
-					<a href="#" class="btn btn-primary">구독 및 수입 현황 상세보기</a>
-				</div>
-			</div>
+			  <div class="card-header">
+	             <div><h5 class="menu-header-title text-capitalize text-primary">만든 프로젝트 펀딩</h5></div>
+	             
+	         </div>
+	         <div class="table-responsive">
+	             <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+	                 <thead>
+	                 <tr>
+	                     <th class="text-center">No</th>
+	                     <th class="text-center">title</th>
+	                     <th class="text-center">Target</th>
+	                     <th class="text-center">Deadline</th>
+	                     <th class="text-center">Date</th>
+	                 </tr>
+	                 </thead>
+	                 <tbody>
+	                 <c:forEach items="${projList }" var="item" varStatus="loop"> 
+	                 <tr>
+	                 	 <!-- NO  -->
+	                     <td class="text-center text-muted" style="width: 80px;">${loop.count }</td>
+	                     <!-- 제목 -->
+	                     <td class="text-center">
+	                         <div class="badge badge-pill pl-2 pr-2 badge-warning">${item.TITLE }</div>
+	                     </td>	
+	                     <!-- 진행된 퍼센트 구하기 -->
+	                     <fmt:parseNumber value="${(item.TOTAL *100) / item.TARGETFIGURE  }" integerOnly="true" var="Createpercent" type="number"/>
+	                     <!-- 프로그레스바 -->
+	                     <td class="text-center" style="width: 200px;">
+                             <div class="widget-content p-0">
+                                 <div class="widget-content-outer">
+                                     <div class="widget-content-wrapper">
+	                                     <div class="widget-content-left w-100">
+	                                         <div class="progress-bar-xs progress">
+	                                             <div class="progress-bar bg-info"
+	                                                  role="progressbar" aria-valuenow="88"
+	                                                  aria-valuemin="0" aria-valuemax="100"
+	                                                  style="width: ${Createpercent}%;"></div>
+	                                         </div>
+	                                     </div>
+	                                     <div class="widget-content-right pr-2">
+	                                         <div class="widget-numbers fsize-1 text-info">
+	                                             ${Createpercent}%
+	                                         </div>
+	                                     </div>
+	                                 </div>
+                                 </div>
+                             </div>
+                         </td>
+	                     
+	                     <td class="text-center">
+	                         <div>${item.DEADLINE }</div>
+	                     </td>
+	                     <td class="text-center">${item.POSTDATE }</td>
+	                 </tr>   
+	                 </c:forEach>
+	                 </tbody>
+	             </table>
+	         </div> 
+		</div>
+		<!-- 내가 만든 크라우드 펀딩 끝 -->
+		
+		<!-- 구독중인 작가들 시작 -->
+		<div class="col-md-6" align="center">
+			 <div class="card-header">
+	             
+	                 <div><h5 class="menu-header-title text-capitalize text-primary" style="text-align: left;">구독중인 작가들</h5></div>
+	                 
+	             </div>
+	             <div class="table-responsive">
+	                 <table class="align-middle text-truncate mb-0 table table-borderless table-hover">
+	                     <thead>
+	                     <tr>
+	                         <th class="text-center">No</th>
+	                         <th class="text-center">Profile</th>
+	                         <th class="text-center">Name</th>
+	                         <th class="text-center">정기구독료</th>
+	                         <th class="text-center">작가의블로그</th>
+	                     </tr>
+	                     </thead>
+	                     <tbody>
+	                     <c:forEach items="${subscribeList }" var="item" varStatus="loop">
+	                     <tr>
+	                         <td class="text-center text-muted" style="width: 80px;">${loop.count }</td>
+	                         <td class="text-center">
+	                             <img width="40" class="rounded-circle"
+	                                  src="${item.PROFILEPICTURE }" alt="">
+	                         </td>
+	                         <td class="text-center">${item.NICKNAME }</td>
+	                         <td class="text-center">${item.FEE }</td>
+	        				<td class="text-center"><button class="badge badge-pill pl-2 pr-2 badge-warning" onclick="location.href ='Blog/${item.ID }'">블로그가기</button></td>
+	                     </tr>
+	                     </c:forEach>
+	                     </tbody>
+	                 </table>
+	             </div>
+		</div>
+		<!-- 구독중인 작가들 끝 -->
+	</div>
+	
+	
+	
+	
+	
+	<div class="row">
+		<!-- 내가 후원중인 프로젝트 시작  -->
+		<div class="col-md-6" align="center" style="margin-bottom: 50px">
+			 <div class="card-header">
+	                 <div><h5 class="menu-header-title text-capitalize text-primary" style="text-align: left;">후원중인 프로젝트 펀딩</h5></div>
+	             </div>
+	              <div class="table-responsive">
+	                 <table class="align-middle text-truncate mb-0 table table-borderless table-hover">
+	                     <thead>
+	                     <tr>
+	                         <th class="text-center">No</th>
+	                         <th class="text-center">Title</th>
+	                         <th class="text-center">Funding</th>
+	                         <th class="text-center">FundingDate</th>
+	                         <th class="text-center">Deadline</th>
+	                     </tr>
+	                     </thead>
+	                     <tbody>
+	                     <c:forEach items="${fundingProjList }" var="item"  varStatus="loop">
+	                     <fmt:parseNumber value="${(item.TOTAL * 100) / item.TARGETFIGURE }" integerOnly="true" var="PER"></fmt:parseNumber>
+	                     <tr>
+	                         <td class="text-center text-muted" style="width: 80px;">${loop.count }</td>
+	                         <td class="text-center">
+	                         <div class="badge badge-pill pl-2 pr-2 badge-warning">${item.TITLE }</div>
+	                     	 </td>
+	                         
+	                         
+	                         <td class="text-center" style="width: 200px;">
+	                             <div class="widget-content p-0">
+	                                 <div class="widget-content-outer">
+	                                     <div class="widget-content-wrapper">
+                                   			<div class="widget-content-left w-100">
+	                                            <div class="progress-bar-xs progress">
+	                                                <div class="progress-bar bg-info"
+	                                                     role="progressbar" aria-valuenow="88"
+	                                                     aria-valuemin="0" aria-valuemax="100"
+	                                                     style="width: ${PER}%;"></div>
+	                                            </div>
+	                                        </div>
+                                   			<div class="widget-content-right pr-2">
+	                                            <div class="widget-numbers fsize-1 text-info">
+	                                                ${PER}%
+	                                            </div>
+	                                        </div>
+	                                     </div>
+	                                 </div>
+	                             </div>
+	                         </td>
+	                         <%-- <td class="text-center" style="width: 200px;">${item.PROJECTSUPPORTSUM }</td> --%>
+	                         <td class="text-center">${item.PROJECTSUPPORTDATE }</td>
+	                         <td class="text-center">${item.DEADLINE }</td>
+	                     </tr>
+	                     </c:forEach>
+	                     </tbody>
+	                 </table>
+	             </div>
+	             <!-- 내가 후원중인 프로젝트 끝  -->
+	             <div class="d-block p-4 text-center card-footer">
+	             </div>
+	             
+                                        
+			
+			
+			
 		</div>
 		
 		<div class="col-md-6" align="center">
-			<div class="card" style="width: 500px">
-				<div class="card-body">
-					<h4 class="card-title">여긴 채팅형식으로 메시지함?</h4>
-					<p class="card-text"></p>
-					<a href="#" class="btn btn-primary">메시지함으로 이동</a>
-				</div>
-			</div>
+			 <div class="card-header">	             
+	                 <div><h5 class="menu-header-title text-capitalize text-primary" style="text-align: left;">예약한 아트클래스 </h5></div>
+	             </div>
+	             <div class="table-responsive">
+	                 <table class="align-middle text-truncate mb-0 table table-borderless table-hover">
+	                     <thead>
+	                     <tr>
+	                         <th class="text-center">No</th>
+	                         <th class="text-center">Categories</th>
+	                         <th class="text-center">Title</th>
+	                         <th class="text-center">Location</th>
+	                         <th class="text-center">Reservation Date</th>
+	                     </tr>
+	                     </thead>
+	                     <tbody>
+	                     <c:forEach items="${reservedClassList }" var="item" varStatus="loop">
+		                     <tr>
+		                         <td class="text-center text-muted" style="width: 80px;">${loop.count }</td>
+		                         <td class="text-center"><div class="badge badge-pill pl-2 pr-2 badge-warning">${item.CATEGORIE }</div>
+		                         </td>
+		                         <td class="text-center">${item.TITLE }
+		                         </td>
+		                         <td class="text-center">${item.CLASSADDRESS }</td>
+		                         <td class="text-center">${item.SIGNUPDATE }</td>
+		                     </tr>
+	                     </c:forEach>
+	                     </tbody>
+	                 </table>
+	             </div>
+	             <div class="d-block p-4 text-center card-footer">
+	             </div>
+			
+			
+			
 		</div>
 		
 	</div>

@@ -135,11 +135,9 @@
 			e.preventDefault();
 		});
 		$(document).on("drop", ".dragAndDropDiv", function(e) {
-
 			$(this).css('border', '1px dotted #888');
 			e.preventDefault();
 			var files = e.originalEvent.dataTransfer.files;
-
 			classFileUpload(files, objDragAndDrop);
 		});
 

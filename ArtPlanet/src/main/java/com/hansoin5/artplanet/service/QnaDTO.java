@@ -10,7 +10,7 @@ public class QnaDTO {
 	private String qnaContent;
 	private String qnaChecked;
 	private String qnaCategory;
-	private String memberNo;
+	private String id;
 	
 	//Date 자료형 프로퍼티 위에 @JsonFormat 어노테이션으로 패턴을 정해주면, 이 패턴으로 변환되어 json에 들어간다.
 	@JsonFormat(pattern="yyyy-MM-dd")
@@ -47,11 +47,11 @@ public class QnaDTO {
 	public void setQnaCategory(String qnaCategory) {
 		this.qnaCategory = qnaCategory;
 	}
-	public String getMemberNo() {
-		return memberNo;
+	public String getId() {
+		return id;
 	}
-	public void setMemberNo(String memberNo) {
-		this.memberNo = memberNo;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public java.sql.Date getQnaPostdate() {
 		return qnaPostdate;

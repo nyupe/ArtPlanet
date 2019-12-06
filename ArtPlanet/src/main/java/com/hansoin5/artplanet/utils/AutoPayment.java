@@ -157,7 +157,7 @@ public class AutoPayment {
             countProject++;
             System.out.println("countProject가 10이되면 로그아웃 로직이 시작됨 / countProject :"+countProject);
             //30초가 넘어갈시 무한루프 빠져나감
-            if(countProject >= 20) break;
+            if(countProject >= 10) break;
             
          }//while
          
@@ -187,14 +187,16 @@ public class AutoPayment {
             Thread.sleep(2000); // 2초 쉬고
          }
          catch (Exception e2) {
-            e2.printStackTrace();
+            //e2.printStackTrace();
+        	 System.out.println("1");
          }
          
          //관리자 로그아웃-> 로그인 페이지 대기
          webElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul/li[8]/a")));
          webElement.click();
          
-         e.printStackTrace();
+         //e.printStackTrace();
+         System.out.println("2");
          
       }
       finally {

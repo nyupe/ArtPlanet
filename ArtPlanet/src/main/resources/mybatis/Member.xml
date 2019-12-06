@@ -8,6 +8,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="mybatis.Member">
 	
+	<!-- 이종성 코드 시작-->
+	<!-- 내가 개설한 아트 클래스 목록 가져오기 -->
+	<select resultType="java.util.Map" parameterType="java.util.Map"
+		id="getArtClassList"> SELECT * FROM ARTCLASS ac JOIN MEMBER m ON ac.memberNo =
+		m.memberNo WHERE m.memberNo = #{memberNo} ORDER BY CLASSNO DESC
+	</select>
+	<!-- 내가 만든 프로젝트 목록 가져오기 -->
+	<select resultType="java.util.Map" parameterType="java.util.Map"
+		id="getProjList"> SELECT p.*,NVL(TOTAL,0)TOTAL FROM (SELECT * FROM PROJECT p JOIN
+		member m on p.memberNo = m.memberNo WHERE m.memberNo = #{memberNo}
+		ORDER BY projectNo DESC ) p LEFT OUTER JOIN (SELECT
+		projectNo,SUM(projectSupportSum) TOTAL FROM PROJECTSUPPORT GROUP BY
+		projectNo ) q ON p.projectNo = q.projectNo </select>
+	<!-- 구독 중인 목록 가져오기 -->
+	<select resultType="java.util.Map" parameterType="java.util.Map"
+		id="getsubscribeList"> SELECT q.*,NVL(SUBSCRIPTIONFEE,0) fee,p.*,m.* FROM (SELECT * FROM
+		SUBSCRIBE WHERE memberNo =#{memberNo} AND ROWNUM = 1) p JOIN member m ON
+		p.targetedMemberNo = m.memberNo JOIN (select COUNT(*),memberNo from
+		blogpost where memberno in (SELECT targetedMemberNo FROM SUBSCRIBE WHERE
+		memberNo =#{memberNo}) GROUP BY memberNO ) q ON p.targetedMemberNo =
+		q.memberNo </select>
+	<!-- 구독중인 작가들의 모든 글들 -->
+	<!-- SELECT * FROM (SELECT * FROM SUBSCRIBE WHERE memberNo =#{memberNo}) 
+		p JOIN (SELECT e.*,NICKNAME,PROFILEPICTURE FROM (SELECT * FROM BLOGPOST WHERE 
+		memberNo = (SELECT targetedMemberNo FROM SUBSCRIBE WHERE memberNo =#{memberNo})) 
+		e JOIN member m on e.memberNo = m.memberNo ) q ON p.targetedMemberNo = q.memberNo -->
+	<!-- 후원중인 프로젝트 리스트 -->
+	<select resultType="java.util.Map" parameterType="java.util.Map"
+		id="getfundingProjList"> SELECT * FROM (SELECT * FROM PROJECTSUPPORT WHERE memberNo = #{memberNo}) q
+		JOIN PROJECT p ON q.projectNo = p.projectNo LEFT OUTER JOIN ( SELECT
+		SUM(projectSupportSum) TOTAL, projectNO FROM PROJECTSUPPORT GROUP BY
+		projectNO ) e ON p.projectNo = e.projectNo </select>
+	<!-- 로그인한 회원 정보 (마이페이지) -->
+	<select resultType="MemberDTO" parameterType="java.util.Map"
+		id="getmemberInfo"> SELECT * FROM MEMBER WHERE memberNo = #{memberNo} </select>
+	<!-- 내가 예약한 아트클래스 목록 뿌리기 -->
+	<select resultType="java.util.Map" parameterType="java.util.Map"
+		id="getreservedClass"> SELECT * FROM (SELECT * FROM CLASSRESERVATION WHERE memberNo =
+		#{memberNo}) p JOIN ARTCLASS ar on p.classNo = ar.classNo </select>
+	<!-- 이종성 코드 끝 -->
+	
 	
 	<!-- 회원 리스트 전체조회 -->
 	<select id="getMemberList" parameterType="java.util.Map" resultType="java.util.Map">

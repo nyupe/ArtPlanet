@@ -7,6 +7,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 
 <head>
+<style>
+th {
+	text-align: center;
+}
+tr {
+	text-align: center;
+}
+td {
+	text-align: center;
+}
+</style>
     <title>Art Planet - 회원정보</title>
     <meta http-equiv="X-UA-Compatible" content="text/html;charset=utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -63,6 +74,7 @@
 	   		
 			// data : 회원리스트  / index : 리스트 인덱스 번호(0부터 시작) / element : 리스트에서 꺼낸 값(Map) 
 	    	$.each(data,function(index,element){
+	    		if(element['BIRTH'] == null) element['BIRTH']= "19900123";
 	    		if(element['ID']!='ADMIN'){
 					tableString+="<tr>";		
 					//memberno
@@ -113,7 +125,7 @@
 		});			
 	}
 	var month1, month2, month3, month4, month5, month6, month7, month8, month9, month10, month11, month12;
-	var tot1, tot2, tot3, tot4, tot5, tot6, tot7, tot8, tot9, tot10, tot11, tot12;
+	var tot1=0, tot2=0, tot3=0, tot4=0, tot5=0, tot6=0, tot7=0, tot8=0, tot9=0, tot10=0, tot11=0, tot12=0;
 	
 	var successAjax = function(data,id){
 		console.log('월+가입회원수 데이타:',data);

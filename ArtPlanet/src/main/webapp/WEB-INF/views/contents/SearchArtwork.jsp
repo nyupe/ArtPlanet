@@ -54,7 +54,6 @@
 const default_img = "https://storage.googleapis.com/art-planet-storage/default/default_img.png";
 
 $(function() {
-		
 	let isEnd = false;
 	let isSlow = true;
        let lastScrollTop;
@@ -69,7 +68,8 @@ $(function() {
            
            // scrollbar의 thumb가 바닥 전 50px까지 도달 하면 리스트를 가져온다.
            if( scrollTop + windowHeight + 50 > documentHeight && !isEnd && isSlow){
-           	isSlow = false;
+        	   isFirst = true;
+			   isSlow = false;
                getArtworkList();
                setTimeout(function(){isSlow = true;},500)
            }
@@ -257,7 +257,7 @@ function sendImgToVision(gcsPath)
 <!--================ Start Portfolio Area =================-->
 <section class="portfolio_area area-padding" id="portfolio">
 	<div class="container">
-		<div class="area-heading" style="margin-bottom: 40px;">
+		<div class="area-heading" style="margin-bottom: 40px; margin-top:30px;">
 			<h3>당신이 <span>좋아하게 될</span> 작품을 찾아보세요.</h3>
 			<p>보기 전까지는 무엇을 찾고 있는지 모릅니다.</p>
 			<div class="card-body">

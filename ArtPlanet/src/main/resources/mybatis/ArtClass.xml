@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	 
   <select id="ClassSelectList" parameterType="java.util.Map" resultType="ArtclassDTO">
-     select * from ARTCLASS
+     select * from ARTCLASS ORDER BY classNo DESC
   </select>
   
    
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   	SELECT * FROM artclass WHERE ClassNo = #{classNo}
   </select>
 
-  <!-- 아트클래스 일련번호로 클래스 삭제 -->
+  <!-- 아트클래스 일련번호로 클래스 삭제 -->                                                                                                                                                                                                                     
   <delete id="classDelete" parameterType="java.util.Map">
   	DELETE ARTCLASS WHERE CLASSNO=#{classNo}
   </delete>

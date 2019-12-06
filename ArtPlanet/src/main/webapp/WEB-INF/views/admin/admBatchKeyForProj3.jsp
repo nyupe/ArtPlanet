@@ -9,6 +9,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 
 <head>
+<style>
+th {
+	text-align: center;
+}
+tr {
+	text-align: center;
+}
+td {
+	text-align: center;
+}
+</style>
     <title>Art Planet - 관리자</title>
     <meta http-equiv="X-UA-Compatible" content="text/html;charset=utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">

@@ -109,13 +109,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	
-	$('#butn').click(function(){
-		
-		
-	
-	})
-	
 	 var objDragAndDrop = $(".dragAndDropDiv");
      
 	    $(document).on("dragenter",".dragAndDropDiv",function(e){
@@ -358,7 +351,7 @@ var removeTagdiv = function(e) {
 						<input type="text" class="form-control" id="text-title" placeholder="글제목(필수)" >
 						<input type="text" class="form-control" id="text-deadline" data-toggle="datepicker" placeholder="펀딩 마감일을 설정해주세요" style="margin: 10px 0px;"/>
 						<input type="text" class="form-control input-mask-trigger" id="text-targetFigure" data-inputmask="'alias': 'numeric','groupSeparator': ',', 'autoGroup': true,  'prefix': '&#8361;&nbsp;'" placeholder="목표액을 설정해주세요" style="margin: 10px 0px"/>
-						<button  id="butn">확인용</button>
+						
 					</div>
 					<div id="summernote"></div>
 					<script>

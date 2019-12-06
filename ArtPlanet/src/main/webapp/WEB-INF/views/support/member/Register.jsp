@@ -326,7 +326,8 @@
 											<input name="name" placeholder="" oninput="nameCheck()"
 												id="name" value="<c:out value='${auth_name}'/>"  
 												type="text" 
-												class="form-control"/>
+												class="form-control"
+												readonly="readonly"/>
 											<span id="nameError"></span>
 										</div>
 									</div>
@@ -355,7 +356,8 @@
 											<!-- 이름 입력태그  -->
 											<input name="birth" value="<c:out value='${auth_birth}'/>" oninput="birthCheck()"
 												id="birth" placeholder="ex)19911115" type="text"  
-												class="form-control">
+												class="form-control"
+												readonly="readonly">
 											<span id="birthError"></span>
 										</div>
 									</div>
@@ -398,7 +400,8 @@
 											<!-- 핸드폰 번호 입력태그 -->
 											<input name="phoneNumber" value="<c:out value='${auth_phone}'/>" oninput="phoneNumberCheck()"
 												id="phoneNumber" placeholder="ex)01011111111" type="text" 
-												class="form-control">
+												class="form-control"
+												readonly="readonly">
 											<span id="phoneNumberError"></span>
 										</div>
 									</div>

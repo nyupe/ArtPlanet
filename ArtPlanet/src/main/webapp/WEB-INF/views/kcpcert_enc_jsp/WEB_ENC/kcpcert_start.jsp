@@ -62,17 +62,7 @@
 }
 </style>
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-<title>본인 인증</title>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-<meta name="description"
-	content="Kero HTML Bootstrap 4 Dashboard Template">
-
 <!-- Disable tap highlight on IE -->
-<meta name="msapplication-tap-highlight" content="no">
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 	integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
 	crossorigin="anonymous"></script>
@@ -111,36 +101,6 @@
 										<div style="text-align: center; margin-bottom: 30px;">인증이
 											필요합니다</div>
 									</h5>
-
-									<!-- ***************** <히든으로 넘겨주는 input 태그들>  *************************** -->
-
-									<!-- 요청종류 -->
-									<input type="hidden" name="req_tx" value="cert" />
-									<!-- 요청구분 -->
-									<input type="hidden" name="cert_method" value="01" />
-									<!-- 웹사이트아이디 : ../cfg/cert_conf.jsp 파일에서 설정해주세요 -->
-									<input type="hidden" name="web_siteid"
-										value="<%=g_conf_web_siteid%>" />
-									<!-- 노출 통신사 default 처리시 아래의 주석을 해제하고 사용하십시요 
-    <div class="app-container app-theme-white body-tabs-shadow">
-            <div class="app-container">
-                <div class="h-100 bg-premium-white">
-                    <div class="d-flex h-100 justify-content-center align-items-center">
-                        <div class="mx-auto app-login-box col-md-8">
-                            
-                            <div class="col-md-6 mx-auto" >
-                            	<a href="<c:url value='/About'/>"/><img src="<c:url value='/resources/img/logo.png'/>"  alt="로고이미지"/></a>
-                            </div>
-                            
-                            <div class="modal-dialog w-100">
-                                <div class="modal-content">
-									<div class="modal-body">
-								
-										<h5 class="modal-title">
-											<div style="text-align: center;">인증 방식</div>
-										</h5>
-										
-										
 									<!-- 인증완료후 자동으로 제출되는 form 시작-->
 									<form action="<c:url value='/AuthRegister'/>" method="post">
 										<!-- 스프링 시큐리티 적용 요청시 필수로 보내야 할 값 -->

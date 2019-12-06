@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.hansoin5.artplanet.service.MemberDTO;
 
 @Repository
 public class AndroidDAO {
@@ -17,7 +17,23 @@ public class AndroidDAO {
 	@Resource(name = "template")
 	private SqlSessionTemplate template;
 
-	public List<Map> selectPictures(Map map) {
-		return template.selectList("androidSelectListGCS", map);
+	public List<Map> selectPictures() {
+		return template.selectList("androidSelectListGCS");
 	}
+	
+	// ========================== 모바일 메소드 시작 ===================================
+		// 로그인 확인
+		public boolean mobilelogin(Map map) {
+			return (Integer)template.selectOne("getmobileMemberlogin", map)== 1 ? true : false;
+		}
+		// 토큰 생성처리
+		public boolean mobileinsert(Map map) {
+			return (Integer)template.insert("mobiletokenrInsert",map)== 1 ? true : false;
+		}/////insert()
+		
+		// 회원정보 반환
+		   public MemberDTO mobileselect(Map map) {
+		      return template.selectOne("getmobileSelect", map);
+		   }///// getMembers()
+		// ========================== 모바일 메소드 끝 
 }

@@ -1,25 +1,35 @@
- <%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
+ 
 <!-- 아이디 얻어서 var에 지정한 변수 id저장  페이지내에서 EL 사용하여 (ex. ${id} )아이디값 사용가능-->
 <sec:authentication property="principal.username" var="id" />
-
 <%
 	request.setCharacterEncoding ("utf-8");
-
+ 
     /* ============================================================================== */
     /* =   PAGE : 취소모듈 PAGE                                                    = */
     /* = -------------------------------------------------------------------------- = */
     /* =   Copyright (c)  2013   KCP Inc.   All Rights Reserved.                    = */
     /* ============================================================================== */
 %>
-
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
+ 
 <html xmlns="http://www.w3.org/1999/xhtml" >
-
+ 
 <head>
+<style>
+th {
+	text-align: center;
+}
+tr {
+	text-align: center;
+}
+td {
+	text-align: center;
+}
+</style>
     <title>Art Planet - 관리자</title>
     <meta http-equiv="X-UA-Compatible" content="text/html;charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,10 +37,11 @@
     <link href="${pageContext.request.contextPath}/resources/kero/main.07a59de7b920cd76b874.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
     <script type="text/javascript">
-    
-
+ 
+    var todayTime;
     var cancelButtonShow =0;
-    
+    var todayOrderCount;
+    var todayOrderMoney = 0;
 			function  jsf__go_mod( form )
 		    {
 		        if ( form.tno.value.length < 14 )
@@ -58,8 +69,20 @@
 		    }
 			
 			// 취소 카운트
-
+ 
 			$(function(){
+				 	todayTime = new Date();
+				    var getYear =  todayTime.getFullYear();
+				    var getMonth  = todayTime.getMonth()+1;
+				    var getDate = todayTime.getDate();
+				    getDate = getDate >= 10 ? getDate : '0' + getDate;
+				   console.log(todayTime);
+				   todayTime = getYear+""+getMonth+""+getDate;
+				   console.log("TodayTime",todayTime); 
+				   console.log("getYear",getYear); 
+				   console.log("getMonth",getMonth); 
+				   console.log("getDate",getDate); 
+				   
 				/*
 				//취소카운트
 				$.ajax({
@@ -91,7 +114,7 @@
 						console.log('에러:',error);
 					}
 				});			
-
+ 
 						//없어도됨 작동안됨
 				 		//var kim;
 						//var clickBtn2 = $('.cancel').click(function(){
@@ -116,8 +139,8 @@
 			function numberWithCommas(x) {
 			    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 			}
-
-
+ 
+ 
 			var successAjax = function(data,id){
 				console.log('서버로 부터 받은 데이타:',data);
 				/*JSON배열을 출력할때는 $.each(data,function(index,index에 따른 요소값){}); 
@@ -133,22 +156,36 @@
                var totalOrderCount = 0;
                var totalOrderMoney = 0;
                var totalCancelMoney =0;
+               todayOrderCount = 0;
                
                $.each(data,function(index,element){
             	   totalOrderCount++;
             	   totalOrderMoney += parseInt(element['amount']);
             	   console.log(totalOrderMoney);
+            	   console.log('if 들어가기 전');
 					tableString+="<tr>";		
 					//memberno
 					tableString+="<td>"+(index+1)+"</td><td>"+numberWithCommas(element['amount'])+"원</td><td>"+element['ordr_idxx']+"</td><td>"+element['buyr_name']+
 					"</td><td>"+element['buyr_mail']+"</td><td>"+element['buyr_tel2']+"</td><td>"+element['app_time']+
 					"</td><td>"+element['card_name']+"</td><td>"+element['tno']+"</td><td>"
-					if(element['isCanceled'] == 0)
+					if(element['isCanceled'] == 0){
 						tableString+="<button type='button' onclick='clickBtn(this);' class='mb-2 mr-2 btn-square btn btn-success active' data-toggle='modal' data-target='#exampleModal'>취소가능</button></td>";
+						console.log('넌좀찍혔으면 좋겠어',element['app_time'].substring(0,8));
+						console.log('todayTime도 찍혀야되는거 아니겠니',todayTime);
+						if(element['app_time'].substring(0,8)==todayTime){
+							console.log('넌찍히냐',element['app_time'].substring(0,8));
+							todayOrderCount++;
+							todayOrderMoney += parseInt(element['amount']);
+							console.log('if 문 안에');
+							console.log(todayOrderCount);
+							console.log(todayOrderMoney);
+						}
+					}
 					else{
 						tableString+="<button disabled='' class='mb-2 mr-2 btn-square btn btn-danger disabled'>취소완료</button>";
 						
 						totalCancelMoney += parseInt(element['amount']);
+						
 					}
 					tableString+="</tr>";
 					
@@ -159,11 +196,42 @@
 			    $('#totalOrderCount').html("총 "+totalOrderCount+"건");
 			    $('#totalOrderMoney').html("￦ "+numberWithCommas(totalOrderMoney));
 			    $('#totalCancelMoney').html("￦"+numberWithCommas(totalCancelMoney));
-				
-			    //프로그레스바
-			  
-				$('#prgress3').html(totalCancelMoney/totalOrderMoney);
 			
+			    //프로그레스바
+			  	console.log('토탈캔슬머니좀 찍어주세염',totalCancelMoney);
+			  	console.log('토탈오더머니는여',totalOrderMoney);
+			  	var prog3 = totalCancelMoney/totalOrderMoney;
+			  	prog3 = prog3.toFixed(3);
+				prog3 = prog3*100;
+				prog3 = prog3.toFixed(2);
+			  	prog3 += '%';
+			 	console.log('prog3', prog3);
+			    $('#progress3_1').css({'width':prog3});
+			  	$('#prgress3').html(prog3);
+				
+			  	var prog1 = todayOrderCount/totalOrderCount;
+			 
+				prog1= prog1.toFixed(3);
+				prog1 =prog1*100;
+				prog1 =prog1.toFixed(2);
+			 	console.log('prog1', prog1);
+			  	prog1 += '%';
+			  	
+			  	$('#progress1').html(prog1);
+			  	$('#progress1_1').css({'width':prog1});
+				
+			  	console.log("찍혀랏",todayOrderMoney);
+			  	var prog2 = todayOrderMoney/totalOrderMoney;
+			  	
+			  	prog2 = prog2.toFixed(3);
+			  	prog2 = prog2*100
+			  	prog2 = prog2.toFixed(2);
+			  	console.log('prog2', prog2);
+			  	prog2 += '%';
+			  	
+			  	$('#progress2').html(prog2);
+			  	$('#progress2_1').css({'width':prog2});
+			  	 
 			};
 		
 				
@@ -173,7 +241,7 @@
 </head>
 <body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
 	<!-- 케로 관리자UI -->
-
+ 
    	<div class="app-container app-theme-gray">
 		  <div class="app-main">
 		  <!-- 왼쪽바 시작 -->
@@ -295,14 +363,14 @@
                                                         <div class="widget-progress-wrapper">
                                                             <div class="progress-bar-sm progress">
                                                                 <div class="progress-bar bg-primary" role="progressbar"
-                                                              
+                                                              			id="progress1_1"
                                                                      aria-valuenow="40" aria-valuemin="0"
                                                                      aria-valuemax="100"
                                                                      style="width: 40%;"></div>
                                                             </div>
                                                             <div class="progress-sub-label">
-                                                                <div class="sub-label-left">오늘 결제건/어제 결제건</div>
-                                                                <div class="sub-label-right">100%</div>
+                                                                <div class="sub-label-left">오늘 결제건/현재까지 총 주문건</div>
+                                                                <div class="sub-label-right" id="progress1"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -325,11 +393,11 @@
                                                                 <div class="progress-bar bg-danger" role="progressbar"
                                                                      aria-valuenow="85" aria-valuemin="0"
                                                                      aria-valuemax="100"
-                                                                     style="width: 85%;"></div>
+                                                                     style="width: 85%;" id="progress2_1"></div>
                                                             </div>
                                                             <div class="progress-sub-label">
-                                                                <div class="sub-label-left">Sales</div>
-                                                                <div class="sub-label-right">100%</div>
+                                                                <div class="sub-label-left">오늘결제금액/현재까지 총 주문금액</div>
+                                                                <div class="sub-label-right" id="progress2"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -349,14 +417,14 @@
                                                         </div>
                                                         <div class="widget-progress-wrapper">
                                                             <div class="progress-bar-sm progress-bar-animated-alt progress">
-                                                                <div class="progress-bar bg-success" role="progressbar"
-                                                                     aria-valuenow="46" aria-valuemin="0"
+                                                                <div class="progress-bar bg-success" role="progressbar" id="progress3_1"
+                                                                     aria-valuenow="90" aria-valuemin="0"
                                                                      aria-valuemax="100"
-                                                                     style="width: 46%;"></div>
+                                                                     ></div>
                                                             </div>
                                                             <div class="progress-sub-label">
                                                                 <div class="sub-label-left">결제금액 대비 취소금액 비율</div>
-                                                                <div id="#prgress3" class="sub-label-right"></div>
+                                                                <div id="prgress3" class="sub-label-right"></div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -383,58 +451,7 @@
                                                         
                                                          <div id=list></div>
                                                       <!-- 
-                                                        <table style="width: 100%;" id="example"
-                                                               class="table table-hover table-striped table-bordered">
-                                                            <thead>
-                                                            <tr>
-                                                            	<th>번호</th>
-                                                                <th>아이디</th>
-                                                                <th>주문번호</th>
-                                                                <th>주문자명</th>
-                                                                <th>배송지주소</th>
-                                                                <th>연락처</th>
-                                                                <th>결제일</th>
-                                                                <th>취소일</th>
-                                                                <th>거래번호</th>
-                                                                <th>취소</th>
-                                                            </tr>
-                                                            </thead>
-                                                            
-                                                            <tbody>
-                                                         
-                                                            <tr>
-                                                            	<td>1</td>
-                                                            	<td>KIM</td>
-                                                                <td>Tiger Nixon</td>
-                                                                <td>김길동</td>
-                                                                <td>서울특별시 금천구 가산동</td>
-                                                                <td>01011112222</td>
-                                                                <td>2011/04/25</td>
-                                                                <td>2019/04/25</td>
-                                                                <td>19552928618000</td>
-                                                                <td>
-                                                   					<button type="button" class="btn mr-2 mb-2 btn-primary cancel" data-toggle="modal" data-target="#exampleModal">
-                                                          			 취소
-                                                    			    </button>
-                                                    			</td>
-                                                            </tr>
-                                                  
-                                                            </tbody>
-                                                            <tfoot>
-                                                            <tr>
-                                                            	<th>No</th>
-                                                            	<th>ID</th>
-                                                            	<th>ordr_idxx</th>
-                                                                <th>Name</th>
-                                                                <th>Addr</th>
-                                                                <th>tell</th>
-                                                                <th>Birth</th>
-                                                                <th>Regidate</th>
-                                                                <th>tno</th>
-                                                                <th>cancel</th>
-                                                            </tr>
-                                                            </tfoot>
-                                                        </table>
+                                                      
                                                      -->
                                                       
                                                       
@@ -476,14 +493,14 @@
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 									    
         <table class="tbl" cellpadding="0" cellspacing="0">
-		<tr>
-                <th>거래번호</th>
-                <td><input type="text" name="tno" value="" id="tno" class="frminput" size="20" maxlength="14"/></td>
+		<tr style="text-align: left;">
+                <th style="text-align: left;">거래번호</th>
+                <td style="text-align: left;"><input type="text" name="tno" value="" id="tno" class="frminput" size="20" maxlength="14"/></td>
             </tr>
             <!-- 변경유형 -->
-            <tr>
-                <th>변경 유형</th>
-                <td>
+            <tr style="text-align: left;">
+                <th style="text-align: left;">변경 유형</th>
+                <td style="text-align: left;">
                     <select name="mod_type" class="frmselect" onChange="sub_cancel_chk(this.value);"/>
                         <option value="STSC">전체 취소요청</option>
                         <option value="STPC">부분 취소요청</option>
@@ -491,9 +508,9 @@
                 </td>
             </tr>
             <!-- 변경사유 -->
-            <tr>
-                <th>변경사유</th>
-                <td><input type="text" name="mod_desc" value=""  class="frminput" size="40" maxlength="100"/></td>
+            <tr style="text-align: left;">
+                <th style="text-align: left;">변경사유</th>
+                <td style="text-align: left;"><input type="text" name="mod_desc" value=""  class="frminput" size="40" maxlength="100"/></td>
             </tr>
         </table>
         <!-- 부분취소테이블 -->
@@ -528,7 +545,7 @@
                 <th>비과세 금액</th>
                 <td><input type="text" name="mod_free_mny" value="" class="frminput" size="20" maxlength="10"/></td>
             </tr>
-
+ 
         </table>        
     <input type="hidden" name = "req_tx"       value="mod"/>
     <!-- 

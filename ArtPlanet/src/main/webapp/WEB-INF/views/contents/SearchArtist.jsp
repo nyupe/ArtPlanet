@@ -42,6 +42,7 @@
 }
 .artist-post {
 	width: 30%;
+	max-height: 120px;
 }
 .artist-skill {
 	color: #1a1d24;
@@ -49,6 +50,9 @@
 }
 .three-posts {
 	min-height: 130px;
+}
+img {
+	min-height: "";
 }
 </style>
 <script>
@@ -220,7 +224,7 @@
 <!--================ Start Portfolio Area =================-->
 <section class="portfolio_area area-padding" id="portfolio">
 	<div class="container">
-		<div class="area-heading" style="margin-bottom: 40px;">
+		<div class="area-heading" style="margin-bottom: 40px; margin-top:30px;">
 			<h3>당신이 <span>좋아하는</span> 아티스트를 후원하세요.</h3>
 			<p>이는 그들이 더 좋은 작품을 만들고 창작활동을 지속하는 원동력이 됩니다.</p>
 			<form class="search-inner" action="<c:url value='/Search'/>">

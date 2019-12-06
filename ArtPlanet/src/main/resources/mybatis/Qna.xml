@@ -8,7 +8,7 @@
 	<!-- 컨트롤러에서 받은 아이디 contactsInsert -->
 	<insert id="qnaInsert" parameterType="java.util.Map">
 		INSERT INTO QNA(QNANO,QNATITLE,QNACONTENT,QNAPOSTDATE,QNACHECKED,QNACATEGORY,ID) 
-		VALUES(SEQ_QNA_qnaNo.NEXTVAL,#{qnaTitle},#{qnaContent},SYSDATE,0,#{qnaCategory},(SELECT id FROM member WHERE memberNo=#{memberNo}))
+		VALUES(SEQ_QNA_qnaNo.NEXTVAL,#{qnaTitle},#{qnaContent},SYSDATE,0,#{qnaCategory},#{id})
 	</insert>
 
 	<select id="qnaSelectList" parameterType="java.util.Map"

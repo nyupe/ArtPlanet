@@ -157,7 +157,7 @@ public class SupportController {
 		//닉네임 수정 서비스 호출 
 		memberDao.updateNickName(map);
 		//마이페이지로 돌아가기
-		return "support/member/MyPage.tiles";
+		return "forward:/MyPage";//이종성이 forward로 변경
 	}/////
 	
 	

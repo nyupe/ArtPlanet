@@ -59,6 +59,11 @@ public class BlogPostDAO
 	{
 		return template.selectList("getDtoByList", map);
 	}
+	//안드로이드용
+	public List<BlogPostDTO> getDtoByListNoPaging(Map map)
+	{
+		return template.selectList("getDtoByListNoPaging", map);
+	}
 
 	//댓글관련
 	

@@ -298,7 +298,7 @@ public class BlogController
 	 	//전체 레코드수]		
 	 	int totalRecordCount=dao.getTotalCount(map);	 	
 	 	//페이지 크기]
-	 	int pageSize = 5;
+	 	int pageSize = 10;
 	 	//전체 페이지수]
 	 	int totalPage=(int)Math.ceil((double)totalRecordCount/pageSize);	 	
 	 	//시작 및 끝 ROWNUM구하기]
@@ -485,7 +485,7 @@ public class BlogController
 	 	//전체 레코드수]		
 	 	int totalRecordCount=memberDAO.getMemberCount(map);	
 	 	//페이지 크기]
-	 	int pageSize = 5;
+	 	int pageSize = 4;
 	 	//전체 페이지수]
 	 	int totalPage=(int)Math.ceil((double)totalRecordCount/pageSize);	 	
 	 	//시작 및 끝 ROWNUM구하기]
@@ -645,7 +645,7 @@ public class BlogController
 	 	//전체 레코드수]		
 	 	int totalRecordCount= blogNoList.size();
 	 	//페이지 크기]
-	 	int pageSize = 5;
+	 	int pageSize = 10;
 	 	//전체 페이지수]
 	 	int totalPage=(int)Math.ceil((double)totalRecordCount/pageSize);	 	
 	 	//시작 및 끝 ROWNUM구하기]

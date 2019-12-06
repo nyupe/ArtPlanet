@@ -1555,7 +1555,7 @@ pre {
   -ms-overflow-style: -ms-autohiding-scrollbar; }
   .table-responsive > .table-bordered {
     border: 0; }
-
+/*
 .form-control {
   display: block;
   width: 100%;
@@ -1690,7 +1690,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 .input-group-lg > .input-group-prepend > select.btn:not([size]):not([multiple]),
 .input-group-lg > .input-group-append > select.btn:not([size]):not([multiple]) {
   height: calc(2.875rem + 2px); }
-
+*/
 .form-group {
   margin-bottom: 1rem; }
 
@@ -7843,7 +7843,7 @@ h1, h2, h3, h4, h5,
     background: #fff; }
   .block-5:hover .text .heading, .block-5:hover .text .subheading, .block-5:hover .text .post-meta, .block-5:hover .text .price, .block-5:hover .text .star-rate, .block-5:focus .text .heading, .block-5:focus .text .subheading, .block-5:focus .text .post-meta, .block-5:focus .text .price, .block-5:focus .text .star-rate {
     color: #000; }
-
+/*
 .form-control {
   height: 52px !important;
   background: #fff !important;
@@ -7854,7 +7854,7 @@ h1, h2, h3, h4, h5,
   box-shadow: none !important; }
   .form-control:focus, .form-control:active {
     border-color: #000; }
-
+*/
 textarea.form-control {
   height: inherit !important; }
 

@@ -2,39 +2,39 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-
-
+ 
+ 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+ 
 <link
 	href="https://fonts.googleapis.com/css?family=Muli:300,400,600,700"
 	rel="stylesheet">
-
+ 
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass2/css/open-iconic-bootstrap.min.css'/>">
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass2/css/animate.css'/>">
-
+ 
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass2/css/owl.carousel.min.css'/>">
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass2/css/owl.theme.default.min.css'/>">
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass2/css/magnific-popup.css'/>">
-
+ 
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass2/css/aos.css'/>">
-
+ 
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass2/css/ionicons.min.css'/>">
-
+ 
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass2/css/bootstrap-datepicker.css'/>">
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass2/css/jquery.timepicker.css'/>">
-
-
+ 
+ 
 <link rel="stylesheet"
 	href="<c:url value='/resources/artclass2/css/flaticon.css'/>">
 <link rel="stylesheet"
@@ -48,23 +48,18 @@
 	 padding-left: 25px; 
 	 margin: 0px; 
 }
-
-.portfolio_area .filters ul li.active:before {
+ 
+.portfolio_area .s ul li.active:before {
 	 left: 25px;
 	right: 25px; 
 }
-
+ 
 .search-inner {
 	background-color: #fff;
 }
-
-#search_input {
-	 width: 45%;
-	color: #1a1d24;
-	display: inline-block; 
-}
+ 
 </style>
-
+ 
 <script>
 		$(function(){ // 진입점 시작
 			$.ajax({
@@ -118,13 +113,13 @@
 		$('.portfolio-filter ul li').on('click', function () {
 	        $('.portfolio-filter ul li').removeClass('active');
 	        $(this).addClass('active');
-
+ 
 	        var data = $(this).attr('data-filter');
 	        $workGrid.isotope({
 	            filter: data
 	        });
 	    });
-
+ 
 	    if (document.getElementById('portfolio')) {
 	        var $workGrid = $('.portfolio-grid').isotope({
 	            itemSelector: '.all',
@@ -137,11 +132,11 @@
 	    	
 	}
 </script>
-
-
-<div class="container" style="margin-bottom: 60px">
+ 
+ 
+<div class="container" style="margin-bottom: 60px; max-width: 1360px;">
 	<section class="portfolio_area area-padding" id="portfolio">
-
+ 
 		<div class="area-heading">
 			<h3>
 				당신의 <span>기술과 멋진 경험을</span> 공유하세요.
@@ -156,7 +151,7 @@
 			</form>
 			<div
 				class="row no-gutters justify-content-center mb-2 pb-2 ftco-animate">
-
+ 
 				<div class="col-md-7 text-center heading-section">
 					<!--    	        
 		<video type="video/webm" autoplay loop="" muted="" playsinline="">
@@ -170,7 +165,7 @@ https://player.vimeo.com/external/307814435.hd.mp4?s=112c2d57d192c55a37de5071216
 https://player.vimeo.com/external/325698769.sd.mp4?s=4e70164190f4b472059c9f4ca74ca0ca58056ce4&profile_id=165
 https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc261b96e6aa273&profile_id=164
 <video width="640" height="480" class="printsPage-header-video-bg" autoplay="" loop="" muted="" playsinline="">
-
+ 
 <video controls style="width:640px;height:360px;" poster="poster.png" autoplay>
   <source src="resources/artclass2/images/devstories.webm" 
           type='video/webm;codecs="vp8, vorbis "' />
@@ -179,18 +174,18 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
   <track src="devstories-en.vtt" label="English subtitles" 
          kind="subtitles" srclang="en" default></track>
 </video>-->
-
-
-
-
+ 
+ 
+ 
+ 
 				</div>
-
+ 
 			</div>
-
+ 
 		</div>
 	
 		<!-- 메뉴 바 시작 -->
-
+ 
 		<div class="filters portfolio-filter">
 			<div class="dropdown d-inline-block">
 				<ul>
@@ -198,13 +193,13 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 						data-toggle="dropdown"
 						class="mb-2 mr-2 dropdown-toggle btn btn-outline-primary">
 						지역별</button>
-
+ 
 					<div id=national tabindex="-1" role="menu" aria-hidden="true"
 						class="dropdown-menu">
 						<button type="button" tabindex="1" class="dropdown-item">
 							<li data-filter=".seoul"><a herf=#>서울</a></li>
 						</button>
-
+ 
 						<button type="button" tabindex="1" class="dropdown-item">
 							<li data-filter=".daejeon">대전</li>
 						</button>
@@ -214,7 +209,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 						<button type="button" tabindex="3" class="dropdown-item">
 							<li data-filter=".busan">부산</li>
 						</button>
-
+ 
 						<button type="button" tabindex="4" class="dropdown-item">
 							<li data-filter=".daegu">대구</li>
 						</button>
@@ -262,7 +257,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 						<button type="button" tabindex="0" class="dropdown-item">
 							<li data-filter=".illustration">일러스트레이션</li>
 						</button>
-
+ 
 						<button type="button" tabindex="0" class="dropdown-item">
 							<li data-filter=".painting">회화</li>
 						</button>
@@ -278,7 +273,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 						<button type="button" tabindex="0" class="dropdown-item">
 							<li data-filter=".crafts">조소/공예</li>
 						</button>
-
+ 
 					</div>
 			</div>
 			</ul>
@@ -310,11 +305,11 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 		</div>
 	</section>
 </div>
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
 <script src="<c:url value='/resources/artclass2/js/jquery.min.js'/>"></script>
 <script
 	src="<c:url value='/resources/artclass2/js/jquery-migrate-3.0.1.min.js'/>"></script>
@@ -338,7 +333,7 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 <script
 	src="<c:url value='/resources/artclass2/js/jquery.timepicker.min.js'/>"></script>
 <script src="<c:url value='/resources/artclass2/js/main.js'/>"></script>
-
+ 
 <script>
 	$(function() {
 		$('.dropdown-item').click(function() {
@@ -346,4 +341,4 @@ https://player.vimeo.com/external/288452948.sd.mp4?s=1f5252301f28373524ac48c75fc
 		});
 	});
 </script>
-
+ 

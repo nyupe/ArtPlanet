@@ -152,5 +152,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        </foreach>) tb)
         WHERE r BETWEEN #{start} AND #{end}
 	</select>
+	
+	<select id="getDtoByListNoPaging" parameterType="java.util.Map" resultType="BlogPostDTO">	
+		SELECT DISTINCT * FROM blogPost WHERE
+		<foreach collection="blogNoList" item="blogNo" index="index" open="(" close=")" separator="or">
+        	blogNo = #{blogNo}
+        </foreach>
+	</select>
 
 </mapper>

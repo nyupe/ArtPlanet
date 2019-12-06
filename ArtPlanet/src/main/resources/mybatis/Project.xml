@@ -92,7 +92,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 목록에서 카운트 많은 태그 뿌리기 -->
 	<select id="SelectTags" parameterType="java.util.Map" resultType="java.util.Map">
 		SELECT q.*,t.tagname 
-    		FROM (SELECT p.*,ROWNUM r FROM (SELECT tagno,COUNT(*) FROM TAGRELATION GROUP BY tagno ORDER BY COUNT(*) DESC ) p ) q 
+    		FROM (SELECT p.*,ROWNUM r FROM (SELECT tagno,COUNT(*) FROM TAGRELATION WHERE projectNo IS NOT NULL GROUP BY tagno ORDER BY COUNT(*) DESC ) p ) q 
         		JOIN TAG t ON q.tagno = t.tagno WHERE r BETWEEN 1 AND 5
 	</select>
 	<!-- 프로젝트 업데이트 목록 뿌리기 -->

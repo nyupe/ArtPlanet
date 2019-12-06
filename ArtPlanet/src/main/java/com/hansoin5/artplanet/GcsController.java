@@ -2,7 +2,9 @@ package com.hansoin5.artplanet;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -10,14 +12,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 import com.google.cloud.storage.Acl;
 import com.google.cloud.storage.Acl.Role;
 import com.google.cloud.storage.Acl.User;
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
+import com.hansoin5.artplanet.service.BlogPostDTO;
+import com.hansoin5.artplanet.service.GcsDTO;
+import com.hansoin5.artplanet.service.MemberDTO;
+import com.hansoin5.artplanet.service.SubscribeDTO;
 import com.hansoin5.artplanet.service.impl.BlogPostDAO;
 import com.hansoin5.artplanet.service.impl.GcsDAO;
 import com.hansoin5.artplanet.service.impl.MemberDAO;
@@ -31,7 +41,10 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /* 적용 안되는것 같아서 일단 주석 (대신 web.xml servlet 안 <multipart-config> 태그 추가함)
 @MultipartConfig(
@@ -47,6 +60,10 @@ public class GcsController
 	private GcsDAO dao;
 	@Resource(name="memberDAO")
 	private MemberDAO memberDao;
+	@Resource(name="blogPostDAO")
+	private BlogPostDAO blogPostDao;
+	
+	public static final String NO_IMAGE = "https://storage.googleapis.com/art-planet-storage/default/no_image.jpg";
 	
 	public static final String BUCKET_NAME = "art-planet-storage";// 버켓명
 
@@ -145,6 +162,10 @@ public class GcsController
 			map.put("fee", req.getParameter("fee").replace(",", ""));
 			map.put("memberNo", req.getParameter("memberNo"));
 			memberDao.updateBlog(map);
+			break;
+		case "android":
+			return androidImgSearch(map.get("gcsPath").toString());
+			
 		default:
 			dao.uploadImage(map);
 			break;
@@ -153,7 +174,66 @@ public class GcsController
 		return JSONObject.toJSONString(map).replace("\\/", "/"); // 슬래시가 이스케이프처리되는 문제 해결
 	}
 	
-	
+	public String androidImgSearch(String gcsPath) throws ParseException
+	{
+		System.out.println("gcsPath:"+gcsPath);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		String labels = restTemplate.getForObject("http://192.168.0.11:7070/vision/extractLabels?gcsPath="+gcsPath, String.class);
+		System.out.println("labels:"+labels);
+		//JSON형태 문자열 자바객체로 변환하기
+		Map<String,List<Map<String,Object>>> gsonMap = new HashMap<String, List<Map<String,Object>>>();
+		Gson gson = new Gson();
+		JSONParser parser = new JSONParser();
+		//이미지
+		Object obj = parser.parse(labels);
+		JSONObject jsonObj = (JSONObject) obj;
+		gsonMap = gson.fromJson(JSONObject.toJSONString(jsonObj),
+				new TypeToken<Map<String,List<Map<String,Object>>>>(){}.getType());
+		/////////////////////////////
+		StringBuffer tagBuffer = new StringBuffer();
+		for(int idx=0; idx<gsonMap.get("vision").size(); idx++)
+		{
+			String label = gsonMap.get("vision").get(idx).get("label").toString();
+			tagBuffer.append(label+",");
+		}
+		String[] tagArr = tagBuffer.toString().split(",");
+		Map map = new HashMap();
+		map.put("tagArr", tagArr);
+		List<String> tagNoList = blogPostDao.imgTagSearch(map);
+		map.put("tagNoList",tagNoList);
+		List<String> blogNoList = blogPostDao.tagRelSearch(map); //blogNo만 반환
+		map.put("blogNoList",blogNoList);
+		List<BlogPostDTO> postList = blogPostDao.getDtoByListNoPaging(map);
+		
+		
+		
+		List<Map> collections = new Vector<Map>();
+		for(BlogPostDTO dto : postList) {
+			Map record = new HashMap();
+			//List페이지에선 첫번째 그림만 반환
+			List<GcsDTO> gcsList = dao.getListByBlogNo(dto.getBlogNo());
+			//for(GcsDTO gd : gcsList)
+			try {
+				record.put("FILEURL", gcsList.get(0).getFileUrl());
+			} catch (IndexOutOfBoundsException e)
+			{
+				record.put("FILEURL", NO_IMAGE);
+			}
+			record.put("TITLE",dto.getTitle());
+			//record.put("CONTENT",dto.getContent());
+			record.put("CATEGORIE",dto.getCategorie());
+			//memberNo로 memberDTO 가져오기
+			MemberDTO memberDto = memberDao.getMemberByMemberNo(dto.getMemberNo()).get(0);
+			record.put("NICKNAME",memberDto.getNickName());
+			
+			collections.add(record);
+		}
+		//json 배열 반환
+		System.out.println(JSONArray.toJSONString(collections).replace("\\/", "/"));
+		return JSONArray.toJSONString(collections).replace("\\/", "/");
+
+	}
 	
 
 }

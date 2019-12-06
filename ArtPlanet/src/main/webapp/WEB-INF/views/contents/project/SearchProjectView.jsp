@@ -16,6 +16,9 @@
 </sec:authorize>
 
 <style>
+.thumb{
+	max-width: 225px;
+}
 
 html{
 scroll-behavior: smooth;

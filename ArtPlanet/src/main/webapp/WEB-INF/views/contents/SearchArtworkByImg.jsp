@@ -260,7 +260,7 @@ function sendImgToVision(gcsPath)
 <!--================ Start Portfolio Area =================-->
 <section class="portfolio_area area-padding" id="portfolio">
 	<div class="container">
-		<div class="area-heading" style="margin-bottom: 40px;">
+		<div class="area-heading" style="margin-bottom: 40px; margin-top:30px;">
 			<h3>당신이 <span>좋아하게 될</span> 작품을 찾아보세요.</h3>
 			<p>보기 전까지는 무엇을 찾고 있는지 모릅니다.</p>
 			<div class="card-body">

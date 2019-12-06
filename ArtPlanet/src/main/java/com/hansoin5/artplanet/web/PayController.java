@@ -53,10 +53,9 @@ public class PayController {
 	@RequestMapping("Result.do")
 	public String result(@RequestParam Map map) {
 		//return "pay/sample/result.tiles"; //수정1차
-		System.out.println(map.get("tno"));
-		System.out.println("시부럴:"+map.get("id"));
-		System.out.println("멤버넘버가 왜 널이냐 시부럴: "+memberDao.getMemberNo(map.get("id").toString()));
 		map.put("memberNo", memberDao.getMemberNo(map.get("id").toString()));
+		System.out.println("amount:"+map.get("amount"));
+		System.out.println("good_mny:"+map.get("good_mny"));
 		int affected = dao.payInsert(map);
 		if(affected == 1) {
 			System.out.println("입력완료");

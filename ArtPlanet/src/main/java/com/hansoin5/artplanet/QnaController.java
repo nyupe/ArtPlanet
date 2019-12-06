@@ -41,7 +41,7 @@ public class QnaController {
 	@PostMapping(value = "/api/contact", produces = "text/plain;charset=UTF-8")
 	public String register(@RequestParam Map map){
 		System.out.println(map.get("qnaCategory"));
-		System.out.println(map.get("memberNo"));
+		System.out.println(map.get("id"));
 		System.out.println(map.get("qnaTitle"));
 		return dao.insert(map) == 1 ? "입력성공" : "입력실패";
 	}
